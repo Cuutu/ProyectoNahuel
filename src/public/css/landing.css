@@ -26,19 +26,41 @@
 } 
 
 :root {
-    --primary-color: #000000;
-    --secondary-color: #1a1a1a;
-    --accent-color: #ffd700;
-    --text-dark: #000000;
-    --text-gray: #666666;
-    --bg-white: #ffffff;
-    --bg-light: #f8f9fa;
+    /* Paleta de colores trading/fintech */
+    --primary: #0A2647;      /* Azul oscuro corporativo */
+    --secondary: #144272;    /* Azul medio */
+    --accent: #00ff88;       /* Verde trading */
+    --danger: #ff3b3b;       /* Rojo trading */
+    --warning: #f0b90b;      /* Amarillo/Bitcoin */
+    --dark: #1a1a1a;
+    --light: #ffffff;
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-800: #343a40;
 }
 
-/* Estilos personalizados que no podemos lograr fácilmente con Tailwind */
+/* Estilos base */
+body {
+    background-color: var(--light);
+    color: var(--dark);
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Header con efecto glassmorphism */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Video section con sombra elegante */
 .video-wrapper {
     aspect-ratio: 16/9;
     position: relative;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: var(--dark);
 }
 
 .video-wrapper iframe {
@@ -49,12 +71,127 @@
     left: 0;
 }
 
-/* Animaciones y transiciones personalizadas */
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+/* Botón CTA con efecto neón sutil */
+.cta-button {
+    background: var(--accent);
+    color: var(--dark);
+    padding: 1rem 2.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
 }
 
-.fade-in {
-    animation: fadeIn 0.5s ease-in;
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+}
+
+/* Info blocks con estilo de trading card */
+.info-block {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--gray-200);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.info-block:hover::before {
+    opacity: 1;
+}
+
+/* Estadísticas de trading con animación */
+.stats {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.stat-item {
+    flex: 1;
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--gray-100);
+    border-radius: 8px;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+/* Efectos de color para números de trading */
+.price-up {
+    color: var(--accent);
+}
+
+.price-down {
+    color: var(--danger);
+}
+
+/* Formulario de contacto elegante */
+.contact-form input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.1);
+    outline: none;
+}
+
+/* Animaciones */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    animation: fadeUp 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats {
+        flex-direction: column;
+    }
+    
+    .info-block {
+        padding: 1.5rem;
+    }
 } 
