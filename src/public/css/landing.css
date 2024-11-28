@@ -16,6 +16,13 @@
     font-family: 'Inter', sans-serif;
 }
 
+/* Estilos base y contenedor */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
 body {
     background-color: var(--bg-dark);
     color: var(--text-light);
