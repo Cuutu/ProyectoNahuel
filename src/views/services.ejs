@@ -6,7 +6,7 @@
     <title><%= title %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/landing.css">
-    <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -30,120 +30,98 @@
         </div>
     </header>
 
-    <!-- VIDEO SECTION -->
-    <section class="video-section bg-gray-100 py-16">
-        <div class="container">
-            <h1 class="text-4xl font-bold mb-8"><%= title %></h1>
-            <p class="text-xl mb-12"><%= description %></p>
-            
-            <div class="video-wrapper aspect-w-16 aspect-h-9">
-                <iframe 
-                    src="https://player.vimeo.com/video/1019511294?speed=0&color=ff9c00&muted=1&autoplay=1&pip=0&loop=1&quality=undefined&app_id=122963&texttrack=undefined" 
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-    </section>
-
     <!-- SERVICES SECTION -->
-    <section class="services-section">
+    <section class="hero-section">
         <div class="container">
-            <h2 class="text-3xl font-bold text-center mb-8">Nuestros Servicios Premium</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="content-grid">
                 <!-- Señales Premium -->
-                <div class="service-card">
-                    <div class="card-header">
+                <div class="feature-card">
+                    <div class="card-content">
                         <h3>Señales Premium</h3>
                         <p>Señales de trading en tiempo real con alta precisión</p>
-                    </div>
-                    
-                    <div class="card-stats">
-                        <div class="stat">
-                            <span class="stat-value">1500+</span>
-                            <span class="stat-label">Traders</span>
+                        
+                        <div class="stats-container">
+                            <div class="stat">
+                                <span class="stat-number">1500+</span>
+                                <span class="stat-text">Traders</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">89%</span>
+                                <span class="stat-text">Precisión</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">89%</span>
-                            <span class="stat-label">Precisión</span>
-                        </div>
+                        
+                        <ul class="benefits-list">
+                            <li>Señales 24/7 en tiempo real</li>
+                            <li>Setup completo de entrada</li>
+                            <li>Stop Loss y Take Profit</li>
+                            <li>Análisis de mercado diario</li>
+                        </ul>
+                        
+                        <button class="cta-button">
+                            Comenzar Ahora
+                        </button>
                     </div>
-                    
-                    <ul class="feature-list">
-                        <li>Señales 24/7 en tiempo real</li>
-                        <li>Setup completo de entrada</li>
-                        <li>Stop Loss y Take Profit</li>
-                        <li>Análisis de mercado diario</li>
-                        <li>Alertas personalizadas</li>
-                    </ul>
-                    
-                    <button class="cta-button w-full">
-                        Comenzar Ahora
-                    </button>
                 </div>
 
-                <!-- Mentoría Personalizada -->
-                <div class="service-card mentoria">
-                    <div class="card-header">
+                <!-- Mentoría PRO -->
+                <div class="feature-card">
+                    <div class="card-content">
                         <h3>Mentoría PRO</h3>
-                        <p>Formación one-on-one con traders expertos</p>
-                    </div>
-                    
-                    <div class="card-stats">
-                        <div class="stat">
-                            <span class="stat-value">500+</span>
-                            <span class="stat-label">Alumnos</span>
+                        <p>Formación personalizada con traders expertos</p>
+                        
+                        <div class="stats-container">
+                            <div class="stat">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-text">Alumnos</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">12</span>
+                                <span class="stat-text">Sesiones</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">12</span>
-                            <span class="stat-label">Sesiones</span>
-                        </div>
+                        
+                        <ul class="benefits-list">
+                            <li>Sesiones personalizadas</li>
+                            <li>Plan de trading individual</li>
+                            <li>Revisión de operaciones</li>
+                            <li>Soporte prioritario 24/7</li>
+                        </ul>
+                        
+                        <button class="cta-button">
+                            Reservar Mentoría
+                        </button>
                     </div>
-                    
-                    <ul class="feature-list">
-                        <li>Sesiones personalizadas</li>
-                        <li>Plan de trading individual</li>
-                        <li>Revisión de operaciones</li>
-                        <li>Soporte prioritario 24/7</li>
-                        <li>Recursos exclusivos</li>
-                    </ul>
-                    
-                    <button class="cta-button w-full">
-                        Reservar Mentoría
-                    </button>
                 </div>
 
                 <!-- Comunidad VIP -->
-                <div class="service-card comunidad">
-                    <div class="card-header">
+                <div class="feature-card">
+                    <div class="card-content">
                         <h3>Comunidad VIP</h3>
                         <p>Acceso exclusivo a nuestra comunidad de traders</p>
-                    </div>
-                    
-                    <div class="card-stats">
-                        <div class="stat">
-                            <span class="stat-value">1000+</span>
-                            <span class="stat-label">Miembros</span>
+                        
+                        <div class="stats-container">
+                            <div class="stat">
+                                <span class="stat-number">2500+</span>
+                                <span class="stat-text">Miembros</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-text">Soporte</span>
+                            </div>
                         </div>
-                        <div class="stat">
-                            <span class="stat-value">100%</span>
-                            <span class="stat-label">Interacción</span>
-                        </div>
+                        
+                        <ul class="benefits-list">
+                            <li>Chat grupal en tiempo real</li>
+                            <li>Webinars semanales</li>
+                            <li>Biblioteca de recursos</li>
+                            <li>Eventos exclusivos</li>
+                        </ul>
+                        
+                        <button class="cta-button">
+                            Unirse Ahora
+                        </button>
                     </div>
-                    
-                    <ul class="feature-list">
-                        <li>Foro activo de traders</li>
-                        <li>Webinars semanales</li>
-                        <li>Análisis de mercado</li>
-                        <li>Recursos exclusivos</li>
-                        <li>Soporte prioritario</li>
-                    </ul>
-                    
-                    <button class="cta-button w-full">
-                        Unirse a la Comunidad
-                    </button>
                 </div>
             </div>
         </div>
