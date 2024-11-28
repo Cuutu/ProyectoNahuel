@@ -11,6 +11,7 @@
         @apply text-3xl font-bold text-center mb-12;
         position: relative;
         padding-bottom: 1rem;
+        text-align: center;
     }
 
     .section-title::after {
@@ -34,7 +35,7 @@
 
     .service-card {
         @apply bg-white rounded-xl shadow-lg p-8;
-        border: 1px solid #e5e7eb;
+        border: 3px solid #e5e7eb;
         border-top: 4px solid #00ff88;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
         height: fit-content;
@@ -64,6 +65,7 @@
 
     .card-header h3 {
         @apply text-2xl font-bold mb-3 text-gray-800;
+        text-align: center;
     }
 
     .card-header p {
