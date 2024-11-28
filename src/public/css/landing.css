@@ -79,7 +79,7 @@ body {
 
 .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .nav-links a {
@@ -88,8 +88,9 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
 }
 
 .nav-links a:hover {
@@ -315,4 +316,11 @@ body {
     text-transform: uppercase;
     letter-spacing: 1px;
     margin: 3rem 0;  /* Más margen alrededor del botón */
+} 
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;  /* Después podemos agregar un menú hamburguesa */
+    }
 } 
