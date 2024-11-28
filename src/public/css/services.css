@@ -138,6 +138,113 @@
         @apply mx-auto;
         text-align: center;
     }
+
+    /* Sección de Estadísticas */
+    .stats-section {
+        @apply py-20 bg-gray-50;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .stats-container {
+        @apply max-w-6xl mx-auto px-4;
+    }
+
+    .stats-title {
+        @apply text-3xl font-bold text-center mb-12;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+    .stats-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: #00ff88;
+    }
+
+    .stats-grid {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+        margin-top: 3rem;
+    }
+
+    .stats-card {
+        @apply bg-white rounded-xl p-8 shadow-md;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-bottom: 4px solid #00ff88;
+    }
+
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .stats-icon {
+        @apply text-5xl mb-4;
+        filter: grayscale(0.2);
+    }
+
+    .stats-count {
+        @apply text-4xl font-bold mb-2;
+        background: linear-gradient(135deg, #00ff88 0%, #00cc6a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .stats-label {
+        @apply text-lg font-semibold text-gray-800 mb-1;
+    }
+
+    .stats-description {
+        @apply text-sm text-gray-600;
+    }
+
+    /* Animación de entrada */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .stats-card {
+        animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    .stats-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .stats-card:nth-child(3) {
+        animation-delay: 0.4s;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .stats-grid {
+            @apply grid-cols-1 gap-6;
+        }
+
+        .stats-card {
+            @apply p-6;
+        }
+
+        .stats-count {
+            @apply text-3xl;
+        }
+
+        .stats-label {
+            @apply text-base;
+        }
+    }
 }
 
 /* Animación sutil */
