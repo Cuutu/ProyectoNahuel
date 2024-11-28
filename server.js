@@ -9,8 +9,19 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Rutas
-const landingRoutes = require('./src/routes/landingRoutes');
-app.use('/', landingRoutes);
+app.get('/', (req, res) => {
+    res.render('landing', {
+        title: "Domina el Trading y las Criptomonedas",
+        description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
+        video: {
+            id: "tu-id-de-youtube"
+        },
+        ctaButton: {
+            url: "#unirme",
+            text: "¡Unirme Ahora!"
+        }
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
