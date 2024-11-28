@@ -41,6 +41,8 @@
         height: 100%;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
 
     /* Responsive para tablets y móviles */
@@ -62,21 +64,25 @@
     }
 
     .card-header {
-        @apply text-center mb-6;
+        @apply mb-6 w-full;
+        text-align: center;
     }
 
     .card-header h3 {
         @apply text-2xl font-bold mb-3 text-gray-800;
+        text-align: center;
     }
 
     .card-header p {
         @apply text-gray-600 text-sm leading-relaxed;
         padding: 0 1rem 1rem;
+        text-align: center;
     }
 
     .card-stats {
         @apply flex justify-center gap-8 my-6 p-4 bg-gray-50 rounded-lg;
-        margin: 1rem auto;
+        width: 100%;
+        text-align: center;
     }
 
     .stat {
@@ -94,7 +100,8 @@
 
     .feature-list {
         @apply space-y-3 px-4 my-6;
-        flex-grow: 1;
+        width: 100%;
+        text-align: left;
     }
 
     .feature-list li {
@@ -109,6 +116,8 @@
                uppercase tracking-wide mt-auto;
         width: 80%;
         margin: 1.5rem auto 0;
+        display: block;
+        text-align: center;
     }
 
     .video-section {
