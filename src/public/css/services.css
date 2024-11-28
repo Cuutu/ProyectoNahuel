@@ -101,6 +101,7 @@
         @apply bg-[#00ff88] text-black text-sm font-bold py-3 px-6 rounded-lg
                hover:bg-[#00cc6a] transition-colors duration-200
                w-full text-center uppercase tracking-wide mt-6;
+               text-align: center;
     }
 
     .video-section {
