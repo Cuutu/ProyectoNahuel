@@ -63,7 +63,7 @@ body {
 .nav-container {
     position: relative;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
@@ -71,27 +71,24 @@ body {
 }
 
 .logo {
-    color: #FFFFFF;
-    font-size: 1.5rem;
-    font-weight: 700;
+    color: white;
     text-decoration: none;
-    letter-spacing: -0.5px;
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .nav-links {
     display: flex;
     gap: 2rem;
+    margin-left: auto;
 }
 
 .nav-links a {
-    color: #FFFFFF;
+    color: white;
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
 }
 
 .nav-links a:hover {
@@ -323,6 +320,7 @@ body {
 @media (max-width: 992px) {
     .mobile-menu-btn {
         display: block;
+        margin-left: auto;
     }
 
     .nav-links {
@@ -384,6 +382,7 @@ body {
 @media (max-width: 992px) {
     .mobile-menu-btn {
         display: block;
+        margin-left: auto;
     }
 
     .nav-links {
