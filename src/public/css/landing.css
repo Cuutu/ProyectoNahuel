@@ -1,12 +1,12 @@
 :root {
-    --primary-color: #00dc82;     /* Verde crypto */
-    --secondary-color: #1a1f2c;   /* Azul oscuro */
-    --accent-color: #ffd700;      /* Dorado */
+    --primary-color: #00ff88;    /* Verde neón crypto */
+    --secondary-color: #ff3e3e;  /* Rojo trading */
+    --accent-color: #ffb700;     /* Dorado Bitcoin */
     --text-light: #ffffff;
-    --text-dark: #1a1f2c;
-    --bg-dark: #13151d;
-    --bg-light: #f8f9fa;
-    --gradient: linear-gradient(135deg, #00dc82 0%, #1a1f2c 100%);
+    --text-dark: #000000;
+    --bg-dark: #0a0a0a;
+    --bg-card: #111111;
+    --gradient: linear-gradient(135deg, #00ff88, #ffb700);
 }
 
 * {
@@ -22,52 +22,56 @@ body {
     line-height: 1.6;
 }
 
+/* Navbar */
 .navbar {
-    background: rgba(26, 31, 44, 0.95);
+    background: rgba(0, 0, 0, 0.95);
     backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 255, 136, 0.2);
     position: fixed;
     width: 100%;
-    top: 0;
     z-index: 1000;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
 }
 
 .logo {
     color: var(--primary-color);
-    font-size: 1.5rem;
-    font-weight: bold;
     text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 .nav-links a {
-    margin-left: 2rem;
-    text-decoration: none;
     color: var(--text-light);
-    transition: color 0.3s ease;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
 .nav-links a:hover {
     color: var(--primary-color);
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
+/* Hero Section */
 .hero {
-    background: var(--secondary-color);
-    background-image: url('/images/crypto-bg.jpg'); /* Necesitarás agregar esta imagen */
-    background-size: cover;
-    background-position: center;
-    background-blend-mode: overlay;
-    padding: 10rem 2rem 6rem;
-    text-align: center;
+    background: var(--bg-dark);
+    padding: 8rem 2rem 4rem;
     position: relative;
+    overflow: hidden;
 }
 
 .hero::before {
@@ -77,28 +81,37 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(0deg, rgba(19, 21, 29, 1) 0%, rgba(19, 21, 29, 0.8) 100%);
+    background: 
+        linear-gradient(45deg, rgba(0,0,0,0.9), rgba(0,0,0,0.7)),
+        url('/images/crypto-bg.jpg') center/cover;
+    z-index: 1;
 }
 
 .hero-content {
     position: relative;
+    z-index: 2;
     max-width: 800px;
     margin: 0 auto;
+    text-align: center;
 }
 
 .hero h1 {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    background: var(--gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .hero-description {
     font-size: 1.25rem;
     margin-bottom: 2rem;
     color: var(--text-light);
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .cta-button {
@@ -107,103 +120,74 @@ body {
     background: var(--primary-color);
     color: var(--text-dark);
     text-decoration: none;
-    border-radius: 50px;
+    border-radius: 5px;
     font-weight: bold;
-    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    box-shadow: 0 4px 15px rgba(0, 220, 130, 0.3);
+    transition: all 0.3s;
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
 }
 
 .cta-button:hover {
+    background: transparent;
+    color: var(--primary-color);
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 220, 130, 0.4);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
 }
 
+/* Features Section */
 .features-section {
+    background: var(--bg-card);
     padding: 6rem 0;
-    background: var(--bg-dark);
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    margin-top: 3rem;
 }
 
 .feature-card {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
+    background: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(0, 255, 136, 0.1);
+    border-radius: 10px;
     padding: 2rem;
-    text-align: center;
-    transition: transform 0.3s ease;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
 }
 
 .feature-card:hover {
     transform: translateY(-10px);
-    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
 }
 
 .feature-icon {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
     color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
-.feature-card h3 {
-    color: var(--text-light);
-    margin-bottom: 1rem;
-}
-
+/* Video Section */
 .video-section {
+    background: var(--bg-dark);
     padding: 6rem 0;
-    background: var(--secondary-color);
 }
 
 .video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    max-width: 900px;
-    margin: 0 auto;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 3px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
 }
 
-.video-wrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
+/* Contact Section */
 .contact-section {
+    background: var(--bg-card);
     padding: 6rem 0;
-    background: var(--bg-dark);
     text-align: center;
 }
 
-.contact-section h2 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-}
-
+/* Footer */
 .footer {
-    background: var(--secondary-color);
-    color: var(--text-light);
+    background: var(--bg-dark);
     padding: 2rem 0;
     text-align: center;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(0, 255, 136, 0.1);
 }
 
 @media (max-width: 768px) {
@@ -213,13 +197,5 @@ body {
     
     .nav-links {
         display: none;
-    }
-    
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
     }
 } 
