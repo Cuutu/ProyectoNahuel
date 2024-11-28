@@ -1,27 +1,27 @@
 @layer components {
     .services-section {
-        @apply bg-gray-50 py-12 max-w-5xl mx-auto;
+        @apply bg-white;
     }
 
     .service-card {
-        @apply bg-white rounded-lg shadow-md p-6 max-w-sm mx-auto;
-        border-top: 3px solid var(--accent);
+        @apply bg-white rounded-lg shadow-md p-6;
+        border-top: 3px solid #00ff88;
     }
 
     .card-header {
-        @apply text-center mb-4;
+        @apply text-center mb-6;
     }
 
     .card-header h3 {
-        @apply text-2xl font-bold mb-2 text-gray-800;
+        @apply text-xl font-bold mb-2 text-gray-800;
     }
 
     .card-header p {
-        @apply text-gray-600 text-sm mb-4;
+        @apply text-gray-600 text-sm;
     }
 
     .card-stats {
-        @apply flex justify-center gap-8 my-4 p-3 bg-gray-50 rounded-md;
+        @apply flex justify-center gap-12 my-6 p-4 bg-gray-50 rounded-lg;
     }
 
     .stat {
@@ -29,33 +29,35 @@
     }
 
     .stat-value {
-        @apply text-xl font-bold text-accent;
+        @apply text-xl font-bold text-[#00ff88];
     }
 
     .stat-label {
-        @apply text-xs text-gray-600 uppercase tracking-wide mt-1;
+        @apply text-xs font-medium text-gray-600 uppercase tracking-wide mt-1;
     }
 
     .feature-list {
-        @apply space-y-2 my-4 text-center;
+        @apply space-y-3 my-6;
     }
 
     .feature-list li {
-        @apply text-gray-600 text-sm py-1;
+        @apply flex items-center text-sm text-gray-600;
+        @apply before:content-['✓'] before:mr-2 before:text-[#00ff88] before:font-bold;
     }
 
     .cta-button {
-        @apply bg-accent text-white text-sm font-medium py-2 px-4 rounded-md
-               hover:bg-secondary transition-colors duration-200
-               uppercase tracking-wide w-48 mx-auto block mt-6;
+        @apply bg-[#00ff88] text-black text-sm font-medium py-3 px-6 rounded-lg
+               hover:bg-[#00cc6a] transition-colors duration-200
+               w-full text-center uppercase tracking-wide;
     }
 }
 
 /* Animación sutil */
 .service-card {
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .service-card:hover {
     transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
