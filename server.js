@@ -7,21 +7,11 @@ app.use(express.static('src/public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Ruta simple
-app.get('/', (req, res) => {
-    res.render('landing', {
-        title: "Mi Landing Page",
-        description: "Una descripción simple",
-        video: {
-            id: "dQw4w9WgXcQ" // ID de ejemplo de YouTube
-        },
-        features: ["Feature 1", "Feature 2", "Feature 3"],
-        ctaButton: {
-            text: "¡Comenzar!",
-            url: "/registro"
-        }
-    });
-});
+// Importar rutas
+const landingRoutes = require('./src/routes/landingRoutes');
+
+// Usar rutas
+app.use('/', landingRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

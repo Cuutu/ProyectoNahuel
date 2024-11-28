@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
         description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
         video: {
             type: "youtube",
-            id: "https://www.youtube.com/watch?v=4OVC776mrfo" // Coloca aquí el ID de tu video
+            id: "4OVC776mrfo"
         },
         features: [
             "Análisis técnico profesional",

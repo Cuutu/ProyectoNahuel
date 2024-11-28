@@ -5,15 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav class="navbar">
         <div class="nav-container">
-            <a href="/" class="logo">TuLogo</a>
+            <a href="/" class="logo">
+                <i class="fas fa-chart-line"></i> CryptoTrading
+            </a>
             <div class="nav-links">
-                <a href="#features">Características</a>
-                <a href="#video">Video</a>
-                <a href="#contact">Contacto</a>
+                <a href="#features"><i class="fas fa-star"></i> Características</a>
+                <a href="#video"><i class="fas fa-play-circle"></i> Video</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contacto</a>
             </div>
         </div>
     </nav>
@@ -22,12 +26,36 @@
         <div class="hero-content">
             <h1><%= title %></h1>
             <p class="hero-description"><%= description %></p>
-            <a href="<%= ctaButton.url %>" class="cta-button"><%= ctaButton.text %></a>
+            <a href="<%= ctaButton.url %>" class="cta-button">
+                <i class="fas fa-rocket"></i> <%= ctaButton.text %>
+            </a>
         </div>
     </header>
 
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2><i class="fas fa-chart-bar"></i> ¿Qué aprenderás?</h2>
+            <div class="features-grid">
+                <% features.forEach((feature, index) => { %>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas <%= 
+                                index === 0 ? 'fa-chart-line' : 
+                                index === 1 ? 'fa-coins' :
+                                index === 2 ? 'fa-shield-alt' :
+                                'fa-signal'
+                            %>"></i>
+                        </div>
+                        <h3><%= feature %></h3>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
     <section id="video" class="video-section">
         <div class="container">
+            <h2><i class="fas fa-play-circle"></i> Mira cómo funciona</h2>
             <div class="video-wrapper">
                 <iframe 
                     src="https://www.youtube.com/embed/<%= video.id %>"
@@ -39,31 +67,19 @@
         </div>
     </section>
 
-    <section id="features" class="features-section">
-        <div class="container">
-            <h2>¿Qué aprenderás?</h2>
-            <div class="features-grid">
-                <% features.forEach(feature => { %>
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
-                        <h3><%= feature %></h3>
-                    </div>
-                <% }); %>
-            </div>
-        </div>
-    </section>
-
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2>¿Listo para empezar?</h2>
-            <p>Únete a nuestro programa y comienza tu carrera en programación</p>
-            <a href="<%= ctaButton.url %>" class="cta-button"><%= ctaButton.text %></a>
+            <h2><i class="fas fa-rocket"></i> ¿Listo para empezar?</h2>
+            <p>Únete ahora y comienza tu viaje en el trading profesional</p>
+            <a href="<%= ctaButton.url %>" class="cta-button">
+                <i class="fas fa-rocket"></i> <%= ctaButton.text %>
+            </a>
         </div>
     </section>
 
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+            <p>&copy; 2024 CryptoTrading. Todos los derechos reservados.</p>
         </div>
     </footer>
 </body>
