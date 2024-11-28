@@ -4,71 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/landing.css">
 </head>
 <body>
-    <nav class="navbar">
+    <!-- HEADER -->
+    <header class="header">
         <div class="container">
             <a href="/" class="logo">CryptoTrading</a>
-            <div class="nav-links">
+            <nav class="nav-links">
                 <a href="#video">Video</a>
-                <a href="#caracteristicas">Características</a>
+                <a href="#info">Características</a>
                 <a href="#contacto">Contacto</a>
-            </div>
+            </nav>
         </div>
-    </nav>
+    </header>
 
-    <main>
-        <section class="hero">
-            <div class="container">
-                <h1><%= title %></h1>
-                <p class="hero-description"><%= description %></p>
-                <a href="<%= ctaButton.url %>" class="cta-button">¡COMIENZA AHORA!</a>
-            </div>
-        </section>
-
-        <section id="video" class="video-section">
-            <div class="container">
-                <div class="video-wrapper">
-                    <iframe 
-                        src="https://www.youtube.com/embed/<%= video.id %>"
-                        title="YouTube video player" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        <section id="caracteristicas" class="features-section">
-            <div class="container">
-                <h2>¿Qué aprenderás?</h2>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
-                        <h3>Análisis técnico profesional</h3>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
-                        <h3>Estrategias de trading probadas</h3>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✨</div>
-                        <h3>Gestión de riesgo y capital</h3>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
+    <!-- VIDEO SECTION -->
+    <section id="video" class="video-section">
         <div class="container">
-            <p>&copy; 2024 CryptoTrading. Todos los derechos reservados.</p>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/<%= video.id %>"
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+            </div>
         </div>
-    </footer>
+    </section>
+
+    <!-- UNIRME SECTION -->
+    <section class="unirme-section">
+        <div class="container">
+            <a href="<%= ctaButton.url %>" class="cta-button">¡UNIRME AHORA!</a>
+        </div>
+    </section>
+
+    <!-- INFO SECTIONS -->
+    <section id="info" class="info-section">
+        <div class="container">
+            <div class="info-block">
+                <h2>Análisis técnico profesional</h2>
+                <p>Aprende las mejores estrategias del mercado</p>
+            </div>
+            
+            <div class="info-block">
+                <h2>Estrategias de trading probadas</h2>
+                <p>Metodologías que funcionan en el mundo real</p>
+            </div>
+            
+            <div class="info-block">
+                <h2>Gestión de riesgo y capital</h2>
+                <p>Protege y maximiza tu inversión</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACTO SECTION -->
+    <section id="contacto" class="contact-section">
+        <div class="container">
+            <h2>Contacto</h2>
+            <form class="contact-form">
+                <input type="email" placeholder="Tu email">
+                <button type="submit" class="cta-button">Enviar</button>
+            </form>
+        </div>
+    </section>
 </body>
 </html> 
