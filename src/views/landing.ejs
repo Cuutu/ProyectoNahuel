@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">TuLogo</a>
+            <div class="nav-links">
+                <a href="#features">Características</a>
+                <a href="#video">Video</a>
+                <a href="#contact">Contacto</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1><%= title %></h1>
+            <p class="hero-description"><%= description %></p>
+            <a href="<%= ctaButton.url %>" class="cta-button"><%= ctaButton.text %></a>
+        </div>
+    </header>
+
+    <section id="video" class="video-section">
+        <div class="container">
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/<%= video.id %>"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="features-section">
+        <div class="container">
+            <h2>¿Qué aprenderás?</h2>
+            <div class="features-grid">
+                <% features.forEach(feature => { %>
+                    <div class="feature-card">
+                        <div class="feature-icon">✨</div>
+                        <h3><%= feature %></h3>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <h2>¿Listo para empezar?</h2>
+            <p>Únete a nuestro programa y comienza tu carrera en programación</p>
+            <a href="<%= ctaButton.url %>" class="cta-button"><%= ctaButton.text %></a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tu Empresa. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html> 
