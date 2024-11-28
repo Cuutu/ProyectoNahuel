@@ -44,23 +44,32 @@ body {
     background-color: var(--light);
     color: var(--dark);
     font-family: 'Montserrat', sans-serif;
+    padding-top: 70px;
 }
 
 /* Header con efecto glassmorphism */
 .header {
-    background: #000000; /* Negro sólido */
+    background: #000000;
     width: 100%;
-    padding: 1rem 0;
+    padding: 1.2rem 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .logo {
-    color: #FFFFFF; /* Texto blanco */
+    color: #FFFFFF;
     font-size: 1.5rem;
     font-weight: 700;
     text-decoration: none;
@@ -73,7 +82,7 @@ body {
 }
 
 .nav-links a {
-    color: #FFFFFF; /* Texto blanco */
+    color: #FFFFFF;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -83,7 +92,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: var(--accent); /* Mantiene el hover en verde neón */
+    color: var(--accent);
 }
 
 /* Video section con sombra elegante */
