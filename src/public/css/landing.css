@@ -238,3 +238,81 @@ body {
         padding: 1.5rem;
     }
 } 
+
+/* Espaciado general */
+.section {
+    margin: 6rem 0;  /* Aumentamos el margen entre secciones */
+    padding: 4rem 0;
+}
+
+/* Video section */
+.video-section {
+    margin-top: 8rem;  /* Más espacio después del navbar */
+    margin-bottom: 6rem;
+}
+
+.video-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    aspect-ratio: 16/9;
+}
+
+/* Info blocks con más espaciado */
+.info-block {
+    max-width: 800px;
+    margin: 0 auto 4rem auto;  /* Aumentamos el margen inferior */
+    padding: 3rem;  /* Más padding interno */
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.info-block:last-child {
+    margin-bottom: 0;  /* El último block no necesita margen inferior */
+}
+
+.info-block h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;  /* Más espacio después del título */
+}
+
+.info-block p {
+    color: #666;
+    line-height: 1.8;  /* Más espacio entre líneas */
+    font-size: 1.1rem;
+}
+
+/* Sección de contacto */
+.contact-section {
+    margin-top: 6rem;
+    padding: 6rem 0;  /* Más padding */
+}
+
+.contact-form {
+    max-width: 500px;
+    margin: 3rem auto;  /* Más margen */
+}
+
+.contact-form input {
+    width: 100%;
+    padding: 1.2rem;
+    margin-bottom: 1.5rem;  /* Más espacio entre inputs */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+/* Botón con más espacio */
+.cta-button {
+    display: inline-block;
+    background: #00ff88;
+    color: #000;
+    padding: 1.2rem 3rem;  /* Botón más grande */
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 3rem 0;  /* Más margen alrededor del botón */
+} 
