@@ -67,6 +67,7 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
+    position: relative;
 }
 
 .logo {
@@ -322,5 +323,52 @@ body {
 @media (max-width: 768px) {
     .nav-links {
         display: none;  /* Después podemos agregar un menú hamburguesa */
+    }
+} 
+
+/* Estilos del navbar */
+.nav-container {
+    position: relative;
+}
+
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+/* Media query para móviles */
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #000000;
+        flex-direction: column;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links a {
+        padding: 1rem 2rem;
+        width: 100%;
+    }
+
+    .nav-links a:hover {
+        background: rgba(255,255,255,0.1);
     }
 } 
