@@ -63,7 +63,7 @@ body {
 .nav-container {
     position: relative;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
