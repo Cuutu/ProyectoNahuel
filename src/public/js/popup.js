@@ -3,19 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = document.querySelector('.close-popup');
     const leadForm = document.getElementById('leadForm');
 
-    // Mostrar popup después de 5 segundos
-    setTimeout(() => {
-        if (!localStorage.getItem('popupShown')) {
-            showPopup();
-        }
-    }, 5000);
-
-    // Mostrar popup cuando el usuario intenta salir
-    document.addEventListener('mouseleave', function(e) {
-        if (e.clientY < 0 && !localStorage.getItem('popupShown')) {
-            showPopup();
-        }
-    });
+    // Mostrar popup inmediatamente al cargar
+    if (!localStorage.getItem('popupShown')) {
+        showPopup();
+    }
 
     // Cerrar popup
     closeBtn.addEventListener('click', hidePopup);
