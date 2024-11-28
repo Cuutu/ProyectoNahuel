@@ -24,3 +24,37 @@
     @apply bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow;
   }
 } 
+
+:root {
+    --primary-color: #000000;
+    --secondary-color: #1a1a1a;
+    --accent-color: #ffd700;
+    --text-dark: #000000;
+    --text-gray: #666666;
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+}
+
+/* Estilos personalizados que no podemos lograr fácilmente con Tailwind */
+.video-wrapper {
+    aspect-ratio: 16/9;
+    position: relative;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+/* Animaciones y transiciones personalizadas */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+} 
