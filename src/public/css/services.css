@@ -4,51 +4,66 @@
     }
 
     .services-container {
-        @apply max-w-5xl mx-auto px-4;
+        @apply max-w-6xl mx-auto px-4;
+    }
+
+    .section-title {
+        @apply text-3xl font-bold text-center mb-12;
+        position: relative;
+        padding-bottom: 1rem;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100px;
+        height: 3px;
+        background: #00ff88;
     }
 
     .services-grid {
-        @apply grid grid-cols-1 md:grid-cols-3 gap-6;
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 2rem;
+        @apply flex justify-center gap-8;
+        margin-top: 2rem;
     }
 
     .service-card {
-        @apply bg-white rounded-lg shadow-md p-6;
+        @apply bg-white rounded-xl shadow-lg p-8;
+        width: 320px;
         border: 1px solid #e5e7eb;
-        border-top: 3px solid #00ff88;
-        width: 300px;
-        text-align: center;
-        margin: 0 auto;
+        border-top: 4px solid #00ff88;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     }
 
     .card-header {
-        @apply mb-4;
-        text-align: center;
+        @apply text-center mb-6;
     }
 
     .card-header h3 {
-        @apply text-xl font-bold mb-2 text-gray-800;
+        @apply text-2xl font-bold mb-3 text-gray-800;
     }
 
     .card-header p {
-        @apply text-gray-600 text-sm;
+        @apply text-gray-600 text-sm leading-relaxed;
     }
 
     .card-stats {
-        @apply flex justify-center gap-4 my-4 p-3 bg-gray-50 rounded-lg;
-        margin: 1rem auto;
+        @apply flex justify-center gap-8 my-6 p-4 bg-gray-50 rounded-lg;
     }
 
     .stat {
         @apply flex flex-col items-center;
-        padding: 0.5rem;
     }
 
     .stat-value {
-        @apply text-lg font-bold text-[#00ff88];
+        @apply text-xl font-bold text-[#00ff88];
     }
 
     .stat-label {
@@ -56,10 +71,7 @@
     }
 
     .feature-list {
-        @apply space-y-2 my-4;
-        text-align: left;
-        padding-left: 1rem;
-        margin: 1rem auto;
+        @apply space-y-3 my-6 px-2;
     }
 
     .feature-list li {
@@ -68,12 +80,9 @@
     }
 
     .cta-button {
-        @apply bg-[#00ff88] text-black text-sm font-medium py-2 px-4 rounded-lg
+        @apply bg-[#00ff88] text-black text-sm font-bold py-3 px-6 rounded-lg
                hover:bg-[#00cc6a] transition-colors duration-200
-               text-center uppercase tracking-wide;
-        width: 80%;
-        margin: 1rem auto 0;
-        display: block;
+               w-full text-center uppercase tracking-wide mt-6;
     }
 
     .video-section {
