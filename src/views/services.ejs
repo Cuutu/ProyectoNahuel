@@ -38,7 +38,7 @@
             
             <div class="video-wrapper aspect-w-16 aspect-h-9">
                 <iframe 
-                    src="https://www.youtube.com/embed/<%= video.id %>" 
+                    src="https://player.vimeo.com/video/1019511294?speed=0&color=ff9c00&muted=1&autoplay=1&pip=0&loop=1&quality=undefined&app_id=122963&texttrack=undefined" 
                     frameborder="0" 
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                     allowfullscreen>
@@ -48,38 +48,103 @@
     </section>
 
     <!-- SERVICES SECTION -->
-    <section class="services-section py-16">
-        <div class="container">
+    <section class="services-section">
+        <div class="container max-w-7xl mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-16">Nuestros Servicios Premium</h2>
+            
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <% services.forEach(service => { %>
-                    <div class="service-card">
-                        <div class="card-header">
-                            <h3 class="text-2xl font-bold"><%= service.title %></h3>
-                            <p class="text-gray-600"><%= service.description %></p>
-                        </div>
-                        
-                        <div class="card-stats">
-                            <div class="stat">
-                                <span class="stat-value"><%= service.subscribers %></span>
-                                <span class="stat-label">Suscriptores</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-value"><%= service.userType %></span>
-                                <span class="stat-label">Perfil Ideal</span>
-                            </div>
-                        </div>
-                        
-                        <ul class="feature-list">
-                            <% service.features.forEach(feature => { %>
-                                <li><%= feature %></li>
-                            <% }) %>
-                        </ul>
-                        
-                        <button class="cta-button w-full">
-                            Comenzar Ahora
-                        </button>
+                <!-- Señales Premium -->
+                <div class="service-card premium">
+                    <div class="card-header">
+                        <h3>Señales Premium</h3>
+                        <p>Señales de trading en tiempo real con alta precisión</p>
                     </div>
-                <% }) %>
+                    
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="stat-value">1500+</span>
+                            <span class="stat-label">Traders Activos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">89%</span>
+                            <span class="stat-label">Precisión</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li>Señales 24/7 en tiempo real</li>
+                        <li>Setup completo de entrada</li>
+                        <li>Stop Loss y Take Profit</li>
+                        <li>Análisis de mercado diario</li>
+                        <li>Alertas personalizadas</li>
+                    </ul>
+                    
+                    <button class="cta-button w-full">
+                        Comenzar Ahora
+                    </button>
+                </div>
+
+                <!-- Mentoría Personalizada -->
+                <div class="service-card mentoria">
+                    <div class="card-header">
+                        <h3>Mentoría PRO</h3>
+                        <p>Formación one-on-one con traders expertos</p>
+                    </div>
+                    
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="stat-value">500+</span>
+                            <span class="stat-label">Alumnos</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">12</span>
+                            <span class="stat-label">Sesiones</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li>Sesiones personalizadas</li>
+                        <li>Plan de trading individual</li>
+                        <li>Revisión de operaciones</li>
+                        <li>Soporte prioritario 24/7</li>
+                        <li>Recursos exclusivos</li>
+                    </ul>
+                    
+                    <button class="cta-button w-full">
+                        Reservar Mentoría
+                    </button>
+                </div>
+
+                <!-- Comunidad VIP -->
+                <div class="service-card comunidad">
+                    <div class="card-header">
+                        <h3>Comunidad VIP</h3>
+                        <p>Acceso exclusivo a nuestra comunidad de traders</p>
+                    </div>
+                    
+                    <div class="card-stats">
+                        <div class="stat">
+                            <span class="stat-value">1000+</span>
+                            <span class="stat-label">Miembros</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">100%</span>
+                            <span class="stat-label">Interacción</span>
+                        </div>
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li>Foro activo de traders</li>
+                        <li>Webinars semanales</li>
+                        <li>Análisis de mercado</li>
+                        <li>Recursos exclusivos</li>
+                        <li>Soporte prioritario</li>
+                    </ul>
+                    
+                    <button class="cta-button w-full">
+                        Unirse a la Comunidad
+                    </button>
+                </div>
             </div>
         </div>
     </section>
