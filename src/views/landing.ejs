@@ -13,42 +13,39 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <a href="/" class="logo">
-                <i class="fas fa-chart-line"></i> CryptoTrading
-            </a>
-            <div class="nav-links">
-                <a href="#features"><i class="fas fa-star"></i> Características</a>
-                <a href="#video"><i class="fas fa-play-circle"></i> Video</a>
-                <a href="#contact"><i class="fas fa-envelope"></i> Contacto</a>
+        <div class="container">
+            <div class="nav-container">
+                <a href="/" class="logo">
+                    <i class="fas fa-chart-line"></i> CryptoTrading
+                </a>
+                <div class="nav-links">
+                    <a href="#features"><i class="fas fa-star"></i> Características</a>
+                    <a href="#video"><i class="fas fa-play-circle"></i> Video</a>
+                    <a href="#contact"><i class="fas fa-envelope"></i> Contacto</a>
+                </div>
             </div>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-content">
-            <h1><%= title %></h1>
-            <p class="hero-description"><%= description %></p>
-            <a href="<%= ctaButton.url %>" class="cta-button">
-                <i class="fas fa-rocket"></i> <%= ctaButton.text %>
-            </a>
+        <div class="container">
+            <div class="hero-content">
+                <h1><%= title %></h1>
+                <p class="hero-description"><%= description %></p>
+                <a href="<%= ctaButton.url %>" class="cta-button">
+                    <i class="fas fa-rocket"></i> <%= ctaButton.text %>
+                </a>
+            </div>
         </div>
     </header>
 
     <section id="features" class="features-section">
         <div class="container">
-            <h2><i class="fas fa-chart-bar"></i> ¿Qué aprenderás?</h2>
+            <h2>¿Qué aprenderás?</h2>
             <div class="features-grid">
-                <% features.forEach((feature, index) => { %>
+                <% features.forEach(feature => { %>
                     <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas <%= 
-                                index === 0 ? 'fa-chart-line' : 
-                                index === 1 ? 'fa-coins' :
-                                index === 2 ? 'fa-shield-alt' :
-                                'fa-signal'
-                            %>"></i>
-                        </div>
+                        <div class="feature-icon">✨</div>
                         <h3><%= feature %></h3>
                     </div>
                 <% }); %>
@@ -58,7 +55,7 @@
 
     <section id="video" class="video-section">
         <div class="container">
-            <h2><i class="fas fa-play-circle"></i> Mira cómo funciona</h2>
+            <h2>Mira cómo funciona</h2>
             <div class="video-wrapper">
                 <iframe 
                     src="https://www.youtube.com/embed/<%= video.id %>"
@@ -72,10 +69,10 @@
 
     <section id="contact" class="contact-section">
         <div class="container">
-            <h2><i class="fas fa-rocket"></i> ¿Listo para empezar?</h2>
+            <h2>¿Listo para empezar?</h2>
             <p>Únete ahora y comienza tu viaje en el trading profesional</p>
             <a href="<%= ctaButton.url %>" class="cta-button">
-                <i class="fas fa-rocket"></i> <%= ctaButton.text %>
+                <i class="fas fa-arrow-right"></i> <%= ctaButton.text %>
             </a>
         </div>
     </section>

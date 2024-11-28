@@ -1,12 +1,12 @@
 :root {
-    --primary-color: #1a1a1a;    /* Negro elegante */
+    --primary-color: #000000;    /* Negro puro */
     --secondary-color: #ffd700;  /* Dorado */
-    --accent-color: #ffffff;     /* Blanco */
+    --accent-color: #ff3e3e;     /* Rojo trading */
     --text-light: #ffffff;
-    --text-dark: #1a1a1a;
-    --bg-dark: #1a1a1a;
-    --bg-light: #ffffff;
-    --gradient: linear-gradient(135deg, #1a1a1a, #333333);
+    --text-dark: #000000;
+    --bg-dark: #ffffff;
+    --bg-light: #f8f9fa;
+    --gradient: linear-gradient(135deg, #000000, #333333);
 }
 
 * {
@@ -66,6 +66,9 @@ body {
 .hero-content {
     max-width: 800px;
     margin: 0 auto;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 2;
 }
 
 .hero h1 {
@@ -107,13 +110,18 @@ body {
     background: var(--bg-light);
 }
 
+.features-section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
+    padding: 2rem 0;
 }
 
 .feature-card {
@@ -161,4 +169,36 @@ body {
     padding: 2rem 0;
     text-align: center;
     border-top: 1px solid #eee;
+}
+
+/* Agregar al inicio del archivo, después de los estilos base */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    width: 100%;
+}
+
+/* Actualizar los estilos de las secciones */
+section {
+    padding: 6rem 0;
+}
+
+section h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+.video-section .container,
+.contact-section .container {
+    text-align: center;
+}
+
+/* Mejorar el espaciado de las cards */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 0;
 } 
