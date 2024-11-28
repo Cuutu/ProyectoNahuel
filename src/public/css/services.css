@@ -25,16 +25,32 @@
     }
 
     .services-grid {
-        @apply flex justify-center gap-8;
-        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin: 0 auto;
+        max-width: 1200px;
     }
 
     .service-card {
         @apply bg-white rounded-xl shadow-lg p-8;
-        width: 320px;
         border: 1px solid #e5e7eb;
         border-top: 4px solid #00ff88;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
+        height: fit-content;
+    }
+
+    /* Responsive para tablets y móviles */
+    @media (max-width: 1024px) {
+        .services-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     .service-card:hover {
