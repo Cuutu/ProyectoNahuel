@@ -12,16 +12,17 @@
     }
 
     .service-card {
-        @apply bg-white rounded-lg shadow-md p-5 max-w-sm mx-auto w-full;
+        @apply bg-white rounded-lg shadow-md p-6;
+        border: 1px solid #e5e7eb;
         border-top: 3px solid #00ff88;
     }
 
     .card-header {
-        @apply text-center mb-4;
+        @apply text-left mb-4;
     }
 
     .card-header h3 {
-        @apply text-lg font-bold mb-2 text-gray-800;
+        @apply text-xl font-bold mb-2 text-gray-800;
     }
 
     .card-header p {
@@ -29,7 +30,7 @@
     }
 
     .card-stats {
-        @apply flex justify-center gap-8 my-4 p-3 bg-gray-50 rounded-lg;
+        @apply flex justify-between my-4 p-3 bg-gray-50 rounded-lg;
     }
 
     .stat {
