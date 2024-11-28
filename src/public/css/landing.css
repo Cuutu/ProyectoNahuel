@@ -1,12 +1,36 @@
 :root {
-    --primary-color: #000000;    /* Negro puro */
-    --secondary-color: #ffd700;  /* Dorado */
-    --accent-color: #ff3e3e;     /* Rojo trading */
-    --text-light: #ffffff;
-    --text-dark: #000000;
-    --bg-dark: #ffffff;
-    --bg-light: #f8f9fa;
-    --gradient: linear-gradient(135deg, #000000, #333333);
+    /* Colores principales */
+    --primary-dark: #0A2647;    /* Azul oscuro corporativo */
+    --primary: #144272;         /* Azul principal */
+    --secondary: #205295;       /* Azul medio */
+    --accent: #2C74B3;         /* Azul acento */
+    
+    /* Colores de acento para datos */
+    --success: #0ECB81;        /* Verde trading - subidas */
+    --danger: #FF4B4B;         /* Rojo trading - bajadas */
+    --warning: #F0B90B;        /* Amarillo/Dorado - Bitcoin */
+    
+    /* Escala de grises */
+    --dark: #1A1D1F;           /* Casi negro */
+    --gray-900: #23262F;       /* Gris muy oscuro */
+    --gray-800: #2A2D35;       /* Gris oscuro */
+    --gray-700: #32353F;       /* Gris medio oscuro */
+    --gray-600: #777E90;       /* Gris medio */
+    --gray-500: #B1B5C3;       /* Gris claro */
+    --gray-400: #E6E8EC;       /* Gris muy claro */
+    --light: #FCFCFD;          /* Casi blanco */
+
+    /* Fondos y textos */
+    --bg-dark: var(--dark);
+    --bg-light: var(--light);
+    --text-dark: var(--dark);
+    --text-light: var(--light);
+    --text-muted: var(--gray-600);
+
+    /* Gradientes */
+    --gradient-primary: linear-gradient(135deg, var(--primary-dark), var(--accent));
+    --gradient-success: linear-gradient(135deg, var(--success), #2ebd85);
+    --gradient-warning: linear-gradient(135deg, var(--warning), #F5D100);
 }
 
 * {
@@ -17,14 +41,16 @@
 }
 
 body {
-    background-color: var(--bg-light);
-    color: var(--text-dark);
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     line-height: 1.6;
 }
 
 /* Navbar */
 .navbar {
-    background: var(--bg-light);
+    background: rgba(26, 29, 31, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     position: fixed;
     width: 100%;
     z-index: 1000;
@@ -41,24 +67,29 @@ body {
 }
 
 .logo {
-    color: var(--primary-color);
+    color: var(--light);
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: 700;
     letter-spacing: -1px;
+    text-shadow: 0 0 20px rgba(44, 116, 179, 0.3);
 }
 
 .nav-links a {
-    color: var(--primary-color);
+    color: var(--gray-500);
     text-decoration: none;
     font-weight: 500;
     margin-left: 2rem;
     transition: color 0.3s;
 }
 
+.nav-links a:hover {
+    color: var(--light);
+}
+
 /* Hero Section */
 .hero {
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     padding: 10rem 2rem 6rem;
     text-align: center;
 }
@@ -89,19 +120,21 @@ body {
 .cta-button {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: var(--secondary-color);
-    color: var(--text-dark);
+    background: var(--success);
+    color: var(--dark);
     text-decoration: none;
     border-radius: 0;
     font-weight: 600;
     transition: all 0.3s;
     text-transform: uppercase;
     letter-spacing: 1px;
+    border: none;
 }
 
 .cta-button:hover {
+    background: var(--warning);
     transform: translateY(-2px);
-    background: #fff;
+    box-shadow: 0 4px 20px rgba(240, 185, 11, 0.3);
 }
 
 /* Features Section */
@@ -125,27 +158,28 @@ body {
 }
 
 .feature-card {
-    background: #fff;
+    background: var(--gray-900);
     padding: 2rem;
     text-align: center;
-    border: 1px solid #eee;
+    border: 1px solid var(--gray-800);
     transition: all 0.3s;
 }
 
 .feature-card:hover {
+    border-color: var(--accent);
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 20px rgba(44, 116, 179, 0.2);
 }
 
 .feature-icon {
     font-size: 2rem;
-    color: var(--secondary-color);
+    color: var(--warning);
     margin-bottom: 1rem;
 }
 
 /* Video Section */
 .video-section {
-    background: #f8f9fa;
+    background: var(--gray-900);
     padding: 6rem 0;
 }
 
@@ -157,7 +191,7 @@ body {
 
 /* Contact Section */
 .contact-section {
-    background: var(--primary-color);
+    background: var(--gradient-primary);
     color: var(--text-light);
     padding: 6rem 0;
     text-align: center;
@@ -165,10 +199,10 @@ body {
 
 /* Footer */
 .footer {
-    background: var(--bg-light);
+    background: var(--dark);
     padding: 2rem 0;
     text-align: center;
-    border-top: 1px solid #eee;
+    border-top: 1px solid var(--gray-800);
 }
 
 /* Agregar al inicio del archivo, después de los estilos base */
