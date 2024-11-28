@@ -50,6 +50,19 @@
                hover:bg-[#00cc6a] transition-colors duration-200
                w-full text-center uppercase tracking-wide;
     }
+
+    .video-section {
+        @apply bg-gradient-to-b from-gray-50 to-white;
+    }
+
+    .video-wrapper {
+        @apply relative w-full;
+        padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+    }
+
+    .video-wrapper iframe {
+        @apply absolute top-0 left-0 w-full h-full;
+    }
 }
 
 /* Animación sutil */
