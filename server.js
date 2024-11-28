@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     });
 });
 
+const serviceRoutes = require('./src/routes/serviceRoutes');
+
+app.use('/', serviceRoutes);
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
