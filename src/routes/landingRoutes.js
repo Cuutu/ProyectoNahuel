@@ -3,20 +3,20 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     res.render('landing', {
-        title: "Curso de Programación 2024",
-        description: "Aprende a programar desde cero con nuestro curso completo",
+        title: "Domina el Trading y las Criptomonedas",
+        description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
         video: {
             type: "youtube",
-            id: "tu-video-id" // Aquí pon el ID de tu video de YouTube
+            id: "https://www.youtube.com/watch?v=4OVC776mrfo" // Coloca aquí el ID de tu video
         },
         features: [
-            "Fundamentos de programación",
-            "JavaScript moderno",
-            "Desarrollo web full-stack",
-            "Proyectos reales"
+            "Análisis técnico profesional",
+            "Estrategias de trading probadas",
+            "Gestión de riesgo y capital",
+            "Señales de trading en tiempo real"
         ],
         ctaButton: {
-            text: "¡Inscríbete ahora!",
+            text: "¡Comienza Ahora!",
             url: "/registro"
         }
     });

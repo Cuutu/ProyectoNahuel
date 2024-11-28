@@ -1,36 +1,35 @@
 :root {
-    --primary-color: #2563eb;
-    --secondary-color: #1e40af;
-    --text-color: #1f2937;
-    --light-bg: #f3f4f6;
+    --primary-color: #00dc82;     /* Verde crypto */
+    --secondary-color: #1a1f2c;   /* Azul oscuro */
+    --accent-color: #ffd700;      /* Dorado */
+    --text-light: #ffffff;
+    --text-dark: #1a1f2c;
+    --bg-dark: #13151d;
+    --bg-light: #f8f9fa;
+    --gradient: linear-gradient(135deg, #00dc82 0%, #1a1f2c 100%);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
     line-height: 1.6;
-    color: var(--text-color);
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* Navbar */
 .navbar {
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    background: rgba(26, 31, 44, 0.95);
+    backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav-container {
@@ -42,47 +41,142 @@ body {
     margin: 0 auto;
 }
 
+.logo {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .nav-links a {
     margin-left: 2rem;
     text-decoration: none;
-    color: var(--text-color);
+    color: var(--text-light);
+    transition: color 0.3s ease;
 }
 
-/* Hero Section */
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
 .hero {
-    padding: 8rem 2rem 4rem;
-    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
-    color: white;
+    background: var(--secondary-color);
+    background-image: url('/images/crypto-bg.jpg'); /* Necesitarás agregar esta imagen */
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
+    padding: 10rem 2rem 6rem;
     text-align: center;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(0deg, rgba(19, 21, 29, 1) 0%, rgba(19, 21, 29, 0.8) 100%);
 }
 
 .hero-content {
+    position: relative;
     max-width: 800px;
     margin: 0 auto;
 }
 
 .hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1.5rem;
+    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
 }
 
 .hero-description {
     font-size: 1.25rem;
     margin-bottom: 2rem;
+    color: var(--text-light);
 }
 
-/* Video Section */
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--primary-color);
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 15px rgba(0, 220, 130, 0.3);
+}
+
+.cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 220, 130, 0.4);
+}
+
+.features-section {
+    padding: 6rem 0;
+    background: var(--bg-dark);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.feature-card h3 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
 .video-section {
-    padding: 4rem 0;
-    background: var(--light-bg);
+    padding: 6rem 0;
+    background: var(--secondary-color);
 }
 
 .video-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56.25%;
     height: 0;
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .video-wrapper iframe {
@@ -91,69 +185,30 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 8px;
 }
 
-/* Features Section */
-.features-section {
-    padding: 4rem 0;
-}
-
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.feature-card {
-    padding: 2rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.contact-section {
+    padding: 6rem 0;
+    background: var(--bg-dark);
     text-align: center;
 }
 
-.feature-icon {
-    font-size: 2rem;
+.contact-section h2 {
+    color: var(--primary-color);
     margin-bottom: 1rem;
 }
 
-/* CTA Button */
-.cta-button {
-    display: inline-block;
-    padding: 1rem 2rem;
-    background: var(--primary-color);
-    color: white;
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: bold;
-    transition: background 0.3s ease;
-}
-
-.cta-button:hover {
-    background: var(--secondary-color);
-}
-
-/* Contact Section */
-.contact-section {
-    padding: 4rem 0;
-    background: var(--light-bg);
-    text-align: center;
-}
-
-/* Footer */
 .footer {
-    background: var(--text-color);
-    color: white;
+    background: var(--secondary-color);
+    color: var(--text-light);
     padding: 2rem 0;
     text-align: center;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .hero h1 {
-        font-size: 2rem;
+        font-size: 2.5rem;
     }
     
     .nav-links {
@@ -162,5 +217,9 @@ body {
     
     .container {
         padding: 0 1rem;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
     }
 } 
