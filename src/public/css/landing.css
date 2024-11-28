@@ -48,13 +48,8 @@ body {
 
 /* Header con efecto glassmorphism */
 .header {
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    position: fixed;
+    background: #000000; /* Negro sólido */
     width: 100%;
-    top: 0;
-    z-index: 50;
     padding: 1rem 0;
 }
 
@@ -65,7 +60,7 @@ body {
 }
 
 .logo {
-    color: var(--light);
+    color: #FFFFFF; /* Texto blanco */
     font-size: 1.5rem;
     font-weight: 700;
     text-decoration: none;
@@ -78,7 +73,7 @@ body {
 }
 
 .nav-links a {
-    color: var(--light);
+    color: #FFFFFF; /* Texto blanco */
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -88,8 +83,7 @@ body {
 }
 
 .nav-links a:hover {
-    color: var(--accent);
-    text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    color: var(--accent); /* Mantiene el hover en verde neón */
 }
 
 /* Video section con sombra elegante */
