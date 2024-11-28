@@ -1,19 +1,27 @@
 @layer components {
     .services-section {
-        @apply bg-white;
+        @apply py-16 bg-white;
+    }
+
+    .services-container {
+        @apply max-w-5xl mx-auto px-4;
+    }
+
+    .services-grid {
+        @apply grid grid-cols-1 md:grid-cols-3 gap-6;
     }
 
     .service-card {
-        @apply bg-white rounded-lg shadow-md p-6;
+        @apply bg-white rounded-lg shadow-md p-5 max-w-sm mx-auto w-full;
         border-top: 3px solid #00ff88;
     }
 
     .card-header {
-        @apply text-center mb-6;
+        @apply text-center mb-4;
     }
 
     .card-header h3 {
-        @apply text-xl font-bold mb-2 text-gray-800;
+        @apply text-lg font-bold mb-2 text-gray-800;
     }
 
     .card-header p {
@@ -21,7 +29,7 @@
     }
 
     .card-stats {
-        @apply flex justify-center gap-12 my-6 p-4 bg-gray-50 rounded-lg;
+        @apply flex justify-center gap-8 my-4 p-3 bg-gray-50 rounded-lg;
     }
 
     .stat {
@@ -29,7 +37,7 @@
     }
 
     .stat-value {
-        @apply text-xl font-bold text-[#00ff88];
+        @apply text-lg font-bold text-[#00ff88];
     }
 
     .stat-label {
@@ -37,7 +45,7 @@
     }
 
     .feature-list {
-        @apply space-y-3 my-6;
+        @apply space-y-2 my-4;
     }
 
     .feature-list li {
@@ -46,9 +54,9 @@
     }
 
     .cta-button {
-        @apply bg-[#00ff88] text-black text-sm font-medium py-3 px-6 rounded-lg
+        @apply bg-[#00ff88] text-black text-sm font-medium py-2 px-4 rounded-lg
                hover:bg-[#00cc6a] transition-colors duration-200
-               w-full text-center uppercase tracking-wide;
+               w-full text-center uppercase tracking-wide mt-4;
     }
 
     .video-section {
