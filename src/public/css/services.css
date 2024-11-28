@@ -35,10 +35,12 @@
 
     .service-card {
         @apply bg-white rounded-xl shadow-lg p-8;
-        border: 3px solid #e5e7eb;
+        border: 1px solid #e5e7eb;
         border-top: 4px solid #00ff88;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-        height: fit-content;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
     }
 
     /* Responsive para tablets y móviles */
@@ -65,19 +67,21 @@
 
     .card-header h3 {
         @apply text-2xl font-bold mb-3 text-gray-800;
-        text-align: center;
     }
 
     .card-header p {
         @apply text-gray-600 text-sm leading-relaxed;
+        padding: 0 1rem 1rem;
     }
 
     .card-stats {
         @apply flex justify-center gap-8 my-6 p-4 bg-gray-50 rounded-lg;
+        margin: 1rem auto;
     }
 
     .stat {
         @apply flex flex-col items-center;
+        padding: 0.5rem;
     }
 
     .stat-value {
@@ -89,19 +93,22 @@
     }
 
     .feature-list {
-        @apply space-y-3 my-6 px-2;
+        @apply space-y-3 px-4 my-6;
+        flex-grow: 1;
     }
 
     .feature-list li {
         @apply flex items-center text-sm text-gray-600;
         @apply before:content-['✓'] before:mr-2 before:text-[#00ff88] before:font-bold;
+        padding: 0.25rem 0;
     }
 
     .cta-button {
-        @apply bg-[#00ff88] text-black text-sm font-bold py-3 px-6 rounded-lg
+        @apply bg-[#00ff88] text-black text-sm font-bold py-3 rounded-lg
                hover:bg-[#00cc6a] transition-colors duration-200
-               w-full text-center uppercase tracking-wide mt-6;
-               text-align: center;
+               uppercase tracking-wide mt-auto;
+        width: 80%;
+        margin: 1.5rem auto 0;
     }
 
     .video-section {
