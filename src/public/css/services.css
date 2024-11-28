@@ -55,18 +55,15 @@
         @apply bg-gray-100 py-16 mt-16;
     }
 
-    .video-wrapper {
-        @apply max-w-4xl mx-auto relative overflow-hidden rounded-xl shadow-lg;
-        height: 0;
-        padding-bottom: 56.25%; /* Mantiene el aspect ratio 16:9 */
+    .video-container {
+        @apply max-w-4xl mx-auto rounded-xl shadow-lg overflow-hidden;
     }
 
-    .video-wrapper iframe {
-        @apply absolute top-0 left-0 w-full h-full;
-        max-height: 600px; /* Limita la altura máxima */
+    .video-container iframe {
+        @apply w-full;
+        aspect-ratio: 16/9;
     }
 
-    /* Contenedor para mantener el video centrado y con tamaño controlado */
     .container {
         @apply max-w-7xl mx-auto px-4;
     }
