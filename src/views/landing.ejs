@@ -6,6 +6,7 @@
     <title><%= title %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -81,5 +82,23 @@
     </section>
 
     <script src="/js/navbar.js"></script>
+
+    <!-- Agregar antes del cierre del body -->
+    <div id="leadPopup" class="popup-overlay">
+        <div class="popup-content">
+            <button class="close-popup">&times;</button>
+            <div class="popup-header">
+                <h3>¡OBTENÉ TU REGALO!</h3>
+                <p>Guía PDF: "5 Estrategias Secretas de Trading Cripto"</p>
+            </div>
+            <form id="leadForm" class="lead-form">
+                <input type="email" placeholder="Tu mejor email" required>
+                <button type="submit" class="cta-button">DESCARGAR AHORA</button>
+            </form>
+            <p class="privacy-text">No compartimos tu información con nadie</p>
+        </div>
+    </div>
+
+    <script src="/js/popup.js"></script>
 </body>
 </html> 
