@@ -126,7 +126,7 @@
     }
 
     .video-container {
-        @apply w-full max-w-4xl mx-auto my-20;
+        @apply w-full max-w-4xl mx-auto mt-10 mb-20;
         position: relative;
         padding-bottom: 56.25%; /* Aspect ratio 16:9 */
         height: 0;
