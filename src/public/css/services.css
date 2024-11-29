@@ -141,7 +141,7 @@
 
     /* Sección de Estadísticas */
     .stats-section {
-        @apply py-16 mt-20;
+        @apply py-16 mt-32;
         background: linear-gradient(to right, #f8f9fa, #ffffff);
     }
 
