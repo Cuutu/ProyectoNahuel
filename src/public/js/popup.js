@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeBtn = document.querySelector('.close-popup');
     const leadForm = document.getElementById('leadForm');
 
-    // Mostrar popup inmediatamente al cargar
-    showPopup();
+    // Mostrar popup después de 5 segundos
+    setTimeout(showPopup, 5000);
 
     // Cerrar popup
     closeBtn.addEventListener('click', hidePopup);
