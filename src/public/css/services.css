@@ -126,12 +126,19 @@
     }
 
     .video-container {
-        @apply max-w-4xl mx-auto rounded-xl shadow-lg overflow-hidden;
+        @apply w-full max-w-4xl mx-auto my-20;
+        position: relative;
+        padding-bottom: 56.25%; /* Aspect ratio 16:9 */
+        height: 0;
+        overflow: hidden;
     }
 
     .video-container iframe {
-        @apply w-full;
-        aspect-ratio: 16/9;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     .container {
@@ -141,7 +148,7 @@
 
     /* Sección de Estadísticas */
     .stats-section {
-        @apply py-16 mt-32;
+        @apply py-16;
         background: linear-gradient(to right, #f8f9fa, #ffffff);
     }
 
