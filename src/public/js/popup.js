@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const leadForm = document.getElementById('leadForm');
 
     // Mostrar popup inmediatamente al cargar
-    if (!localStorage.getItem('popupShown')) {
-        showPopup();
-    }
+    showPopup();
 
     // Cerrar popup
     closeBtn.addEventListener('click', hidePopup);
@@ -35,7 +33,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (response.ok) {
                 alert('¡Gracias! Revisa tu email para obtener tu guía.');
                 hidePopup();
-                localStorage.setItem('popupShown', 'true');
             }
         } catch (error) {
             console.error('Error:', error);
