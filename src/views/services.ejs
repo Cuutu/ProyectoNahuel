@@ -117,24 +117,6 @@
         </div>
     </section>
 
-    <!-- Después de la sección de servicios -->
-    <section class="stats-section">
-        <div class="stats-container">
-            <h2 class="stats-title">Comunidad Activa</h2>
-            
-            <div class="stats-grid">
-                <% Object.entries(stats).forEach(([service, data]) => { %>
-                    <div class="stats-card">
-                        <div class="stats-icon"><%= data.icon %></div>
-                        <div class="stats-count"><%= data.count.toLocaleString() %>+</div>
-                        <div class="stats-label"><%= data.label %></div>
-                        <div class="stats-description"><%= data.description %></div>
-                    </div>
-                <% }); %>
-            </div>
-        </div>
-    </section>
-
     <script src="/js/navbar.js"></script>
 </body>
 </html> 
