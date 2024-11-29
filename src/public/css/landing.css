@@ -446,4 +446,58 @@ body {
 
 .stat-description {
     @apply text-sm text-gray-600;
+}
+
+.stats-section {
+    @apply py-16 bg-white;
+}
+
+.stats-container {
+    @apply max-w-6xl mx-auto px-4;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.stat-card {
+    @apply bg-white rounded-xl p-8;
+    border: 1px solid #e5e7eb;
+    border-top: 4px solid #00ff88;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.stat-icon {
+    @apply text-4xl mb-4;
+}
+
+.stat-number {
+    @apply text-3xl font-bold mb-2;
+    background: linear-gradient(45deg, #00ff88, #00cc6a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stat-label {
+    @apply text-lg font-semibold text-gray-800 mb-1;
+}
+
+.stat-description {
+    @apply text-sm text-gray-600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
 } 
