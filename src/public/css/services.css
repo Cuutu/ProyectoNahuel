@@ -141,8 +141,8 @@
 
     /* Sección de Estadísticas */
     .stats-section {
-        @apply py-20 bg-gray-50;
-        border-top: 1px solid #e5e7eb;
+        @apply py-16 mt-20;
+        background: linear-gradient(to right, #f8f9fa, #ffffff);
     }
 
     .stats-container {
