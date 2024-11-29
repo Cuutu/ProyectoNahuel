@@ -501,3 +501,21 @@ body {
         grid-template-columns: 1fr;
     }
 } 
+
+.section-title {
+    @apply text-3xl font-bold mb-12;
+    position: relative;
+    padding-bottom: 1rem;
+    text-align: center;  /* Aseguramos que el título esté centrado */
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: #00ff88;  /* Línea decorativa verde debajo del título */
+} 
