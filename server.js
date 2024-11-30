@@ -29,18 +29,24 @@ const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Usar rutas
-app.use('/', landingRoutes);
-app.use('/servicios', serviceRoutes);
+// Usar rutas - El orden es importante
+app.use('/servicios', serviceRoutes);  // Primero las rutas específicas
 app.use('/auth', authRoutes);
+app.use('/', landingRoutes);  // La ruta raíz debe ir al final
 
-// Manejador de errores
+// Manejador de errores 404
+app.use((req, res, next) => {
+    res.status(404).render('404', {
+        title: 'Página no encontrada'
+    });
+});
+
+// Manejador de errores generales
 app.use((err, req, res, next) => {
     console.error(err.stack);
-    res.status(500).json({
-        success: false,
-        message: 'Hubo un error en el servidor',
-        error: err.message
+    res.status(500).render('error', {
+        title: 'Error',
+        message: 'Hubo un error en el servidor'
     });
 });
 
