@@ -10,6 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configuración de archivos estáticos
 app.use(express.static(path.join(__dirname, 'src/public')));
 
+// Configuración de vistas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
@@ -24,11 +25,13 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cryptotra
 });
 
 // Importar rutas
+const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
 // Usar rutas
-app.use('/', serviceRoutes);
+app.use('/', landingRoutes);
+app.use('/servicios', serviceRoutes);
 app.use('/auth', authRoutes);
 
 // Manejador de errores
@@ -44,4 +47,6 @@ app.use((err, req, res, next) => {
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
-}); 
+});
+
+module.exports = app;
