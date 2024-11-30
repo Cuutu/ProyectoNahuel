@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= service.name %> - CryptoTrading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/service-detail.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="/" class="logo">CryptoTrading</a>
+            
+            <button class="mobile-menu-btn">
+                <span class="hamburger-icon">☰</span>
+            </button>
+
+            <nav class="nav-links">
+                <a href="/servicios">Servicios</a>
+                <a href="/entrenamientos">Entrenamientos</a>
+                <a href="#asesoramientos">Asesoramientos</a>
+                <a href="#mentoring">Mentoring</a>
+                <a href="#recursos">Recursos</a>
+                <div class="auth-buttons">
+                    <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
+                    <a href="/auth/register" class="auth-btn register">Registrarse</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <h1><%= service.name %></h1>
+            <p class="service-description"><%= service.description %></p>
+        </div>
+    </section>
+
+    <!-- Detalles del Servicio -->
+    <section class="service-details">
+        <div class="container">
+            <div class="service-content">
+                <div class="features-list">
+                    <h2>Características Incluidas</h2>
+                    <ul>
+                        <% service.features.forEach(feature => { %>
+                            <li><%= feature %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card">
+                    <h3>Precio</h3>
+                    <div class="price">$<%= service.price %>/mes</div>
+                    <button class="cta-button" onclick="window.location.href='/checkout/<%= service.name.toLowerCase().replace(/\s+/g, '-') %>'">
+                        Contratar Ahora
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/navbar.js"></script>
+</body>
+</html> 
