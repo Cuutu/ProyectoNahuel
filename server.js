@@ -1,53 +1,45 @@
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 const app = express();
 
-// Configuración de archivos estáticos - usando la ruta correcta
+// Middleware para parsear el body de las peticiones
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Configuración de archivos estáticos
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Rutas
-app.get('/', (req, res) => {
-    res.render('landing', {
-        title: "Domina el Trading y las Criptomonedas",
-        description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
-        video: {
-            id: "tu-id-de-youtube"
-        },
-        ctaButton: {
-            url: "#unirme",
-            text: "¡Unirme Ahora!"
-        }
-    });
+// Conexión a MongoDB
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cryptotrading', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+    console.log('Conexión a MongoDB establecida');
+}).catch(err => {
+    console.error('Error conectando a MongoDB:', err);
 });
 
+// Importar rutas
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
-const session = require('express-session');
-const mongoose = require('mongoose');
 
-// Configuración de MongoDB
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-// Configuración de sesión
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'tu_secreto',
-  resave: false,
-  saveUninitialized: false
-}));
-
-// Middleware para parsear JSON
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Rutas
+// Usar rutas
 app.use('/', serviceRoutes);
 app.use('/auth', authRoutes);
+
+// Manejador de errores
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        success: false,
+        message: 'Hubo un error en el servidor',
+        error: err.message
+    });
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
