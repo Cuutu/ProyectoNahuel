@@ -1,24 +1,11 @@
 const express = require('express');
 const router = express.Router();
 
+// Ruta para la página principal (landing)
 router.get('/', (req, res) => {
     res.render('landing', {
-        title: "Domina el Trading y las Criptomonedas",
-        description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
-        video: {
-            type: "youtube",
-            id: "4OVC776mrfo"
-        },
-        features: [
-            "Análisis técnico profesional",
-            "Estrategias de trading probadas",
-            "Gestión de riesgo y capital",
-            "Señales de trading en tiempo real"
-        ],
-        ctaButton: {
-            text: "¡Comienza Ahora!",
-            url: "/registro"
-        }
+        title: 'CryptoTrading - Tu plataforma de trading',
+        description: 'Aprende a operar en el mercado de criptomonedas con expertos'
     });
 });
 
