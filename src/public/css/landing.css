@@ -549,3 +549,53 @@ body {
     height: 3px;
     background: #00ff88;  /* Línea decorativa verde debajo del título */
 } 
+
+/* Agregar estos estilos al final del archivo */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.auth-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-btn.login {
+    background-color: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.auth-btn.login:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.auth-btn.register {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.auth-btn.register:hover {
+    background-color: #0056b3;
+}
+
+/* Ajuste para dispositivos móviles */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-top: 15px;
+        margin-left: 0;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .auth-btn {
+        width: 100%;
+        text-align: center;
+    }
+} 

@@ -12,6 +12,24 @@
     <link rel="stylesheet" href="/css/services.css">
 </head>
 <body>
-    <%- include('navbar') %>
+    <header>
+        <nav class="navbar">
+            <%- include('navbar') %>
+            
+            <div class="auth-buttons">
+                <% if (locals.user) { %>
+                    <div class="user-menu">
+                        <span>Hola, <%= user.nombre %></span>
+                        <form action="/auth/logout" method="POST" class="logout-form">
+                            <button type="submit">Cerrar Sesión</button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
+                    <a href="/auth/register" class="auth-btn register">Registrarse</a>
+                <% } %>
+            </div>
+        </nav>
+    </header>
 </body>
 </html> 
