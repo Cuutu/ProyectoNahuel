@@ -3,66 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>CryptoTrading - Tu plataforma de trading</title>
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
-    <!-- HEADER -->
     <%- include('./partials/header') %>
 
-    <!-- VIDEO SECTION -->
-    <section id="video" class="video-section" data-animate="fade-up">
-        <div class="container">
-            <div class="video-wrapper">
-                <iframe 
-                    src="https://player.vimeo.com/video/1019511294?speed=0&color=ff9c00&muted=1&autoplay=1&pip=0&loop=1&quality=undefined&app_id=122963&texttrack=undefined"
-                    frameborder="0" 
-                    allowfullscreen>
-                </iframe>
+    <main>
+        <!-- Hero Section -->
+        <section class="unirme-section">
+            <div class="container">
+                <h2>¡ÚNETE A NUESTRA COMUNIDAD!</h2>
+                <p>Aprende a operar en el mercado de criptomonedas con expertos</p>
+                <a href="<%= taButton.url %>" class="cta-button">UNIRME AHORA</a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- UNIRME SECTION -->
-    <section class="unirme-section">
-        <div class="container">
-            <a href="<%= ctaButton.url %>" class="cta-button">¡UNIRME AHORA!</a>
-        </div>
-    </section>
+        <!-- Resto de las secciones -->
+        <!-- ... tu contenido actual ... -->
+    </main>
 
-    <!-- INFO SECTIONS -->
-    <section id="info" class="info-section">
-        <div class="container">
-            <div class="info-block">
-                <h2>Análisis técnico profesional</h2>
-                <p>Aprende las mejores estrategias del mercado</p>
-            </div>
-            
-            <div class="info-block">
-                <h2>Estrategias de trading probadas</h2>
-                <p>Metodologías que funcionan en el mundo real</p>
-            </div>
-            
-            <div class="info-block">
-                <h2>Gestión de riesgo y capital</h2>
-                <p>Protege y maximiza tu inversión</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACTO SECTION -->
-    <section id="contacto" class="contact-section">
-        <div class="container">
-            <h2>Contacto</h2>
-            <form class="contact-form">
-                <input type="email" placeholder="Tu email">
-                <button type="submit" class="cta-button">Enviar</button>
-            </form>
-        </div>
-    </section>
-
+    <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
 
     <!-- Agregar antes del cierre del body -->

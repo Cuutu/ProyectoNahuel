@@ -12,12 +12,25 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Importar rutas
-const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Usar rutas
-app.use('/', landingRoutes);  // La ruta principal debe ir primero
+// Ruta principal
+app.get('/', async (req, res) => {
+    try {
+        console.log('Renderizando landing page...');
+        return res.render('landing', {
+            title: 'CryptoTrading - Inicio'
+        });
+    } catch (error) {
+        console.error('Error al renderizar landing:', error);
+        return res.status(500).render('error', {
+            message: 'Error al cargar la página principal'
+        });
+    }
+});
+
+// Rutas de servicios y auth
 app.use('/servicios', serviceRoutes);
 app.use('/auth', authRoutes);
 
@@ -48,6 +61,7 @@ app.get('/recursos', (req, res) => {
 
 // Manejador de errores 404
 app.use((req, res) => {
+    console.log('404 - Ruta no encontrada:', req.url);
     res.status(404).render('404', {
         title: 'Página no encontrada'
     });
@@ -55,7 +69,7 @@ app.use((req, res) => {
 
 // Manejador de errores
 app.use((err, req, res, next) => {
-    console.error('Error:', err);
+    console.error('Error en la aplicación:', err);
     res.status(500).render('error', {
         title: 'Error',
         message: 'Hubo un error en el servidor'
