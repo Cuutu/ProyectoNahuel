@@ -597,3 +597,52 @@ body {
         text-align: center;
     }
 } 
+
+/* Agregar al final del archivo */
+.hero-section {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    color: white;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+} 
+
+/* Reset de estilos globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden; /* Previene scroll horizontal */
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    padding-top: 70px; /* Mantener el espacio para el header fijo */
+}
+
+/* Asegurar que los contenedores principales no tengan márgenes */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+} 
