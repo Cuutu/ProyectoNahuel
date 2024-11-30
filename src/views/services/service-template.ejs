@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/services.css">
     <link rel="stylesheet" href="/css/service-detail.css">
+    <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -36,8 +37,10 @@
     <!-- Hero Section -->
     <section class="service-hero">
         <div class="container">
-            <h1><%= service.name %></h1>
-            <p class="service-description"><%= service.description %></p>
+            <h1 data-animate="fade-down"><%= service.name %></h1>
+            <p class="service-description" data-animate="fade-up" data-delay="200">
+                <%= service.description %>
+            </p>
         </div>
     </section>
 
@@ -45,7 +48,7 @@
     <section class="service-details">
         <div class="container">
             <div class="service-content">
-                <div class="features-list">
+                <div class="features-list" data-animate="fade-right">
                     <h2>Características Incluidas</h2>
                     <ul>
                         <% service.features.forEach(feature => { %>
@@ -54,7 +57,7 @@
                     </ul>
                 </div>
                 
-                <div class="pricing-card">
+                <div class="pricing-card" data-animate="fade-left" data-delay="200">
                     <h3>Precio</h3>
                     <div class="price">$<%= service.price %>/mes</div>
                     <button class="cta-button" onclick="window.location.href='/checkout/<%= service.name.toLowerCase().replace(/\s+/g, '-') %>'">
@@ -66,5 +69,6 @@
     </section>
 
     <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
 </body>
 </html> 

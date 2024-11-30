@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
     <!-- HEADER -->
@@ -46,11 +47,11 @@
     <!-- SERVICIOS SECTION -->
     <section class="services-section">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios Premium</h2>
+            <h2 class="section-title" data-animate="fade-up">Nuestros Servicios Premium</h2>
             
             <div class="services-grid">
                 <!-- Señales Premium -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="100">
                     <div class="card-header">
                         <h3>Señales Premium</h3>
                         <p>Señales de trading en tiempo real con alta precisión</p>
@@ -68,7 +69,7 @@
                 </div>
 
                 <!-- Mentoría PRO -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="200">
                     <div class="card-header">
                         <h3>Mentoría PRO</h3>
                         <p>Formación personalizada con traders expertos</p>
@@ -87,7 +88,7 @@
                 </div>
 
                 <!-- Comunidad VIP -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="300">
                     <div class="card-header">
                         <h3>Comunidad VIP</h3>
                         <p>Acceso exclusivo a nuestra comunidad de traders</p>
@@ -167,5 +168,6 @@
     </section>
 
     <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
 </body>
 </html> 
