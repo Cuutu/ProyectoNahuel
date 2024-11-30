@@ -3,45 +3,31 @@ const path = require('path');
 const mongoose = require('mongoose');
 const app = express();
 
-// Middleware para parsear el body de las peticiones
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Configuración de archivos estáticos
 app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Configuración de vistas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Conexión a MongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/cryptotrading', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Conexión a MongoDB establecida');
-}).catch(err => {
-    console.error('Error conectando a MongoDB:', err);
-});
-
 // Importar rutas
 const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Usar rutas - El orden es importante
-app.use('/servicios', serviceRoutes);  // Primero las rutas específicas
+// Configurar rutas
 app.use('/auth', authRoutes);
-app.use('/', landingRoutes);  // La ruta raíz debe ir al final
+app.use('/servicios', serviceRoutes);
+app.use('/', landingRoutes);  // Esta ruta maneja tanto la página principal como otras rutas base
 
-// Manejador de errores 404
-app.use((req, res, next) => {
-    res.status(404).render('404', {
-        title: 'Página no encontrada'
-    });
+// Manejador de 404
+app.use((req, res) => {
+    res.status(404).render('404', { title: 'Página no encontrada' });
 });
 
-// Manejador de errores generales
+// Manejador de errores
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('error', {
