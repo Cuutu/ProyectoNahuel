@@ -3,35 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Iniciar Sesión - CryptoTrading</title>
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/auth.css">
 </head>
 <body>
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">CryptoTrading</a>
-            
-            <!-- Botón hamburguesa -->
-            <button class="mobile-menu-btn">
-                <span class="hamburger-icon">☰</span>
-            </button>
-
-            <!-- Nav links -->
-            <nav class="nav-links">
-                <a href="/servicios">Servicios</a>
-                <a href="/entrenamientos">Entrenamientos</a>
-                <a href="/asesoramientos">Asesoramientos</a>
-                <a href="/mentoring">Mentoring</a>
-                <a href="/recursos">Recursos</a>
-                <div class="auth-buttons">
-                    <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
-                    <a href="/auth/register" class="auth-btn register">Registrarse</a>
-                </div>
-            </nav>
-        </div>
-    </header>
+    <%- include('../partials/header') %>
     
     <div class="auth-container">
         <div class="auth-form">
