@@ -24,8 +24,30 @@ app.get('/', (req, res) => {
 });
 
 const serviceRoutes = require('./src/routes/serviceRoutes');
+const authRoutes = require('./src/routes/authRoutes');
+const session = require('express-session');
+const mongoose = require('mongoose');
 
+// Configuración de MongoDB
+mongoose.connect(process.env.MONGODB_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
+
+// Configuración de sesión
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'tu_secreto',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Middleware para parsear JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Rutas
 app.use('/', serviceRoutes);
+app.use('/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
