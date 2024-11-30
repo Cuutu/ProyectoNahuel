@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const mongoose = require('mongoose');
 const app = express();
 
 // Middleware
@@ -13,23 +12,62 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Importar rutas
-const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Configurar rutas
-app.use('/auth', authRoutes);
-app.use('/servicios', serviceRoutes);
-app.use('/', landingRoutes);  // Esta ruta maneja tanto la página principal como otras rutas base
+// Ruta principal (debe ir antes de las otras rutas)
+app.get('/', (req, res) => {
+    try {
+        res.render('landing', {
+            title: 'CryptoTrading - Tu plataforma de trading'
+        });
+    } catch (error) {
+        console.error('Error al renderizar landing:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar la página principal'
+        });
+    }
+});
 
-// Manejador de 404
+// Rutas de servicios y auth
+app.use('/servicios', serviceRoutes);
+app.use('/auth', authRoutes);
+
+// Rutas adicionales
+app.get('/entrenamientos', (req, res) => {
+    res.render('training', {
+        title: 'Entrenamientos'
+    });
+});
+
+app.get('/asesoramientos', (req, res) => {
+    res.render('consulting', {
+        title: 'Asesoramientos'
+    });
+});
+
+app.get('/mentoring', (req, res) => {
+    res.render('mentoring', {
+        title: 'Mentoring'
+    });
+});
+
+app.get('/recursos', (req, res) => {
+    res.render('resources', {
+        title: 'Recursos'
+    });
+});
+
+// Manejador de errores 404
 app.use((req, res) => {
-    res.status(404).render('404', { title: 'Página no encontrada' });
+    res.status(404).render('404', {
+        title: 'Página no encontrada'
+    });
 });
 
 // Manejador de errores
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    console.error('Error:', err);
     res.status(500).render('error', {
         title: 'Error',
         message: 'Hubo un error en el servidor'
