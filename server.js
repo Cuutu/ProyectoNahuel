@@ -20,7 +20,10 @@ app.get('/', async (req, res) => {
     try {
         console.log('Renderizando landing page...');
         return res.render('landing', {
-            title: 'CryptoTrading - Inicio'
+            title: 'CryptoTrading - Inicio',
+            taButton: {
+                url: '/servicios'
+            }
         });
     } catch (error) {
         console.error('Error al renderizar landing:', error);
