@@ -16,37 +16,102 @@
             <div class="container">
                 <h2>¡ÚNETE A NUESTRA COMUNIDAD!</h2>
                 <p>Aprende a operar en el mercado de criptomonedas con expertos</p>
-                <a href="<%= taButton.url %>" class="cta-button">UNIRME AHORA</a>
+                <a href="/servicios" class="cta-button">UNIRME AHORA</a>
             </div>
         </section>
 
-        <!-- Resto de las secciones -->
-        <!-- ... tu contenido actual ... -->
+        <!-- Servicios Premium Section -->
+        <section class="servicios-section">
+            <h2>Nuestros Servicios Premium</h2>
+            <div class="services-container">
+                <!-- Señales Premium -->
+                <div class="service-card">
+                    <h3>Señales Premium</h3>
+                    <ul>
+                        <li>Señales de trading en tiempo real con alta precisión</li>
+                        <li>Señales 24/7 en tiempo real</li>
+                        <li>Setup completo de entrada</li>
+                        <li>Stop Loss y Take Profit</li>
+                        <li>Análisis de mercado diario</li>
+                    </ul>
+                    <button class="cta-button" onclick="window.location.href='/servicios/senales-premium'">
+                        COMENZAR AHORA
+                    </button>
+                </div>
+
+                <!-- Mentoría PRO -->
+                <div class="service-card">
+                    <h3>Mentoría PRO</h3>
+                    <ul>
+                        <li>Formación personalizada con traders expertos</li>
+                        <li>Sesiones personalizadas</li>
+                        <li>Plan de trading individual</li>
+                        <li>Revisión de operaciones</li>
+                        <li>Soporte prioritario 24/7</li>
+                    </ul>
+                    <button class="cta-button" onclick="window.location.href='/servicios/mentoria-pro'">
+                        RESERVAR MENTORÍA
+                    </button>
+                </div>
+
+                <!-- Comunidad VIP -->
+                <div class="service-card">
+                    <h3>Comunidad VIP</h3>
+                    <ul>
+                        <li>Acceso exclusivo a nuestra comunidad de traders</li>
+                        <li>Chat grupal en tiempo real</li>
+                        <li>Webinars semanales</li>
+                        <li>Biblioteca de recursos</li>
+                        <li>Eventos exclusivos</li>
+                    </ul>
+                    <button class="cta-button" onclick="window.location.href='/servicios/comunidad-vip'">
+                        UNIRSE AHORA
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas Section -->
+        <section class="stats-section">
+            <div class="stats-container">
+                <div class="stat-item">
+                    <img src="/images/traders-icon.png" alt="Traders icon">
+                    <h3>1,500+</h3>
+                    <p>Traders Activos</p>
+                    <span>en Señales Premium</span>
+                </div>
+
+                <div class="stat-item">
+                    <img src="/images/students-icon.png" alt="Students icon">
+                    <h3>500+</h3>
+                    <p>Alumnos</p>
+                    <span>en Mentoría PRO</span>
+                </div>
+
+                <div class="stat-item">
+                    <img src="/images/members-icon.png" alt="Members icon">
+                    <h3>2,500+</h3>
+                    <p>Miembros VIP</p>
+                    <span>en nuestra Comunidad</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regalo Section -->
+        <section class="regalo-section">
+            <div class="container">
+                <h2>¡OBTENÉ TU REGALO!</h2>
+                <p>Guía PDF: "5 Estrategias Secretas de Trading Cripto"</p>
+                <form class="regalo-form" action="/descargar-guia" method="POST">
+                    <input type="email" name="email" placeholder="Tu mejor email" required>
+                    <button type="submit" class="cta-button">DESCARGAR AHORA</button>
+                </form>
+                <small>No compartimos tu información con nadie</small>
+            </div>
+        </section>
     </main>
 
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
-
-    <!-- Agregar antes del cierre del body -->
-    <div id="leadPopup" class="popup-overlay">
-        <div class="popup-content">
-            <button class="close-popup">&times;</button>
-            <div class="popup-header">
-                <h3>¡OBTENÉ TU REGALO!</h3>
-                <p>Guía PDF: "5 Estrategias Secretas de Trading Cripto"</p>
-            </div>
-            <form id="leadForm" class="lead-form">
-                <input type="email" placeholder="Tu mejor email" required>
-                <button type="submit" class="cta-button">DESCARGAR AHORA</button>
-            </form>
-            <p class="privacy-text">No compartimos tu información con nadie</p>
-        </div>
-    </div>
-
-    <script src="/js/popup.js"></script>
-
-    <script src="/js/animations.js"></script>
-
-    <!-- Siguiente sección o cierre del archivo -->
 </body>
 </html> 
