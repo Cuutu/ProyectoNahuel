@@ -1,36 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-// Ruta para la página principal
 router.get('/', (req, res) => {
-    res.render('landing', {
-        title: 'CryptoTrading - Tu plataforma de trading'
-    });
-});
-
-// Rutas adicionales
-router.get('/entrenamientos', (req, res) => {
-    res.render('training', {
-        title: 'Entrenamientos'
-    });
-});
-
-router.get('/asesoramientos', (req, res) => {
-    res.render('consulting', {
-        title: 'Asesoramientos'
-    });
-});
-
-router.get('/mentoring', (req, res) => {
-    res.render('mentoring', {
-        title: 'Mentoring'
-    });
-});
-
-router.get('/recursos', (req, res) => {
-    res.render('resources', {
-        title: 'Recursos'
-    });
+    try {
+        res.render('landing');
+    } catch (error) {
+        console.error('Error al renderizar landing:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar la página principal'
+        });
+    }
 });
 
 module.exports = router; 

@@ -40,12 +40,6 @@
     --gray-800: #343a40;
 }
 
-*{
-    margin: 0%;
-    padding: 0%;
-    box-sizing: border-box;
-}
-
 /* Estilos base */
 body {
     background-color: var(--light);

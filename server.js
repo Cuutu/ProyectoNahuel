@@ -12,24 +12,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Importar rutas
+const landingRoutes = require('./src/routes/landingRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Ruta principal (debe ir antes de las otras rutas)
-app.get('/', (req, res) => {
-    try {
-        res.render('landing', {
-            title: 'CryptoTrading - Tu plataforma de trading'
-        });
-    } catch (error) {
-        console.error('Error al renderizar landing:', error);
-        res.status(500).render('error', {
-            message: 'Error al cargar la página principal'
-        });
-    }
-});
-
-// Rutas de servicios y auth
+// Usar rutas
+app.use('/', landingRoutes);  // La ruta principal debe ir primero
 app.use('/servicios', serviceRoutes);
 app.use('/auth', authRoutes);
 
