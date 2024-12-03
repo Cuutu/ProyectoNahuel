@@ -27,7 +27,7 @@ exports.register = async (req, res, next) => {
         if (!email.endsWith('@gmail.com')) {
             return res.status(400).json({
                 success: false,
-                message: 'Solo se permiten correos de @gmail.com'
+                message: 'Solo se permiten correos de @gmail.com.'
             });
         }
 
