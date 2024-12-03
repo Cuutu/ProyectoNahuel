@@ -6,14 +6,20 @@ const connectDB = require('./src/config/database');
 
 const app = express();
 
-// Configuración básica de sesión
+// Conectar a la base de datos
+connectDB();
+
+// Configuración de sesión (ANTES de cualquier middleware o ruta)
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 24 horas
+    }
 }));
 
-// Middleware para pasar el usuario a las vistas
+// Middleware para pasar usuario a las vistas
 app.use((req, res, next) => {
     res.locals.user = req.session.user;
     next();
@@ -24,25 +30,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'src/public')));
 
-// Conectar a la base de datos
-connectDB();
-
 // Configuración de vistas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Importar rutas
+// Rutas
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
-// Ruta principal
 app.get('/', (req, res) => {
     res.render('landing', {
         title: 'CryptoTrading - Inicio'
     });
 });
 
-// Usar rutas
 app.use('/servicios', serviceRoutes);
 app.use('/auth', authRoutes);
 
