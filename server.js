@@ -18,10 +18,10 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60 // 1 día
+        ttl: 24 * 60 * 60
     }),
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000 // 1 día
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
@@ -37,9 +37,15 @@ app.use(express.static(path.join(__dirname, 'src/public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-// Rutas
-app.use('/auth', require('./src/routes/authRoutes'));
-app.use('/user', require('./src/routes/userRoutes'));
+// Importar todas las rutas
+const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
+const serviceRoutes = require('./src/routes/serviceRoutes');
+
+// Usar las rutas
+app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
+app.use('/servicios', serviceRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
