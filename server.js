@@ -14,33 +14,36 @@ connectDB();
 
 // Configuración de sesión actualizada
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
         ttl: 24 * 60 * 60,
         autoRemove: 'native',
+        touchAfter: 24 * 3600,
         crypto: {
-            secret: process.env.SESSION_SECRET
-        },
-        touchAfter: 24 * 3600
+            secret: process.env.SESSION_SECRET || 'tu_secreto_seguro'
+        }
     }),
     cookie: {
         maxAge: 24 * 60 * 60 * 1000,
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         sameSite: 'lax'
-    }
+    },
+    name: 'sessionId'
 }));
 
-// Middleware para pasar usuario a las vistas
+// Middleware para manejar la sesión en todas las rutas
 app.use((req, res, next) => {
-    res.locals.user = req.session.user;
+    if (req.session) {
+        req.session.touch();
+    }
     next();
 });
 
-// Middleware global para usuario
+// Middleware para pasar usuario a las vistas
 app.use(loadUser);
 
 // Middlewares básicos

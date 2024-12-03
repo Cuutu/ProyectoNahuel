@@ -65,7 +65,6 @@ const authController = {
         try {
             const { email, password } = req.body;
 
-            // Buscar usuario
             const user = await User.findOne({ email });
             if (!user) {
                 return res.render('auth/login', {
@@ -73,7 +72,6 @@ const authController = {
                 });
             }
 
-            // Verificar contraseña
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.render('auth/login', {
@@ -81,7 +79,7 @@ const authController = {
                 });
             }
 
-            // Crear sesión
+            // Crear sesión con información completa
             req.session.user = {
                 id: user._id,
                 email: user.email,
@@ -89,7 +87,7 @@ const authController = {
                 apellido: user.apellido
             };
 
-            // Guardar sesión explícitamente
+            // Guardar sesión de forma explícita
             req.session.save((err) => {
                 if (err) {
                     console.error('Error al guardar la sesión:', err);
@@ -112,9 +110,8 @@ const authController = {
         req.session.destroy((err) => {
             if (err) {
                 console.error('Error al cerrar sesión:', err);
-                return res.redirect('/');
             }
-            res.clearCookie('connect.sid'); // Limpiar la cookie de sesión
+            res.clearCookie('sessionId'); // Usar el mismo nombre que configuramos
             res.redirect('/');
         });
     }
