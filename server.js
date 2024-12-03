@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-// Middleware para verificar el estado de la conexión.
+// Middleware para verificar el estado de la conexión
 app.use(async (req, res, next) => {
     if (!mongoose.connection.readyState) {
         try {
