@@ -65,18 +65,16 @@ exports.login = async (req, res) => {
         // Verificar si el usuario existe
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({
-                success: false,
-                message: 'Email o contraseña incorrectos'
+            return res.render('auth/login', {
+                error: 'Email o contraseña incorrectos'
             });
         }
 
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({
-                success: false,
-                message: 'Email o contraseña incorrectos'
+            return res.render('auth/login', {
+                error: 'Email o contraseña incorrectos'
             });
         }
 
@@ -87,14 +85,13 @@ exports.login = async (req, res) => {
             email: user.email
         };
 
-        // Redireccionar al dashboard o home
-        res.redirect('/dashboard');
+        // Redireccionar al home
+        res.redirect('/');
 
     } catch (error) {
         console.error('Error en login:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error al iniciar sesión'
+        res.render('auth/login', {
+            error: 'Error al iniciar sesión'
         });
     }
 };

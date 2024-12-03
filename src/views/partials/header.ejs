@@ -12,10 +12,20 @@
             <a href="/asesoramientos">Asesoramientos</a>
             <a href="/mentoring">Mentoring</a>
             <a href="/recursos">Recursos</a>
-            <div class="auth-buttons">
-                <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
-                <a href="/auth/register" class="auth-btn register">Registrarse</a>
-            </div>
+            
+            <% if (locals.user) { %>
+                <div class="user-menu">
+                    <a href="/perfil" class="profile-link">Mi Perfil</a>
+                    <form action="/auth/logout" method="POST" class="logout-form">
+                        <button type="submit">Cerrar Sesión</button>
+                    </form>
+                </div>
+            <% } else { %>
+                <div class="auth-buttons">
+                    <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
+                    <a href="/auth/register" class="auth-btn register">Registrarse</a>
+                </div>
+            <% } %>
         </nav>
     </div>
 </header> 

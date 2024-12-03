@@ -108,6 +108,11 @@ app.use(session({
     }
 }));
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {
     try {
