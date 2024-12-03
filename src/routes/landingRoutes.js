@@ -2,24 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.render('landing', {
-        title: "Domina el Trading y las Criptomonedas",
-        description: "Aprende a generar ingresos en el mercado financiero con estrategias probadas y mentorías personalizadas",
-        video: {
-            type: "youtube",
-            id: "4OVC776mrfo"
-        },
-        features: [
-            "Análisis técnico profesional",
-            "Estrategias de trading probadas",
-            "Gestión de riesgo y capital",
-            "Señales de trading en tiempo real"
-        ],
-        ctaButton: {
-            text: "¡Comienza Ahora!",
-            url: "/registro"
-        }
-    });
+    try {
+        res.render('landing');
+    } catch (error) {
+        console.error('Error al renderizar landing:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar la página principal'
+        });
+    }
 });
 
 module.exports = router; 

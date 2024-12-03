@@ -50,49 +50,47 @@ body {
 
 /* Header con efecto glassmorphism */
 .header {
-    background: #000000;
-    width: 100%;
-    padding: 1.1rem 0;
+    background-color: #000;
+    padding: 15px 0;
     position: fixed;
+    width: 100%;
     top: 0;
-    left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .nav-container {
-    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
 }
 
 .logo {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 24px;
+    font-weight: 700;
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
-    margin-left: auto;
+    align-items: center;
+    gap: 30px;
 }
 
 .nav-links a {
-    color: white;
+    color: #fff;
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 14px;
+    font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: var(--accent);
+    color: #007bff;
 }
 
 /* Video section con sombra elegante */
@@ -548,4 +546,77 @@ body {
     width: 100px;
     height: 3px;
     background: #00ff88;  /* Línea decorativa verde debajo del título */
+} 
+
+/* Agregar estos estilos al final del archivo */
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.auth-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.auth-btn.login {
+    background-color: transparent;
+    color: #007bff;
+    border: 1px solid #007bff;
+}
+
+.auth-btn.login:hover {
+    background-color: rgba(0, 123, 255, 0.1);
+}
+
+.auth-btn.register {
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+}
+
+.auth-btn.register:hover {
+    background-color: #0056b3;
+}
+
+/* Ajuste para dispositivos móviles */
+@media (max-width: 768px) {
+    .auth-buttons {
+        margin-top: 15px;
+        margin-left: 0;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .auth-btn {
+        width: 100%;
+        text-align: center;
+    }
+} 
+
+/* Agregar al final del archivo */
+.hero-section {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(135deg, #1a237e 0%, #0d47a1 100%);
+    color: white;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
 } 

@@ -3,32 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Servicios - CryptoTrading</title>
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">CryptoTrading</a>
-            
-            <!-- Botón hamburguesa -->
-            <button class="mobile-menu-btn">
-                <span class="hamburger-icon">☰</span>
-            </button>
+    
+    <%- include('./partials/header') %>
 
-            <!-- Nav links -->
-            <nav class="nav-links">
-                <a href="/servicios">Servicios</a>
-                <a href="#entrenamientos">Entrenamientos</a>
-                <a href="#asesoramientos">Asesoramientos</a>
-                <a href="#mentoring">Mentoring</a>
-                <a href="#recursos">Recursos</a>
-            </nav>
-        </div>
-    </header>
 
     <!-- Video de Vimeo primero -->
     <div class="video-container">
@@ -42,11 +25,11 @@
     <!-- SERVICIOS SECTION -->
     <section class="services-section">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios Premium</h2>
+            <h2 class="section-title" data-animate="fade-up">Nuestros Servicios Premium</h2>
             
             <div class="services-grid">
                 <!-- Señales Premium -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="100">
                     <div class="card-header">
                         <h3>Señales Premium</h3>
                         <p>Señales de trading en tiempo real con alta precisión</p>
@@ -58,13 +41,13 @@
                         <li>Análisis de mercado diario</li>
                     </ul>
                     
-                    <button class="cta-button">
+                    <button class="cta-button" onclick="window.location.href='/servicios/senales-premium'">
                         Comenzar Ahora
                     </button>
                 </div>
 
                 <!-- Mentoría PRO -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="200">
                     <div class="card-header">
                         <h3>Mentoría PRO</h3>
                         <p>Formación personalizada con traders expertos</p>
@@ -77,13 +60,13 @@
                         <li>Soporte prioritario 24/7</li>
                     </ul>
                     
-                    <button class="cta-button">
+                    <button class="cta-button" onclick="window.location.href='/servicios/mentoria-pro'">
                         Reservar Mentoría
                     </button>
                 </div>
 
                 <!-- Comunidad VIP -->
-                <div class="service-card">
+                <div class="service-card" data-animate="fade-up" data-delay="300">
                     <div class="card-header">
                         <h3>Comunidad VIP</h3>
                         <p>Acceso exclusivo a nuestra comunidad de traders</p>
@@ -96,7 +79,7 @@
                         <li>Eventos exclusivos</li>
                     </ul>
                     
-                    <button class="cta-button">
+                    <button class="cta-button" onclick="window.location.href='/servicios/comunidad-vip'">
                         Unirse Ahora
                     </button>
                 </div>
@@ -163,5 +146,6 @@
     </section>
 
     <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
 </body>
 </html> 

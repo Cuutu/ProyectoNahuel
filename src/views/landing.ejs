@@ -3,40 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>CryptoTrading</title>
     <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/animations.css">
     <link rel="stylesheet" href="/css/popup.css">
 </head>
 <body>
     <!-- HEADER -->
-    <header class="header">
-        <div class="nav-container">
-            <a href="/" class="logo">CryptoTrading</a>
-            
-            <!-- Botón hamburguesa -->
-            <button class="mobile-menu-btn">
-                <span class="hamburger-icon">☰</span>
-            </button>
+    <%- include('./partials/header') %>
 
-            <!-- Nav links -->
-            <nav class="nav-links">
-                <a href="/servicios">Servicios</a>
-                <a href="/entrenamientos">Entrenamientos</a>
-                <a href="#asesoramientos">Asesoramientos</a>
-                <a href="#mentoring">Mentoring</a>
-                <a href="#recursos">Recursos</a>
-            </nav>
-        </div>
-    </header>
-
+    <main>
     <!-- VIDEO SECTION -->
-    <section id="video" class="video-section">
+    <section id="video" class="video-section" data-animate="fade-up">
         <div class="container">
             <div class="video-wrapper">
                 <iframe 
-                    src="https://player.vimeo.com/video/1019511294?speed=0&color=ff9c00&muted=1&autoplay=1&pip=0&loop=1&quality=undefined&app_id=122963&texttrack=undefined"
-                    frameborder="0" 
+                    src="https://player.vimeo.com/video/1019511294?h=7d6b5c2f25"
+                    width="100%"
+                    height="100%"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen>
                 </iframe>
             </div>
@@ -46,7 +32,7 @@
     <!-- UNIRME SECTION -->
     <section class="unirme-section">
         <div class="container">
-            <a href="<%= ctaButton.url %>" class="cta-button">¡UNIRME AHORA!</a>
+            <a href="/registro" class="cta-button">¡UNIRME AHORA!</a>
         </div>
     </section>
 
@@ -81,7 +67,8 @@
         </div>
     </section>
 
-    <script src="/js/navbar.js"></script>
+    </main>
+
 
     <!-- Agregar antes del cierre del body -->
     <div id="leadPopup" class="popup-overlay">
@@ -99,8 +86,9 @@
         </div>
     </div>
 
+    <script src="/js/navbar.js"></script>
     <script src="/js/popup.js"></script>
+    <script src="/js/animations.js"></script>
 
-    <!-- Siguiente sección o cierre del archivo -->
 </body>
 </html> 

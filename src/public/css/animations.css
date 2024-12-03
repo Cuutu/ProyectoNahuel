@@ -1,0 +1,42 @@
+/* Animaciones base */
+[data-animate] {
+    opacity: 0;
+    transition: all 0.6s ease-out;
+}
+
+[data-animate].animated {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Diferentes tipos de animaciones */
+[data-animate="fade-up"] {
+    transform: translateY(50px);
+}
+
+[data-animate="fade-down"] {
+    transform: translateY(-50px);
+}
+
+[data-animate="fade-left"] {
+    transform: translateX(-50px);
+}
+
+[data-animate="fade-right"] {
+    transform: translateX(50px);
+}
+
+[data-animate="zoom-in"] {
+    transform: scale(0.5);
+}
+
+/* Delays para secuencias */
+[data-delay="100"] { transition-delay: 0.1s; }
+[data-delay="200"] { transition-delay: 0.2s; }
+[data-delay="300"] { transition-delay: 0.3s; }
+[data-delay="400"] { transition-delay: 0.4s; }
+[data-delay="500"] { transition-delay: 0.5s; }
+
+/* Duraciones personalizadas */
+[data-duration="slow"] { transition-duration: 1s; }
+[data-duration="fast"] { transition-duration: 0.3s; } 
