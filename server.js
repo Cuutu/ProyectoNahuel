@@ -3,6 +3,7 @@ const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const app = express();
 
@@ -96,6 +97,16 @@ app.use((err, req, res, next) => {
         message: 'Hubo un error en el servidor'
     });
 });
+
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'super-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 1000 * 60 * 60 * 24 // 24 horas
+    }
+}));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, async () => {

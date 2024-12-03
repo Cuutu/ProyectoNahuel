@@ -58,32 +58,57 @@ exports.register = async (req, res, next) => {
     }
 };
 
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Buscar usuario
+        // Verificar si el usuario existe
         const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
                 success: false,
-                message: 'Credenciales inválidas'
+                message: 'Email o contraseña incorrectos'
             });
         }
 
         // Verificar contraseña
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) {
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
             return res.status(400).json({
                 success: false,
-                message: 'Credenciales inválidas'
+                message: 'Email o contraseña incorrectos'
             });
         }
 
         // Crear sesión
-        req.session.userId = user._id;
-        res.redirect('/'); // Redirigir al home después del login
+        req.session.user = {
+            id: user._id,
+            nombre: user.nombre,
+            email: user.email
+        };
+
+        // Redireccionar al dashboard o home
+        res.redirect('/dashboard');
+
     } catch (error) {
-        next(error);
+        console.error('Error en login:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al iniciar sesión'
+        });
     }
+};
+
+// Agregar método de logout
+exports.logout = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error al cerrar sesión:', err);
+            return res.status(500).json({
+                success: false,
+                message: 'Error al cerrar sesión'
+            });
+        }
+        res.redirect('/');
+    });
 }; 

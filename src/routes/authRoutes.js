@@ -2,15 +2,22 @@ const express = require('express');
 const router = express.Router();
 const authController = require('../controllers/authController');
 
-router.post('/register', authController.register);
-router.post('/login', authController.login);
-
+// Rutas de registro
 router.get('/register', (req, res) => {
-  res.render('auth/register');
+    res.render('auth/register', {
+        title: 'Registro - CryptoTrading'
+    });
 });
 
+router.post('/register', authController.register);
+
+// Rutas de login
 router.get('/login', (req, res) => {
-  res.render('auth/login');
+    res.render('auth/login', {
+        title: 'Login - CryptoTrading'
+    });
 });
+
+router.post('/login', authController.login);
 
 module.exports = router; 
