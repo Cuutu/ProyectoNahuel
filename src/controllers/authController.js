@@ -61,9 +61,14 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
+        
+        // Agregar logs para debug
+        console.log('Intento de login:', { email });
 
         // Verificar si el usuario existe
         const user = await User.findOne({ email });
+        console.log('Usuario encontrado:', user ? 'Sí' : 'No');
+
         if (!user) {
             return res.render('auth/login', {
                 error: 'Email o contraseña incorrectos'
@@ -72,6 +77,8 @@ exports.login = async (req, res) => {
 
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user.password);
+        console.log('Contraseña correcta:', isMatch ? 'Sí' : 'No');
+
         if (!isMatch) {
             return res.render('auth/login', {
                 error: 'Email o contraseña incorrectos'
@@ -84,14 +91,16 @@ exports.login = async (req, res) => {
             nombre: user.nombre,
             email: user.email
         };
+        
+        console.log('Sesión creada:', req.session.user);
 
         // Redireccionar al home
         res.redirect('/');
 
     } catch (error) {
-        console.error('Error en login:', error);
+        console.error('Error detallado en login:', error);
         res.render('auth/login', {
-            error: 'Error al iniciar sesión'
+            error: 'Error al iniciar sesión: ' + error.message
         });
     }
 };
