@@ -15,24 +15,20 @@ connectDB();
 // Configuración de sesión actualizada
 app.use(session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
         ttl: 24 * 60 * 60,
-        autoRemove: 'native',
-        touchAfter: 24 * 3600,
-        crypto: {
-            secret: process.env.SESSION_SECRET || 'tu_secreto_seguro'
-        }
+        autoRemove: 'native'
     }),
     cookie: {
         maxAge: 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         httpOnly: true,
         sameSite: 'lax'
     },
-    name: 'sessionId'
+    name: 'cryptoTrading'
 }));
 
 // Middleware para manejar la sesión en todas las rutas
@@ -40,6 +36,9 @@ app.use((req, res, next) => {
     if (req.session) {
         req.session.touch();
     }
+    console.log('Session ID:', req.sessionID);
+    console.log('Session:', req.session);
+    console.log('Cookies:', req.cookies);
     next();
 });
 

@@ -1,12 +1,15 @@
 const sessionCheck = (req, res, next) => {
+    // Log del estado actual de la sesión
+    console.log('=== Session Check ===');
+    console.log('Session exists:', !!req.session);
+    console.log('Session ID:', req.sessionID);
+    console.log('User in session:', req.session?.user);
+    console.log('Cookies:', req.headers.cookie);
+    console.log('==================');
+
     if (req.session && req.session.user) {
-        // Verificar si la sesión está próxima a expirar (por ejemplo, menos de 1 hora)
-        const horaParaExpirar = req.session.cookie.maxAge / (1000 * 60 * 60);
-        
-        if (horaParaExpirar < 1) {
-            // Renovar la sesión
-            req.session.touch();
-        }
+        // Renovar la sesión si existe
+        req.session.touch();
     }
     next();
 };

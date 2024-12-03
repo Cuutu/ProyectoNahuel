@@ -65,6 +65,7 @@ const authController = {
         try {
             const { email, password } = req.body;
 
+            // Buscar usuario
             const user = await User.findOne({ email });
             if (!user) {
                 return res.render('auth/login', {
@@ -72,6 +73,7 @@ const authController = {
                 });
             }
 
+            // Verificar contraseña
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.render('auth/login', {
@@ -79,23 +81,35 @@ const authController = {
                 });
             }
 
-            // Crear sesión con información completa
-            req.session.user = {
-                id: user._id,
-                email: user.email,
-                nombre: user.nombre,
-                apellido: user.apellido
-            };
-
-            // Guardar sesión de forma explícita
-            req.session.save((err) => {
+            // Limpiar cualquier sesión existente
+            req.session.regenerate(async function(err) {
                 if (err) {
-                    console.error('Error al guardar la sesión:', err);
+                    console.error('Error al regenerar sesión:', err);
                     return res.render('auth/login', {
                         error: 'Error al iniciar sesión'
                     });
                 }
-                res.redirect('/user/dashboard');
+
+                // Crear nueva sesión
+                req.session.user = {
+                    id: user._id,
+                    email: user.email,
+                    nombre: user.nombre,
+                    apellido: user.apellido
+                };
+
+                // Guardar sesión de forma explícita
+                req.session.save(function(err) {
+                    if (err) {
+                        console.error('Error al guardar sesión:', err);
+                        return res.render('auth/login', {
+                            error: 'Error al iniciar sesión'
+                        });
+                    }
+                    
+                    console.log('Sesión guardada:', req.session);
+                    res.redirect('/user/dashboard');
+                });
             });
 
         } catch (error) {
@@ -111,7 +125,7 @@ const authController = {
             if (err) {
                 console.error('Error al cerrar sesión:', err);
             }
-            res.clearCookie('sessionId'); // Usar el mismo nombre que configuramos
+            res.clearCookie('cryptoTrading'); // Usar el mismo nombre que configuramos
             res.redirect('/');
         });
     }
