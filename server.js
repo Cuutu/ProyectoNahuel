@@ -48,11 +48,13 @@ app.set('views', path.join(__dirname, 'src/views'));
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/userRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
+const trainingRoutes = require('./src/routes/trainingRoutes');
 
 // Usar las rutas
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/servicios', serviceRoutes);
+app.use('/entrenamientos', trainingRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
