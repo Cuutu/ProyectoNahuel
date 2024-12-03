@@ -12,8 +12,16 @@
     <%- include('../partials/header') %>
     
     <main class="training-detail-container">
+        <!-- Hero Section con Título -->
+        <section class="course-hero" data-animate="fade-up">
+            <div class="container">
+                <h1>Análisis Técnico</h1>
+                <p class="course-subtitle">Domina el arte del trading con análisis técnico profesional</p>
+            </div>
+        </section>
+
         <!-- Video Section -->
-        <section class="hero-section video-hero" data-animate="fade-up">
+        <section class="video-section" data-animate="fade-up">
             <div class="container">
                 <div class="video-wrapper">
                     <iframe 
@@ -28,19 +36,22 @@
             </div>
         </section>
 
-        <!-- Contador de Usuarios -->
+        <!-- Contador de Usuarios con Iconos -->
         <section class="stats-counter" data-animate="fade-up">
             <div class="container">
                 <div class="counter-wrapper">
                     <div class="counter-item">
+                        <i class="fas fa-users"></i>
                         <span class="counter-number">1,234</span>
                         <span class="counter-label">Estudiantes Activos</span>
                     </div>
                     <div class="counter-item">
+                        <i class="fas fa-star"></i>
                         <span class="counter-number">98%</span>
                         <span class="counter-label">Satisfacción</span>
                     </div>
                     <div class="counter-item">
+                        <i class="fas fa-chart-line"></i>
                         <span class="counter-number">4.8</span>
                         <span class="counter-label">Valoración</span>
                     </div>
@@ -48,10 +59,34 @@
             </div>
         </section>
 
-        <!-- Roadmap Section -->
+        <!-- Características Destacadas -->
+        <section class="features-section" data-animate="fade-up">
+            <div class="container">
+                <h2>¿Por qué elegir este curso?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-book-open"></i>
+                        <h3>Contenido Actualizado</h3>
+                        <p>Material didáctico actualizado con las últimas tendencias del mercado</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-hands-helping"></i>
+                        <h3>Soporte Personalizado</h3>
+                        <p>Acceso directo a mentores expertos para resolver tus dudas</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h3>Práctica Real</h3>
+                        <p>Ejercicios prácticos en mercados reales</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap con Diseño Moderno -->
         <section class="roadmap-section" data-animate="fade-up">
             <div class="container">
-                <h2>Roadmap del Entrenamiento</h2>
+                <h2>Tu Camino al Éxito</h2>
                 <div class="roadmap">
                     <div class="roadmap-item">
                         <div class="roadmap-content">
@@ -101,50 +136,28 @@
             </div>
         </section>
 
-        <!-- Course Content -->
-        <section class="course-content">
+        <!-- Sección de Precios Mejorada -->
+        <section class="pricing-section" data-animate="fade-up">
             <div class="container">
-                <div class="content-grid">
-                    <div class="main-content" data-animate="fade-up">
-                        <h2>¿Qué aprenderás?</h2>
-                        <ul class="learning-points">
-                            <li>Fundamentos del análisis técnico</li>
-                            <li>Patrones de velas japonesas</li>
-                            <li>Indicadores técnicos avanzados</li>
-                            <li>Análisis de tendencias</li>
-                            <li>Gestión del riesgo profesional</li>
-                        </ul>
-
-                        <h2>Descripción del curso</h2>
-                        <p>Este curso completo te llevará desde los conceptos básicos hasta las estrategias avanzadas del análisis técnico. Aprenderás a identificar patrones, usar indicadores y desarrollar tu propia estrategia de trading.</p>
-
-                        <h2>Incluye</h2>
-                        <ul class="course-features">
-                            <li>8 semanas de formación intensiva</li>
-                            <li>Acceso a comunidad privada</li>
-                            <li>Materiales descargables</li>
-                            <li>Ejercicios prácticos</li>
-                            <li>Certificado de finalización</li>
-                        </ul>
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Curso Completo</h3>
+                        <div class="price">$199.99</div>
                     </div>
-
-                    <div class="course-sidebar" data-animate="fade-left">
-                        <div class="price-card">
-                            <h3>Precio</h3>
-                            <div class="price">$199.99</div>
-                            <button class="cta-button">Inscribirme Ahora</button>
-                            <ul class="highlights">
-                                <li>Acceso de por vida</li>
-                                <li>Actualizaciones gratuitas</li>
-                                <li>Soporte personalizado</li>
-                            </ul>
-                        </div>
-                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Acceso de por vida</li>
+                        <li><i class="fas fa-check"></i> Certificado de finalización</li>
+                        <li><i class="fas fa-check"></i> Recursos descargables</li>
+                        <li><i class="fas fa-check"></i> Soporte premium</li>
+                    </ul>
+                    <button class="cta-button">Inscribirme Ahora</button>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
 </body>

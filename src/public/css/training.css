@@ -159,20 +159,36 @@
 
 /* Estilos para la página de detalle del curso */
 .course-hero {
-    background: var(--primary-dark);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
     color: white;
-    padding: 4rem 0;
+    padding: 6rem 0;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.course-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/img/pattern.png');
+    opacity: 0.1;
 }
 
 .course-hero h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 .course-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     opacity: 0.9;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .content-grid {
@@ -233,8 +249,8 @@
 
 /* Estilos para el contador */
 .stats-counter {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
     padding: 4rem 0;
-    background: var(--primary-gradient);
     color: white;
 }
 
@@ -248,19 +264,16 @@
 
 .counter-item {
     text-align: center;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
 }
 
-.counter-number {
-    font-size: 3rem;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 0.5rem;
+.counter-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
     color: var(--accent);
-}
-
-.counter-label {
-    font-size: 1.1rem;
-    opacity: 0.9;
 }
 
 /* Estilos para el Roadmap */
@@ -357,4 +370,99 @@
 
 .roadmap-content li:last-child {
     border-bottom: none;
+}
+
+/* Estilos para la sección de características */
+.features-section {
+    padding: 6rem 0;
+    background: #f8f9fa;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+/* Estilos mejorados para la tarjeta de precios */
+.pricing-section {
+    padding: 6rem 0;
+    background: #f8f9fa;
+}
+
+.pricing-card {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.1);
+}
+
+.pricing-header {
+    background: var(--primary);
+    color: white;
+    padding: 2rem;
+    text-align: center;
+}
+
+.pricing-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.pricing-features {
+    list-style: none;
+    padding: 2rem;
+}
+
+.pricing-features li {
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.pricing-features i {
+    color: var(--primary);
+    margin-right: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .course-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .counter-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
 } 
