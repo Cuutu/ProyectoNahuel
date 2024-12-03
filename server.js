@@ -37,6 +37,7 @@ app.set('views', path.join(__dirname, 'src/views'));
 // Rutas
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 
 app.get('/', (req, res) => {
     res.render('landing', {
@@ -46,6 +47,7 @@ app.get('/', (req, res) => {
 
 app.use('/servicios', serviceRoutes);
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 
 // Manejo de errores 404
 app.use((req, res) => {

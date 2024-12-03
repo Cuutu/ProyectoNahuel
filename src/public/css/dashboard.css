@@ -1,0 +1,88 @@
+.dashboard-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.dashboard-content {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 2rem;
+}
+
+.user-profile-section h1 {
+    color: var(--primary);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.profile-card, .membership-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.profile-card h2, .membership-card h2 {
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.info-group {
+    display: flex;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.info-group label {
+    font-weight: 600;
+    width: 120px;
+    color: #666;
+}
+
+.info-group p {
+    color: #333;
+    flex: 1;
+}
+
+.status-active {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.no-membership {
+    text-align: center;
+    padding: 2rem;
+}
+
+.no-membership p {
+    margin-bottom: 1rem;
+    color: #666;
+}
+
+.cta-button {
+    display: inline-block;
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background: var(--primary-dark);
+}
+
+@media (max-width: 768px) {
+    .info-group {
+        flex-direction: column;
+    }
+    
+    .info-group label {
+        margin-bottom: 0.5rem;
+    }
+} 
