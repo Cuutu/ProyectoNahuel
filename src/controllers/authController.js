@@ -62,13 +62,10 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         
-        // Agregar logs para debug
         console.log('Intento de login:', { email });
 
         // Verificar si el usuario existe
         const user = await User.findOne({ email });
-        console.log('Usuario encontrado:', user ? 'Sí' : 'No');
-
         if (!user) {
             return res.render('auth/login', {
                 error: 'Email o contraseña incorrectos'
@@ -77,25 +74,40 @@ exports.login = async (req, res) => {
 
         // Verificar contraseña
         const isMatch = await bcrypt.compare(password, user.password);
-        console.log('Contraseña correcta:', isMatch ? 'Sí' : 'No');
-
         if (!isMatch) {
             return res.render('auth/login', {
                 error: 'Email o contraseña incorrectos'
             });
         }
 
-        // Crear sesión
-        req.session.user = {
+        // Inicializar la sesión si no existe
+        if (!req.session) {
+            req.session = {};
+        }
+
+        // Crear el objeto de usuario en la sesión
+        const userSession = {
             id: user._id,
             nombre: user.nombre,
             email: user.email
         };
-        
-        console.log('Sesión creada:', req.session.user);
 
-        // Redireccionar al home
-        res.redirect('/');
+        // Guardar en la sesión
+        req.session.user = userSession;
+
+        // Log para debug
+        console.log('Sesión creada:', req.session);
+
+        // Asegurarse de que la sesión se guarde antes de redirigir
+        req.session.save((err) => {
+            if (err) {
+                console.error('Error al guardar sesión:', err);
+                return res.render('auth/login', {
+                    error: 'Error al iniciar sesión'
+                });
+            }
+            res.redirect('/');
+        });
 
     } catch (error) {
         console.error('Error detallado en login:', error);
@@ -107,14 +119,15 @@ exports.login = async (req, res) => {
 
 // Agregar método de logout
 exports.logout = async (req, res) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error('Error al cerrar sesión:', err);
-            return res.status(500).json({
-                success: false,
-                message: 'Error al cerrar sesión'
-            });
-        }
+    if (req.session) {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error al cerrar sesión:', err);
+                return res.redirect('/');
+            }
+            res.redirect('/');
+        });
+    } else {
         res.redirect('/');
-    });
+    }
 }; 

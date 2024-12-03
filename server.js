@@ -1,11 +1,33 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 const mongoose = require('mongoose');
-const session = require('express-session');
 
 const app = express();
+
+// Configurar session ANTES de todo
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'secret-key',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000 // 24 horas
+    }
+}));
+
+// DESPUÉS configurar el resto de middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'src/public')));
+
+// Middleware para pasar usuario a las vistas
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 // Middleware para verificar el estado de la conexión
 app.use(async (req, res, next) => {
@@ -18,11 +40,6 @@ app.use(async (req, res, next) => {
     }
     next();
 });
-
-// Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'src/public')));
 
 // Configuración de vistas
 app.set('view engine', 'ejs');
@@ -96,21 +113,6 @@ app.use((err, req, res, next) => {
         title: 'Error',
         message: 'Hubo un error en el servidor'
     });
-});
-
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas
-    }
-}));
-
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
 });
 
 const PORT = process.env.PORT || 3000;
