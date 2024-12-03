@@ -21,9 +21,16 @@ app.use(session({
         ttl: 24 * 60 * 60
     }),
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000,
+        secure: process.env.NODE_ENV === 'production'
     }
 }));
+
+// Middleware para pasar usuario a las vistas
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
 
 // Middleware global para usuario
 app.use(loadUser);
