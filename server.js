@@ -6,23 +6,26 @@ const connectDB = require('./src/config/database');
 
 const app = express();
 
-// Conectar a la base de datos
-connectDB();
-
-// Configuración de sesión
+// Configuración básica de sesión
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'default_secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // 24 horas
-    }
+    saveUninitialized: false
 }));
 
-// Middleware básicos
+// Middleware para pasar el usuario a las vistas
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
+// Resto de middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'src/public')));
+
+// Conectar a la base de datos
+connectDB();
 
 // Configuración de vistas
 app.set('view engine', 'ejs');
