@@ -4,6 +4,7 @@ const MongoStore = require('connect-mongo');
 const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
+const { loadUser } = require('./src/middleware/auth');
 
 const app = express();
 
@@ -17,20 +18,17 @@ app.use(session({
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60 // Tiempo de vida de la sesión: 1 día
+        ttl: 24 * 60 * 60 // 1 día
     }),
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000 // 24 horas en milisegundos
+        maxAge: 24 * 60 * 60 * 1000 // 1 día
     }
 }));
 
-// Middleware para pasar usuario a las vistas
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
-});
+// Middleware global para usuario
+app.use(loadUser);
 
-// Resto de middlewares
+// Middlewares básicos
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'src/public')));
@@ -40,24 +38,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
 // Rutas
-const serviceRoutes = require('./src/routes/serviceRoutes');
-const authRoutes = require('./src/routes/authRoutes');
-const userRoutes = require('./src/routes/userRoutes');
+app.use('/auth', require('./src/routes/authRoutes'));
+app.use('/user', require('./src/routes/userRoutes'));
 
+// Ruta principal
 app.get('/', (req, res) => {
     res.render('landing', {
         title: 'CryptoTrading - Inicio'
-    });
-});
-
-app.use('/servicios', serviceRoutes);
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
-
-// Manejo de errores 404
-app.use((req, res) => {
-    res.status(404).render('error', {
-        message: 'Página no encontrada'
     });
 });
 
