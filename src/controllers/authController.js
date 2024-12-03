@@ -61,10 +61,8 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-        
-        console.log('Intento de login:', { email });
 
-        // Verificar si el usuario existe
+        // Buscar usuario
         const user = await User.findOne({ email });
         if (!user) {
             return res.render('auth/login', {
@@ -80,54 +78,24 @@ exports.login = async (req, res) => {
             });
         }
 
-        // Inicializar la sesión si no existe
-        if (!req.session) {
-            req.session = {};
-        }
-
-        // Crear el objeto de usuario en la sesión
-        const userSession = {
+        // Guardar en sesión
+        req.session.user = {
             id: user._id,
             nombre: user.nombre,
             email: user.email
         };
 
-        // Guardar en la sesión
-        req.session.user = userSession;
-
-        // Log para debug
-        console.log('Sesión creada:', req.session);
-
-        // Asegurarse de que la sesión se guarde antes de redirigir
-        req.session.save((err) => {
-            if (err) {
-                console.error('Error al guardar sesión:', err);
-                return res.render('auth/login', {
-                    error: 'Error al iniciar sesión'
-                });
-            }
-            res.redirect('/');
-        });
+        res.redirect('/');
 
     } catch (error) {
-        console.error('Error detallado en login:', error);
+        console.error('Error en login:', error);
         res.render('auth/login', {
-            error: 'Error al iniciar sesión: ' + error.message
+            error: 'Error al iniciar sesión'
         });
     }
 };
 
-// Agregar método de logout
-exports.logout = async (req, res) => {
-    if (req.session) {
-        req.session.destroy((err) => {
-            if (err) {
-                console.error('Error al cerrar sesión:', err);
-                return res.redirect('/');
-            }
-            res.redirect('/');
-        });
-    } else {
-        res.redirect('/');
-    }
+exports.logout = (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
 }; 
