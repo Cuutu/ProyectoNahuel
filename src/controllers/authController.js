@@ -1,110 +1,64 @@
 const User = require('../models/User');
-const Role = require('../models/Role');
 const bcrypt = require('bcryptjs');
 
-exports.register = async (req, res, next) => {
-    try {
-        const { nombre, apellido, email, password, confirmPassword, telefono } = req.body;
+const authController = {
+    login: async (req, res) => {
+        try {
+            const { email, password } = req.body;
 
-        // Validar que las contraseñas coincidan
-        if (password !== confirmPassword) {
-            return res.status(400).json({
-                success: false,
-                message: 'Las contraseñas no coinciden'
+            // Buscar usuario
+            const user = await User.findOne({ email });
+            if (!user) {
+                return res.render('auth/login', {
+                    error: 'Usuario no encontrado'
+                });
+            }
+
+            // Verificar contraseña
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.render('auth/login', {
+                    error: 'Contraseña incorrecta'
+                });
+            }
+
+            // Crear sesión
+            req.session.user = {
+                id: user._id,
+                email: user.email,
+                nombre: user.nombre,
+                apellido: user.apellido
+            };
+
+            // Guardar sesión explícitamente
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Error al guardar la sesión:', err);
+                    return res.render('auth/login', {
+                        error: 'Error al iniciar sesión'
+                    });
+                }
+                res.redirect('/user/dashboard');
+            });
+
+        } catch (error) {
+            console.error('Error en login:', error);
+            res.render('auth/login', {
+                error: 'Error al iniciar sesión'
             });
         }
+    },
 
-        // Verificar si el usuario ya existe
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({
-                success: false,
-                message: 'El email ya está registrado'
-            });
-        }
-
-        // Validar formato de email
-        if (!email.endsWith('@gmail.com')) {
-            return res.status(400).json({
-                success: false,
-                message: 'Solo se permiten correos de @gmail.com.'
-            });
-        }
-
-        // Encriptar contraseña
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Crear usuario
-        const user = await User.create({
-            nombre,
-            apellido,
-            email,
-            password: hashedPassword,
-            telefono
-        });
-
-        // Crear roles iniciales
-        await Role.create({
-            userId: user._id,
-            señales: null,
-            mentoria: null,
-            comunidad: null
-        });
-
-        // Redireccionar a login con mensaje de éxito
-        res.redirect('/auth/login?registered=true');
-    } catch (error) {
-        next(error); // Pasar el error al manejador de errores
-    }
-};
-
-exports.login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
-        console.log('Intento de login con email:', email);
-
-        const user = await User.findOne({ email });
-        console.log('Usuario encontrado:', user ? 'Sí' : 'No');
-
-        if (!user) {
-            return res.render('auth/login', {
-                error: 'Email o contraseña incorrectos'
-            });
-        }
-
-        const isMatch = await bcrypt.compare(password, user.password);
-        console.log('Contraseña correcta:', isMatch ? 'Sí' : 'No');
-
-        if (!isMatch) {
-            return res.render('auth/login', {
-                error: 'Email o contraseña incorrectos'
-            });
-        }
-
-        // Crear objeto de sesión
-        const userSession = {
-            id: user._id.toString(),
-            nombre: user.nombre,
-            email: user.email
-        };
-
-        console.log('Creando sesión con:', userSession);
-
-        // Asignar a la sesión
-        req.session.user = userSession;
-        console.log('Sesión creada:', req.session);
-
-        return res.redirect('/');
-
-    } catch (error) {
-        console.error('Error detallado en login:', error);
-        return res.render('auth/login', {
-            error: 'Error al iniciar sesión: ' + error.message
+    logout: async (req, res) => {
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error al cerrar sesión:', err);
+                return res.redirect('/');
+            }
+            res.clearCookie('connect.sid'); // Limpiar la cookie de sesión
+            res.redirect('/');
         });
     }
 };
 
-exports.logout = (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-}; 
+module.exports = authController; 

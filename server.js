@@ -5,24 +5,32 @@ const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 const { loadUser } = require('./src/middleware/auth');
+const sessionCheck = require('./src/middleware/sessionCheck');
 
 const app = express();
 
 // Conectar a la base de datos
 connectDB();
 
-// Configuración de sesión con MongoStore
+// Configuración de sesión actualizada
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60
+        ttl: 24 * 60 * 60,
+        autoRemove: 'native',
+        crypto: {
+            secret: process.env.SESSION_SECRET
+        },
+        touchAfter: 24 * 3600
     }),
     cookie: {
         maxAge: 24 * 60 * 60 * 1000,
-        secure: process.env.NODE_ENV === 'production'
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        sameSite: 'lax'
     }
 }));
 
@@ -62,6 +70,8 @@ app.get('/', (req, res) => {
         title: 'CryptoTrading - Inicio'
     });
 });
+
+app.use(sessionCheck);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
