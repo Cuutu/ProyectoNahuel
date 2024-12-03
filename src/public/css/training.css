@@ -83,6 +83,9 @@
 }
 
 .course-card {
+    JUSTIFY-CONTENT: CENTER;
+    FLEX-DIRECTION: column;
+    DISPLAY: FLEX;
     background: white;
     border-radius: 15px;
     padding: 2rem;
@@ -96,6 +99,9 @@
 }
 
 .course-header {
+    display: flex;
+    FLEX-DIRECTION: COLUMN;
+    JUSTIFY-CONTENT: CENTER;
     margin-bottom: 1.5rem;
 }
 
@@ -106,6 +112,7 @@
 }
 
 .duration {
+    JUSTIFY-CONTENT: CENTER;
     color: #666;
     font-size: 0.9rem;
     display: flex;
@@ -139,6 +146,7 @@
 }
 
 .course-footer {
+    FLEX-DIRECTION: COLUMN;
     display: flex;
     justify-content: space-between;
     align-items: center;
