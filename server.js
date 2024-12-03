@@ -1,6 +1,22 @@
 const express = require('express');
 const path = require('path');
+require('dotenv').config();
+const connectDB = require('./src/config/database');
+const mongoose = require('mongoose');
+
 const app = express();
+
+// Middleware para verificar el estado de la conexión
+app.use(async (req, res, next) => {
+    if (!mongoose.connection.readyState) {
+        try {
+            await connectDB();
+        } catch (error) {
+            console.error('Error reconectando a DB:', error);
+        }
+    }
+    next();
+});
 
 // Middleware
 app.use(express.json());
@@ -82,8 +98,13 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(PORT, async () => {
+    try {
+        await connectDB();
+        console.log(`Servidor corriendo en puerto ${PORT}`);
+    } catch (error) {
+        console.error('Error inicial conectando a DB:', error);
+    }
 });
 
 module.exports = app;
