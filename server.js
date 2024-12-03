@@ -1,9 +1,23 @@
 const express = require('express');
+const session = require('express-session');
 const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 
 const app = express();
+
+// Conectar a la base de datos
+connectDB();
+
+// Configuración de sesión
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'default_secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 24 horas
+    }
+}));
 
 // Middleware básicos
 app.use(express.json());
@@ -19,17 +33,10 @@ const serviceRoutes = require('./src/routes/serviceRoutes');
 const authRoutes = require('./src/routes/authRoutes');
 
 // Ruta principal
-app.get('/', async (req, res) => {
-    try {
-        return res.render('landing', {
-            title: 'CryptoTrading - Inicio'
-        });
-    } catch (error) {
-        console.error('Error al renderizar landing:', error);
-        return res.status(500).render('error', {
-            message: 'Error al cargar la página principal'
-        });
-    }
+app.get('/', (req, res) => {
+    res.render('landing', {
+        title: 'CryptoTrading - Inicio'
+    });
 });
 
 // Usar rutas
