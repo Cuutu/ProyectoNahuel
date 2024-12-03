@@ -1,12 +1,12 @@
 .video-hero {
     width: 100%;
-    height: 60vh;
+    padding: 2rem 0;
     position: relative;
     background: var(--primary-dark);
     margin-bottom: 4rem;
 }
 
-.video-container {
+.video-wrapper {
     position: relative;
     padding-bottom: 56.25%;
     height: 0;
@@ -16,7 +16,7 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-.video-container iframe {
+.video-wrapper iframe {
     position: absolute;
     top: 0;
     left: 0;
