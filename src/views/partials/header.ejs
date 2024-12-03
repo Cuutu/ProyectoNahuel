@@ -15,9 +15,9 @@
             
             <% if (locals.user) { %>
                 <div class="user-menu">
-                    <a href="/perfil" class="profile-link">Mi Perfil</a>
-                    <form action="/auth/logout" method="POST" class="logout-form">
-                        <button type="submit">Cerrar Sesión</button>
+                    <a href="/perfil" class="nav-link">Mi Perfil</a>
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="logout-btn">Cerrar Sesión</button>
                     </form>
                 </div>
             <% } else { %>
