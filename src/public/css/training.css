@@ -57,6 +57,7 @@
 }
 
 .stat-card p {
+    color: #00FF88;
     font-size: 1.1rem;
     opacity: 0.9;
 }
