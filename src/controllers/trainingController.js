@@ -28,6 +28,21 @@ const trainingController = {
                 user: req.session.user
             });
         }
+    },
+
+    getAnalisisTecnico: async (req, res) => {
+        try {
+            res.render('training/analisis-tecnico', {
+                title: 'Análisis Técnico - CryptoTrading',
+                user: req.session.user
+            });
+        } catch (error) {
+            console.error('Error:', error);
+            res.status(500).render('error', { 
+                message: 'Error al cargar el curso',
+                user: req.session.user
+            });
+        }
     }
 };
 

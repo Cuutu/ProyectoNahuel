@@ -155,4 +155,78 @@
     .courses-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Estilos para la página de detalle del curso */
+.course-hero {
+    background: var(--primary-dark);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.course-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.course-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    padding: 4rem 0;
+}
+
+.main-content h2 {
+    color: var(--primary);
+    margin: 2rem 0 1rem;
+}
+
+.learning-points,
+.course-features {
+    list-style: none;
+    padding: 0;
+}
+
+.learning-points li,
+.course-features li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.price-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 2rem;
+}
+
+.highlights {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.highlights li {
+    padding: 0.5rem 0;
+    color: #666;
+}
+
+.highlights li:before {
+    content: "✓";
+    color: var(--primary);
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
 } 
