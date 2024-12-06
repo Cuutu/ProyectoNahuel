@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 // Configuración de sesión
 app.use(session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
@@ -52,6 +52,7 @@ app.use((req, res, next) => {
     // Debug de sesión
     console.log('Estado de la sesión:', {
         isAuthenticated: req.isAuthenticated(),
+        sessionID: req.sessionID,
         user: req.user ? {
             id: req.user._id,
             nombre: req.user.nombre,
