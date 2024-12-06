@@ -39,7 +39,7 @@ async (accessToken, refreshToken, profile, done) => {
             nombre: profile.name.givenName,
             apellido: profile.name.familyName,
             email: profile.emails[0].value,
-            password: 'google-auth', // Puedes generar una contraseña aleatoria
+            password: 'google-auth', // Contraseña por defecto para usuarios de Google
             telefono: '' // Campo requerido pero vacío inicialmente
         });
 
