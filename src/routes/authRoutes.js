@@ -36,13 +36,23 @@ router.get('/google/callback',
         failureFlash: true
     }),
     (req, res) => {
-        // Asegurarnos de que la sesión se guarde
+        // Asegurarnos de que el usuario se guarde en la sesión
+        req.session.user = {
+            id: req.user._id,
+            nombre: req.user.nombre,
+            email: req.user.email
+        };
+        
+        // Guardar la sesión explícitamente
         req.session.save((err) => {
             if (err) {
                 console.error('Error al guardar la sesión:', err);
                 return res.redirect('/auth/login');
             }
-            res.redirect('/dashboard');
+            // Redirigir al dashboard o a la página anterior
+            const returnTo = req.session.returnTo || '/dashboard';
+            delete req.session.returnTo;
+            res.redirect(returnTo);
         });
     }
 );

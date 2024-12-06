@@ -54,6 +54,14 @@ app.use((req, res, next) => {
     next();
 });
 
+// Después de la configuración de passport y session
+app.use((req, res, next) => {
+    // Hacer el usuario y el estado de autenticación disponibles en todas las vistas
+    res.locals.user = req.user || req.session.user;
+    res.locals.isAuthenticated = req.isAuthenticated();
+    next();
+});
+
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');

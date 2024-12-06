@@ -13,9 +13,9 @@
             <a href="/mentoring">Mentoring</a>
             <a href="/recursos">Recursos</a>
             
-            <% if (locals.user && locals.user.id) { %>
+            <% if (locals.user || (locals.isAuthenticated && user)) { %>
                 <div class="user-menu">
-                    <span class="user-name">Hola, <%= locals.user.nombre %></span>
+                    <span class="user-name">Hola, <%= locals.user?.nombre || user?.nombre %></span>
                     <a href="/user/dashboard" class="nav-link">Mi Perfil</a>
                     <form action="/auth/logout" method="POST" class="logout-form">
                         <button type="submit" class="logout-btn">Cerrar Sesión</button>
