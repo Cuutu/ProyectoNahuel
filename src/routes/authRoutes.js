@@ -33,8 +33,35 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { 
         failureRedirect: '/auth/login',
-        successRedirect: '/dashboard'
-    })
+        failureFlash: true
+    }),
+    (req, res) => {
+        // Asegurarse de que la sesión se guarde antes de redirigir
+        req.session.save((err) => {
+            if (err) {
+                console.error('Error al guardar la sesión:', err);
+                return res.redirect('/auth/login');
+            }
+            console.log('Sesión guardada correctamente');
+            res.redirect('/dashboard');
+        });
+    }
 );
+
+// Ruta para cerrar sesión
+router.get('/logout', (req, res) => {
+    req.logout((err) => {
+        if (err) {
+            console.error('Error al cerrar sesión:', err);
+            return res.redirect('/');
+        }
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Error al destruir la sesión:', err);
+            }
+            res.redirect('/');
+        });
+    });
+});
 
 module.exports = router; 

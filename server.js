@@ -24,21 +24,35 @@ app.use(express.urlencoded({ extended: true }));
 // Configuración de sesión
 app.use(session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60
+        ttl: 24 * 60 * 60,
+        autoRemove: 'native',
+        touchAfter: 24 * 3600
     }),
     cookie: {
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 24 * 60 * 60 * 1000 // 1 día
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
 // Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Middleware para verificar el estado de la sesión
+app.use((req, res, next) => {
+    res.locals.user = req.user;
+    console.log('Estado de la sesión:', {
+        isAuthenticated: req.isAuthenticated(),
+        sessionID: req.sessionID,
+        user: req.user ? req.user._id : null
+    });
+    next();
+});
 
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
