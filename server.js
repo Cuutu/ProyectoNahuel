@@ -6,6 +6,8 @@ require('dotenv').config();
 const connectDB = require('./src/config/database');
 const { loadUser } = require('./src/middleware/auth');
 const sessionCheck = require('./src/middleware/sessionCheck');
+const passport = require('passport');
+require('./src/config/passport'); // Importa la configuración de passport
 
 const app = express();
 
@@ -74,6 +76,10 @@ app.get('/', (req, res) => {
 });
 
 app.use(sessionCheck);
+
+// Inicializar Passport después de la configuración de sesión
+app.use(passport.initialize());
+app.use(passport.session());
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

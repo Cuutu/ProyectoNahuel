@@ -23,6 +23,8 @@
     "express-session": "^1.18.1",
     "mongodb": "^6.11.0",
     "mongoose": "^8.8.3",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.15"
   }

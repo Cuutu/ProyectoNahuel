@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
     nombre: {
         type: String,
         required: true,
@@ -15,13 +20,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true,
-        validate: {
-            validator: function(v) {
-                return v.endsWith('@gmail.com');
-            },
-            message: 'El email debe ser de dominio @gmail.com'
-        }
+        trim: true
     },
     password: {
         type: String,
