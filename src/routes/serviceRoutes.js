@@ -1,21 +1,23 @@
 const express = require('express');
 const router = express.Router();
-const { sessionPersist } = require('../middleware/auth');
 
-// Aplicar middleware a todas las rutas de servicios
-router.use(sessionPersist);
-
+// Ruta principal de servicios
 router.get('/', (req, res) => {
+    // Verificar y usar la sesión existente
+    const userSession = req.session.user;
+    
     res.render('services', {
         title: 'Nuestros Servicios',
-        user: req.session.user
+        user: userSession
     });
 });
 
 router.get('/senales-premium', (req, res) => {
+    const userSession = req.session.user;
+    
     res.render('services/signals', {
         title: 'Señales Premium',
-        user: req.session.user,
+        user: userSession,
         service: {
             name: "Señales Premium",
             description: "Señales de trading en tiempo real con alta precisión",
@@ -31,9 +33,11 @@ router.get('/senales-premium', (req, res) => {
 });
 
 router.get('/mentoria-pro', (req, res) => {
+    const userSession = req.session.user;
+    
     res.render('services/mentoring', {
         title: 'Mentoría Pro',
-        user: req.session.user,
+        user: userSession,
         service: {
             name: "Mentoría Pro",
             description: "Mentoría personalizada para traders avanzados",
@@ -49,9 +53,11 @@ router.get('/mentoria-pro', (req, res) => {
 });
 
 router.get('/comunidad-vip', (req, res) => {
+    const userSession = req.session.user;
+    
     res.render('services/community', {
         title: 'Comunidad VIP',
-        user: req.session.user,
+        user: userSession,
         service: {
             name: "Comunidad VIP",
             description: "Comunidad de traders avanzados para intercambiar ideas",
