@@ -1,11 +1,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    googleId: {
-        type: String,
-        unique: true,
-        sparse: true
-    },
+    googleId: String,
     nombre: {
         type: String,
         required: true
@@ -19,16 +15,20 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    password: {
+    telefono: String,
+    authProvider: {
         type: String,
-        required: function() {
-            return !this.googleId; // Password solo requerido si no es login con Google
-        }
+        enum: ['local', 'google'],
+        default: 'local'
     },
-    telefono: {
-        type: String,
-        required: function() {
-            return !this.googleId; // Teléfono solo requerido si no es login con Google
+    membership: {
+        name: String,
+        startDate: Date,
+        endDate: Date,
+        status: {
+            type: String,
+            enum: ['active', 'inactive', 'pending'],
+            default: 'inactive'
         }
     }
 }, {

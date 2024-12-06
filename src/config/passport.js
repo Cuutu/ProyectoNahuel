@@ -10,41 +10,35 @@ passport.deserializeUser(async (id, done) => {
     try {
         const user = await User.findById(id);
         done(null, user);
-    } catch (error) {
-        done(error, null);
+    } catch (err) {
+        done(err, null);
     }
 });
 
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:3000/auth/google/callback',
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-},
-async (accessToken, refreshToken, profile, done) => {
+    callbackURL: process.env.GOOGLE_CALLBACK_URL
+}, async (accessToken, refreshToken, profile, done) => {
     try {
-        // Buscar si el usuario ya existe
-        let user = await User.findOne({ email: profile.emails[0].value });
-
-        if (user) {
-            // Si el usuario existe, actualizar información de Google
-            user.googleId = profile.id;
-            await user.save();
-            return done(null, user);
+        let user = await User.findOne({ googleId: profile.id });
+        
+        if (!user) {
+            // Manejo de apellido cuando no está disponible
+            const apellido = profile.name.familyName || 'No especificado';
+            
+            user = await User.create({
+                googleId: profile.id,
+                nombre: profile.name.givenName || profile.displayName.split(' ')[0],
+                apellido: apellido,
+                email: profile.emails[0].value,
+                authProvider: 'google'
+            });
         }
-
-        // Si no existe, crear nuevo usuario
-        const newUser = await User.create({
-            googleId: profile.id,
-            nombre: profile.name.givenName,
-            apellido: profile.name.familyName,
-            email: profile.emails[0].value,
-            password: 'google-auth', // Contraseña por defecto para usuarios de Google
-            telefono: '' // Campo requerido pero vacío inicialmente
-        });
-
-        return done(null, newUser);
-    } catch (error) {
-        return done(error, null);
+        
+        return done(null, user);
+    } catch (err) {
+        console.error('Error en autenticación de Google:', err);
+        return done(err, null);
     }
 })); 
