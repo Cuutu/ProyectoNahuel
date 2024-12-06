@@ -2,17 +2,43 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 
 const authController = {
-    register: async (req, res) => {
+    login: async (req, res) => {
         try {
-            const { nombre, apellido, email, password, confirmPassword, telefono } = req.body;
+            const { email, password } = req.body;
+            const user = await User.findOne({ email });
 
-            // Verificar si las contraseñas coinciden
-            if (password !== confirmPassword) {
-                return res.render('auth/register', {
-                    error: 'Las contraseñas no coinciden'
+            if (!user) {
+                return res.render('auth/login', {
+                    error: 'Usuario no encontrado'
                 });
             }
 
+            const isMatch = await bcrypt.compare(password, user.password);
+            if (!isMatch) {
+                return res.render('auth/login', {
+                    error: 'Contraseña incorrecta'
+                });
+            }
+
+            req.session.user = {
+                id: user._id,
+                nombre: user.nombre,
+                email: user.email
+            };
+
+            res.redirect('/dashboard');
+        } catch (error) {
+            console.error('Error en login:', error);
+            res.render('auth/login', {
+                error: 'Error al iniciar sesión'
+            });
+        }
+    },
+
+    register: async (req, res) => {
+        try {
+            const { nombre, apellido, email, password, telefono } = req.body;
+            
             // Verificar si el usuario ya existe
             const existingUser = await User.findOne({ email });
             if (existingUser) {
@@ -21,7 +47,7 @@ const authController = {
                 });
             }
 
-            // Hash de la contraseña
+            // Hashear la contraseña
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -34,88 +60,17 @@ const authController = {
                 telefono
             });
 
-            // Crear sesión
             req.session.user = {
                 id: user._id,
-                email: user.email,
                 nombre: user.nombre,
-                apellido: user.apellido
+                email: user.email
             };
 
-            // Guardar sesión
-            req.session.save((err) => {
-                if (err) {
-                    console.error('Error al guardar la sesión:', err);
-                    return res.render('auth/register', {
-                        error: 'Error al registrar usuario'
-                    });
-                }
-                res.redirect('/user/dashboard');
-            });
-
+            res.redirect('/dashboard');
         } catch (error) {
             console.error('Error en registro:', error);
             res.render('auth/register', {
                 error: 'Error al registrar usuario'
-            });
-        }
-    },
-
-    login: async (req, res) => {
-        try {
-            const { email, password } = req.body;
-
-            // Buscar usuario
-            const user = await User.findOne({ email });
-            if (!user) {
-                return res.render('auth/login', {
-                    error: 'Usuario no encontrado'
-                });
-            }
-
-            // Verificar contraseña
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) {
-                return res.render('auth/login', {
-                    error: 'Contraseña incorrecta'
-                });
-            }
-
-            // Limpiar cualquier sesión existente
-            req.session.regenerate(async function(err) {
-                if (err) {
-                    console.error('Error al regenerar sesión:', err);
-                    return res.render('auth/login', {
-                        error: 'Error al iniciar sesión'
-                    });
-                }
-
-                // Crear nueva sesión
-                req.session.user = {
-                    id: user._id,
-                    email: user.email,
-                    nombre: user.nombre,
-                    apellido: user.apellido
-                };
-
-                // Guardar sesión de forma explícita
-                req.session.save(function(err) {
-                    if (err) {
-                        console.error('Error al guardar sesión:', err);
-                        return res.render('auth/login', {
-                            error: 'Error al iniciar sesión'
-                        });
-                    }
-                    
-                    console.log('Sesión guardada:', req.session);
-                    res.redirect('/user/dashboard');
-                });
-            });
-
-        } catch (error) {
-            console.error('Error en login:', error);
-            res.render('auth/login', {
-                error: 'Error al iniciar sesión'
             });
         }
     },
@@ -125,7 +80,6 @@ const authController = {
             if (err) {
                 console.error('Error al cerrar sesión:', err);
             }
-            res.clearCookie('cryptoTrading'); // Usar el mismo nombre que configuramos
             res.redirect('/');
         });
     }

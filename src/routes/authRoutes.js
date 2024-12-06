@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+const authController = require('../controllers/authController');
 
 // Rutas de registro
 router.get('/register', (req, res) => {
@@ -22,14 +23,13 @@ router.post('/login', authController.login);
 
 router.post('/logout', authController.logout);
 
-// Ruta para iniciar autenticación con Google
+// Rutas de Google OAuth
 router.get('/google',
     passport.authenticate('google', { 
         scope: ['profile', 'email']
     })
 );
 
-// Callback URL para Google
 router.get('/google/callback',
     passport.authenticate('google', { 
         failureRedirect: '/auth/login',
