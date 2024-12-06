@@ -4,7 +4,14 @@ const userController = require('../controllers/userController');
 
 // Middleware de autenticación
 const isAuthenticated = (req, res, next) => {
-    if (req.session && req.session.user) {
+    console.log('Auth Check:', {
+        session: !!req.session,
+        sessionUser: !!req.session?.user,
+        user: !!req.user,
+        isAuthenticated: req.isAuthenticated()
+    });
+
+    if (req.isAuthenticated() || (req.session && req.session.user)) {
         return next();
     }
     res.redirect('/auth/login');
