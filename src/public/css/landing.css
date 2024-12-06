@@ -69,9 +69,9 @@ body {
     padding-top: 70px;
 }
 
-/* Header con efecto glassmorphism */
+/* Header y Navegación */
 .header {
-    background-color: #000;
+    background: #000;
     padding: 15px 0;
     position: fixed;
     width: 100%;
@@ -80,7 +80,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
     padding: 0 20px;
     display: flex;
@@ -93,6 +93,7 @@ body {
     text-decoration: none;
     font-size: 24px;
     font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .nav-links {
@@ -107,11 +108,108 @@ body {
     font-size: 14px;
     font-weight: 500;
     text-transform: uppercase;
+    letter-spacing: 0.5px;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
     color: #007bff;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.auth-btn {
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.auth-btn.login {
+    color: #fff;
+    border: 1px solid #fff;
+}
+
+.auth-btn.register {
+    background: #007bff;
+    color: #fff;
+}
+
+.auth-btn.login:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.auth-btn.register:hover {
+    background: #0056b3;
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-name {
+    color: #fff;
+    font-size: 14px;
+}
+
+.logout-form button {
+    background: none;
+    border: none;
+    color: #dc3545;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.logout-form button:hover {
+    color: #c82333;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .nav-links {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #000;
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .user-menu {
+        flex-direction: column;
+        width: 100%;
+    }
 }
 
 /* Video section con sombra elegante */
