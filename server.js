@@ -42,7 +42,10 @@ app.use(passport.session());
 
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
+const dashboardRoutes = require('./src/routes/dashboardRoutes');
+
 app.use('/auth', authRoutes);
+app.use('/dashboard', dashboardRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {

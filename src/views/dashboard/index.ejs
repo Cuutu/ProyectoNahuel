@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="dashboard-container">
+        <div class="container">
+            <h1>Bienvenido, <%= user.nombre %></h1>
+            
+            <div class="dashboard-content">
+                <!-- Aquí puedes agregar el contenido del dashboard -->
+                <div class="dashboard-section">
+                    <h2>Mi Perfil</h2>
+                    <div class="profile-info">
+                        <p><strong>Nombre:</strong> <%= user.nombre %> <%= user.apellido %></p>
+                        <p><strong>Email:</strong> <%= user.email %></p>
+                        <% if (user.telefono) { %>
+                            <p><strong>Teléfono:</strong> <%= user.telefono %></p>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/navbar.js"></script>
+</body>
+</html> 
