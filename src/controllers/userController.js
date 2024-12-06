@@ -23,7 +23,7 @@ const userController = {
 
             res.render('user/dashboard', {
                 user: user,
-                title: 'Mi Perfil - CryptoTrading',
+                title: 'Mi Perfil - Nahuel Lozano',
                 isAuthenticated: true
             });
         } catch (error) {
