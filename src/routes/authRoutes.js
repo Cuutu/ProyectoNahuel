@@ -33,34 +33,46 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { 
         failureRedirect: '/auth/login',
-        failureFlash: true
+        session: true
     }),
-    (req, res) => {
-        // Asegurarse de que la sesión se guarde antes de redirigir
-        req.session.save((err) => {
+    (req, res, next) => {
+        if (!req.user) {
+            return res.redirect('/auth/login');
+        }
+
+        req.session.regenerate((err) => {
             if (err) {
-                console.error('Error al guardar la sesión:', err);
-                return res.redirect('/auth/login');
+                console.error('Error regenerando sesión:', err);
+                return next(err);
             }
-            console.log('Sesión guardada correctamente');
-            res.redirect('/dashboard');
+
+            req.session.user = req.user;
+            req.session.isAuthenticated = true;
+
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Error guardando sesión:', err);
+                    return next(err);
+                }
+                console.log('Estado de la sesión después de login:', {
+                    sessionID: req.sessionID,
+                    isAuthenticated: req.session.isAuthenticated,
+                    user: req.session.user
+                });
+                res.redirect('/dashboard');
+            });
         });
     }
 );
 
 // Ruta para cerrar sesión
-router.get('/logout', (req, res) => {
-    req.logout((err) => {
+router.get('/logout', (req, res, next) => {
+    req.session.destroy((err) => {
         if (err) {
-            console.error('Error al cerrar sesión:', err);
-            return res.redirect('/');
+            console.error('Error al destruir la sesión:', err);
+            return next(err);
         }
-        req.session.destroy((err) => {
-            if (err) {
-                console.error('Error al destruir la sesión:', err);
-            }
-            res.redirect('/');
-        });
+        res.redirect('/');
     });
 });
 

@@ -39,7 +39,7 @@ app.use(session({
     }
 }));
 
-// Inicializar Passport
+// Inicializar Passport después de la sesión
 app.use(passport.initialize());
 app.use(passport.session());
 
