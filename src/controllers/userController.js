@@ -15,9 +15,9 @@ const userController = {
                 return res.redirect('/auth/login');
             }
 
-            res.render('dashboard/index', {
+            res.render('user/dashboard', {
                 user: user,
-                title: 'Dashboard - CryptoTrading',
+                title: 'Mi Perfil - CryptoTrading',
                 isAuthenticated: true
             });
         } catch (error) {
