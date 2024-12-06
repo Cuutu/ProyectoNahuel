@@ -4,30 +4,27 @@ const userController = {
     getDashboard: async (req, res) => {
         try {
             // Verificar si hay usuario autenticado
-            const userId = req.user?._id || req.session?.user?.id;
-            
-            if (!userId) {
+            if (!req.session || !req.session.user) {
                 return res.redirect('/auth/login');
             }
 
-            const user = await User.findById(userId);
+            const user = await User.findById(req.session.user.id);
             
             if (!user) {
-                // Si no se encuentra el usuario, limpiar la sesión
                 req.session.destroy();
                 return res.redirect('/auth/login');
             }
 
-            res.render('user/dashboard', {
+            res.render('dashboard/index', {
                 user: user,
-                title: 'Mi Perfil - CryptoTrading',
+                title: 'Dashboard - CryptoTrading',
                 isAuthenticated: true
             });
         } catch (error) {
             console.error('Error al cargar dashboard:', error);
-            res.render('error', {
-                message: 'Error al cargar el perfil',
-                user: req.user || req.session.user
+            res.status(500).render('error', {
+                message: 'Error al cargar el dashboard',
+                user: req.session.user
             });
         }
     }

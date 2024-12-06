@@ -1,12 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const { isAuthenticated } = require('../middleware/auth');
+const userController = require('../controllers/userController');
 
-router.get('/', isAuthenticated, (req, res) => {
-    res.render('dashboard/index', { 
-        user: req.user,
-        isAuthenticated: true
-    });
-});
+// Middleware de autenticación
+const isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.user) {
+        return next();
+    }
+    res.redirect('/auth/login');
+};
+
+// Aplicar middleware a todas las rutas
+router.use(isAuthenticated);
+
+// Ruta principal del dashboard
+router.get('/', userController.getDashboard);
 
 module.exports = router; 
