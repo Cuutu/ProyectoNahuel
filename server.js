@@ -33,11 +33,12 @@ const sessionMiddleware = session({
         touchAfter: 24 * 3600
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000
+        maxAge: 24 * 60 * 60 * 1000,
+        sameSite: 'lax'
     },
-    name: 'sessionId' // Nombre específico para la cookie
+    name: 'sessionId'
 });
 
 app.use(sessionMiddleware);
@@ -56,7 +57,6 @@ app.use((req, res, next) => {
     console.log('Cookies:', req.headers.cookie);
     console.log('=====================\n');
 
-    // Hacer disponible la información en las vistas
     res.locals.user = req.user;
     res.locals.isAuthenticated = req.isAuthenticated();
     next();
