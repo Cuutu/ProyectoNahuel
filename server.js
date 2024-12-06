@@ -47,37 +47,17 @@ app.use(passport.session());
 
 // Middleware global para persistencia de sesión
 app.use((req, res, next) => {
-    if (req.session && req.session.user) {
-        res.locals.user = req.session.user;
-        res.locals.isAuthenticated = true;
-    } else {
-        res.locals.isAuthenticated = false;
-    }
-    next();
-});
-
-// Middleware de debug
-app.use((req, res, next) => {
+    // Debug
     console.log('\n=== Debug de Sesión ===');
     console.log('SessionID:', req.sessionID);
     console.log('Session:', req.session);
     console.log('IsAuthenticated:', req.isAuthenticated());
     console.log('User:', req.user);
-    console.log('Cookies:', req.headers.cookie);
-    console.log('=====================\n');
-
-    res.locals.user = req.user;
-    res.locals.isAuthenticated = req.isAuthenticated();
-    next();
-});
-
-// Middleware para verificar si la sesión está activa
-app.use((req, res, next) => {
-    if (req.session && !req.session.touch) {
-        req.session.touch = () => {
-            req.session.lastAccess = Date.now();
-        };
-    }
+    
+    // Establecer variables globales para las vistas
+    res.locals.user = req.user || req.session.user;
+    res.locals.isAuthenticated = req.isAuthenticated() || !!req.session.user;
+    
     next();
 });
 

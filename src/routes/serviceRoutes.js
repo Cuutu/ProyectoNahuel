@@ -3,12 +3,10 @@ const router = express.Router();
 
 // Ruta principal de servicios
 router.get('/', (req, res) => {
-    // Verificar y usar la sesión existente
-    const userSession = req.session.user;
-    
     res.render('services', {
         title: 'Nuestros Servicios',
-        user: userSession
+        user: res.locals.user,
+        isAuthenticated: res.locals.isAuthenticated
     });
 });
 
