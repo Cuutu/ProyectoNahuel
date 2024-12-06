@@ -13,12 +13,12 @@
             <a href="/mentoring">Mentoring</a>
             <a href="/recursos">Recursos</a>
             
-            <% if (locals.user || (locals.isAuthenticated && user)) { %>
+            <% if (locals.isAuthenticated) { %>
                 <div class="user-menu">
-                    <span class="user-name">Hola, <%= locals.user?.nombre || user?.nombre %></span>
-                    <a href="/user/dashboard" class="nav-link">Mi Perfil</a>
+                    <span class="user-name">Hola, <%= user.nombre %></span>
+                    <a href="/dashboard" class="nav-link">Mi Perfil</a>
                     <form action="/auth/logout" method="POST" class="logout-form">
-                        <button type="submit" class="logout-btn">Cerrar Sesión</button>
+                        <button type="submit">Cerrar Sesión</button>
                     </form>
                 </div>
             <% } else { %>

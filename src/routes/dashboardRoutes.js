@@ -2,10 +2,10 @@ const express = require('express');
 const router = express.Router();
 const { isAuthenticated } = require('../middleware/auth');
 
-router.get('/', isAuthenticated, (req, res) => {
-    res.render('user/dashboard', {
+router.get('/dashboard', isAuthenticated, (req, res) => {
+    res.render('dashboard/index', { 
         user: req.user,
-        title: 'Mi Perfil - CryptoTrading'
+        isAuthenticated: true
     });
 });
 

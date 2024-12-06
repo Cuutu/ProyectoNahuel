@@ -46,19 +46,16 @@ app.use(passport.session());
 // Middleware para verificar el estado de la sesión
 app.use((req, res, next) => {
     res.locals.user = req.user;
+    res.locals.isAuthenticated = req.isAuthenticated();
     console.log('Estado de la sesión:', {
         isAuthenticated: req.isAuthenticated(),
         sessionID: req.sessionID,
-        user: req.user ? req.user._id : null
+        user: req.user ? {
+            id: req.user._id,
+            nombre: req.user.nombre,
+            email: req.user.email
+        } : null
     });
-    next();
-});
-
-// Después de la configuración de passport y session
-app.use((req, res, next) => {
-    // Hacer el usuario y el estado de autenticación disponibles en todas las vistas
-    res.locals.user = req.user || req.session.user;
-    res.locals.isAuthenticated = req.isAuthenticated();
     next();
 });
 

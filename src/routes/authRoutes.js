@@ -21,7 +21,15 @@ router.get('/login', (req, res) => {
 
 router.post('/login', authController.login);
 
-router.post('/logout', authController.logout);
+router.post('/logout', (req, res, next) => {
+    req.logout((err) => {
+        if (err) { return next(err); }
+        req.session.destroy((err) => {
+            if (err) { return next(err); }
+            res.redirect('/');
+        });
+    });
+});
 
 // Rutas de Google OAuth
 router.get('/google',
@@ -36,41 +44,11 @@ router.get('/google/callback',
         failureFlash: true
     }),
     (req, res) => {
-        // Asegurarnos de que el usuario se guarde en la sesión
-        req.session.user = {
-            id: req.user._id,
-            nombre: req.user.nombre,
-            email: req.user.email
-        };
-        
-        // Guardar la sesión explícitamente
-        req.session.save((err) => {
-            if (err) {
-                console.error('Error al guardar la sesión:', err);
-                return res.redirect('/auth/login');
-            }
-            // Redirigir al dashboard o a la página anterior
-            const returnTo = req.session.returnTo || '/dashboard';
-            delete req.session.returnTo;
-            res.redirect(returnTo);
-        });
+        if (!req.user) {
+            return res.redirect('/auth/login');
+        }
+        res.redirect('/dashboard');
     }
 );
-
-// Ruta para cerrar sesión
-router.get('/logout', (req, res, next) => {
-    req.session.destroy((err) => {
-        if (err) {
-            console.error('Error al destruir la sesión:', err);
-            return next(err);
-        }
-        req.logout((err) => {
-            if (err) {
-                return next(err);
-            }
-            res.redirect('/');
-        });
-    });
-});
 
 module.exports = router; 
