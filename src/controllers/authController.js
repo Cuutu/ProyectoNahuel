@@ -26,7 +26,7 @@ const authController = {
                 email: user.email
             };
 
-            res.redirect('/dashboard');
+            res.redirect('/user/dashboard');
         } catch (error) {
             console.error('Error en login:', error);
             res.render('auth/login', {
@@ -37,9 +37,8 @@ const authController = {
 
     register: async (req, res) => {
         try {
-            const { nombre, apellido, email, password, telefono } = req.body;
+            const { nombre, email, password } = req.body;
             
-            // Verificar si el usuario ya existe
             const existingUser = await User.findOne({ email });
             if (existingUser) {
                 return res.render('auth/register', {
@@ -47,18 +46,14 @@ const authController = {
                 });
             }
 
-            // Hashear la contraseña
-            const salt = await bcrypt.genSalt(10);
-            const hashedPassword = await bcrypt.hash(password, salt);
-
-            // Crear nuevo usuario
-            const user = await User.create({
+            const hashedPassword = await bcrypt.hash(password, 10);
+            const user = new User({
                 nombre,
-                apellido,
                 email,
-                password: hashedPassword,
-                telefono
+                password: hashedPassword
             });
+
+            await user.save();
 
             req.session.user = {
                 id: user._id,
@@ -66,7 +61,7 @@ const authController = {
                 email: user.email
             };
 
-            res.redirect('/dashboard');
+            res.redirect('/user/dashboard');
         } catch (error) {
             console.error('Error en registro:', error);
             res.render('auth/register', {
