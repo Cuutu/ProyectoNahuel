@@ -8,32 +8,31 @@ const userSchema = new mongoose.Schema({
     },
     nombre: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     apellido: {
         type: String,
-        required: true,
-        trim: true
+        required: true
     },
     email: {
         type: String,
         required: true,
-        unique: true,
-        trim: true
+        unique: true
     },
     password: {
         type: String,
-        required: true
+        required: function() {
+            return !this.googleId; // Password solo requerido si no es login con Google
+        }
     },
     telefono: {
         type: String,
-        required: true
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now
+        required: function() {
+            return !this.googleId; // Teléfono solo requerido si no es login con Google
+        }
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('User', userSchema); 

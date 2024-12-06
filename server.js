@@ -1,37 +1,43 @@
 const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const path = require('path');
+const passport = require('passport');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
-const { loadUser } = require('./src/middleware/auth');
-const sessionCheck = require('./src/middleware/sessionCheck');
-const passport = require('passport');
-require('./src/config/passport'); // Importa la configuración de passport
+require('./src/config/passport');
 
 const app = express();
 
 // Conectar a la base de datos
 connectDB();
 
-// Configuración de sesión actualizada
+// Configuración de sesión
 app.use(session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
-    resave: true,
+    resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60,
-        autoRemove: 'native'
+        ttl: 24 * 60 * 60
     }),
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000,
-        secure: false,
-        httpOnly: true,
-        sameSite: 'lax'
-    },
-    name: 'cryptoTrading'
+        secure: process.env.NODE_ENV === 'production',
+        maxAge: 24 * 60 * 60 * 1000 // 1 día
+    }
 }));
+
+// Inicializar Passport y restaurar estado de autenticación desde la sesión
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Middleware para manejar errores
+app.use((err, req, res, next) => {
+    console.error('Error:', err);
+    res.status(500).render('error', {
+        message: 'Ha ocurrido un error en el servidor',
+        error: process.env.NODE_ENV === 'development' ? err : {}
+    });
+});
 
 // Middleware para manejar la sesión en todas las rutas
 app.use((req, res, next) => {
@@ -76,10 +82,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(sessionCheck);
-
-// Inicializar Passport después de la configuración de sesión
-app.use(passport.initialize());
-app.use(passport.session());
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
