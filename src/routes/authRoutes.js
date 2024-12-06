@@ -47,7 +47,7 @@ router.get('/google/callback',
         if (!req.user) {
             return res.redirect('/auth/login');
         }
-        res.redirect('/dashboard');
+        res.redirect('/');
     }
 );
 
