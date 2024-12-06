@@ -21,6 +21,6 @@ const isAuthenticated = (req, res, next) => {
 router.use(isAuthenticated);
 
 // Ruta principal del dashboard
-router.get('/', userController.getDashboard);
+router.get('/dashboard', userController.getDashboard);
 
 module.exports = router; 
