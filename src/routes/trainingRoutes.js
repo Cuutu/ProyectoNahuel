@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const trainingController = require('../controllers/trainingController');
+const { sessionPersist } = require('../middleware/auth');
 
-// Ruta principal de entrenamientos
+// Aplicar middleware a todas las rutas de entrenamiento
+router.use(sessionPersist);
+
 router.get('/', trainingController.getTrainings);
-
-// Ruta para análisis técnico
 router.get('/analisis-tecnico', trainingController.getAnalisisTecnico);
 
 module.exports = router; 

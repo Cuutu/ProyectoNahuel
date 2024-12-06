@@ -7,26 +7,29 @@ const authController = {
             const { email, password } = req.body;
             const user = await User.findOne({ email });
 
-            if (!user) {
+            if (!user || !await bcrypt.compare(password, user.password)) {
                 return res.render('auth/login', {
-                    error: 'Usuario no encontrado'
+                    error: 'Credenciales inválidas'
                 });
             }
 
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) {
-                return res.render('auth/login', {
-                    error: 'Contraseña incorrecta'
-                });
-            }
-
+            // Establecer la sesión
             req.session.user = {
                 id: user._id,
                 nombre: user.nombre,
                 email: user.email
             };
 
-            res.redirect('/dashboard');
+            // Guardar la sesión explícitamente
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Error al guardar la sesión:', err);
+                    return res.render('auth/login', {
+                        error: 'Error al iniciar sesión'
+                    });
+                }
+                res.redirect('/dashboard');
+            });
         } catch (error) {
             console.error('Error en login:', error);
             res.render('auth/login', {
@@ -75,7 +78,7 @@ const authController = {
         }
     },
 
-    logout: async (req, res) => {
+    logout: (req, res) => {
         req.session.destroy((err) => {
             if (err) {
                 console.error('Error al cerrar sesión:', err);

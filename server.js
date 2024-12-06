@@ -21,31 +21,41 @@ app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configuración de la sesión
+// Configuración de la sesión con opciones más robustas
 const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60,
+        ttl: 24 * 60 * 60, // 1 día
         autoRemove: 'native',
         touchAfter: 24 * 3600
     }),
     cookie: {
-        secure: false,
+        secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
+        maxAge: 24 * 60 * 60 * 1000, // 1 día
         sameSite: 'lax'
     },
-    name: 'sessionId'
+    name: 'sessionId',
+    rolling: true // Renueva el tiempo de expiración en cada request
 });
 
 app.use(sessionMiddleware);
-
-// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Middleware global para persistencia de sesión
+app.use((req, res, next) => {
+    if (req.session && req.session.user) {
+        res.locals.user = req.session.user;
+        res.locals.isAuthenticated = true;
+    } else {
+        res.locals.isAuthenticated = false;
+    }
+    next();
+});
 
 // Middleware de debug
 app.use((req, res, next) => {

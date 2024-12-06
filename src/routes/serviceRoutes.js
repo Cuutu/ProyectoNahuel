@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { isAuthenticated } = require('../middleware/auth');
+const { sessionPersist } = require('../middleware/auth');
 
-// Ruta principal de servicios
+// Aplicar middleware a todas las rutas de servicios
+router.use(sessionPersist);
+
 router.get('/', (req, res) => {
     res.render('services', {
         title: 'Nuestros Servicios',
