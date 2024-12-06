@@ -21,25 +21,24 @@ app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configuración de la sesión con opciones más robustas
+// Configuración de la sesión
 const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60, // 1 día
+        ttl: 24 * 60 * 60,
         autoRemove: 'native',
         touchAfter: 24 * 3600
     }),
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, // 1 día
+        maxAge: 24 * 60 * 60 * 1000,
         sameSite: 'lax'
     },
-    name: 'sessionId',
-    rolling: true // Renueva el tiempo de expiración en cada request
+    name: 'sessionId'
 });
 
 app.use(sessionMiddleware);
