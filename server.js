@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
+const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 require('./src/config/passport');
@@ -10,6 +11,15 @@ const app = express();
 
 // Conectar a la base de datos
 connectDB();
+
+// Configuración de vistas
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src', 'views'));
+
+// Middleware para archivos estáticos
+app.use(express.static(path.join(__dirname, 'src', 'public')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Configuración de sesión
 app.use(session({
@@ -26,29 +36,26 @@ app.use(session({
     }
 }));
 
-// Inicializar Passport y restaurar estado de autenticación desde la sesión
+// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
-
-// Configurar motor de vistas
-app.set('view engine', 'ejs');
-app.set('views', './src/views');
-
-// Middleware para archivos estáticos
-app.use(express.static('src/public'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 app.use('/auth', authRoutes);
+
+// Ruta principal
+app.get('/', (req, res) => {
+    res.render('landing', { user: req.user });
+});
 
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
     console.error('Error:', err);
     res.status(500).render('error', {
         message: 'Ha ocurrido un error en el servidor',
-        error: process.env.NODE_ENV === 'development' ? err : {}
+        error: process.env.NODE_ENV === 'development' ? err : {},
+        user: req.user
     });
 });
 
