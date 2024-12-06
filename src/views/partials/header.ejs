@@ -13,7 +13,7 @@
             <a href="/mentoring">Mentoring</a>
             <a href="/recursos">Recursos</a>
             
-            <% if (locals.isAuthenticated) { %>
+            <% if (isAuthenticated && user) { %>
                 <div class="user-menu">
                     <span class="user-name">Hola, <%= user.nombre %></span>
                     <a href="/dashboard" class="nav-link">Mi Perfil</a>

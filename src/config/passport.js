@@ -8,7 +8,10 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(id).select('-password');
+        if (!user) {
+            return done(null, false);
+        }
         done(null, user);
     } catch (err) {
         done(err, null);

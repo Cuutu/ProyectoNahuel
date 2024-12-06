@@ -47,7 +47,22 @@ router.get('/google/callback',
         if (!req.user) {
             return res.redirect('/auth/login');
         }
-        res.redirect('/');
+        
+        req.session.regenerate((err) => {
+            if (err) {
+                console.error('Error regenerando sesión:', err);
+                return res.redirect('/auth/login');
+            }
+            
+            req.session.user = req.user;
+            req.session.save((err) => {
+                if (err) {
+                    console.error('Error guardando sesión:', err);
+                    return res.redirect('/auth/login');
+                }
+                res.redirect('/');
+            });
+        });
     }
 );
 

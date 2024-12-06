@@ -45,11 +45,13 @@ app.use(passport.session());
 
 // Middleware para verificar el estado de la sesión
 app.use((req, res, next) => {
+    // Hacer el usuario disponible en todas las vistas
     res.locals.user = req.user;
     res.locals.isAuthenticated = req.isAuthenticated();
+    
+    // Debug de sesión
     console.log('Estado de la sesión:', {
         isAuthenticated: req.isAuthenticated(),
-        sessionID: req.sessionID,
         user: req.user ? {
             id: req.user._id,
             nombre: req.user.nombre,
