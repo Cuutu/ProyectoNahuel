@@ -18,7 +18,9 @@ passport.deserializeUser(async (id, done) => {
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "/auth/google/callback",
+    callbackURL: process.env.NODE_ENV === 'production' 
+        ? 'https://tu-app-vercel.vercel.app/auth/google/callback'  // URL de producción
+        : 'http://localhost:3000/auth/google/callback',            // URL de desarrollo
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
 async (accessToken, refreshToken, profile, done) => {
