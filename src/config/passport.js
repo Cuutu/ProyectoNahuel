@@ -21,19 +21,26 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK_URL
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        let user = await User.findOne({ googleId: profile.id });
+        let user = await User.findOne({ email: profile.emails[0].value });
         
         if (!user) {
-            // Manejo de apellido cuando no está disponible
-            const apellido = profile.name.familyName || 'No especificado';
+            const fullName = profile.displayName.split(' ');
+            const nombre = fullName[0];
+            const apellido = fullName.slice(1).join(' ') || 'No especificado';
             
             user = await User.create({
                 googleId: profile.id,
-                nombre: profile.name.givenName || profile.displayName.split(' ')[0],
+                nombre: nombre,
                 apellido: apellido,
                 email: profile.emails[0].value,
+                password: 'google-auth',
+                telefono: '',
                 authProvider: 'google'
             });
+        } else if (!user.googleId) {
+            user.googleId = profile.id;
+            user.authProvider = 'google';
+            await user.save();
         }
         
         return done(null, user);
