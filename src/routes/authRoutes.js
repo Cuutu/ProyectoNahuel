@@ -33,34 +33,16 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { 
         failureRedirect: '/auth/login',
-        session: true
+        failureFlash: true
     }),
-    (req, res, next) => {
-        if (!req.user) {
-            return res.redirect('/auth/login');
-        }
-
-        req.session.regenerate((err) => {
+    (req, res) => {
+        // Asegurarnos de que la sesión se guarde
+        req.session.save((err) => {
             if (err) {
-                console.error('Error regenerando sesión:', err);
-                return next(err);
+                console.error('Error al guardar la sesión:', err);
+                return res.redirect('/auth/login');
             }
-
-            req.session.user = req.user;
-            req.session.isAuthenticated = true;
-
-            req.session.save((err) => {
-                if (err) {
-                    console.error('Error guardando sesión:', err);
-                    return next(err);
-                }
-                console.log('Estado de la sesión después de login:', {
-                    sessionID: req.sessionID,
-                    isAuthenticated: req.session.isAuthenticated,
-                    user: req.session.user
-                });
-                res.redirect('/dashboard');
-            });
+            res.redirect('/dashboard');
         });
     }
 );
@@ -72,7 +54,12 @@ router.get('/logout', (req, res, next) => {
             console.error('Error al destruir la sesión:', err);
             return next(err);
         }
-        res.redirect('/');
+        req.logout((err) => {
+            if (err) {
+                return next(err);
+            }
+            res.redirect('/');
+        });
     });
 });
 

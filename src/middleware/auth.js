@@ -2,16 +2,18 @@ const isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
     }
+    req.session.returnTo = req.originalUrl;
     res.redirect('/auth/login');
 };
 
-const loadUser = (req, res, next) => {
-    if (req.session.user) {
-        res.locals.user = req.session.user;
-    } else {
-        res.locals.user = null;
+const isNotAuthenticated = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return next();
     }
-    next();
+    res.redirect('/dashboard');
 };
 
-module.exports = { isAuthenticated, loadUser }; 
+module.exports = {
+    isAuthenticated,
+    isNotAuthenticated
+}; 
