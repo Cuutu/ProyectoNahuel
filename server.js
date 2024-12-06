@@ -30,6 +30,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Configurar motor de vistas
+app.set('view engine', 'ejs');
+app.set('views', './src/views');
+
+// Middleware para archivos estáticos
+app.use(express.static('src/public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Rutas
+const authRoutes = require('./src/routes/authRoutes');
+app.use('/auth', authRoutes);
+
 // Middleware para manejar errores
 app.use((err, req, res, next) => {
     console.error('Error:', err);
@@ -39,53 +52,12 @@ app.use((err, req, res, next) => {
     });
 });
 
-// Middleware para manejar la sesión en todas las rutas
-app.use((req, res, next) => {
-    if (req.session) {
-        req.session.touch();
-    }
-    console.log('Session ID:', req.sessionID);
-    console.log('Session:', req.session);
-    console.log('Cookies:', req.cookies);
-    next();
-});
-
-// Middleware para pasar usuario a las vistas
-app.use(loadUser);
-
-// Middlewares básicos
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'src/public')));
-
-// Configuración de vistas
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'src/views'));
-
-// Importar todas las rutas
-const authRoutes = require('./src/routes/authRoutes');
-const userRoutes = require('./src/routes/userRoutes');
-const serviceRoutes = require('./src/routes/serviceRoutes');
-const trainingRoutes = require('./src/routes/trainingRoutes');
-
-// Usar las rutas
-app.use('/auth', authRoutes);
-app.use('/user', userRoutes);
-app.use('/servicios', serviceRoutes);
-app.use('/entrenamientos', trainingRoutes);
-
-// Ruta principal
-app.get('/', (req, res) => {
-    res.render('landing', {
-        title: 'CryptoTrading - Inicio'
+// El puerto solo se usa en desarrollo
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Servidor corriendo en puerto ${PORT}`);
     });
-});
-
-app.use(sessionCheck);
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo en puerto ${PORT}`);
-});
+}
 
 module.exports = app;
