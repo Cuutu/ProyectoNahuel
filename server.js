@@ -75,9 +75,13 @@ app.use((req, res, next) => {
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 const dashboardRoutes = require('./src/routes/dashboardRoutes');
+const serviceRoutes = require('./src/routes/serviceRoutes');
+const trainingRoutes = require('./src/routes/trainingRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/dashboard', dashboardRoutes);
+app.use('/servicios', serviceRoutes);
+app.use('/entrenamientos', trainingRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
