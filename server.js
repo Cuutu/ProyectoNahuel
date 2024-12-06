@@ -21,8 +21,8 @@ app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Configuración de sesión
-app.use(session({
+// Configuración de la sesión
+const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
     resave: false,
     saveUninitialized: false,
@@ -36,29 +36,39 @@ app.use(session({
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         maxAge: 24 * 60 * 60 * 1000
-    }
-}));
+    },
+    name: 'sessionId' // Nombre específico para la cookie
+});
 
-// Inicializar Passport después de la sesión
+app.use(sessionMiddleware);
+
+// Inicializar Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Middleware para verificar el estado de la sesión
+// Middleware de debug
 app.use((req, res, next) => {
-    // Hacer el usuario disponible en todas las vistas
+    console.log('\n=== Debug de Sesión ===');
+    console.log('SessionID:', req.sessionID);
+    console.log('Session:', req.session);
+    console.log('IsAuthenticated:', req.isAuthenticated());
+    console.log('User:', req.user);
+    console.log('Cookies:', req.headers.cookie);
+    console.log('=====================\n');
+
+    // Hacer disponible la información en las vistas
     res.locals.user = req.user;
     res.locals.isAuthenticated = req.isAuthenticated();
-    
-    // Debug de sesión
-    console.log('Estado de la sesión:', {
-        isAuthenticated: req.isAuthenticated(),
-        sessionID: req.sessionID,
-        user: req.user ? {
-            id: req.user._id,
-            nombre: req.user.nombre,
-            email: req.user.email
-        } : null
-    });
+    next();
+});
+
+// Middleware para verificar si la sesión está activa
+app.use((req, res, next) => {
+    if (req.session && !req.session.touch) {
+        req.session.touch = () => {
+            req.session.lastAccess = Date.now();
+        };
+    }
     next();
 });
 

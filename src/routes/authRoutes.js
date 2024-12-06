@@ -43,25 +43,18 @@ router.get('/google/callback',
         failureRedirect: '/auth/login',
         failureFlash: true
     }),
-    (req, res) => {
-        if (!req.user) {
-            return res.redirect('/auth/login');
-        }
+    (req, res, next) => {
+        console.log('Callback de Google ejecutado');
+        console.log('Usuario autenticado:', req.user?._id);
         
-        req.session.regenerate((err) => {
+        // Forzar guardado de sesión
+        req.session.save((err) => {
             if (err) {
-                console.error('Error regenerando sesión:', err);
-                return res.redirect('/auth/login');
+                console.error('Error al guardar sesión:', err);
+                return next(err);
             }
-            
-            req.session.user = req.user;
-            req.session.save((err) => {
-                if (err) {
-                    console.error('Error guardando sesión:', err);
-                    return res.redirect('/auth/login');
-                }
-                res.redirect('/');
-            });
+            console.log('Sesión guardada correctamente');
+            res.redirect('/');
         });
     }
 );

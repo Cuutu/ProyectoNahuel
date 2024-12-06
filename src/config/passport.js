@@ -3,17 +3,22 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/User');
 
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    console.log('Serializando usuario:', user._id);
+    done(null, user._id);
 });
 
 passport.deserializeUser(async (id, done) => {
     try {
+        console.log('Deserializando usuario ID:', id);
         const user = await User.findById(id).select('-password');
         if (!user) {
+            console.log('Usuario no encontrado en deserialización');
             return done(null, false);
         }
+        console.log('Usuario deserializado:', user.email);
         done(null, user);
     } catch (err) {
+        console.error('Error en deserialización:', err);
         done(err, null);
     }
 });
@@ -24,31 +29,31 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.GOOGLE_CALLBACK_URL
 }, async (accessToken, refreshToken, profile, done) => {
     try {
+        console.log('Perfil de Google recibido:', profile.id);
         let user = await User.findOne({ email: profile.emails[0].value });
         
         if (!user) {
+            console.log('Creando nuevo usuario');
             const fullName = profile.displayName.split(' ');
-            const nombre = fullName[0];
-            const apellido = fullName.slice(1).join(' ') || 'No especificado';
-            
             user = await User.create({
                 googleId: profile.id,
-                nombre: nombre,
-                apellido: apellido,
+                nombre: fullName[0],
+                apellido: fullName.slice(1).join(' ') || 'No especificado',
                 email: profile.emails[0].value,
-                password: 'google-auth',
-                telefono: '',
                 authProvider: 'google'
             });
-        } else if (!user.googleId) {
-            user.googleId = profile.id;
-            user.authProvider = 'google';
-            await user.save();
+        } else {
+            console.log('Usuario existente encontrado');
+            if (!user.googleId) {
+                user.googleId = profile.id;
+                user.authProvider = 'google';
+                await user.save();
+            }
         }
         
         return done(null, user);
     } catch (err) {
-        console.error('Error en autenticación de Google:', err);
+        console.error('Error en estrategia de Google:', err);
         return done(err, null);
     }
 })); 
