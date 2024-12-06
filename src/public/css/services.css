@@ -1,268 +1,154 @@
-@layer components {
-    .services-section {
-        @apply py-16 bg-white;
-    }
-
-    .services-container {
-        @apply max-w-6xl mx-auto px-4;
-    }
-
-    .section-title {
-        @apply text-3xl font-bold text-center mb-12;
-        position: relative;
-        padding-bottom: 1rem;
-        text-align: center;
-    }
-
-    .section-title::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100px;
-        height: 3px;
-        background: #00ff88;
-    }
-
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
-        margin: 0 auto;
-        max-width: 1200px;
-    }
-
-    .service-card {
-        @apply bg-white rounded-xl shadow-lg p-8;
-        border: 1px solid #e5e7eb;
-        border-top: 4px solid #00ff88;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    /* Responsive para tablets y móviles */
-    @media (max-width: 1024px) {
-        .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .services-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    .service-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header {
-        @apply mb-6 w-full;
-        text-align: center;
-    }
-
-    .card-header h3 {
-        @apply text-2xl font-bold mb-3 text-gray-800;
-        text-align: center;
-    }
-
-    .card-header p {
-        @apply text-gray-600 text-sm leading-relaxed;
-        padding: 0 1rem 1rem;
-        text-align: center;
-    }
-
-    .card-stats {
-        @apply flex justify-center gap-8 my-6 p-4 bg-gray-50 rounded-lg;
-        width: 100%;
-        text-align: center;
-    }
-
-    .stat {
-        @apply flex flex-col items-center;
-        padding: 0.5rem;
-    }
-
-    .stat-value {
-        @apply text-xl font-bold text-[#00ff88];
-    }
-
-    .stat-label {
-        @apply text-xs font-medium text-gray-600 uppercase tracking-wide mt-1;
-    }
-
-    .feature-list {
-        @apply space-y-3 px-4 my-6;
-        width: 100%;
-        text-align: left;
-        padding-left: 100px;
-    }
-
-    .feature-list li {
-        @apply flex items-center text-sm text-gray-600;
-        @apply before:content-['✓'] before:mr-2 before:text-[#00ff88] before:font-bold;
-        padding: 0.25rem 0;
-    }
-
-    .cta-button {
-        @apply bg-[#00ff88] text-black text-sm font-bold py-3 rounded-lg
-               hover:bg-[#00cc6a] transition-colors duration-200
-               uppercase tracking-wide mt-auto;
-        width: 80%;
-        margin: 1.5rem auto 0;
-        display: block;
-        text-align: center;
-    }
-
-    .video-section {
-        @apply bg-gray-100 py-16 mt-16;
-    }
-
-    .video-container {
-        @apply w-full max-w-4xl mx-auto mt-10 mb-20;
-        position: relative;
-        padding-bottom: 56.25%; /* Aspect ratio 16:9 */
-        height: 0;
-        overflow: hidden;
-    }
-
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .container {
-        @apply mx-auto;
-        text-align: center;
-    }
-
-    /* Sección de Estadísticas */
-    .stats-section {
-        padding: 60px 0;
-        background-color: #f8f9fa;
-    }
-
-    .stats-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-
-    .stat-card {
-        background: #fff;
-        border-radius: 10px;
-        padding: 30px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .stat-content {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .stat-icon-wrapper {
-        width: 60px;
-        height: 60px;
-        background: #f0f7ff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .stat-icon {
-        font-size: 30px;
-    }
-
-    .stat-info {
-        flex: 1;
-    }
-
-    .stat-number {
-        font-size: 28px;
-        font-weight: 700;
-        color: #007bff;
-        margin-bottom: 5px;
-    }
-
-    .stat-details {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .stat-label {
-        font-size: 18px;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 2px;
-    }
-
-    .stat-description {
-        font-size: 14px;
-        color: #666;
-    }
-
-    /* Responsive design */
-    @media (max-width: 992px) {
-        .stats-container {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .stats-container {
-            grid-template-columns: 1fr;
-        }
-
-        .stat-card {
-            padding: 20px;
-        }
-
-        .stat-icon-wrapper {
-            width: 50px;
-            height: 50px;
-        }
-
-        .stat-icon {
-            font-size: 24px;
-        }
-
-        .stat-number {
-            font-size: 24px;
-        }
-
-        .stat-label {
-            font-size: 16px;
-        }
-    }
+/* Reset específico para la página de servicios */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-/* Animación sutil */
+/* Contenedor principal de servicios */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+/* Título de la sección */
+.services-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #333;
+}
+
+/* Grid de servicios */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 1rem;
+}
+
+/* Tarjeta de servicio */
 .service-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .service-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+/* Encabezado de la tarjeta */
+.card-header {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.card-header h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.card-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+/* Lista de características */
+.feature-list {
+    list-style: none;
+    margin: 1rem 0;
+}
+
+.feature-list li {
+    padding: 0.5rem 0;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.feature-list li:before {
+    content: "✓";
+    color: #00ff88;
+    font-weight: bold;
+}
+
+/* Botón CTA */
+.cta-button {
+    background: #00ff88;
+    color: black;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 100%;
+}
+
+.cta-button:hover {
+    background: #00cc6a;
+}
+
+/* Estadísticas */
+.stats-section {
+    background: #f8f9fa;
+    padding: 4rem 0;
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #00ff88;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 1rem;
+}
+
+.stat-description {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        padding: 1rem;
+    }
 }
