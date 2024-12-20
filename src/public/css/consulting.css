@@ -1,6 +1,8 @@
 /* Estilos básicos para prueba */
 .consulting-container {
     padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* Hero Section */
@@ -32,21 +34,26 @@
 
 /* Sección de Reservas */
 .booking-section {
-    padding: 80px 0;
-    background: #f8f9fa;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 4rem;
+}
+
+.booking-section h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #333;
 }
 
 .booking-container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
-    text-align: center;
 }
 
 .calendar-wrapper {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     margin-bottom: 2rem;
 }
 
@@ -56,46 +63,56 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     font-size: 1rem;
+    background: #f8f9fa;
 }
 
 .booking-info {
-    background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
 .booking-info h3 {
-    margin-bottom: 1rem;
     color: #333;
+    margin-bottom: 1rem;
 }
 
-#selected-datetime {
-    margin: 1rem 0;
-    padding: 1rem;
-    background: #f8f9fa;
+.booking-info p {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+#confirm-booking {
+    background: #00ff9d;
+    color: #000;
+    border: none;
+    padding: 1rem 2rem;
     border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+#confirm-booking:hover {
+    background: #00e589;
 }
 
 /* Estadísticas */
 .stats-section {
-    padding: 80px 0;
-    background: white;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
 }
 
 .stat-card {
-    background: white;
+    background: #fff;
     padding: 2rem;
-    border-radius: 15px;
+    border-radius: 12px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     text-align: center;
     transition: transform 0.3s ease;
@@ -108,7 +125,7 @@
 .stat-number {
     font-size: 2.5rem;
     font-weight: bold;
-    color: var(--primary);
+    color: #00ff9d;
     margin-bottom: 0.5rem;
 }
 
@@ -119,8 +136,8 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-section h1 {
-        font-size: 2rem;
+    .consulting-container {
+        padding: 60px 20px;
     }
 
     .stats-grid {
@@ -128,7 +145,11 @@
         gap: 1rem;
     }
 
-    .booking-container {
-        padding: 0 20px;
+    .booking-section {
+        padding: 1.5rem;
+    }
+
+    .booking-section h2 {
+        font-size: 1.5rem;
     }
 } 
