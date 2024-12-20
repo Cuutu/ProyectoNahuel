@@ -27,37 +27,6 @@
             </div>
         </section>
 
-        <!-- Tipos de Asesoramiento -->
-        <section class="consulting-types" data-animate="fade-up">
-            <div class="container">
-                <h2>Nuestros Servicios de Asesoramiento</h2>
-                <div class="consulting-grid">
-                    <!-- Asesoramiento Individual -->
-                    <div class="consulting-card" data-animate="fade-right">
-                        <div class="card-header">
-                            <h3>Asesoramiento Individual</h3>
-                            <p class="duration">1 hora</p>
-                        </div>
-                        <p class="description">Sesión personalizada uno a uno con un experto trader</p>
-                        <ul class="features">
-                            <li>Análisis de tu estrategia actual</li>
-                            <li>Identificación de puntos de mejora</li>
-                            <li>Plan de acción personalizado</li>
-                            <li>Seguimiento posterior</li>
-                        </ul>
-                        <div class="card-footer">
-                            <div class="price">$99.99</div>
-                            <% if (locals.isAuthenticated) { %>
-                                <a href="/asesoramientos/individual" class="cta-button">Reservar Sesión</a>
-                            <% } else { %>
-                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
-                            <% } %>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Reserva de Mentoría -->
         <section class="booking-section" data-animate="fade-up">
             <div class="container">
