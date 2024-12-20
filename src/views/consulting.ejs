@@ -7,29 +7,89 @@
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/consulting.css">
     <link rel="stylesheet" href="/css/animations.css">
+    <!-- Calendario -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <%- include('./partials/header') %>
     
     <main class="consulting-container">
         <!-- Hero Section -->
-        <section class="hero-section">
+        <section class="hero-section" data-animate="fade-up">
             <div class="container">
                 <h1>Asesoramiento Personalizado</h1>
-                <p>Optimiza tu trading con la guía de expertos</p>
+                <p class="hero-description">Optimiza tu trading con la guía de expertos</p>
             </div>
         </section>
 
-        <!-- Contenido básico para prueba -->
-        <section class="consulting-types">
+        <!-- Video Section -->
+        <section class="video-section" data-animate="fade-up">
+            <div class="container">
+                <div class="video-wrapper">
+                    <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID" 
+                            frameborder="0" 
+                            allow="autoplay; fullscreen" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tipos de Asesoramiento -->
+        <section class="consulting-types" data-animate="fade-up">
             <div class="container">
                 <h2>Nuestros Servicios de Asesoramiento</h2>
-                <p>Contenido de prueba</p>
+                <div class="consulting-grid">
+                    <!-- Cards de asesoramiento previas... -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Reserva de Mentoría -->
+        <section class="booking-section" data-animate="fade-up">
+            <div class="container">
+                <h2>Reserva tu Mentoría</h2>
+                <div class="booking-container">
+                    <div class="calendar-wrapper">
+                        <input type="text" id="booking-calendar" placeholder="Selecciona una fecha y hora" class="booking-input">
+                    </div>
+                    <div class="booking-info">
+                        <h3>Detalles de la Reserva</h3>
+                        <p>Duración: 1 hora</p>
+                        <p>Precio: $99.99</p>
+                        <div id="selected-datetime"></div>
+                        <button id="confirm-booking" class="cta-button">Confirmar Reserva</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="stats-section" data-animate="fade-up">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Traders Asesorados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Satisfacción</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
+    <script src="/js/booking.js"></script>
 </body>
 </html> 
