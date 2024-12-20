@@ -5,15 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asesoramientos - CryptoTrading</title>
     <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/consulting.css">
     <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
     <%- include('./partials/header') %>
     
     <main class="consulting-container">
+        <!-- Hero Section -->
         <section class="hero-section" data-animate="fade-up">
-            <h1>Asesoramientos</h1>
-            <p>Página en construcción</p>
+            <div class="container">
+                <h1>Asesoramiento Personalizado</h1>
+                <p class="hero-description">Optimiza tu trading con la guía de expertos</p>
+            </div>
+        </section>
+
+        <!-- Tipos de Asesoramiento -->
+        <section class="consulting-types" data-animate="fade-up">
+            <div class="container">
+                <h2>Nuestros Servicios de Asesoramiento</h2>
+                <div class="consulting-grid">
+                    <!-- Asesoramiento Individual -->
+                    <div class="consulting-card" data-animate="fade-right">
+                        <div class="card-header">
+                            <h3>Asesoramiento Individual</h3>
+                            <p class="duration">1 hora</p>
+                        </div>
+                        <p class="description">Sesión personalizada uno a uno con un experto trader</p>
+                        <ul class="features">
+                            <li>Análisis de tu estrategia actual</li>
+                            <li>Identificación de puntos de mejora</li>
+                            <li>Plan de acción personalizado</li>
+                            <li>Seguimiento posterior</li>
+                        </ul>
+                        <div class="card-footer">
+                            <div class="price">$99.99</div>
+                            <% if (locals.isAuthenticated) { %>
+                                <a href="/asesoramientos/individual" class="cta-button">Reservar Sesión</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Asesoramiento Grupal -->
+                    <div class="consulting-card" data-animate="fade-up">
+                        <div class="card-header">
+                            <h3>Asesoramiento Grupal</h3>
+                            <p class="duration">2 horas</p>
+                        </div>
+                        <p class="description">Sesiones en grupo reducido con traders experimentados</p>
+                        <ul class="features">
+                            <li>Análisis de mercado en vivo</li>
+                            <li>Resolución de dudas en grupo</li>
+                            <li>Networking con otros traders</li>
+                            <li>Material de apoyo</li>
+                        </ul>
+                        <div class="card-footer">
+                            <div class="price">$49.99</div>
+                            <% if (locals.isAuthenticated) { %>
+                                <a href="/asesoramientos/grupal" class="cta-button">Reservar Plaza</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Plan Mensual -->
+                    <div class="consulting-card" data-animate="fade-left">
+                        <div class="card-header">
+                            <h3>Plan Mensual</h3>
+                            <p class="duration">4 sesiones/mes</p>
+                        </div>
+                        <p class="description">Seguimiento continuo de tu evolución como trader</p>
+                        <ul class="features">
+                            <li>Sesiones semanales personalizadas</li>
+                            <li>Acceso prioritario al asesor</li>
+                            <li>Revisión de operaciones</li>
+                            <li>Ajustes de estrategia</li>
+                        </ul>
+                        <div class="card-footer">
+                            <div class="price">$299.99</div>
+                            <% if (locals.isAuthenticated) { %>
+                                <a href="/asesoramientos/mensual" class="cta-button">Contratar Plan</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Estadísticas -->
+        <section class="stats-section" data-animate="fade-up">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Traders Asesorados</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Satisfacción</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Años de Experiencia</div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
