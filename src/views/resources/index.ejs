@@ -39,7 +39,10 @@
                                             Acceder como Premium
                                         </a>
                                     <% } else { %>
-                                        <a href="<%= item.downloadUrl %>" class="resource-button">
+                                        <a href="<%= item.downloadUrl %>" 
+                                           class="resource-button"
+                                           target="_blank" 
+                                           rel="noopener noreferrer">
                                             <%= item.buttonText || 'Descargar' %>
                                         </a>
                                     <% } %>
