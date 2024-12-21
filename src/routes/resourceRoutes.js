@@ -4,7 +4,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('resources/index', {
         title: 'Recursos de Trading',
-        user: res.locals.user,
+        user: req.session.user,
+        isAuthenticated: req.isAuthenticated(),
         resources: [
             {
                 category: "Recursos Esenciales",
@@ -12,7 +13,7 @@ router.get('/', (req, res) => {
                     {
                         title: "El aliado que necesitas",
                         description: "La plataforma más completa para el análisis técnico y trading profesional.",
-                        imageUrl: "https://imgur.com/a/eqtFiz5",
+                        imageUrl: "https://i.imgur.com/b8mNsXs.png",
                         downloadUrl: "https://es.tradingview.com/pricing/?share_your_love=XTrader95",
                         isPremium: false,
                         buttonText: "Ir a Trading View"
