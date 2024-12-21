@@ -35,7 +35,7 @@ router.get('/', (req, res) => {
                 ]
             },
             {
-                category: "Fórmulas",
+                category: "Fórmulas TradingView",
                 items: [
                     {
                         title: "Activos de USA",
@@ -52,6 +52,13 @@ router.get('/', (req, res) => {
                         downloadUrl: "https://es.tradingview.com/watchlists/121047136/",
                         isPremium: false,
                         buttonText: "Abrir Watchlist"
+                    },
+                    {
+                        title: "Dolar CCL",
+                        description: "Dólar promedio con los CEDEARs más utilizados para esta operatoria.",
+                        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s .jpg",
+                        isPremium: false,
+                        buttonText: "Ver formula"
                     }
                 ]
             },

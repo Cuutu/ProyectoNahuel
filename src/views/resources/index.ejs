@@ -57,5 +57,119 @@
 
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
+
+    <!-- Modal para la fórmula -->
+    <div id="formulaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Fórmula Dólar CCL</h2>
+            <div class="formula-container">
+                <code id="formula">(BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4</code>
+                <button id="copyButton" class="copy-button">Copiar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Agregar estos estilos -->
+    <style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+        border-radius: 8px;
+        position: relative;
+    }
+
+    .close {
+        position: absolute;
+        right: 20px;
+        top: 10px;
+        color: #aaa;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .formula-container {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 6px;
+        margin: 20px 0;
+        position: relative;
+        overflow-x: auto;
+    }
+
+    .copy-button {
+        background: #00ff88;
+        color: black;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+    .copy-button:hover {
+        background: #00cc6a;
+        transform: translateY(-2px);
+    }
+    </style>
+
+    <!-- Agregar este script -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('formulaModal');
+        const formula = document.getElementById('formula');
+        const copyButton = document.getElementById('copyButton');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        // Abrir modal cuando se hace clic en "Ver formula"
+        document.querySelectorAll('.resource-button').forEach(button => {
+            if(button.textContent.trim() === 'Ver formula') {
+                button.onclick = function(e) {
+                    e.preventDefault();
+                    modal.style.display = 'block';
+                }
+            }
+        });
+
+        // Cerrar modal
+        closeBtn.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Copiar fórmula
+        copyButton.onclick = function() {
+            navigator.clipboard.writeText(formula.textContent).then(() => {
+                copyButton.textContent = '¡Copiado!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Copiar';
+                }, 2000);
+            });
+        }
+    });
+    </script>
 </body>
 </html> 
