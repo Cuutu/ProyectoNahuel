@@ -47,8 +47,8 @@ router.get('/', (req, res) => {
                     {
                         title: "Activos de ARG",
                         description: "Los activos de ARG que utilizo para realizar mis análisis.",
-                        imageUrl: "/images/resources/template-plan.jpg",
-                        downloadUrl: "https://i0.wp.com/criptotendencia.com/wp-content/uploads/2024/06/Argentina-Sigue-disponible-el-Registro-de-Proveedores-de-Servicios-de-Activos-Virtuales.jpg?resize=696%2C398&ssl=1.jpg",
+                        imageUrl: "https://i0.wp.com/criptotendencia.com/wp-content/uploads/2024/06/Argentina-Sigue-disponible-el-Registro-de-Proveedores-de-Servicios-de-Activos-Virtuales.jpg?resize=696%2C398&ssl=1.jpg",
+                        downloadUrl: "https://es.tradingview.com/watchlists/121047136/",
                         isPremium: false
                     }
                 ]
