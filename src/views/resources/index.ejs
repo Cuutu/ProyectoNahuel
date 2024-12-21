@@ -227,32 +227,37 @@
     <!-- Agregar este script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('formulaModal');
+        const formulaModal = document.getElementById('formulaModal');
+        const calendarModal = document.getElementById('calendarModal');
         const closeBtns = document.getElementsByClassName('close');
 
-        // Mostrar modal con todas las fórmulas
+        // Capturar clicks en botones
         document.querySelectorAll('.resource-button').forEach(button => {
             button.addEventListener('click', function(e) {
                 const buttonText = this.textContent.trim();
-                if (buttonText === 'Ver formula' || buttonText === 'Ver índices' || buttonText === 'Ver calendarios') {
-                    e.preventDefault();  // Prevenir la redirección
-                    e.stopPropagation(); // Detener la propagación del evento
-                    modal.style.display = 'block';
-                    return false; // Asegurar que no se ejecute el comportamiento por defecto
+                
+                if (buttonText === 'Ver calendarios') {
+                    e.preventDefault();
+                    calendarModal.style.display = 'block';
+                } else if (buttonText === 'Ver indices' || buttonText === 'Ver formula') {
+                    e.preventDefault();
+                    formulaModal.style.display = 'block';
                 }
             });
         });
 
-        // Cerrar modal
+        // Cerrar modales
         Array.from(closeBtns).forEach(btn => {
             btn.onclick = function() {
-                modal.style.display = 'none';
+                formulaModal.style.display = 'none';
+                calendarModal.style.display = 'none';
             }
         });
 
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target == formulaModal || event.target == calendarModal) {
+                formulaModal.style.display = 'none';
+                calendarModal.style.display = 'none';
             }
         }
 
