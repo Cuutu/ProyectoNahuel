@@ -201,13 +201,15 @@
 
         // Mostrar modal con todas las fórmulas
         document.querySelectorAll('.resource-button').forEach(button => {
-            button.onclick = function(e) {
-                if (button.textContent.trim() === 'Ver formula' || button.textContent.trim() === 'Ver indices') {
-                    e.preventDefault();
+            button.addEventListener('click', function(e) {
+                const buttonText = this.textContent.trim();
+                if (buttonText === 'Ver formula' || buttonText === 'Ver indices') {
+                    e.preventDefault();  // Prevenir la redirección
+                    e.stopPropagation(); // Detener la propagación del evento
                     modal.style.display = 'block';
+                    return false; // Asegurar que no se ejecute el comportamiento por defecto
                 }
-                // Los otros botones funcionarán normalmente
-            }
+            });
         });
 
         // Cerrar modal
