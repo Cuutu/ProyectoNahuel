@@ -58,7 +58,7 @@ router.get('/', (req, res) => {
                         description: "Aqui encontras los índices que utilizo para realizar mis análisis.",
                         imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
                         isPremium: false,
-                        buttonText: "Ver formula"
+                        buttonText: "Ver índices"
                     }
                 ]
             },
