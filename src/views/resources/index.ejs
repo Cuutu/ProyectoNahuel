@@ -58,38 +58,34 @@
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
 
-    <!-- Modal para la fórmula -->
+    <!-- Un solo modal para todas las fórmulas -->
     <div id="formulaModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Fórmula de Dólar CCL</h2>
-            <div class="formula-container">
-                <code id="formula">(BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4</code>
-                <button id="copyButton" class="copy-button">Copiar</button>
+            <h2>Fórmulas CCL</h2>
+            
+            <div class="formula-section">
+                <h3>Dólar CCL</h3>
+                <div class="formula-container">
+                    <code id="formula">(BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4</code>
+                    <button class="copy-button">Copiar</button>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modal para la fórmula de Acciones ARG en CCL -->
-    <div id="formulaModalArg" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Fórmula de Acciones ARG en CCL</h2>
-            <div class="formula-container">
-                <code id="formulaArg">BCBA:ALUA/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
-                <button id="copyButtonArg" class="copy-button">Copiar</button>
+            <div class="formula-section">
+                <h3>Acciones ARG en CCL</h3>
+                <div class="formula-container">
+                    <code id="formulaArg">BCBA:ALUA/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
+                    <button class="copy-button">Copiar</button>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Modal para la fórmula del MERVAL en CCL -->
-    <div id="formulaModalMerval" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Fórmula MERVAL en Dólar CCL</h2>
-            <div class="formula-container">
-                <code id="formulaMerval">BCBA:IMV/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
-                <button id="copyButtonMerval" class="copy-button">Copiar</button>
+            <div class="formula-section">
+                <h3>MERVAL en Dólar CCL</h3>
+                <div class="formula-container">
+                    <code id="formulaMerval">BCBA:IMV/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
+                    <button class="copy-button">Copiar</button>
+                </div>
             </div>
         </div>
     </div>
@@ -153,58 +149,67 @@
         background: #00cc6a;
         transform: translateY(-2px);
     }
+
+    .formula-section {
+        margin-bottom: 2rem;
+    }
+
+    .formula-section h3 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .formula-container {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 6px;
+        margin: 10px 0;
+        position: relative;
+        overflow-x: auto;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
     </style>
 
     <!-- Agregar este script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('formulaModal');
-        const modalArg = document.getElementById('formulaModalArg');
-        const modalMerval = document.getElementById('formulaModalMerval');
-        const formula = document.getElementById('formula');
-        const formulaArg = document.getElementById('formulaArg');
-        const formulaMerval = document.getElementById('formulaMerval');
-        const copyButton = document.getElementById('copyButton');
-        const copyButtonArg = document.getElementById('copyButtonArg');
-        const copyButtonMerval = document.getElementById('copyButtonMerval');
         const closeBtns = document.getElementsByClassName('close');
 
-        // Abrir modal correspondiente según el botón
+        // Mostrar modal con todas las fórmulas
         document.querySelectorAll('.resource-button').forEach(button => {
-            button.onclick = function(e) {
-                if (button.closest('.resource-card').querySelector('h3').textContent.includes('Dolar CCL')) {
+            if(button.textContent.trim() === 'Ver formula') {
+                button.onclick = function(e) {
                     e.preventDefault();
                     modal.style.display = 'block';
-                } else if (button.closest('.resource-card').querySelector('h3').textContent.includes('Acciones ARG')) {
-                    e.preventDefault();
-                    modalArg.style.display = 'block';
-                } else if (button.closest('.resource-card').querySelector('h3').textContent.includes('MERVAL')) {
-                    e.preventDefault();
-                    modalMerval.style.display = 'block';
                 }
             }
         });
 
-        // Cerrar modales
+        // Cerrar modal
         Array.from(closeBtns).forEach(btn => {
             btn.onclick = function() {
                 modal.style.display = 'none';
-                modalArg.style.display = 'none';
-                modalMerval.style.display = 'none';
             }
         });
 
         window.onclick = function(event) {
-            if (event.target == modal || event.target == modalArg || event.target == modalMerval) {
+            if (event.target == modal) {
                 modal.style.display = 'none';
-                modalArg.style.display = 'none';
-                modalMerval.style.display = 'none';
             }
         }
 
         // Copiar fórmulas
-        function setupCopyButton(button, formula) {
+        document.querySelectorAll('.copy-button').forEach(button => {
             button.onclick = function() {
+                const formula = this.previousElementSibling;
                 navigator.clipboard.writeText(formula.textContent).then(() => {
                     button.textContent = '¡Copiado!';
                     setTimeout(() => {
@@ -212,11 +217,7 @@
                     }, 2000);
                 });
             }
-        }
-
-        setupCopyButton(copyButton, formula);
-        setupCopyButton(copyButtonArg, formulaArg);
-        setupCopyButton(copyButtonMerval, formulaMerval);
+        });
     });
     </script>
 </body>
