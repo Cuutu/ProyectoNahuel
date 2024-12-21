@@ -203,7 +203,7 @@
         document.querySelectorAll('.resource-button').forEach(button => {
             button.addEventListener('click', function(e) {
                 const buttonText = this.textContent.trim();
-                if (buttonText === 'Ver formula' || buttonText === 'Ver índices') {
+                if (buttonText === 'Ver formula' || buttonText === 'Ver índices' || buttonText === 'Calendarios') {
                     e.preventDefault();  // Prevenir la redirección
                     e.stopPropagation(); // Detener la propagación del evento
                     modal.style.display = 'block';
