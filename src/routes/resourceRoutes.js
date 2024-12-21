@@ -54,8 +54,8 @@ router.get('/', (req, res) => {
                         buttonText: "Abrir Watchlist"
                     },
                     {
-                        title: "Dolar CCL",
-                        description: "Dólar promedio con los CEDEARs más utilizados para esta operatoria.",
+                        title: "Índices que utilizo",
+                        description: "Aqui encontras los índices que utilizo para realizar mis análisis.",
                         imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
                         isPremium: false,
                         buttonText: "Ver formula"
