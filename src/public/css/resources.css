@@ -1,8 +1,8 @@
 /* Contenedor principal */
 .resources-container {
     max-width: 1200px;
-    margin: 80px auto 0;
-    padding: 2rem;
+    margin: 0 auto;
+    padding: 6rem 2rem 2rem;
 }
 
 /* Título de la sección */
@@ -115,7 +115,9 @@
 /* Responsive */
 @media (max-width: 768px) {
     .resources-container {
-        padding: 1rem;
+        padding-top: 5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
     
     .resources-grid {
