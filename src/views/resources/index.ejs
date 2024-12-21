@@ -1,46 +1,58 @@
-<%- include('../partials/header') %>
-
-<link rel="stylesheet" href="/css/resources.css">
-
-<div class="resources-container">
-    <h1 class="resources-title">Recursos de Trading</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recursos - CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/resources.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
     
-    <div class="resources-grid">
-        <% resources.forEach(category => { %>
-            <div class="category-section">
-                <h2><%= category.category %></h2>
-                
-                <div class="resources-grid">
-                    <% category.items.forEach(item => { %>
-                        <div class="resource-card">
-                            <img 
-                                src="<%= item.imageUrl %>" 
-                                alt="<%= item.title %>"
-                            >
-                            <% if (item.isPremium) { %>
-                                <span class="premium-badge">Premium</span>
-                            <% } %>
-                            
-                            <div class="card-content">
-                                <h3><%= item.title %></h3>
-                                <p><%= item.description %></p>
-                                
-                                <% if (item.isPremium && !isAuthenticated) { %>
-                                    <a href="/auth/login" class="resource-button">
-                                        Acceder como Premium
-                                    </a>
-                                <% } else { %>
-                                    <a href="<%= item.downloadUrl %>" class="resource-button">
-                                        Descargar
-                                    </a>
-                                <% } %>
-                            </div>
-                        </div>
-                    <% }) %>
-                </div>
-            </div>
-        <% }) %>
-    </div>
-</div>
+    <main class="resources-container">
+        <section class="hero-section" data-animate="fade-up">
+            <h1>Recursos de Trading</h1>
+            <p>Herramientas y materiales para tu éxito</p>
+        </section>
 
-<%- include('../partials/footer') %> 
+        <div class="resources-grid">
+            <% resources.forEach(category => { %>
+                <div class="category-section">
+                    <h2><%= category.category %></h2>
+                    
+                    <div class="resources-grid">
+                        <% category.items.forEach(item => { %>
+                            <div class="resource-card">
+                                <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+                                <% if (item.isPremium) { %>
+                                    <span class="premium-badge">Premium</span>
+                                <% } %>
+                                
+                                <div class="card-content">
+                                    <h3><%= item.title %></h3>
+                                    <p><%= item.description %></p>
+                                    
+                                    <% if (item.isPremium && !isAuthenticated) { %>
+                                        <a href="/auth/login" class="resource-button">
+                                            Acceder como Premium
+                                        </a>
+                                    <% } else { %>
+                                        <a href="<%= item.downloadUrl %>" class="resource-button">
+                                            Descargar
+                                        </a>
+                                    <% } %>
+                                </div>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </main>
+
+    <script src="/js/animations.js"></script>
+    <script src="/js/navbar.js"></script>
+</body>
+</html> 
