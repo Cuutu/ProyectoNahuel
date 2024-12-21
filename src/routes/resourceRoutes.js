@@ -66,6 +66,13 @@ router.get('/', (req, res) => {
                         imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
                         isPremium: false,
                         buttonText: "Ver formula"
+                    },
+                    {
+                        title: "Índice MERVAL en Dólar CCL",
+                        description: "El índice MERVAL ajustado por Dólar CCL, para evitar contaminar el análisis de la devaluación del peso.",
+                        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
+                        isPremium: false,
+                        buttonText: "Ver formula"
                     }
                 ]
             },

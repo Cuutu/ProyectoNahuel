@@ -62,7 +62,7 @@
     <div id="formulaModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Fórmula Dólar CCL</h2>
+            <h2>Fórmula de Dólar CCL</h2>
             <div class="formula-container">
                 <code id="formula">(BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4</code>
                 <button id="copyButton" class="copy-button">Copiar</button>
@@ -74,10 +74,22 @@
     <div id="formulaModalArg" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Acciones ARG en CCL</h2>
+            <h2>Fórmula de Acciones ARG en CCL</h2>
             <div class="formula-container">
                 <code id="formulaArg">BCBA:ALUA/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
                 <button id="copyButtonArg" class="copy-button">Copiar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para la fórmula del MERVAL en CCL -->
+    <div id="formulaModalMerval" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Fórmula MERVAL en Dólar CCL</h2>
+            <div class="formula-container">
+                <code id="formulaMerval">BCBA:IMV/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
+                <button id="copyButtonMerval" class="copy-button">Copiar</button>
             </div>
         </div>
     </div>
@@ -148,10 +160,13 @@
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('formulaModal');
         const modalArg = document.getElementById('formulaModalArg');
+        const modalMerval = document.getElementById('formulaModalMerval');
         const formula = document.getElementById('formula');
         const formulaArg = document.getElementById('formulaArg');
+        const formulaMerval = document.getElementById('formulaMerval');
         const copyButton = document.getElementById('copyButton');
         const copyButtonArg = document.getElementById('copyButtonArg');
+        const copyButtonMerval = document.getElementById('copyButtonMerval');
         const closeBtns = document.getElementsByClassName('close');
 
         // Abrir modal correspondiente según el botón
@@ -163,6 +178,9 @@
                 } else if (button.closest('.resource-card').querySelector('h3').textContent.includes('Acciones ARG')) {
                     e.preventDefault();
                     modalArg.style.display = 'block';
+                } else if (button.closest('.resource-card').querySelector('h3').textContent.includes('MERVAL')) {
+                    e.preventDefault();
+                    modalMerval.style.display = 'block';
                 }
             }
         });
@@ -172,13 +190,15 @@
             btn.onclick = function() {
                 modal.style.display = 'none';
                 modalArg.style.display = 'none';
+                modalMerval.style.display = 'none';
             }
         });
 
         window.onclick = function(event) {
-            if (event.target == modal || event.target == modalArg) {
+            if (event.target == modal || event.target == modalArg || event.target == modalMerval) {
                 modal.style.display = 'none';
                 modalArg.style.display = 'none';
+                modalMerval.style.display = 'none';
             }
         }
 
@@ -196,6 +216,7 @@
 
         setupCopyButton(copyButton, formula);
         setupCopyButton(copyButtonArg, formulaArg);
+        setupCopyButton(copyButtonMerval, formulaMerval);
     });
     </script>
 </body>
