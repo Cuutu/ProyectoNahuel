@@ -4,7 +4,8 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('resources/index', {
         title: 'Recursos de Trading',
-        user: res.locals.user,
+        user: req.session.user,
+        isAuthenticated: req.isAuthenticated(),
         resources: [
             {
                 category: "E-books",
@@ -12,14 +13,14 @@ router.get('/', (req, res) => {
                     {
                         title: "Guía Básica de Trading",
                         description: "Aprende los fundamentos del trading desde cero",
-                        imageUrl: "/images/resources/ebook-basic.jpg",
+                        imageUrl: "https://via.placeholder.com/400x300?text=Guia+Basica+Trading",
                         downloadUrl: "#",
                         isPremium: false
                     },
                     {
                         title: "Estrategias Avanzadas",
                         description: "Técnicas profesionales de trading",
-                        imageUrl: "/images/resources/ebook-advanced.jpg",
+                        imageUrl: "https://via.placeholder.com/400x300?text=Estrategias+Avanzadas",
                         downloadUrl: "#",
                         isPremium: true
                     }
@@ -31,14 +32,14 @@ router.get('/', (req, res) => {
                     {
                         title: "Trading Journal",
                         description: "Plantilla para registro de operaciones",
-                        imageUrl: "/images/resources/template-journal.jpg",
+                        imageUrl: "https://via.placeholder.com/400x300?text=Trading+Journal",
                         downloadUrl: "#",
                         isPremium: false
                     },
                     {
                         title: "Plan de Trading",
                         description: "Plantilla para crear tu plan de trading",
-                        imageUrl: "/images/resources/template-plan.jpg",
+                        imageUrl: "https://via.placeholder.com/400x300?text=Plan+Trading",
                         downloadUrl: "#",
                         isPremium: true
                     }
@@ -50,7 +51,7 @@ router.get('/', (req, res) => {
                     {
                         title: "RSI Personalizado",
                         description: "Indicador RSI con alertas",
-                        imageUrl: "/images/resources/indicator-rsi.jpg",
+                        imageUrl: "https://via.placeholder.com/400x300?text=RSI+Personalizado",
                         downloadUrl: "#",
                         isPremium: true
                     }
