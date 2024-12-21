@@ -32,7 +32,7 @@
                                 
                                 <div class="card-content">
                                     <h3><%= item.title %></h3>
-                                    <p><%= item.description %></p>
+                                    <p><%- item.description %></p>
                                     
                                     <% if (item.isPremium && !isAuthenticated) { %>
                                         <a href="/auth/login" class="resource-button">
