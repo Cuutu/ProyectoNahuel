@@ -67,12 +67,14 @@ const userRoutes = require('./src/routes/dashboardRoutes');
 const serviceRoutes = require('./src/routes/serviceRoutes');
 const trainingRoutes = require('./src/routes/trainingRoutes');
 const consultingRoutes = require('./src/routes/consultingRoutes');
+const resourceRoutes = require('./src/routes/resourceRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/servicios', serviceRoutes);
 app.use('/entrenamientos', trainingRoutes);
 app.use('/asesoramientos', consultingRoutes);
+app.use('/recursos', resourceRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {

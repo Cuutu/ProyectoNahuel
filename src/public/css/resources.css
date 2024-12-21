@@ -1,0 +1,16 @@
+.category-section:not(:last-child) {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 2rem;
+}
+
+.resource-card {
+    transition: transform 0.2s;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+}
+
+.premium-badge {
+    background: linear-gradient(45deg, #f59e0b, #fbbf24);
+} 
