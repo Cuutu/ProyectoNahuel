@@ -69,16 +69,15 @@ router.get('/', (req, res) => {
                         title: "Calendarios",
                         description: "Acá encontraras los calendarios sobre la inflación de USA, la FED de USA y los balances.",
                         imageUrl: "https://media.istockphoto.com/id/1212381977/es/vector/icono-de-calendario-de-dise%C3%B1o-plano-simple.jpg?s=612x612&w=0&k=20&c=rH2qnbNgiZIKp2fghqjhLUr7r97KTgCheIoVuFUmKEY=.jpg",
-                        downloadUrl: "#",
-                        isPremium: false
+                        isPremium: false,
+                        buttonText: "Ver calendarios"
                     },
                     {
                         title: "Calculadora CEDEARS",
                         description: "Acá podras calcular el precio de los CEDEARs.",
                         imageUrl: "https://academiasimple.com/wp-content/uploads/2020/08/cedears.jpg",
                         downloadUrl: "https://docs.google.com/spreadsheets/d/17H8-_IUFi5Pbl4S9kWwKc0iiH0w7dlpJeoORb8rv85E/edit?usp=sharing",
-                        isPremium: false
-                    }
+                        buttonText: "Abrir calculadora"                    }
                 ]
             }
         ]
