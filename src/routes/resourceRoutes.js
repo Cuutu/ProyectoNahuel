@@ -4,23 +4,30 @@ const router = express.Router();
 router.get('/', (req, res) => {
     res.render('resources/index', {
         title: 'Recursos de Trading',
-        user: req.session.user,
-        isAuthenticated: req.isAuthenticated(),
+        user: res.locals.user,
         resources: [
             {
-                category: "E-books",
+                category: "Recursos Esenciales",
                 items: [
+                    {
+                        title: "El aliado que necesitas",
+                        description: "La plataforma más completa para el análisis técnico y trading profesional.",
+                        imageUrl: "/images/resources/tradingview.jpg",
+                        downloadUrl: "https://es.tradingview.com/pricing/?share_your_love=XTrader95",
+                        isPremium: false,
+                        buttonText: "Ir a Trading View"
+                    },
                     {
                         title: "Guía Básica de Trading",
                         description: "Aprende los fundamentos del trading desde cero",
-                        imageUrl: "https://via.placeholder.com/400x300?text=Guia+Basica+Trading",
+                        imageUrl: "/images/resources/ebook-basic.jpg",
                         downloadUrl: "#",
                         isPremium: false
                     },
                     {
                         title: "Estrategias Avanzadas",
                         description: "Técnicas profesionales de trading",
-                        imageUrl: "https://via.placeholder.com/400x300?text=Estrategias+Avanzadas",
+                        imageUrl: "/images/resources/ebook-advanced.jpg",
                         downloadUrl: "#",
                         isPremium: true
                     }
@@ -32,14 +39,14 @@ router.get('/', (req, res) => {
                     {
                         title: "Trading Journal",
                         description: "Plantilla para registro de operaciones",
-                        imageUrl: "https://via.placeholder.com/400x300?text=Trading+Journal",
+                        imageUrl: "/images/resources/template-journal.jpg",
                         downloadUrl: "#",
                         isPremium: false
                     },
                     {
                         title: "Plan de Trading",
                         description: "Plantilla para crear tu plan de trading",
-                        imageUrl: "https://via.placeholder.com/400x300?text=Plan+Trading",
+                        imageUrl: "/images/resources/template-plan.jpg",
                         downloadUrl: "#",
                         isPremium: true
                     }
@@ -51,7 +58,7 @@ router.get('/', (req, res) => {
                     {
                         title: "RSI Personalizado",
                         description: "Indicador RSI con alertas",
-                        imageUrl: "https://via.placeholder.com/400x300?text=RSI+Personalizado",
+                        imageUrl: "/images/resources/indicator-rsi.jpg",
                         downloadUrl: "#",
                         isPremium: true
                     }

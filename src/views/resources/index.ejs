@@ -40,7 +40,7 @@
                                         </a>
                                     <% } else { %>
                                         <a href="<%= item.downloadUrl %>" class="resource-button">
-                                            Descargar
+                                            <%= item.buttonText || 'Descargar' %>
                                         </a>
                                     <% } %>
                                 </div>
