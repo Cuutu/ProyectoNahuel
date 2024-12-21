@@ -68,7 +68,7 @@ router.get('/', (req, res) => {
                     {
                         title: "Calendarios",
                         description: "Acá encontraras los calendarios sobre la inflación de USA, la FED de USA y los balances.",
-                        imageUrl: "https://media.istockphoto.com/id/1212381977/es/vector/icono-de-calendario-de-dise%C3%B1o-plano-simple.jpg?s=612x612&w=0&k=20&c=rH2qnbNgiZIKp2fghqjhLUr7r97KTgCheIoVuFUmKEY=.jpg",
+                        imageUrl: "https://images.emojiterra.com/twitter/512px/1f5d3.png",
                         isPremium: false,
                         buttonText: "Ver calendarios"
                     },

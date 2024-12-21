@@ -104,6 +104,37 @@
         </div>
     </div>
 
+    <!-- Nuevo modal para calendarios -->
+    <div id="calendarModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Calendarios Económicos</h2>
+            
+            <div class="calendar-links">
+                <a href="https://es.investing.com/economic-calendar/cpi-733" 
+                   class="calendar-button"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Calendario Inflación USA (CPI)
+                </a>
+                
+                <a href="https://es.investing.com/economic-calendar/interest-rate-decision-168" 
+                   class="calendar-button"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Calendario FED (Tasa de Interés)
+                </a>
+                
+                <a href="https://es.investing.com/earnings-calendar/" 
+                   class="calendar-button"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Calendario de Balances
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Agregar estos estilos -->
     <style>
     .modal {
@@ -191,37 +222,66 @@
         position: relative;
         overflow-x: auto;
     }
+
+    .calendar-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .calendar-button {
+        background: #00ff88;
+        color: black;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+
+    .calendar-button:hover {
+        background: #00cc6a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
     </style>
 
     <!-- Agregar este script -->
     <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('formulaModal');
+        const formulaModal = document.getElementById('formulaModal');
+        const calendarModal = document.getElementById('calendarModal');
         const closeBtns = document.getElementsByClassName('close');
 
-        // Mostrar modal con todas las fórmulas
-        document.querySelectorAll('.resource-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                const buttonText = this.textContent.trim();
-                if (buttonText === 'Ver formula' || buttonText === 'Ver índices' || buttonText === 'Ver calendarios') {
-                    e.preventDefault();  // Prevenir la redirección
-                    e.stopPropagation(); // Detener la propagación del evento
-                    modal.style.display = 'block';
-                    return false; // Asegurar que no se ejecute el comportamiento por defecto
-                }
-            });
-        });
+        // Capturar clicks en botones
+        document.addEventListener('click', function(e) {
+            const buttonText = e.target.textContent.trim();
+            
+            if (buttonText === 'Ver indices' || buttonText === 'Ver formula') {
+                e.preventDefault();
+                e.stopPropagation();
+                formulaModal.style.display = 'block';
+            } else if (buttonText === 'Ver calendarios') {
+                e.preventDefault();
+                e.stopPropagation();
+                calendarModal.style.display = 'block';
+            }
+        }, true);
 
-        // Cerrar modal
+        // Cerrar modales
         Array.from(closeBtns).forEach(btn => {
             btn.onclick = function() {
-                modal.style.display = 'none';
+                formulaModal.style.display = 'none';
+                calendarModal.style.display = 'none';
             }
         });
 
         window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
+            if (event.target == formulaModal || event.target == calendarModal) {
+                formulaModal.style.display = 'none';
+                calendarModal.style.display = 'none';
             }
         }
 
