@@ -68,7 +68,7 @@ router.get('/', (req, res) => {
                     {
                         title: "Calendarios",
                         description: "Acá encontraras los calendarios sobre la inflación de USA, la FED de USA y los balances.",
-                        imageUrl: "https://images.emojiterra.com/twitter/512px/1f5d3.png",
+                        imageUrl: "https://thumbs.dreamstime.com/b/ilustraci%C3%B3n-de-icono-signo-calendario-emoji-s%C3%ADmbolo-vector-fecha-evento-dise%C3%B1o-emoticono-258733776.jpg",
                         isPremium: false,
                         buttonText: "Ver calendarios"
                     },
@@ -77,7 +77,22 @@ router.get('/', (req, res) => {
                         description: "Acá podras calcular el precio de los CEDEARs.",
                         imageUrl: "https://academiasimple.com/wp-content/uploads/2020/08/cedears.jpg",
                         downloadUrl: "https://docs.google.com/spreadsheets/d/17H8-_IUFi5Pbl4S9kWwKc0iiH0w7dlpJeoORb8rv85E/edit?usp=sharing",
-                        buttonText: "Abrir calculadora"                    }
+                        buttonText: "Abrir calculadora"                    
+                    },
+                    {
+                        title: "Indicador FEAR and GREED",
+                        description: "Acá encontras la información del indicador FEAR and GREED.",
+                        imageUrl: "https://public.bnbstatic.com/static/academy/uploads-original/a5bbcfc3e00f47949beabaa9e75cefd2.png",
+                        downloadUrl: "https://edition.cnn.com/markets/fear-and-greed",
+                        buttonText: "Abrir indicador"                    
+                    },
+                    {
+                        title: "Mercap ABBACO - Renta Fija",
+                        description: "En el MERCAP ABBACO encontras el mercado de bonos.",
+                        imageUrl: "https://mercapabbaco.com/wp-content/uploads/2024/05/Destacada.png",
+                        downloadUrl: "https://bonds.mercapabbaco.com/",
+                        buttonText: "Abrir abbaco"                    
+                    }
                 ]
             }
         ]
