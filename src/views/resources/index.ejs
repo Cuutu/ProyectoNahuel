@@ -11,49 +11,58 @@
 <body>
     <%- include('../partials/header') %>
     
-    <main class="resources-container">
-        <section class="hero-section" data-animate="fade-up">
-            <h1>Recursos de Trading</h1>
-            <p>Herramientas y materiales para tu éxito</p>
+    <div class="resources-container">
+        <!-- Sección 1: Recursos Esenciales -->
+        <section class="section-block">
+            <h2 class="section-title">Recursos Esenciales</h2>
+            <div class="carousel-box">
+                <div class="carousel-container">
+                    <button class="carousel-button prev">❮</button>
+                    <div class="carousel-track">
+                        <!-- Cards de Recursos Esenciales -->
+                        <div class="resource-card"><!-- TradingView --></div>
+                        <div class="resource-card"><!-- Guía Básica --></div>
+                        <div class="resource-card"><!-- Estrategias --></div>
+                    </div>
+                    <button class="carousel-button next">❯</button>
+                </div>
+            </div>
         </section>
 
-        <div class="resources-grid">
-            <% resources.forEach(category => { %>
-                <div class="category-section">
-                    <h2><%= category.category %></h2>
-                    
-                    <div class="resources-grid">
-                        <% category.items.forEach(item => { %>
-                            <div class="resource-card">
-                                <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
-                                <% if (item.isPremium) { %>
-                                    <span class="premium-badge">Premium</span>
-                                <% } %>
-                                
-                                <div class="card-content">
-                                    <h3><%= item.title %></h3>
-                                    <p><%- item.description %></p>
-                                    
-                                    <% if (item.isPremium && !isAuthenticated) { %>
-                                        <a href="/auth/login" class="resource-button">
-                                            Acceder como Premium
-                                        </a>
-                                    <% } else { %>
-                                        <a href="<%= item.downloadUrl %>" 
-                                           class="resource-button"
-                                           target="_blank" 
-                                           rel="noopener noreferrer">
-                                            <%= item.buttonText || 'Descargar' %>
-                                        </a>
-                                    <% } %>
-                                </div>
-                            </div>
-                        <% }) %>
+        <!-- Sección 2: Fórmulas TradingView -->
+        <section class="section-block">
+            <h2 class="section-title">Fórmulas TradingView</h2>
+            <div class="carousel-box">
+                <div class="carousel-container">
+                    <button class="carousel-button prev">❮</button>
+                    <div class="carousel-track">
+                        <!-- Cards de Fórmulas -->
+                        <div class="resource-card"><!-- Activos USA --></div>
+                        <div class="resource-card"><!-- Activos ARG --></div>
+                        <div class="resource-card"><!-- Índices --></div>
                     </div>
+                    <button class="carousel-button next">❯</button>
                 </div>
-            <% }) %>
-        </div>
-    </main>
+            </div>
+        </section>
+
+        <!-- Sección 3: Links IMPORTANTES -->
+        <section class="section-block">
+            <h2 class="section-title">Links IMPORTANTES</h2>
+            <div class="carousel-box">
+                <div class="carousel-container">
+                    <button class="carousel-button prev">❮</button>
+                    <div class="carousel-track">
+                        <!-- Cards de Links -->
+                        <div class="resource-card"><!-- Calendarios --></div>
+                        <div class="resource-card"><!-- CEDEARS --></div>
+                        <div class="resource-card"><!-- FEAR and GREED --></div>
+                    </div>
+                    <button class="carousel-button next">❯</button>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
@@ -320,6 +329,111 @@
 
         .calendar-button-desc {
             font-size: 0.8rem;
+        }
+    }
+
+    .resources-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .section-block {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        text-align: center;
+        font-size: 2rem;
+        color: #333;
+        margin-bottom: 2rem;
+        position: relative;
+    }
+
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 200px;
+        height: 3px;
+        background: #00ff88;
+    }
+
+    .carousel-box {
+        border: 2px solid #eee;
+        border-radius: 10px;
+        padding: 2rem;
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        padding: 0 40px;
+    }
+
+    .carousel-track {
+        display: flex;
+        gap: 20px;
+        transition: transform 0.5s ease;
+    }
+
+    .carousel-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #00ff88;
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 10;
+        font-size: 20px;
+        color: black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .carousel-button:hover {
+        background: #00cc6a;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .carousel-button.prev {
+        left: 0;
+    }
+
+    .carousel-button.next {
+        right: 0;
+    }
+
+    .resource-card {
+        flex: 0 0 300px;
+        /* ... resto de estilos de card ... */
+    }
+
+    @media (max-width: 768px) {
+        .carousel-container {
+            padding: 0 30px;
+        }
+        
+        .resource-card {
+            flex: 0 0 260px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+        }
+        
+        .section-title::after {
+            width: 150px;
         }
     }
     </style>
