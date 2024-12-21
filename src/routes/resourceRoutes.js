@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
                     {
                         title: "El aliado que necesitas",
                         description: "La plataforma más completa para el análisis técnico y trading profesional.",
-                        imageUrl: "/images/resources/tradingview.jpg",
+                        imageUrl: "https://imgur.com/a/eqtFiz5",
                         downloadUrl: "https://es.tradingview.com/pricing/?share_your_love=XTrader95",
                         isPremium: false,
                         buttonText: "Ir a Trading View"
