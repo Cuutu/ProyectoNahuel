@@ -12,114 +12,28 @@
     <%- include('../partials/header') %>
     
     <div class="resources-container">
-        <!-- Sección 1: Recursos Esenciales -->
-        <section class="section-block">
-            <h2 class="section-title">Recursos Esenciales</h2>
-            <div class="resources-grid">
-                <!-- TradingView -->
-                <div class="resource-card">
-                    <img src="/images/tradingview.jpg" alt="TradingView">
-                    <div class="card-content">
-                        <h3>El aliado que necesitas</h3>
-                        <p>La plataforma más completa para el análisis técnico y trading profesional.<br>¡Comienza a utilizar TradingView con 15 U$D de descuento!</p>
-                        <a href="https://es.tradingview.com/pricing/?share_your_love=XTrader95" class="resource-button" target="_blank">Ir a Trading View</a>
-                    </div>
+        <% resources.forEach(section => { %>
+            <section class="section-block">
+                <h2 class="section-title"><%= section.category %></h2>
+                <div class="resources-grid">
+                    <% section.items.forEach(item => { %>
+                        <div class="resource-card">
+                            <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+                            <div class="card-content">
+                                <h3><%= item.title %></h3>
+                                <p><%- item.description %></p>
+                                <% if (item.isPremium) { %>
+                                    <div class="premium-badge">Premium</div>
+                                <% } %>
+                                <a href="<%= item.downloadUrl %>" class="resource-button" target="_blank">
+                                    <%= item.buttonText || 'Acceder' %>
+                                </a>
+                            </div>
+                        </div>
+                    <% }); %>
                 </div>
-
-                <!-- Guía Básica -->
-                <div class="resource-card">
-                    <img src="/images/guia-basica.jpg" alt="Guía Básica">
-                    <div class="card-content">
-                        <h3>Guía Básica de Trading</h3>
-                        <p>Aprende los fundamentos del trading desde cero</p>
-                        <a href="#" class="resource-button">Descargar</a>
-                    </div>
-                </div>
-
-                <!-- Estrategias -->
-                <div class="resource-card">
-                    <img src="/images/estrategias.jpg" alt="Estrategias">
-                    <div class="card-content">
-                        <h3>Estrategias Avanzadas</h3>
-                        <p>Técnicas profesionales de trading</p>
-                        <div class="premium-badge">Premium</div>
-                        <a href="#" class="resource-button">Acceder como Premium</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 2: Fórmulas TradingView -->
-        <section class="section-block">
-            <h2 class="section-title">Fórmulas TradingView</h2>
-            <div class="resources-grid">
-                <!-- Activos USA -->
-                <div class="resource-card">
-                    <img src="https://statics.eleconomista.com.ar/2023/04/crop/64483e1b5fec4__420x280.webp" alt="Activos USA">
-                    <div class="card-content">
-                        <h3>Activos de USA</h3>
-                        <p>Los activos de USA que utilizo para realizar mis análisis.</p>
-                        <a href="#" class="resource-button">Abrir Watchlist</a>
-                    </div>
-                </div>
-
-                <!-- Activos ARG -->
-                <div class="resource-card">
-                    <img src="https://www.infobae.com/new-resizer/wXpg3hpkmG_ZAD1O-0Z96TQbIqA=/1200x630/filters:format(webp):quality(85)//cloudfront-us-east-1.images.arcpublishing.com/infobae/YVQCMFD2WBHUXH4VKXKL4PG4KE.jpg" alt="Activos ARG">
-                    <div class="card-content">
-                        <h3>Activos de ARG</h3>
-                        <p>Los activos de ARG que utilizo para realizar mis análisis.</p>
-                        <a href="#" class="resource-button">Abrir Watchlist</a>
-                    </div>
-                </div>
-
-                <!-- Índices -->
-                <div class="resource-card">
-                    <img src="https://www.infobae.com/new-resizer/6PGTq6bGw6M9HyZh0-bYnXvwHqo=/1200x900/filters:format(webp):quality(85)//s3.amazonaws.com/arc-wordpress-client-uploads/infobae-wp/wp-content/uploads/2018/09/24114037/Trading-1920-2.jpg" alt="Índices">
-                    <div class="card-content">
-                        <h3>Índices que utilizo</h3>
-                        <p>Aquí encontrarás los índices que utilizo para realizar mis análisis.</p>
-                        <a href="#" class="resource-button">Ver índices</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección 3: Links IMPORTANTES -->
-        <section class="section-block">
-            <h2 class="section-title">Links IMPORTANTES</h2>
-            <div class="resources-grid">
-                <!-- Calendarios -->
-                <div class="resource-card">
-                    <img src="/images/calendario.jpg" alt="Calendarios">
-                    <div class="card-content">
-                        <h3>Calendarios</h3>
-                        <p>Acá encontrarás los calendarios sobre la inflación de USA, la FED de USA y los balances.</p>
-                        <a href="#" class="resource-button">Ver calendarios</a>
-                    </div>
-                </div>
-
-                <!-- CEDEARS -->
-                <div class="resource-card">
-                    <img src="/images/cedears.jpg" alt="CEDEARS">
-                    <div class="card-content">
-                        <h3>Calculadora CEDEARS</h3>
-                        <p>Acá podrás calcular el precio de los CEDEARs.</p>
-                        <a href="#" class="resource-button">Abrir calculadora</a>
-                    </div>
-                </div>
-
-                <!-- FEAR and GREED -->
-                <div class="resource-card">
-                    <img src="/images/fear-greed.jpg" alt="FEAR and GREED">
-                    <div class="card-content">
-                        <h3>Indicador FEAR and GREED</h3>
-                        <p>Acá encontrarás la información del indicador FEAR and GREED.</p>
-                        <a href="#" class="resource-button">Abrir indicador</a>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        <% }); %>
     </div>
 
     <script src="/js/animations.js"></script>

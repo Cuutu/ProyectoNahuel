@@ -33,18 +33,18 @@
     display: flex;
     gap: 2rem;
     justify-content: center;
-    flex-wrap: wrap;
+    margin: 0 auto;
+    flex-wrap: nowrap;
+    max-width: 1200px;
 }
 
 .resource-card {
-    flex: 0 1 350px; /* width base de 350px pero flexible */
+    flex: 0 1 350px;
+    min-width: 300px;
     background: white;
     border-radius: 15px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
 }
 
 .resource-card img {
@@ -96,6 +96,10 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .resources-grid {
+        flex-wrap: wrap;
+    }
+    
     .resource-card {
         flex: 0 1 100%;
     }
