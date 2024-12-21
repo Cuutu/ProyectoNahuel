@@ -35,21 +35,21 @@ router.get('/', (req, res) => {
                 ]
             },
             {
-                category: "Plantillas",
+                category: "Fórmulas",
                 items: [
                     {
-                        title: "Trading Journal",
-                        description: "Plantilla para registro de operaciones",
-                        imageUrl: "/images/resources/template-journal.jpg",
-                        downloadUrl: "#",
+                        title: "Activos de USA",
+                        description: "Los activos de USA que utilizo para realizar mis análisis.",
+                        imageUrl: "https://www.shutterstock.com/image-photo/stacking-gold-bars-usa-flag-600nw-2533869475.jpg",
+                        downloadUrl: "https://es.tradingview.com/watchlists/18037471/",
                         isPremium: false
                     },
                     {
-                        title: "Plan de Trading",
-                        description: "Plantilla para crear tu plan de trading",
+                        title: "Activos de ARG",
+                        description: "Los activos de ARG que utilizo para realizar mis análisis.",
                         imageUrl: "/images/resources/template-plan.jpg",
-                        downloadUrl: "#",
-                        isPremium: true
+                        downloadUrl: "https://i0.wp.com/criptotendencia.com/wp-content/uploads/2024/06/Argentina-Sigue-disponible-el-Registro-de-Proveedores-de-Servicios-de-Activos-Virtuales.jpg?resize=696%2C398&ssl=1.jpg",
+                        isPremium: false
                     }
                 ]
             },
