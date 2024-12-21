@@ -115,17 +115,26 @@
         width: 100%;
         height: 100%;
         background-color: rgba(0,0,0,0.5);
+        transition: opacity 0.3s ease;
+    }
+
+    .modal.show {
+        display: block;
     }
 
     .modal-content {
         background-color: #fefefe;
-        margin: 15% auto;
+        margin: 5% auto;
         padding: 20px;
         border: 1px solid #888;
-        width: 80%;
-        max-width: 600px;
+        width: 90%;
+        max-width: 800px;
+        max-height: 90vh;
+        overflow-y: auto;
         border-radius: 8px;
         position: relative;
+        transform: translateY(0);
+        transition: transform 0.3s ease;
     }
 
     .close {
@@ -181,13 +190,6 @@
         margin: 10px 0;
         position: relative;
         overflow-x: auto;
-    }
-
-    .modal-content {
-        width: 90%;
-        max-width: 800px;
-        max-height: 90vh;
-        overflow-y: auto;
     }
     </style>
 
