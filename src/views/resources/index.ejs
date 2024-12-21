@@ -201,11 +201,12 @@
 
         // Mostrar modal con todas las fórmulas
         document.querySelectorAll('.resource-button').forEach(button => {
-            if(button.textContent.trim() === 'Ver formula') {
-                button.onclick = function(e) {
+            button.onclick = function(e) {
+                if (button.textContent.trim() === 'Ver formula' || button.textContent.trim() === 'Ver indices') {
                     e.preventDefault();
                     modal.style.display = 'block';
                 }
+                // Los otros botones funcionarán normalmente
             }
         });
 
