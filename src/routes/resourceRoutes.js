@@ -56,7 +56,14 @@ router.get('/', (req, res) => {
                     {
                         title: "Dolar CCL",
                         description: "Dólar promedio con los CEDEARs más utilizados para esta operatoria.",
-                        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s .jpg",
+                        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
+                        isPremium: false,
+                        buttonText: "Ver formula"
+                    },
+                    {
+                        title: "Acciones ARG en CCL",
+                        description: "Reemplazar ALUA por el ticker del activo local que quieras.",
+                        imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0TWj5srvsRya0t_EhoJn6xISutYeEAnNNEQ&s.jpg",
                         isPremium: false,
                         buttonText: "Ver formula"
                     }

@@ -70,6 +70,18 @@
         </div>
     </div>
 
+    <!-- Modal para la fórmula de Acciones ARG en CCL -->
+    <div id="formulaModalArg" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Acciones ARG en CCL</h2>
+            <div class="formula-container">
+                <code id="formulaArg">BCBA:ALUA/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4)</code>
+                <button id="copyButtonArg" class="copy-button">Copiar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Agregar estos estilos -->
     <style>
     .modal {
@@ -135,40 +147,55 @@
     <script>
     document.addEventListener('DOMContentLoaded', function() {
         const modal = document.getElementById('formulaModal');
+        const modalArg = document.getElementById('formulaModalArg');
         const formula = document.getElementById('formula');
+        const formulaArg = document.getElementById('formulaArg');
         const copyButton = document.getElementById('copyButton');
-        const closeBtn = document.getElementsByClassName('close')[0];
+        const copyButtonArg = document.getElementById('copyButtonArg');
+        const closeBtns = document.getElementsByClassName('close');
 
-        // Abrir modal cuando se hace clic en "Ver formula"
+        // Abrir modal correspondiente según el botón
         document.querySelectorAll('.resource-button').forEach(button => {
-            if(button.textContent.trim() === 'Ver formula') {
-                button.onclick = function(e) {
+            button.onclick = function(e) {
+                if (button.closest('.resource-card').querySelector('h3').textContent.includes('Dolar CCL')) {
                     e.preventDefault();
                     modal.style.display = 'block';
+                } else if (button.closest('.resource-card').querySelector('h3').textContent.includes('Acciones ARG')) {
+                    e.preventDefault();
+                    modalArg.style.display = 'block';
                 }
             }
         });
 
-        // Cerrar modal
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        }
+        // Cerrar modales
+        Array.from(closeBtns).forEach(btn => {
+            btn.onclick = function() {
+                modal.style.display = 'none';
+                modalArg.style.display = 'none';
+            }
+        });
 
         window.onclick = function(event) {
-            if (event.target == modal) {
+            if (event.target == modal || event.target == modalArg) {
                 modal.style.display = 'none';
+                modalArg.style.display = 'none';
             }
         }
 
-        // Copiar fórmula
-        copyButton.onclick = function() {
-            navigator.clipboard.writeText(formula.textContent).then(() => {
-                copyButton.textContent = '¡Copiado!';
-                setTimeout(() => {
-                    copyButton.textContent = 'Copiar';
-                }, 2000);
-            });
+        // Copiar fórmulas
+        function setupCopyButton(button, formula) {
+            button.onclick = function() {
+                navigator.clipboard.writeText(formula.textContent).then(() => {
+                    button.textContent = '¡Copiado!';
+                    setTimeout(() => {
+                        button.textContent = 'Copiar';
+                    }, 2000);
+                });
+            }
         }
+
+        setupCopyButton(copyButton, formula);
+        setupCopyButton(copyButtonArg, formulaArg);
     });
     </script>
 </body>
