@@ -29,11 +29,12 @@
 }
 
 .carousel-box {
-    max-width: 500px;  /* Ancho máximo para una tarjeta */
-    margin: 0 auto;    /* Centrar el carousel */
+    max-width: 350px;
+    margin: 0 auto;
     border-radius: 10px;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
 }
 
 .carousel-container {
@@ -48,20 +49,31 @@
 }
 
 .resource-card {
-    flex: 0 0 100%;  /* Cada tarjeta ocupa el 100% del ancho */
+    flex: 0 0 100%;
     width: 100%;
     padding: 1rem;
 }
 
 .resource-card img {
     width: 100%;
-    height: 200px;
+    height: 180px;
     object-fit: cover;
     border-radius: 8px;
 }
 
 .card-content {
-    padding: 1.5rem;
+    padding: 1rem;
+}
+
+.card-content h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 0.9rem;
+    line-height: 1.4;
+    margin-bottom: 1rem;
 }
 
 .carousel-button {
@@ -70,12 +82,12 @@
     transform: translateY(-50%);
     background: #00ff88;
     border: none;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     cursor: pointer;
     z-index: 10;
-    font-size: 20px;
+    font-size: 18px;
     color: black;
     display: flex;
     align-items: center;
@@ -88,24 +100,20 @@
 }
 
 .carousel-button.prev {
-    left: -20px;  /* Botones fuera del contenedor */
+    left: -17px;
 }
 
 .carousel-button.next {
-    right: -20px;  /* Botones fuera del contenedor */
+    right: -17px;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .carousel-box {
-        max-width: 90%;
+        max-width: 300px;
     }
     
-    .carousel-button.prev {
-        left: -10px;
-    }
-    
-    .carousel-button.next {
-        right: -10px;
+    .resource-card img {
+        height: 160px;
     }
 } 
