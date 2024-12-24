@@ -19,8 +19,8 @@ router.get('/', (req, res) => {
                         buttonText: "Ir a Trading View"
                     },
                     {
-                        title: "Guía Básica de Trading",
-                        description: "Aprende los fundamentos del trading desde cero",
+                        title: "Material Complementario",
+                        description: "Material complementario para nuestro aprendizaje y operaciones",
                         imageUrl: "/images/resources/ebook-basic.jpg",
                         downloadUrl: "#",
                         isPremium: false
