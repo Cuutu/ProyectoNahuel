@@ -22,6 +22,8 @@ router.get('/', (req, res) => {
                         title: "Material Complementario",
                         description: "Material complementario para nuestro aprendizaje y operaciones",
                         imageUrl: "/images/resources/ebook-basic.jpg",
+                        buttonText: "Ver material",
+                        type: "material-modal",
                         pdfs: [
                             {
                                 title: "Cálculo para comprar y vender CEDEARS",
@@ -39,9 +41,7 @@ router.get('/', (req, res) => {
                                 title: "Ratio conversión COMAFI",
                                 pdfUrl: "/pdfs/Ratios-de-Conversion-COMAFI.pdf"
                             }
-                        ],
-                        isPremium: false,
-                        type: "multiple-pdf"
+                        ]
                     },
                     {
                         title: "Estrategias Avanzadas",
