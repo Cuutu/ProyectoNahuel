@@ -7,15 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener todos los botones de recursos
     document.querySelectorAll('.resource-button').forEach(button => {
         button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const type = this.dataset.type;
+            const buttonText = this.textContent.trim();
             
-            // Verificar el tipo de botón y abrir el modal correspondiente
-            if (type === 'formula') {
+            // Verificar el texto del botón y abrir el modal correspondiente
+            if (buttonText === 'Ver índices') {
+                e.preventDefault();
                 formulaModal.style.display = 'block';
-            } else if (type === 'calendar') {
+            } else if (buttonText === 'Ver calendarios') {
+                e.preventDefault();
                 calendarModal.style.display = 'block';
-            } else if (type === 'material') {
+            } else if (buttonText === 'Ver material') {
+                e.preventDefault();
                 materialModal.style.display = 'block';
             }
         });
