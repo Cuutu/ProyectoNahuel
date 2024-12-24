@@ -51,13 +51,9 @@
                                         </a>
                                     </div>
                                 <% } else if (item.type === 'material-modal') { %>
-                                    <a href="#" class="resource-button" data-action="ver-material">
-                                        <%= item.buttonText %>
-                                    </a>
+                                    <button class="resource-button" data-type="material">Ver material</button>
                                 <% } else { %>
-                                    <a href="<%= item.downloadUrl %>" class="resource-button" target="_blank">
-                                        <%= item.buttonText || 'Acceder' %>
-                                    </a>
+                                    <button class="resource-button" data-type="<%= item.type %>"><%= item.buttonText %></button>
                                 <% } %>
                             </div>
                         </div>

@@ -7,17 +7,15 @@ document.addEventListener('DOMContentLoaded', function() {
     // Obtener todos los botones de recursos
     document.querySelectorAll('.resource-button').forEach(button => {
         button.addEventListener('click', function(e) {
-            const buttonText = this.textContent.trim();
+            e.preventDefault();
+            const type = this.dataset.type;
             
-            // Verificar el texto del botón y abrir el modal correspondiente
-            if (buttonText === 'Ver índices') {
-                e.preventDefault();
+            // Verificar el tipo de botón y abrir el modal correspondiente
+            if (type === 'formula') {
                 formulaModal.style.display = 'block';
-            } else if (buttonText === 'Ver calendarios') {
-                e.preventDefault();
+            } else if (type === 'calendar') {
                 calendarModal.style.display = 'block';
-            } else if (buttonText === 'Ver material') {
-                e.preventDefault();
+            } else if (type === 'material') {
                 materialModal.style.display = 'block';
             }
         });
@@ -34,14 +32,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cerrar modales al hacer click fuera
     window.addEventListener('click', function(event) {
-        if (event.target === formulaModal || event.target === calendarModal || event.target === materialModal) {
+        if (event.target === formulaModal || 
+            event.target === calendarModal || 
+            event.target === materialModal) {
             formulaModal.style.display = 'none';
             calendarModal.style.display = 'none';
             materialModal.style.display = 'none';
         }
     });
 
-    // Manejar la copia de fórmulas (mantenemos la funcionalidad existente)
+    // Manejar la copia de fórmulas
     document.querySelectorAll('.copy-button').forEach(button => {
         button.addEventListener('click', function() {
             const formula = this.previousElementSibling.textContent;

@@ -22,7 +22,7 @@ router.get('/', (req, res) => {
                         title: "Material Complementario",
                         description: "Material complementario para nuestro aprendizaje y operaciones",
                         imageUrl: "/images/resources/ebook-basic.jpg",
-                        type: "material-modal",
+                        type: "material",
                         buttonText: "Ver material",
                         pdfs: [
                             {
