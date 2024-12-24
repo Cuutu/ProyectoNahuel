@@ -22,8 +22,8 @@ router.get('/', (req, res) => {
                         title: "Material Complementario",
                         description: "Material complementario para nuestro aprendizaje y operaciones",
                         imageUrl: "/images/resources/ebook-basic.jpg",
-                        buttonText: "Ver material",
                         type: "material-modal",
+                        buttonText: "Ver material",
                         pdfs: [
                             {
                                 title: "Cálculo para comprar y vender CEDEARS",
