@@ -22,15 +22,34 @@ router.get('/', (req, res) => {
                         title: "Material Complementario",
                         description: "Material complementario para nuestro aprendizaje y operaciones",
                         imageUrl: "/images/resources/ebook-basic.jpg",
-                        downloadUrl: "#",
-                        isPremium: false
+                        pdfs: [
+                            {
+                                title: "Cálculo para comprar y vender CEDEARS",
+                                pdfUrl: "/pdfs/CALCULO-CCL-1.pdf"
+                            },
+                            {
+                                title: "¿Cómo medir la cartera?",
+                                pdfUrl: "/pdfs/Como-medir-la-cartera-1.pdf"
+                            },
+                            {
+                                title: "Ratio conversión BYMA",
+                                pdfUrl: "/pdfs/Ratios-de-Conversion-BYMA-1.pdf"
+                            },
+                            {
+                                title: "Ratio conversión COMAFI",
+                                pdfUrl: "/pdfs/Ratios-de-Conversion-COMAFI.pdf"
+                            }
+                        ],
+                        isPremium: false,
+                        type: "multiple-pdf"
                     },
                     {
                         title: "Estrategias Avanzadas",
                         description: "Técnicas profesionales de trading",
                         imageUrl: "/images/resources/ebook-advanced.jpg",
-                        downloadUrl: "#",
-                        isPremium: true
+                        pdfUrl: "/pdfs/estrategias-avanzadas.pdf",
+                        isPremium: true,
+                        type: "pdf"
                     }
                 ]
             },

@@ -190,3 +190,35 @@
 .resource-button i {
     margin-right: 0.5rem;
 } 
+
+.pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.pdf-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.pdf-item h4 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.pdf-item .button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.pdf-item .resource-button {
+    min-width: 120px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+} 
