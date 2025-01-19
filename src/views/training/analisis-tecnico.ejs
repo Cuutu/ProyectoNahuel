@@ -156,9 +156,32 @@
         </section>
     </main>
 
+    <!-- Sección de Calendario para Profesores -->
+    <% if (locals.user && locals.user.role === 'teacher') { %>
+        <section class="teacher-schedule-section" data-animate="fade-up">
+            <div class="container">
+                <h2>Programar Clases</h2>
+                <div class="schedule-container">
+                    <div class="calendar-wrapper">
+                        <input type="text" id="teacher-calendar" placeholder="Selecciona fecha y hora de la clase" class="schedule-input">
+                    </div>
+                    <div class="schedule-info">
+                        <h3>Detalles de la Clase</h3>
+                        <p>Duración: 2 horas</p>
+                        <div id="selected-class-datetime"></div>
+                        <button id="schedule-class" class="cta-button">Programar Clase</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <% } %>
+
     <!-- Font Awesome para iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="/js/teacher-schedule.js"></script>
 </body>
 </html> 
