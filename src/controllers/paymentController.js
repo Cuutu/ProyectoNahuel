@@ -46,7 +46,7 @@ const paymentController = {
 
             res.status(200).json(payments);
         } catch (error) {
-            res.status(500).json({ message: 'Error al obtener historial de pagos', error: error.message });
+            res.status(500).json({ message: 'Error al obtener historial de pagos.', error: error.message });
         }
     }
 };
