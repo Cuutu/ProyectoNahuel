@@ -560,6 +560,8 @@
 .teacher-schedule-section {
     padding: 4rem 0;
     background: var(--gray-100);
+    width: 100%;
+    overflow: hidden;
 }
 
 .schedule-container {
@@ -611,4 +613,16 @@
     .schedule-container {
         grid-template-columns: 1fr;
     }
+}
+
+/* Eliminar scrollbar extra */
+html, body {
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+body {
+    position: relative;
 } 
