@@ -157,25 +157,18 @@
         </section>
     </main>
 
-    <!-- Sección de Calendario de Clases -->
-    <section class="teacher-schedule-section" data-animate="fade-up">
+    <!-- Calendario -->
+    <section class="schedule-section" data-animate="fade-up">
         <div class="container">
             <h2>Calendario de Clases</h2>
             <div class="schedule-container">
                 <div class="calendar-wrapper">
-                    <input type="text" 
-                           id="teacher-calendar" 
-                           placeholder="Horarios de clases" 
-                           class="schedule-input"
-                           <%= locals.user?.role === 'teacher' ? '' : 'readonly' %>>
+                    <input type="text" id="schedule-calendar" class="schedule-input" placeholder="Selecciona una fecha">
                 </div>
                 <div class="schedule-info">
-                    <h3>Detalles de la Clase</h3>
-                    <p>Duración: 2 horas</p>
-                    <div id="selected-class-datetime"></div>
-                    <% if (locals.user?.role === 'teacher') { %>
-                        <button id="schedule-class" class="cta-button">Programar Clase</button>
-                    <% } %>
+                    <h3>Próximas Clases</h3>
+                    <div id="upcoming-classes"></div>
+                    <button id="schedule-class" class="cta-button">Agendar Clase</button>
                 </div>
             </div>
         </div>

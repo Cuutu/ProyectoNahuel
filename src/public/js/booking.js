@@ -1,17 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Configuración de Flatpickr (calendario)
-    const calendar = flatpickr("#booking-calendar", {
+    const calendar = flatpickr("#schedule-calendar", {
         enableTime: true,
         minTime: "09:00",
         maxTime: "18:00",
-        minDate: "today",
         dateFormat: "Y-m-d H:i",
-        disable: [
-            function(date) {
-                // Deshabilitar fines de semana
-                return (date.getDay() === 0 || date.getDay() === 6);
-            }
-        ],
         locale: {
             firstDayOfWeek: 1,
             weekdays: {
@@ -29,55 +22,55 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Configuración de Google Calendar API
-    const CLIENT_ID = 'TU_CLIENT_ID';
-    const API_KEY = 'TU_API_KEY';
-    const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-    const SCOPES = "https://www.googleapis.com/auth/calendar.events";
-
-    document.getElementById('confirm-booking').addEventListener('click', function() {
+    // Manejador para agendar clase
+    document.getElementById('schedule-class').addEventListener('click', function() {
         const selectedDate = calendar.selectedDates[0];
         if (!selectedDate) {
-            alert('Por favor selecciona una fecha y hora');
+            alert('Por favor selecciona una fecha y hora para la clase');
             return;
         }
 
-        // Inicializar Google Calendar API
-        gapi.load('client:auth2', () => {
-            gapi.client.init({
-                apiKey: API_KEY,
-                clientId: CLIENT_ID,
-                discoveryDocs: DISCOVERY_DOCS,
-                scope: SCOPES
-            }).then(() => {
-                // Autenticar usuario
-                return gapi.auth2.getAuthInstance().signIn();
-            }).then(() => {
-                // Crear evento en el calendario
-                const event = {
-                    'summary': 'Mentoría de Trading',
-                    'location': 'Online',
-                    'description': 'Sesión de mentoría personalizada',
-                    'start': {
-                        'dateTime': selectedDate.toISOString(),
-                        'timeZone': 'America/Argentina/Buenos_Aires'
-                    },
-                    'end': {
-                        'dateTime': new Date(selectedDate.getTime() + 60*60000).toISOString(),
-                        'timeZone': 'America/Argentina/Buenos_Aires'
-                    }
-                };
-
-                return gapi.client.calendar.events.insert({
-                    'calendarId': 'primary',
-                    'resource': event
-                });
-            }).then(response => {
-                alert('¡Reserva confirmada! Se ha agregado el evento a tu calendario.');
-            }).catch(error => {
-                console.error('Error:', error);
-                alert('Error al procesar la reserva. Por favor intenta nuevamente.');
-            });
+        // Enviar la fecha seleccionada al servidor
+        fetch('/api/v1/classes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                date: selectedDate
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('¡Clase agendada con éxito!');
+                loadUpcomingClasses(); // Recargar las clases programadas
+            } else {
+                alert('Error al agendar la clase: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Hubo un error al agendar la clase');
         });
     });
+
+    // Función para cargar las próximas clases
+    function loadUpcomingClasses() {
+        fetch('/api/v1/classes')
+            .then(response => response.json())
+            .then(data => {
+                const upcomingClassesDiv = document.getElementById('upcoming-classes');
+                upcomingClassesDiv.innerHTML = data.classes
+                    .map(clase => `
+                        <div class="class-item">
+                            <p>Fecha: ${new Date(clase.date).toLocaleString()}</p>
+                        </div>
+                    `).join('');
+            })
+            .catch(error => console.error('Error cargando clases:', error));
+    }
+
+    // Cargar clases al iniciar
+    loadUpcomingClasses();
 }); 
