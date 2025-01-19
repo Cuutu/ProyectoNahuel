@@ -45,42 +45,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // Crear evento en Google Calendar
-            gapi.load('client:auth2', () => {
-                gapi.client.init({
-                    apiKey: API_KEY,
-                    clientId: CLIENT_ID,
-                    discoveryDocs: DISCOVERY_DOCS,
-                    scope: SCOPES
-                }).then(() => {
-                    return gapi.auth2.getAuthInstance().signIn();
-                }).then(() => {
-                    const event = {
-                        'summary': 'Clase de Análisis Técnico',
-                        'location': 'Online',
-                        'description': 'Clase del curso de Análisis Técnico',
-                        'start': {
-                            'dateTime': selectedDate.toISOString(),
-                            'timeZone': 'America/Argentina/Buenos_Aires'
-                        },
-                        'end': {
-                            'dateTime': new Date(selectedDate.getTime() + 120*60000).toISOString(),
-                            'timeZone': 'America/Argentina/Buenos_Aires'
-                        }
-                    };
-
-                    return gapi.client.calendar.events.insert({
-                        'calendarId': 'primary',
-                        'resource': event,
-                        'sendNotifications': true
-                    });
-                }).then(response => {
-                    alert('¡Clase programada exitosamente!');
-                    // Aquí puedes agregar la lógica para notificar a los estudiantes
-                }).catch(error => {
-                    console.error('Error:', error);
-                    alert('Error al programar la clase. Por favor intenta nuevamente.');
-                });
+            // Actualizar la ruta de la API
+            fetch('/api/v1/classes', {  // Asegúrate que esta ruta coincida con tu backend
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: selectedDate
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Manejar la respuesta
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al programar la clase');
             });
         });
     }
