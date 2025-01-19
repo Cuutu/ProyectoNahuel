@@ -95,5 +95,5 @@ document.addEventListener('DOMContentLoaded', function() {
             }));
             teacherCalendar.set('enable', scheduledDates);
         })
-        .catch(error => console.error('Error cargando clases:', error));
+        .catch(error => console.error('Error cargando clases: ', error));
 }); 
