@@ -6,6 +6,7 @@ const path = require('path');
 require('dotenv').config();
 const connectDB = require('./src/config/database');
 require('./src/config/passport');
+const compression = require('compression');
 
 const app = express();
 
@@ -17,9 +18,12 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
 // Middleware para archivos estáticos
-app.use(express.static(path.join(__dirname, 'src', 'public')));
+app.use(express.static(path.join(__dirname, 'src', 'public'), {
+    maxAge: '1y'
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(compression());
 
 // Configuración de la sesión
 const sessionMiddleware = session({

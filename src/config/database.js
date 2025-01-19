@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
+        // Agregar índices apropiados
+        // Implementar caching
         const conn = await mongoose.connect(process.env.MONGODB_URI);
         console.log(`MongoDB conectado: ${conn.connection.host}`);
         return conn;
