@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="/css/training.css">
     <link rel="stylesheet" href="/css/animations.css">
     <link rel="preload" href="/css/landing.css" as="style">
+    <!-- Incluir Flatpickr CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Incluir Flatpickr JS -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Incluir el locale en español -->
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
 </head>
 <body>
     <%- include('../partials/header') %>
@@ -157,17 +163,16 @@
         </section>
     </main>
 
-    <!-- Calendario -->
+    <!-- Calendario simplificado -->
     <section class="schedule-section" data-animate="fade-up">
         <div class="container">
             <h2>Calendario de Clases</h2>
             <div class="schedule-container">
                 <div class="calendar-wrapper">
-                    <input type="text" id="schedule-calendar" class="schedule-input" placeholder="Selecciona una fecha">
+                    <input type="text" id="schedule-calendar" class="schedule-input" placeholder="Selecciona una fecha y hora">
                 </div>
                 <div class="schedule-info">
-                    <h3>Próximas Clases</h3>
-                    <div id="upcoming-classes"></div>
+                    <div id="selected-datetime"></div>
                     <button id="schedule-class" class="cta-button">Agendar Clase</button>
                 </div>
             </div>

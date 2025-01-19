@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuración de Flatpickr (calendario)
-    const calendar = flatpickr("#schedule-calendar", {
+    // Configuración básica de Flatpickr
+    flatpickr("#schedule-calendar", {
         enableTime: true,
-        minTime: "09:00",
-        maxTime: "18:00",
         dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        time_24hr: true,
         locale: {
             firstDayOfWeek: 1,
             weekdays: {
@@ -22,37 +22,16 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Manejador para agendar clase
+    // Manejador para el botón de agendar
     document.getElementById('schedule-class').addEventListener('click', function() {
-        const selectedDate = calendar.selectedDates[0];
+        const selectedDate = document.getElementById('schedule-calendar').value;
         if (!selectedDate) {
-            alert('Por favor selecciona una fecha y hora para la clase');
+            alert('Por favor selecciona una fecha y hora');
             return;
         }
 
-        // Enviar la fecha seleccionada al servidor
-        fetch('/api/v1/classes', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                date: selectedDate
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('¡Clase agendada con éxito!');
-                loadUpcomingClasses(); // Recargar las clases programadas
-            } else {
-                alert('Error al agendar la clase: ' + data.error);
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Hubo un error al agendar la clase');
-        });
+        alert(`Clase agendada para: ${selectedDate}`);
+        // Aquí puedes agregar la lógica para guardar la fecha
     });
 
     // Función para cargar las próximas clases
