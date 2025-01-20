@@ -4,32 +4,29 @@
 }
 
 .roadmap {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 4rem 2rem;
     position: relative;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 400px;
+    justify-content: center;
 }
 
 /* Línea horizontal principal */
 .timeline-line {
     position: absolute;
-    left: 0;
-    width: 100%;
+    left: 50px;
+    right: 50px;
     height: 2px;
     background: #00e676;
     top: 50%;
+    z-index: 1;
 }
 
 .roadmap-item {
     position: relative;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    width: 280px;
+    margin: 0 20px;
 }
 
 /* Líneas verticales */
@@ -37,58 +34,56 @@
     content: '';
     position: absolute;
     width: 2px;
-    height: 100px;
+    height: 120px;
     background: #00e676;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 /* Puntos verdes */
 .dot {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     background: #00e676;
     border-radius: 50%;
     position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 2;
 }
 
 /* Posicionamiento alternado */
-.roadmap-item:nth-child(odd)::before {
-    top: 50%;
-    height: 100px;
+.roadmap-item:nth-child(odd) {
+    margin-top: -140px;
 }
 
-.roadmap-item:nth-child(even)::before {
-    bottom: 50%;
-    height: 100px;
+.roadmap-item:nth-child(odd)::before {
+    top: 100%;
 }
 
 .roadmap-item:nth-child(odd) .dot {
-    top: 50%;
-    transform: translateY(-50%);
+    bottom: -66px;
+}
+
+.roadmap-item:nth-child(even) {
+    margin-top: 140px;
+}
+
+.roadmap-item:nth-child(even)::before {
+    bottom: 100%;
 }
 
 .roadmap-item:nth-child(even) .dot {
-    bottom: 50%;
-    transform: translateY(50%);
-}
-
-.roadmap-item:nth-child(odd) .roadmap-content {
-    margin-top: 120px;
-}
-
-.roadmap-item:nth-child(even) .roadmap-content {
-    margin-bottom: 120px;
+    top: -66px;
 }
 
 .roadmap-content {
     background: white;
-    border-radius: 12px;
+    border-radius: 8px;
     padding: 1.5rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    width: 200px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-/* Resto de los estilos se mantienen igual */
 .week {
     display: block;
     font-size: 0.9rem;
@@ -100,6 +95,7 @@
     color: #1a1a1a;
     font-size: 1.1rem;
     margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .roadmap-content ul {
@@ -125,34 +121,38 @@
 @media (max-width: 768px) {
     .roadmap {
         flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .roadmap-item {
-        width: 100%;
-        margin: 2rem 0;
+        align-items: center;
+        padding: 2rem 1rem;
     }
 
     .timeline-line {
         width: 2px;
         height: 100%;
-        left: 20px;
+        left: 50%;
         top: 0;
+        transform: translateX(-50%);
+    }
+
+    .roadmap-item {
+        width: 100%;
+        max-width: 280px;
+        margin: 2rem 0;
+    }
+
+    .roadmap-item:nth-child(odd),
+    .roadmap-item:nth-child(even) {
+        margin-top: 0;
     }
 
     .roadmap-item::before {
-        left: 20px;
-        width: 50px;
-        height: 2px;
+        height: 60px;
     }
 
-    .dot {
-        left: 20px;
+    .roadmap-item:nth-child(odd) .dot {
+        bottom: -30px;
     }
 
-    .roadmap-content {
-        margin-left: 80px !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
+    .roadmap-item:nth-child(even) .dot {
+        top: -30px;
     }
 } 
