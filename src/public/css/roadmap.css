@@ -13,8 +13,8 @@
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    height: 600px;
-    padding: 0 50px;
+    height: 400px;
+    padding: 0 100px;
 }
 
 /* Línea horizontal principal */
@@ -33,36 +33,24 @@
 }
 
 /* Posicionamiento específico para cada tarjeta */
-.top-left {
+.roadmap-item:nth-child(1) {
     left: 0;
     top: 0;
 }
 
-.bottom-left {
-    left: 25%;
+.roadmap-item:nth-child(2) {
+    left: 33%;
     bottom: 0;
 }
 
-.top-right {
-    right: 25%;
+.roadmap-item:nth-child(3) {
+    right: 33%;
     top: 0;
 }
 
-.bottom-right {
+.roadmap-item:nth-child(4) {
     right: 0;
     bottom: 0;
-}
-
-/* Puntos verdes */
-.dot {
-    width: 12px;
-    height: 12px;
-    background: #00e676;
-    border-radius: 50%;
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translate(-50%, -50%);
 }
 
 .roadmap-content {
@@ -70,8 +58,46 @@
     border-radius: 8px;
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    text-align: left;
     margin-bottom: 30px;
+}
+
+/* Líneas verticales y puntos */
+.roadmap-item::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 100px;
+    background: #00e676;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.roadmap-item:nth-child(odd)::after {
+    top: 100%;
+}
+
+.roadmap-item:nth-child(even)::after {
+    bottom: 100%;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background: #00e676;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    z-index: 2;
+}
+
+.roadmap-item:nth-child(odd) .dot {
+    bottom: -6px;
+    transform: translate(-50%, 100%);
+}
+
+.roadmap-item:nth-child(even) .dot {
+    top: -6px;
+    transform: translate(-50%, -100%);
 }
 
 .week {
