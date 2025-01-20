@@ -84,19 +84,84 @@
 }
 
 .course-card {
-    JUSTIFY-CONTENT: CENTER;
-    FLEX-DIRECTION: column;
-    DISPLAY: FLEX;
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
     padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
+    max-width: 400px;
+    margin: 2rem auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.course-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+.card-header {
+    background: #0A2647;
+    margin: -2rem -2rem 2rem -2rem;
+    padding: 2rem;
+    border-radius: 20px 20px 0 0;
+}
+
+.card-header h2 {
+    color: white;
+    font-size: 1.8rem;
+    margin: 0;
+    text-align: center;
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+}
+
+.features-list li {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+    font-weight: 500;
+}
+
+.features-list li:last-child {
+    border-bottom: none;
+}
+
+.features-list li i {
+    color: #2563eb;
+    margin-right: 1rem;
+    font-size: 1.2rem;
+}
+
+.inscribirse-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.inscribirse-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+.price-tag {
+    text-align: center;
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+}
+
+.price-tag small {
+    font-size: 1rem;
+    opacity: 0.8;
 }
 
 .course-header {
