@@ -8,25 +8,46 @@
     margin: 0 auto;
     padding: 4rem 2rem;
     position: relative;
-    display: flex;
-    justify-content: center;
 }
 
 /* Línea horizontal principal */
 .timeline-line {
     position: absolute;
-    left: 50px;
-    right: 50px;
+    left: 0;
+    right: 0;
     height: 2px;
     background: #00e676;
     top: 50%;
-    z-index: 1;
 }
 
 .roadmap-item {
-    position: relative;
+    position: absolute;
     width: 280px;
-    margin: 0 20px;
+}
+
+/* Posicionamiento específico de cada semana */
+.roadmap-item:nth-child(1) {
+    left: 25%;
+    bottom: 50%;
+    transform: translateX(-50%);
+}
+
+.roadmap-item:nth-child(2) {
+    left: 25%;
+    top: 50%;
+    transform: translateX(-50%);
+}
+
+.roadmap-item:nth-child(3) {
+    right: 25%;
+    bottom: 50%;
+    transform: translateX(50%);
+}
+
+.roadmap-item:nth-child(4) {
+    right: 25%;
+    top: 50%;
+    transform: translateX(50%);
 }
 
 /* Líneas verticales */
@@ -34,10 +55,19 @@
     content: '';
     position: absolute;
     width: 2px;
-    height: 120px;
+    height: 100px;
     background: #00e676;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* Ajuste de líneas verticales según posición */
+.roadmap-item:nth-child(odd)::before {
+    top: 100%;
+}
+
+.roadmap-item:nth-child(even)::before {
+    bottom: 100%;
 }
 
 /* Puntos verdes */
@@ -52,29 +82,12 @@
     z-index: 2;
 }
 
-/* Posicionamiento alternado */
-.roadmap-item:nth-child(odd) {
-    margin-top: -140px;
-}
-
-.roadmap-item:nth-child(odd)::before {
-    top: 100%;
-}
-
 .roadmap-item:nth-child(odd) .dot {
-    bottom: -66px;
-}
-
-.roadmap-item:nth-child(even) {
-    margin-top: 140px;
-}
-
-.roadmap-item:nth-child(even)::before {
-    bottom: 100%;
+    bottom: -6px;
 }
 
 .roadmap-item:nth-child(even) .dot {
-    top: -66px;
+    top: -6px;
 }
 
 .roadmap-content {
@@ -84,6 +97,7 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Resto de estilos para el contenido */
 .week {
     display: block;
     font-size: 0.9rem;
@@ -120,39 +134,25 @@
 
 @media (max-width: 768px) {
     .roadmap {
-        flex-direction: column;
-        align-items: center;
         padding: 2rem 1rem;
+    }
+
+    .roadmap-item {
+        position: relative;
+        width: 100%;
+        max-width: 280px;
+        margin: 2rem auto;
+        transform: none !important;
+        left: auto !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: auto !important;
     }
 
     .timeline-line {
         width: 2px;
         height: 100%;
         left: 50%;
-        top: 0;
         transform: translateX(-50%);
-    }
-
-    .roadmap-item {
-        width: 100%;
-        max-width: 280px;
-        margin: 2rem 0;
-    }
-
-    .roadmap-item:nth-child(odd),
-    .roadmap-item:nth-child(even) {
-        margin-top: 0;
-    }
-
-    .roadmap-item::before {
-        height: 60px;
-    }
-
-    .roadmap-item:nth-child(odd) .dot {
-        bottom: -30px;
-    }
-
-    .roadmap-item:nth-child(even) .dot {
-        top: -30px;
     }
 } 
