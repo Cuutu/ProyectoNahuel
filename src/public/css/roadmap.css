@@ -1,7 +1,6 @@
 .roadmap-section {
     padding: 4rem 0;
     background: #f5f5f5;
-    text-align: center;
 }
 
 .roadmap-section h2 {
@@ -32,25 +31,23 @@
     width: 280px;
 }
 
-/* Posicionamiento específico para cada semana */
+/* Posicionamiento CORRECTO de cada semana */
+/* Semana 4 - Arriba Izquierda */
 .roadmap-item:nth-child(1) {
     left: 0;
-    top: 50px;
+    top: 0;
 }
 
+/* Semana 1 - Abajo Centro-Izquierda */
 .roadmap-item:nth-child(2) {
-    left: calc(33% - 140px);
-    bottom: 50px;
+    left: 30%;
+    bottom: 0;
 }
 
+/* Semana 3 - Abajo Derecha */
 .roadmap-item:nth-child(3) {
-    right: calc(33% - 140px);
-    top: 50px;
-}
-
-.roadmap-item:nth-child(4) {
     right: 0;
-    bottom: 50px;
+    bottom: 0;
 }
 
 .roadmap-content {
@@ -66,19 +63,19 @@
     content: '';
     position: absolute;
     width: 2px;
-    height: 80px;
+    height: 100px;
     background: #00e676;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Ajuste de líneas verticales según posición */
-.roadmap-item:nth-child(odd)::after {
-    top: calc(100% + 30px);
+.roadmap-item:nth-child(1)::after {
+    top: 100%;
 }
 
-.roadmap-item:nth-child(even)::after {
-    bottom: calc(100% + 30px);
+.roadmap-item:nth-child(2)::after,
+.roadmap-item:nth-child(3)::after {
+    bottom: 100%;
 }
 
 /* Puntos verdes */
@@ -92,13 +89,13 @@
     transform: translateX(-50%);
 }
 
-/* Ajuste de puntos según posición */
-.roadmap-item:nth-child(odd) .dot {
-    top: calc(100% + 110px);
+.roadmap-item:nth-child(1) .dot {
+    top: calc(100% + 100px);
 }
 
-.roadmap-item:nth-child(even) .dot {
-    bottom: calc(100% + 110px);
+.roadmap-item:nth-child(2) .dot,
+.roadmap-item:nth-child(3) .dot {
+    bottom: calc(100% + 100px);
 }
 
 .week {
@@ -148,7 +145,6 @@
         left: auto !important;
         right: auto !important;
         bottom: auto !important;
-        transform: none !important;
     }
 
     .timeline-line {
