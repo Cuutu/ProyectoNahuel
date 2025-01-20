@@ -10,15 +10,16 @@
 }
 
 .roadmap {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     height: 400px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 0 100px; /* Espacio para que la línea se extienda */
 }
 
-/* Línea horizontal principal */
+/* Línea horizontal principal - ahora extendida */
 .timeline-line {
     position: absolute;
     left: 0;
@@ -26,6 +27,8 @@
     height: 2px;
     background: #00e676;
     top: 50%;
+    z-index: 1;
+    width: 100%; /* Asegura que ocupe todo el ancho */
 }
 
 .roadmap-item {
