@@ -4,39 +4,48 @@
 }
 
 .roadmap {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
     position: relative;
-    min-height: 600px; /* Asegurar altura mínima para la línea vertical */
 }
 
-/* Línea vertical principal */
+/* Línea horizontal principal */
 .timeline-line {
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100%;
+    left: 0;
+    width: 100%;
+    height: 2px;
     background: #e0e0e0;
-    top: 0;
+    top: 50%;
 }
 
 .roadmap-item {
     position: relative;
-    margin: 2rem 0;
-    width: calc(50% - 30px);
-    display: flex;
+    display: inline-block;
+    width: 25%;
+    padding: 0 10px;
+    vertical-align: top;
 }
 
-/* Líneas horizontales */
+/* Líneas verticales */
 .roadmap-item::before {
     content: '';
     position: absolute;
-    width: 30px;
-    height: 2px;
+    width: 2px;
+    height: 50px;
     background: #e0e0e0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Alternar líneas arriba y abajo */
+.roadmap-item:nth-child(odd)::before {
     top: 50%;
+}
+
+.roadmap-item:nth-child(even)::before {
+    bottom: 50%;
 }
 
 /* Puntos verdes */
@@ -46,35 +55,18 @@
     height: 16px;
     background: #00e676;
     border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
 }
 
-/* Posicionamiento alternado izquierda/derecha */
-.roadmap-item:nth-child(odd) {
-    padding-right: 30px;
-    margin-right: auto;
-}
-
-.roadmap-item:nth-child(odd)::before {
-    right: 0;
-}
-
+/* Posicionar puntos arriba o abajo según la semana */
 .roadmap-item:nth-child(odd) .dot {
-    right: -8px;
-}
-
-.roadmap-item:nth-child(even) {
-    padding-left: 30px;
-    margin-left: auto;
-}
-
-.roadmap-item:nth-child(even)::before {
-    left: 0;
+    top: calc(50% - 8px);
 }
 
 .roadmap-item:nth-child(even) .dot {
-    left: -8px;
+    bottom: calc(50% - 8px);
 }
 
 .roadmap-content {
@@ -82,9 +74,19 @@
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    width: 100%;
+    margin-top: 60px;
 }
 
+/* Alternar posición del contenido arriba y abajo */
+.roadmap-item:nth-child(odd) .roadmap-content {
+    margin-top: 60px;
+}
+
+.roadmap-item:nth-child(even) .roadmap-content {
+    margin-top: -260px;
+}
+
+/* Resto de los estilos se mantienen igual */
 .week {
     display: block;
     font-size: 0.9rem;
@@ -119,22 +121,16 @@
 }
 
 @media (max-width: 768px) {
-    .timeline-line {
-        left: 20px;
-    }
-
     .roadmap-item {
-        width: calc(100% - 50px);
-        margin-left: 50px !important;
-        padding-left: 30px !important;
-        padding-right: 0 !important;
+        width: 100%;
+        margin-bottom: 2rem;
     }
 
-    .roadmap-item::before {
-        left: 0 !important;
+    .roadmap-item:nth-child(even) .roadmap-content {
+        margin-top: 60px;
     }
 
-    .dot {
-        left: -8px !important;
+    .timeline-line {
+        display: none;
     }
 } 
