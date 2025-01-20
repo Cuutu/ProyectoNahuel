@@ -1,6 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Configurar Flatpickr en español globalmente
-    flatpickr.localize(flatpickr.l10ns.es);
+    // Forzar la configuración en español
+    const spanishConfig = {
+        weekdays: {
+            shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+        },
+        months: {
+            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+        },
+        firstDayOfWeek: 1,
+        time_24hr: true
+    };
+
+    // Aplicar la configuración en español globalmente
+    flatpickr.localize(spanishConfig);
 
     const calendar = flatpickr("#schedule-calendar", {
         enableTime: true,
@@ -11,9 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         minuteIncrement: 30,
         minTime: "09:00",
         maxTime: "18:00",
-        locale: {
-            firstDayOfWeek: 1
-        },
+        locale: spanishConfig,
         showMonths: 1,
         disable: [
             function(date) {
