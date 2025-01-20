@@ -1,12 +1,15 @@
 .schedule-section {
     padding: 4rem 0;
+    background: #fff;
 }
 
 .calendar-wrapper {
-    max-width: 400px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 2rem;
+    background: white;
     border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .schedule-input {
@@ -28,10 +31,10 @@
 
 /* Estilos personalizados para Flatpickr */
 .flatpickr-calendar {
-    background: #1e1e1e !important;
-    border: none !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
     width: 100% !important;
+    box-shadow: none !important;
+    margin: 0 auto;
+    background: transparent !important;
 }
 
 .flatpickr-months {

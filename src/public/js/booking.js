@@ -1,32 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Configuración básica de Flatpickr
-    flatpickr("#schedule-calendar", {
+    const calendar = flatpickr("#schedule-calendar", {
         enableTime: true,
-        noCalendar: false,
-        dateFormat: "d 'de' F",
-        time_24hr: true,
+        dateFormat: "Y-m-d H:i",
         minDate: "today",
-        theme: "dark",
+        inline: true,
         locale: "es",
+        time_24hr: true,
         minuteIncrement: 30,
-        defaultHour: 12,
-        position: "auto",
-        inline: true, // Esto hace que el calendario esté siempre visible
-        locale: {
-            firstDayOfWeek: 1,
-            weekdays: {
-                shorthand: ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'],
-                longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-            },
-            months: {
-                shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-            }
-        },
-        onChange: function(selectedDates, dateStr) {
-            document.getElementById('selected-datetime').innerHTML = 
-                `<p>Fecha seleccionada: ${dateStr}</p>`;
-        }
     });
 
     // Manejador para el botón de agendar
