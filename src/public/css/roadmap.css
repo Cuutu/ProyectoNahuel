@@ -1,6 +1,7 @@
 .roadmap-section {
     padding: 4rem 0;
     background: #f5f5f5;
+    text-align: center;
 }
 
 .roadmap-section h2 {
@@ -13,7 +14,7 @@
     margin: 0 auto;
     position: relative;
     height: 600px;
-    padding: 0 50px;
+    padding: 0 100px;
 }
 
 /* Línea horizontal principal */
@@ -31,29 +32,22 @@
     width: 280px;
 }
 
-/* Posicionamiento CORRECTO de cada semana */
-/* Semana 1 - Arriba Izquierda */
+/* Semana 4 - Arriba Izquierda */
 .roadmap-item:nth-child(1) {
     left: 0;
-    top: 50px; /* Ajustado más abajo */
+    top: 0;
 }
 
-/* Semana 2 - Abajo Centro-Izquierda */
+/* Semana 1 - Abajo Centro-Izquierda */
 .roadmap-item:nth-child(2) {
-    left: 25%;
-    bottom: 50px;
+    left: 33%;
+    bottom: 0;
 }
 
-/* Semana 3 - Arriba Centro-Derecha */
+/* Semana 3 - Abajo Derecha */
 .roadmap-item:nth-child(3) {
-    right: 25%;
-    top: 50px;
-}
-
-/* Semana 4 - Abajo Derecha */
-.roadmap-item:nth-child(4) {
     right: 0;
-    bottom: 50px;
+    bottom: 0;
 }
 
 .roadmap-content {
@@ -64,23 +58,23 @@
     text-align: left;
 }
 
-/* Líneas verticales */
+/* Líneas verticales verdes */
 .roadmap-item::after {
     content: '';
     position: absolute;
     width: 2px;
-    height: 100px;
+    height: 80px;
     background: #00e676;
     left: 50%;
     transform: translateX(-50%);
 }
 
-/* Ajuste de líneas verticales según posición */
-.roadmap-item:nth-child(odd)::after {
+.roadmap-item:nth-child(1)::after {
     top: 100%;
 }
 
-.roadmap-item:nth-child(even)::after {
+.roadmap-item:nth-child(2)::after,
+.roadmap-item:nth-child(3)::after {
     bottom: 100%;
 }
 
@@ -93,15 +87,16 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    z-index: 2;
 }
 
-/* Ajuste de puntos según posición */
-.roadmap-item:nth-child(odd) .dot {
-    top: calc(100% + 100px);
+.roadmap-item:nth-child(1) .dot {
+    top: calc(100% + 80px);
 }
 
-.roadmap-item:nth-child(even) .dot {
-    bottom: calc(100% + 100px);
+.roadmap-item:nth-child(2) .dot,
+.roadmap-item:nth-child(3) .dot {
+    bottom: calc(100% + 80px);
 }
 
 .week {
