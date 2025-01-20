@@ -13,13 +13,11 @@
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    height: 400px;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 100px; /* Espacio para que la línea se extienda */
+    height: 600px;
+    padding: 0 50px;
 }
 
-/* Línea horizontal principal - ahora extendida */
+/* Línea horizontal principal */
 .timeline-line {
     position: absolute;
     left: 0;
@@ -27,22 +25,32 @@
     height: 2px;
     background: #00e676;
     top: 50%;
-    z-index: 1;
-    width: 100%; /* Asegura que ocupe todo el ancho */
 }
 
 .roadmap-item {
-    position: relative;
+    position: absolute;
     width: 280px;
 }
 
-.vertical-line {
-    position: absolute;
-    width: 2px;
-    height: 100px;
-    background: #00e676;
-    left: 50%;
-    transform: translateX(-50%);
+/* Posicionamiento específico para cada tarjeta */
+.top-left {
+    left: 0;
+    top: 0;
+}
+
+.bottom-left {
+    left: 25%;
+    bottom: 0;
+}
+
+.top-right {
+    right: 25%;
+    top: 0;
+}
+
+.bottom-right {
+    right: 0;
+    bottom: 0;
 }
 
 /* Puntos verdes */
@@ -52,38 +60,9 @@
     background: #00e676;
     border-radius: 50%;
     position: absolute;
+    top: 100%;
     left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-}
-
-/* Posicionamiento alternado */
-.roadmap-item:nth-child(odd) .roadmap-content {
-    position: absolute;
-    bottom: calc(50% + 100px);
-}
-
-.roadmap-item:nth-child(odd) .vertical-line {
-    top: 50%;
-}
-
-.roadmap-item:nth-child(odd) .dot {
-    top: 50%;
     transform: translate(-50%, -50%);
-}
-
-.roadmap-item:nth-child(even) .roadmap-content {
-    position: absolute;
-    top: calc(50% + 100px);
-}
-
-.roadmap-item:nth-child(even) .vertical-line {
-    bottom: 50%;
-}
-
-.roadmap-item:nth-child(even) .dot {
-    bottom: 50%;
-    transform: translate(-50%, 50%);
 }
 
 .roadmap-content {
@@ -92,6 +71,7 @@
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: left;
+    margin-bottom: 30px;
 }
 
 .week {
@@ -129,20 +109,21 @@
 
 @media (max-width: 768px) {
     .roadmap {
-        flex-direction: column;
         height: auto;
-        align-items: center;
-        padding: 0 1rem;
+        padding: 2rem;
     }
 
     .roadmap-item {
+        position: relative;
+        width: 100%;
         margin: 2rem 0;
+        top: auto;
+        left: auto;
+        right: auto;
+        bottom: auto;
     }
 
     .timeline-line {
-        width: 2px;
-        height: 100%;
-        left: 50%;
-        transform: translateX(-50%);
+        display: none;
     }
 } 
