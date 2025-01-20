@@ -32,52 +32,82 @@
 /* Estilos personalizados para Flatpickr */
 .flatpickr-calendar {
     width: 100% !important;
+    background: #000 !important;
+    border: none !important;
     box-shadow: none !important;
-    margin: 0 auto;
-    background: transparent !important;
 }
 
 .flatpickr-months {
-    background: #1e1e1e !important;
-    color: white !important;
+    background: #000 !important;
+}
+
+.flatpickr-month {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-weekdays {
+    background: #000 !important;
 }
 
 .flatpickr-weekday {
-    background: #1e1e1e !important;
-    color: #ffffff !important;
+    background: #000 !important;
+    color: #fff !important;
 }
 
 .flatpickr-day {
-    color: white !important;
-    border-radius: 50% !important;
-}
-
-.flatpickr-day.selected {
-    background: #1a73e8 !important;
-    border-color: #1a73e8 !important;
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
 }
 
 .flatpickr-day:hover {
-    background: #333333 !important;
+    background: #333 !important;
 }
 
-.flatpickr-time {
-    background: #1e1e1e !important;
-    border-top: 1px solid #333333 !important;
+.flatpickr-day.selected {
+    background: #444 !important;
+    border-color: #444 !important;
 }
 
-.numInputWrapper input {
-    color: white !important;
-    background: #1e1e1e !important;
+.flatpickr-day.today {
+    border-color: #fff !important;
 }
 
 .flatpickr-current-month {
-    color: white !important;
+    color: #fff !important;
 }
 
 .flatpickr-monthDropdown-months {
-    background: #1e1e1e !important;
-    color: white !important;
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-time {
+    background: #000 !important;
+    border-top: 1px solid #333 !important;
+}
+
+.flatpickr-time input {
+    color: #fff !important;
+}
+
+.numInputWrapper input {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.numInputWrapper:hover {
+    background: #333 !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    color: #fff !important;
 }
 
 .schedule-info {
@@ -103,10 +133,6 @@
 }
 
 /* Estilos para los controles de tiempo */
-.flatpickr-time input {
-    color: white !important;
-}
-
 .flatpickr-time .flatpickr-am-pm {
     color: white !important;
 }

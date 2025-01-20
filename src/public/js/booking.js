@@ -11,25 +11,23 @@ document.addEventListener('DOMContentLoaded', function() {
         minuteIncrement: 30,
         minTime: "09:00",
         maxTime: "18:00",
+        locale: {
+            firstDayOfWeek: 1
+        },
+        showMonths: 1,
         disable: [
             function(date) {
-                // Deshabilitar sábados y domingos (0 es domingo, 6 es sábado)
                 return (date.getDay() === 0 || date.getDay() === 6);
             }
         ],
-        monthSelectorType: "static",
-        locale: {
-            firstDayOfWeek: 1,
-            weekdays: {
-                shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-            },
-            months: {
-                shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-                longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-            },
-            rangeSeparator: ' a ',
-            time_24hr: true
+        hideDisabled: true,
+        onChange: function(selectedDates, dateStr) {
+            if (selectedDates.length > 0) {
+                const date = selectedDates[0];
+                if (date.getDay() === 0 || date.getDay() === 6) {
+                    this.clear();
+                }
+            }
         }
     });
 
