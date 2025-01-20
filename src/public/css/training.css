@@ -477,7 +477,7 @@
 
 .icon-wrapper i {
     font-size: 2rem;
-    color: #0A2647;
+    color: #00e676;
 }
 
 .feature-card h3 {
@@ -504,6 +504,13 @@
         flex: 1;
         max-width: 350px;
     }
+}
+
+/* Efecto hover adicional para los iconos */
+.feature-card:hover .icon-wrapper i {
+    color: #00c853;
+    transform: scale(1.1);
+    transition: all 0.2s ease;
 }
 
 /* Estilos mejorados para la tarjeta de precios */
@@ -718,4 +725,26 @@ html, body {
 
 body {
     position: relative;
+    background-color: #f5f5f5;  /* Gris muy clarito */
+}
+
+.training-detail-container {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+/* Asegurar que todas las secciones mantengan el fondo */
+.hero-section,
+.features-section,
+.roadmap-section,
+.schedule-section {
+    background-color: #f5f5f5;
+}
+
+/* Mantener las tarjetas en blanco para contraste */
+.feature-card,
+.course-card,
+.roadmap-item {
+    background: white;
 } 

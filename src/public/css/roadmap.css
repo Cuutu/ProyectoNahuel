@@ -10,11 +10,10 @@
 }
 
 .roadmap-item {
-    position: relative;
-    padding: 2rem;
-    margin-bottom: 2rem;
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
 }
 
@@ -36,41 +35,48 @@
 
 .week {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    background: rgba(0, 230, 118, 0.1);
-    color: #00c853;
-    border-radius: 20px;
-    font-weight: 500;
-    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.5rem;
 }
 
 .roadmap-content h3 {
     color: #1a1a1a;
-    margin-bottom: 1rem;
     font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
 }
 
 .roadmap-content ul {
     list-style: none;
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .roadmap-content ul li {
-    margin-bottom: 0.5rem;
-    padding-left: 1.5rem;
-    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0;
     color: #333;
+    font-size: 0.95rem;
 }
 
 .roadmap-content ul li::before {
     content: '✓';
     color: #00e676;
-    position: absolute;
-    left: 0;
+    margin-right: 0.75rem;
     font-weight: normal;
 }
 
 @media (max-width: 768px) {
+    .roadmap {
+        padding: 1rem;
+    }
+    
+    .roadmap-item {
+        padding: 1.5rem;
+    }
+    
     .roadmap-item::before {
         left: 50%;
         transform: translateX(-50%);
