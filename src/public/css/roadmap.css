@@ -32,20 +32,28 @@
     width: 280px;
 }
 
-/* Semana 4 - Arriba Izquierda */
+/* Posicionamiento específico */
+/* Semana 1 - Arriba Izquierda */
 .roadmap-item:nth-child(1) {
     left: 0;
     top: 0;
 }
 
-/* Semana 1 - Abajo Centro-Izquierda */
+/* Semana 2 - Abajo Izquierda */
 .roadmap-item:nth-child(2) {
-    left: 33%;
+    left: 0;
     bottom: 0;
 }
 
-/* Semana 3 - Abajo Derecha */
+/* Semana 3 - Centro Arriba */
 .roadmap-item:nth-child(3) {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+}
+
+/* Semana 4 - Abajo Derecha */
+.roadmap-item:nth-child(4) {
     right: 0;
     bottom: 0;
 }
@@ -74,7 +82,8 @@
 }
 
 .roadmap-item:nth-child(2)::after,
-.roadmap-item:nth-child(3)::after {
+.roadmap-item:nth-child(3)::after,
+.roadmap-item:nth-child(4)::after {
     bottom: 100%;
 }
 
@@ -95,7 +104,8 @@
 }
 
 .roadmap-item:nth-child(2) .dot,
-.roadmap-item:nth-child(3) .dot {
+.roadmap-item:nth-child(3) .dot,
+.roadmap-item:nth-child(4) .dot {
     bottom: calc(100% + 80px);
 }
 
