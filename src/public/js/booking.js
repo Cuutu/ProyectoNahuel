@@ -1,10 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Configurar Flatpickr en español globalmente
+    flatpickr.localize(flatpickr.l10ns.es);
+
     const calendar = flatpickr("#schedule-calendar", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         minDate: "today",
         inline: true,
-        locale: "es",
         time_24hr: true,
         minuteIncrement: 30,
         minTime: "09:00",
@@ -15,6 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return (date.getDay() === 0 || date.getDay() === 6);
             }
         ],
+        monthSelectorType: "static",
         locale: {
             firstDayOfWeek: 1,
             weekdays: {
