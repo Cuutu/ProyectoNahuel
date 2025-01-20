@@ -7,18 +7,44 @@ document.addEventListener('DOMContentLoaded', function() {
         locale: "es",
         time_24hr: true,
         minuteIncrement: 30,
+        minTime: "09:00",
+        maxTime: "18:00",
+        disable: [
+            function(date) {
+                // Deshabilitar sábados y domingos (0 es domingo, 6 es sábado)
+                return (date.getDay() === 0 || date.getDay() === 6);
+            }
+        ],
+        locale: {
+            firstDayOfWeek: 1,
+            weekdays: {
+                shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+            },
+            months: {
+                shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+            },
+            rangeSeparator: ' a ',
+            time_24hr: true
+        }
     });
 
     // Manejador para el botón de agendar
     document.getElementById('schedule-class').addEventListener('click', function() {
-        const selectedDate = document.getElementById('schedule-calendar').value;
+        const selectedDate = calendar.selectedDates[0];
         if (!selectedDate) {
-            alert('Por favor selecciona una fecha y hora');
+            alert('Por favor selecciona una fecha y hora para la clase');
             return;
         }
-
-        alert(`Clase agendada para: ${selectedDate}`);
-        // Aquí puedes agregar la lógica para guardar la fecha
+        alert(`Clase agendada para: ${selectedDate.toLocaleString('es-ES', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })}`);
     });
 
     // Función para cargar las próximas clases
