@@ -32,30 +32,60 @@
     width: 280px;
 }
 
-/* Posicionamiento específico */
-/* Semana 1 - Arriba Izquierda */
-.roadmap-item:nth-child(1) {
+/* Posicionamiento específico para cada item */
+.roadmap-item-top-left {
     left: 0;
     top: 0;
 }
 
-/* Semana 2 - Abajo Izquierda */
-.roadmap-item:nth-child(2) {
+.roadmap-item-bottom-left {
     left: 0;
     bottom: 0;
 }
 
-/* Semana 3 - Centro Arriba */
-.roadmap-item:nth-child(3) {
+.roadmap-item-top-center {
     left: 50%;
     transform: translateX(-50%);
     top: 0;
 }
 
-/* Semana 4 - Abajo Derecha */
-.roadmap-item:nth-child(4) {
+.roadmap-item-bottom-right {
     right: 0;
     bottom: 0;
+}
+
+/* Líneas verticales según posición */
+.roadmap-item-top-left::after,
+.roadmap-item-top-center::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 80px;
+    background: #00e676;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100%;
+}
+
+.roadmap-item-bottom-left::after,
+.roadmap-item-bottom-right::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 80px;
+    background: #00e676;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 100%;
+}
+
+/* Puntos verdes según posición */
+.dot-top {
+    bottom: calc(100% + 80px);
+}
+
+.dot-bottom {
+    top: calc(100% + 80px);
 }
 
 .roadmap-content {
@@ -64,49 +94,6 @@
     padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     text-align: left;
-}
-
-/* Líneas verticales verdes */
-.roadmap-item::after {
-    content: '';
-    position: absolute;
-    width: 2px;
-    height: 80px;
-    background: #00e676;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.roadmap-item:nth-child(1)::after {
-    top: 100%;
-}
-
-.roadmap-item:nth-child(2)::after,
-.roadmap-item:nth-child(3)::after,
-.roadmap-item:nth-child(4)::after {
-    bottom: 100%;
-}
-
-/* Puntos verdes */
-.dot {
-    width: 12px;
-    height: 12px;
-    background: #00e676;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2;
-}
-
-.roadmap-item:nth-child(1) .dot {
-    top: calc(100% + 80px);
-}
-
-.roadmap-item:nth-child(2) .dot,
-.roadmap-item:nth-child(3) .dot,
-.roadmap-item:nth-child(4) .dot {
-    bottom: calc(100% + 80px);
 }
 
 .week {
