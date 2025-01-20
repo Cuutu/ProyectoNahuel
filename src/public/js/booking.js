@@ -2,13 +2,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Configuración básica de Flatpickr
     flatpickr("#schedule-calendar", {
         enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        minDate: "today",
+        noCalendar: false,
+        dateFormat: "d 'de' F",
         time_24hr: true,
+        minDate: "today",
+        theme: "dark",
+        locale: "es",
+        minuteIncrement: 30,
+        defaultHour: 12,
+        position: "auto",
+        inline: true, // Esto hace que el calendario esté siempre visible
         locale: {
             firstDayOfWeek: 1,
             weekdays: {
-                shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                shorthand: ['DO', 'LU', 'MA', 'MI', 'JU', 'VI', 'SA'],
                 longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
             },
             months: {
