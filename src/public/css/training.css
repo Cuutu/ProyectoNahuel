@@ -872,7 +872,6 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    min-height: 380px; /* Reducido un poco para acercar el botón */
 }
 
 .month-navigation {
