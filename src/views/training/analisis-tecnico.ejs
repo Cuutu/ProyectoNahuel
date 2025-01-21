@@ -194,30 +194,47 @@
         </section>
 
         <!-- Primero el Calendario -->
-        <section class="schedule-section">
-            <h2>Calendario de Clases</h2>
-            <div class="schedule-container">
-                <div class="calendar">
-                    <!-- El calendario existente -->
+        <div class="container">
+            <div class="calendar-section">
+                <h2>Calendario de Clases</h2>
+                <div class="calendar-wrapper">
+                    <div class="calendar">
+                        <div class="calendar-header">
+                            <select>
+                                <option>Enero</option>
+                                <!-- otros meses -->
+                            </select>
+                            <select>
+                                <option>2025</option>
+                                <!-- otros años -->
+                            </select>
+                        </div>
+                        <div class="calendar-grid">
+                            <!-- días de la semana y números -->
+                            <div class="calendar-days">
+                                <!-- ... contenido del calendario ... -->
+                            </div>
+                        </div>
+                    </div>
+                    <button class="cta-button">AGENDAR CLASE</button>
                 </div>
-                <button class="cta-button">AGENDAR CLASE</button>
             </div>
-        </section>
 
-        <!-- Después el Curso Completo -->
-        <section class="course-info">
-            <div class="info-card">
-                <h2>Curso Completo</h2>
-                <p class="subtitle">Domina el análisis técnico con nuestro curso especializado</p>
-                <ul class="features">
-                    <li><i class="fas fa-check"></i>Acceso de por vida</li>
-                    <li><i class="fas fa-check"></i>Certificado de finalización</li>
-                    <li><i class="fas fa-check"></i>Recursos descargables</li>
-                    <li><i class="fas fa-check"></i>Soporte premium</li>
-                </ul>
-                <button class="cta-button">INSCRIBIRSE AHORA</button>
+            <!-- Después el Curso Completo -->
+            <div class="course-complete">
+                <div class="info-card">
+                    <h2>Curso Completo</h2>
+                    <p class="description">Domina el análisis técnico con nuestro curso especializado</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i>Acceso de por vida</li>
+                        <li><i class="fas fa-check"></i>Certificado de finalización</li>
+                        <li><i class="fas fa-check"></i>Recursos descargables</li>
+                        <li><i class="fas fa-check"></i>Soporte premium</li>
+                    </ul>
+                    <button class="cta-button">INSCRIBIRSE AHORA</button>
+                </div>
             </div>
-        </section>
+        </div>
     </main>
 
     <!-- Font Awesome para iconos -->
