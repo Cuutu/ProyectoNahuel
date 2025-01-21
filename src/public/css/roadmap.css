@@ -153,4 +153,153 @@
     .dot {
         display: none;
     }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    padding-top: 8rem;
+    padding-bottom: 3rem;
+}
+
+.relative {
+    position: relative;
+}
+
+/* Línea horizontal */
+.timeline-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    background: #7ee6d1;
+}
+
+/* Contenedor del timeline */
+.timeline-content {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6rem;
+}
+
+/* Item del timeline */
+.timeline-item {
+    position: relative;
+}
+
+/* Punto verde */
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 0.75rem;
+    width: 0.75rem;
+    transform: translate(-50%, -50%);
+    border-radius: 9999px;
+    background: #7ee6d1;
+}
+
+/* Línea vertical */
+.timeline-line-vertical {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 2px;
+    height: 4cm;
+    transform: translateX(-50%);
+    background: #7ee6d1;
+}
+
+.timeline-line-vertical.up {
+    transform: translate(-50%, -100%);
+}
+
+.timeline-line-vertical.down {
+    transform: translateX(-50%);
+}
+
+/* Tarjeta */
+.timeline-card {
+    padding: 1rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f3f4f6;
+    border-radius: 0.5rem;
+    background: white;
+}
+
+.timeline-card.up {
+    transform: translateY(-4cm);
+}
+
+.timeline-card.down {
+    transform: translateY(4cm);
+}
+
+/* Contenido de la tarjeta */
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.week {
+    font-size: 0.75rem;
+    color: #6b7280;
+}
+
+.card-header h3 {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Lista de items */
+.card-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+}
+
+.card-content li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #4b5563;
+}
+
+.card-content li i {
+    margin-top: 0.125rem;
+    height: 0.875rem;
+    width: 0.875rem;
+    flex-shrink: 0;
+    color: #7ee6d1;
+}
+
+@media (max-width: 768px) {
+    .timeline-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .timeline-card.up,
+    .timeline-card.down {
+        transform: none;
+    }
+
+    .timeline-line,
+    .timeline-line-vertical,
+    .timeline-dot {
+        display: none;
+    }
 } 
