@@ -199,92 +199,50 @@
                 <h2>Calendario de Clases</h2>
                 <div class="calendar-card">
                     <div class="calendar-header">
-                        <div class="month-navigation">
-                            <select class="month-year-select">
-                                <option>enero de 2025</option>
+                        <div class="timezone-selector">
+                            <span>Zona horaria:</span>
+                            <select>
+                                <option>(GMT-3) Argentina Time</option>
                             </select>
-                            <div class="nav-arrows">
-                                <button class="nav-arrow">↑</button>
-                                <button class="nav-arrow">↓</button>
-                            </div>
                         </div>
                     </div>
                     
                     <div class="calendar-body">
-                        <div class="calendar-days-header">
-                            <span>LU</span>
-                            <span>MA</span>
-                            <span>MI</span>
-                            <span>JU</span>
-                            <span>VI</span>
-                            <span>SA</span>
-                            <span>DO</span>
-                        </div>
-                        
-                        <div class="calendar-grid">
-                            <div class="calendar-day disabled">30</div>
-                            <div class="calendar-day disabled">31</div>
-                            <div class="calendar-day">1</div>
-                            <div class="calendar-day">2</div>
-                            <div class="calendar-day">3</div>
-                            <div class="calendar-day">4</div>
-                            <div class="calendar-day">5</div>
-                            <div class="calendar-day">6</div>
-                            <div class="calendar-day">7</div>
-                            <div class="calendar-day">8</div>
-                            <div class="calendar-day">9</div>
-                            <div class="calendar-day">10</div>
-                            <div class="calendar-day">11</div>
-                            <div class="calendar-day">12</div>
-                            <div class="calendar-day">13</div>
-                            <div class="calendar-day">14</div>
-                            <div class="calendar-day">15</div>
-                            <div class="calendar-day">16</div>
-                            <div class="calendar-day">17</div>
-                            <div class="calendar-day">18</div>
-                            <div class="calendar-day">19</div>
-                            <div class="calendar-day">20</div>
-                            <div class="calendar-day">21</div>
-                            <div class="calendar-day">22</div>
-                            <div class="calendar-day">23</div>
-                            <div class="calendar-day">24</div>
-                            <div class="calendar-day">25</div>
-                            <div class="calendar-day">26</div>
-                            <div class="calendar-day">27</div>
-                            <div class="calendar-day">28</div>
-                            <div class="calendar-day">29</div>
-                            <div class="calendar-day">30</div>
-                            <div class="calendar-day">31</div>
-                            <div class="calendar-day disabled">1</div>
-                            <div class="calendar-day disabled">2</div>
-                        </div>
-
-                        <div class="time-selector">
-                            <div class="time-column">
-                                <div class="time-slot">00</div>
-                                <div class="time-slot">01</div>
-                                <div class="time-slot">02</div>
-                                <div class="time-slot">03</div>
-                                <div class="time-slot">04</div>
-                                <!-- ... más horas ... -->
+                        <div class="date-picker">
+                            <div class="month-header">
+                                <button class="nav-btn">←</button>
+                                <h3>Enero 2025</h3>
+                                <button class="nav-btn">→</button>
                             </div>
-                            <div class="time-column">
-                                <div class="time-slot">30</div>
-                                <div class="time-slot">31</div>
-                                <div class="time-slot">32</div>
-                                <div class="time-slot">33</div>
-                                <div class="time-slot">34</div>
-                                <!-- ... más minutos ... -->
+                            <div class="calendar-days-header">
+                                <span>LU</span>
+                                <span>MA</span>
+                                <span>MI</span>
+                                <span>JU</span>
+                                <span>VI</span>
+                                <span>SA</span>
+                                <span>DO</span>
+                            </div>
+                            <div class="calendar-dates">
+                                <!-- Los días se generarán dinámicamente -->
                             </div>
                         </div>
 
-                        <div class="calendar-actions">
-                            <button class="calendar-action-btn">Borrar</button>
-                            <button class="calendar-action-btn active">Hoy</button>
+                        <div class="time-slots">
+                            <h4>Horarios disponibles</h4>
+                            <div class="slots-grid">
+                                <button class="time-slot">09:00</button>
+                                <button class="time-slot">09:30</button>
+                                <button class="time-slot">10:00</button>
+                                <button class="time-slot">10:30</button>
+                                <button class="time-slot">11:00</button>
+                                <button class="time-slot">11:30</button>
+                                <button class="time-slot">12:00</button>
+                                <button class="time-slot">12:30</button>
+                                <!-- Más horarios... -->
+                            </div>
                         </div>
                     </div>
-
-                    <button class="calendar-button">AGENDAR CLASE</button>
                 </div>
             </div>
 
