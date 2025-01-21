@@ -948,7 +948,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    max-height: 400px;
+    max-height: 220px; /* Altura para mostrar ~4 horarios */
     overflow-y: auto;
     padding-right: 1rem;
 }
@@ -962,6 +962,10 @@ body {
     cursor: pointer;
     transition: all 0.2s;
     text-align: center;
+    min-height: 45px; /* Altura fija para cada horario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .time-slot:hover {
@@ -975,23 +979,23 @@ body {
     border-color: #00e676;
 }
 
-/* Estilizar scrollbar */
+/* Estilizar scrollbar para que sea más sutil */
 .time-slots-container::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
 }
 
 .time-slots-container::-webkit-scrollbar-track {
     background: #f1f1f1;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 .time-slots-container::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 3px;
+    background: #ccc;
+    border-radius: 2px;
 }
 
 .time-slots-container::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: #999;
 }
 
 @media (max-width: 768px) {
