@@ -844,4 +844,132 @@ body {
 /* Estilos para el calendario nativo */
 .datetime-input::-webkit-calendar-picker-indicator:hover {
     background: #333;
+}
+
+.calendar-card {
+    max-width: 400px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    margin-bottom: 1rem;
+}
+
+.month-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8f9fa;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.month-year-select {
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    color: #333;
+    cursor: pointer;
+}
+
+.nav-arrows {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-arrow {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #666;
+}
+
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 1rem;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.calendar-day:hover {
+    background: #f0f0f0;
+}
+
+.calendar-day.disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+.calendar-day.selected {
+    background: #00e676;
+    color: white;
+}
+
+.calendar-day.today {
+    border: 2px solid #00e676;
+}
+
+.calendar-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+}
+
+.calendar-action-btn {
+    border: none;
+    background: none;
+    color: #00e676;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.calendar-action-btn:hover {
+    text-decoration: underline;
+}
+
+.calendar-action-btn.active {
+    font-weight: 500;
+}
+
+.calendar-button {
+    width: 100%;
+    padding: 1rem;
+    background: #00e676;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.3s;
+}
+
+.calendar-button:hover {
+    background: #00c853;
 } 

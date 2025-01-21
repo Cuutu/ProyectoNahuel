@@ -195,39 +195,49 @@
 
         <!-- Primero el Calendario -->
         <div class="container">
-            <!-- Calendario de Clases -->
             <div class="calendar-section">
                 <h2>Calendario de Clases</h2>
                 <div class="calendar-card">
                     <div class="calendar-header">
-                        <div class="calendar-selects">
-                            <select id="month">
-                                <option value="1">Enero</option>
-                                <option value="2">Febrero</option>
-                                <option value="3">Marzo</option>
-                                <option value="4">Abril</option>
-                                <option value="5">Mayo</option>
-                                <option value="6">Junio</option>
-                                <option value="7">Julio</option>
-                                <option value="8">Agosto</option>
-                                <option value="9">Septiembre</option>
-                                <option value="10">Octubre</option>
-                                <option value="11">Noviembre</option>
-                                <option value="12">Diciembre</option>
+                        <div class="month-navigation">
+                            <select class="month-year-select">
+                                <option>enero de 2025</option>
                             </select>
-                            <select id="year">
-                                <option value="2025">2025</option>
-                            </select>
+                            <div class="nav-arrows">
+                                <button class="nav-arrow">↑</button>
+                                <button class="nav-arrow">↓</button>
+                            </div>
                         </div>
                     </div>
                     
-                    <!-- Input para fecha y hora -->
-                    <div class="datetime-picker">
-                        <input type="datetime-local" 
-                               id="class-datetime"
-                               class="datetime-input"
-                               min="2025-01-01T09:00"
-                               max="2025-12-31T18:00">
+                    <div class="calendar-body">
+                        <div class="calendar-days-header">
+                            <span>LU</span>
+                            <span>MA</span>
+                            <span>MI</span>
+                            <span>JU</span>
+                            <span>VI</span>
+                            <span>SA</span>
+                            <span>DO</span>
+                        </div>
+                        
+                        <div class="calendar-grid">
+                            <!-- Primera semana -->
+                            <div class="calendar-day disabled">30</div>
+                            <div class="calendar-day disabled">31</div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day">3</div>
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <!-- Siguientes semanas -->
+                            <!-- ... más días ... -->
+                        </div>
+
+                        <div class="calendar-actions">
+                            <button class="calendar-action-btn">Borrar</button>
+                            <button class="calendar-action-btn active">Hoy</button>
+                        </div>
                     </div>
 
                     <button class="calendar-button">AGENDAR CLASE</button>
