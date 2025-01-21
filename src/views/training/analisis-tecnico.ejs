@@ -195,37 +195,51 @@
 
         <!-- Primero el Calendario -->
         <div class="container">
+            <!-- Calendario de Clases -->
             <div class="calendar-section">
                 <h2>Calendario de Clases</h2>
-                <div class="calendar-wrapper">
-                    <div class="calendar">
-                        <div class="calendar-header">
-                            <select>
-                                <option>Enero</option>
-                                <!-- otros meses -->
+                <div class="calendar-card">
+                    <div class="calendar-header">
+                        <div class="calendar-selects">
+                            <select id="month">
+                                <option value="1">Enero</option>
+                                <option value="2">Febrero</option>
+                                <option value="3">Marzo</option>
+                                <option value="4">Abril</option>
+                                <option value="5">Mayo</option>
+                                <option value="6">Junio</option>
+                                <option value="7">Julio</option>
+                                <option value="8">Agosto</option>
+                                <option value="9">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
                             </select>
-                            <select>
-                                <option>2025</option>
-                                <!-- otros años -->
+                            <select id="year">
+                                <option value="2025">2025</option>
                             </select>
-                        </div>
-                        <div class="calendar-grid">
-                            <!-- días de la semana y números -->
-                            <div class="calendar-days">
-                                <!-- ... contenido del calendario ... -->
-                            </div>
                         </div>
                     </div>
-                    <button class="cta-button">AGENDAR CLASE</button>
+                    
+                    <!-- Input para fecha y hora -->
+                    <div class="datetime-picker">
+                        <input type="datetime-local" 
+                               id="class-datetime"
+                               class="datetime-input"
+                               min="2025-01-01T09:00"
+                               max="2025-12-31T18:00">
+                    </div>
+
+                    <button class="calendar-button">AGENDAR CLASE</button>
                 </div>
             </div>
 
             <!-- Después el Curso Completo -->
-            <div class="course-complete">
+            <div class="course-info">
                 <div class="info-card">
                     <h2>Curso Completo</h2>
-                    <p class="description">Domina el análisis técnico con nuestro curso especializado</p>
-                    <ul class="features">
+                    <p>Domina el análisis técnico con nuestro curso especializado</p>
+                    <ul class="features-list">
                         <li><i class="fas fa-check"></i>Acceso de por vida</li>
                         <li><i class="fas fa-check"></i>Certificado de finalización</li>
                         <li><i class="fas fa-check"></i>Recursos descargables</li>

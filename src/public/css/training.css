@@ -814,4 +814,34 @@ body {
 
 .cta-button:hover {
     background: #00c853;
+}
+
+.datetime-picker {
+    margin: 2rem 0;
+}
+
+.datetime-input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #333;
+    background: #f8f9fa;
+}
+
+.datetime-input::-webkit-calendar-picker-indicator {
+    background: #000;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.datetime-input::-webkit-datetime-edit {
+    padding: 0.5rem;
+}
+
+/* Estilos para el calendario nativo */
+.datetime-input::-webkit-calendar-picker-indicator:hover {
+    background: #333;
 } 
