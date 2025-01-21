@@ -1006,4 +1006,53 @@ body {
         padding-top: 2rem;
         margin-top: 2rem;
     }
+}
+
+.booking-footer {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.booking-button {
+    padding: 1rem 2rem;
+    background: #00e676;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.booking-button:hover:not(:disabled) {
+    background: #00c853;
+}
+
+.booking-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.date-cell.selected {
+    background: #00e676;
+    color: white;
+}
+
+.time-slot.selected {
+    background: #00e676;
+    color: white;
+    border-color: #00e676;
+}
+
+/* Mejorar el feedback visual */
+.date-cell:hover:not(.disabled):not(.selected) {
+    background: #e8f5e9;
+}
+
+.time-slot:hover:not(.selected) {
+    background: #e8f5e9;
+    border-color: #00e676;
 } 

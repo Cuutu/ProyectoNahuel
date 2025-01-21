@@ -208,9 +208,9 @@
                     <div class="calendar-container">
                         <div class="date-picker">
                             <div class="month-navigation">
-                                <button class="nav-btn">←</button>
+                                <button class="nav-btn" onclick="prevMonth()">←</button>
                                 <h3>Enero 2025</h3>
-                                <button class="nav-btn">→</button>
+                                <button class="nav-btn" onclick="nextMonth()">→</button>
                             </div>
                             
                             <div class="weekdays-header">
@@ -226,37 +226,37 @@
                             <div class="dates-grid">
                                 <div class="date-cell disabled">30</div>
                                 <div class="date-cell disabled">31</div>
-                                <div class="date-cell">1</div>
-                                <div class="date-cell">2</div>
-                                <div class="date-cell">3</div>
-                                <div class="date-cell">4</div>
-                                <div class="date-cell">5</div>
-                                <div class="date-cell">6</div>
-                                <div class="date-cell">7</div>
-                                <div class="date-cell">8</div>
-                                <div class="date-cell">9</div>
-                                <div class="date-cell">10</div>
-                                <div class="date-cell">11</div>
-                                <div class="date-cell">12</div>
-                                <div class="date-cell">13</div>
-                                <div class="date-cell">14</div>
-                                <div class="date-cell">15</div>
-                                <div class="date-cell">16</div>
-                                <div class="date-cell">17</div>
-                                <div class="date-cell">18</div>
-                                <div class="date-cell">19</div>
-                                <div class="date-cell">20</div>
-                                <div class="date-cell">21</div>
-                                <div class="date-cell">22</div>
-                                <div class="date-cell">23</div>
-                                <div class="date-cell">24</div>
-                                <div class="date-cell">25</div>
-                                <div class="date-cell">26</div>
-                                <div class="date-cell">27</div>
-                                <div class="date-cell">28</div>
-                                <div class="date-cell">29</div>
-                                <div class="date-cell">30</div>
-                                <div class="date-cell">31</div>
+                                <div class="date-cell" onclick="selectDate(this)">1</div>
+                                <div class="date-cell" onclick="selectDate(this)">2</div>
+                                <div class="date-cell" onclick="selectDate(this)">3</div>
+                                <div class="date-cell" onclick="selectDate(this)">4</div>
+                                <div class="date-cell" onclick="selectDate(this)">5</div>
+                                <div class="date-cell" onclick="selectDate(this)">6</div>
+                                <div class="date-cell" onclick="selectDate(this)">7</div>
+                                <div class="date-cell" onclick="selectDate(this)">8</div>
+                                <div class="date-cell" onclick="selectDate(this)">9</div>
+                                <div class="date-cell" onclick="selectDate(this)">10</div>
+                                <div class="date-cell" onclick="selectDate(this)">11</div>
+                                <div class="date-cell" onclick="selectDate(this)">12</div>
+                                <div class="date-cell" onclick="selectDate(this)">13</div>
+                                <div class="date-cell" onclick="selectDate(this)">14</div>
+                                <div class="date-cell" onclick="selectDate(this)">15</div>
+                                <div class="date-cell" onclick="selectDate(this)">16</div>
+                                <div class="date-cell" onclick="selectDate(this)">17</div>
+                                <div class="date-cell" onclick="selectDate(this)">18</div>
+                                <div class="date-cell" onclick="selectDate(this)">19</div>
+                                <div class="date-cell" onclick="selectDate(this)">20</div>
+                                <div class="date-cell" onclick="selectDate(this)">21</div>
+                                <div class="date-cell" onclick="selectDate(this)">22</div>
+                                <div class="date-cell" onclick="selectDate(this)">23</div>
+                                <div class="date-cell" onclick="selectDate(this)">24</div>
+                                <div class="date-cell" onclick="selectDate(this)">25</div>
+                                <div class="date-cell" onclick="selectDate(this)">26</div>
+                                <div class="date-cell" onclick="selectDate(this)">27</div>
+                                <div class="date-cell" onclick="selectDate(this)">28</div>
+                                <div class="date-cell" onclick="selectDate(this)">29</div>
+                                <div class="date-cell" onclick="selectDate(this)">30</div>
+                                <div class="date-cell" onclick="selectDate(this)">31</div>
                                 <div class="date-cell disabled">1</div>
                                 <div class="date-cell disabled">2</div>
                             </div>
@@ -265,26 +265,32 @@
                         <div class="time-slots-section">
                             <h4>Horarios disponibles</h4>
                             <div class="time-slots-container">
-                                <button class="time-slot">09:00</button>
-                                <button class="time-slot">09:30</button>
-                                <button class="time-slot">10:00</button>
-                                <button class="time-slot">10:30</button>
-                                <button class="time-slot">11:00</button>
-                                <button class="time-slot">11:30</button>
-                                <button class="time-slot">12:00</button>
-                                <button class="time-slot">12:30</button>
-                                <button class="time-slot">13:00</button>
-                                <button class="time-slot">13:30</button>
-                                <button class="time-slot">14:00</button>
-                                <button class="time-slot">14:30</button>
-                                <button class="time-slot">15:00</button>
-                                <button class="time-slot">15:30</button>
-                                <button class="time-slot">16:00</button>
-                                <button class="time-slot">16:30</button>
-                                <button class="time-slot">17:00</button>
-                                <button class="time-slot">17:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">09:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">09:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">10:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">10:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">11:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">11:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">12:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">12:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">13:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">13:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">14:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">14:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">15:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">15:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">16:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">16:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">17:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">17:30</button>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="booking-footer">
+                        <button class="booking-button" onclick="bookAppointment()" disabled>
+                            AGENDAR CLASE
+                        </button>
                     </div>
                 </div>
             </div>
@@ -314,5 +320,46 @@
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="/js/teacher-schedule.js"></script>
     <script src="/js/booking.js"></script>
+
+    <script>
+    let selectedDate = null;
+    let selectedTime = null;
+
+    function selectDate(element) {
+        // Remover selección previa
+        document.querySelectorAll('.date-cell.selected').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        
+        // Agregar nueva selección
+        element.classList.add('selected');
+        selectedDate = element.textContent;
+        updateBookingButton();
+    }
+
+    function selectTime(element) {
+        // Remover selección previa
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Agregar nueva selección
+        element.classList.add('selected');
+        selectedTime = element.textContent;
+        updateBookingButton();
+    }
+
+    function updateBookingButton() {
+        const bookingButton = document.querySelector('.booking-button');
+        bookingButton.disabled = !(selectedDate && selectedTime);
+    }
+
+    function bookAppointment() {
+        if (selectedDate && selectedTime) {
+            alert(`Clase agendada para el día ${selectedDate} a las ${selectedTime}`);
+            // Aquí puedes agregar la lógica para guardar la cita
+        }
+    }
+    </script>
 </body>
 </html> 
