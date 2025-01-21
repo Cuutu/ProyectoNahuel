@@ -872,7 +872,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
-    min-height: 400px;
+    min-height: 380px; /* Reducido un poco para acercar el botón */
 }
 
 .month-navigation {
@@ -1013,8 +1013,8 @@ body {
 }
 
 .booking-footer {
-    margin-top: 2rem;
-    padding-top: 2rem;
+    margin-top: 1rem; /* Reducido de 2rem */
+    padding-top: 1rem; /* Reducido de 2rem */
     border-top: 1px solid #eee;
     text-align: center;
 }
