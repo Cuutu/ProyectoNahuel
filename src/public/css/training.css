@@ -901,7 +901,7 @@ body {
 .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 2px;
+    gap: 4px;
     margin-bottom: 1rem;
 }
 
@@ -913,6 +913,7 @@ body {
     font-size: 0.9rem;
     cursor: pointer;
     border-radius: 4px;
+    padding: 0.5rem;
 }
 
 .calendar-day:hover {
@@ -972,4 +973,52 @@ body {
 
 .calendar-button:hover {
     background: #00c853;
+}
+
+.time-selector {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    margin-top: 1rem;
+}
+
+.time-column {
+    flex: 1;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.time-slot {
+    padding: 0.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.time-slot:hover {
+    background: #f0f0f0;
+}
+
+.time-slot.selected {
+    background: #00e676;
+    color: white;
+}
+
+/* Estilizar la barra de desplazamiento */
+.time-column::-webkit-scrollbar {
+    width: 6px;
+}
+
+.time-column::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.time-column::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.time-column::-webkit-scrollbar-thumb:hover {
+    background: #555;
 } 
