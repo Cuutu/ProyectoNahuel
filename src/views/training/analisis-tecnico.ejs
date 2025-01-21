@@ -198,23 +198,22 @@
             <div class="calendar-section">
                 <h2>Calendario de Clases</h2>
                 <div class="calendar-card">
-                    <div class="calendar-header">
-                        <div class="timezone-selector">
-                            <span>Zona horaria:</span>
-                            <select>
-                                <option>(GMT-3) Argentina Time</option>
-                            </select>
-                        </div>
+                    <div class="timezone-wrapper">
+                        <span>Zona horaria:</span>
+                        <select class="timezone-select">
+                            <option>(GMT-3) Argentina Time</option>
+                        </select>
                     </div>
                     
-                    <div class="calendar-body">
+                    <div class="calendar-container">
                         <div class="date-picker">
-                            <div class="month-header">
+                            <div class="month-navigation">
                                 <button class="nav-btn">←</button>
                                 <h3>Enero 2025</h3>
                                 <button class="nav-btn">→</button>
                             </div>
-                            <div class="calendar-days-header">
+                            
+                            <div class="weekdays-header">
                                 <span>LU</span>
                                 <span>MA</span>
                                 <span>MI</span>
@@ -223,14 +222,49 @@
                                 <span>SA</span>
                                 <span>DO</span>
                             </div>
-                            <div class="calendar-dates">
-                                <!-- Los días se generarán dinámicamente -->
+
+                            <div class="dates-grid">
+                                <div class="date-cell disabled">30</div>
+                                <div class="date-cell disabled">31</div>
+                                <div class="date-cell">1</div>
+                                <div class="date-cell">2</div>
+                                <div class="date-cell">3</div>
+                                <div class="date-cell">4</div>
+                                <div class="date-cell">5</div>
+                                <div class="date-cell">6</div>
+                                <div class="date-cell">7</div>
+                                <div class="date-cell">8</div>
+                                <div class="date-cell">9</div>
+                                <div class="date-cell">10</div>
+                                <div class="date-cell">11</div>
+                                <div class="date-cell">12</div>
+                                <div class="date-cell">13</div>
+                                <div class="date-cell">14</div>
+                                <div class="date-cell">15</div>
+                                <div class="date-cell">16</div>
+                                <div class="date-cell">17</div>
+                                <div class="date-cell">18</div>
+                                <div class="date-cell">19</div>
+                                <div class="date-cell">20</div>
+                                <div class="date-cell">21</div>
+                                <div class="date-cell">22</div>
+                                <div class="date-cell">23</div>
+                                <div class="date-cell">24</div>
+                                <div class="date-cell">25</div>
+                                <div class="date-cell">26</div>
+                                <div class="date-cell">27</div>
+                                <div class="date-cell">28</div>
+                                <div class="date-cell">29</div>
+                                <div class="date-cell">30</div>
+                                <div class="date-cell">31</div>
+                                <div class="date-cell disabled">1</div>
+                                <div class="date-cell disabled">2</div>
                             </div>
                         </div>
 
-                        <div class="time-slots">
+                        <div class="time-slots-section">
                             <h4>Horarios disponibles</h4>
-                            <div class="slots-grid">
+                            <div class="time-slots-container">
                                 <button class="time-slot">09:00</button>
                                 <button class="time-slot">09:30</button>
                                 <button class="time-slot">10:00</button>
@@ -239,7 +273,16 @@
                                 <button class="time-slot">11:30</button>
                                 <button class="time-slot">12:00</button>
                                 <button class="time-slot">12:30</button>
-                                <!-- Más horarios... -->
+                                <button class="time-slot">13:00</button>
+                                <button class="time-slot">13:30</button>
+                                <button class="time-slot">14:00</button>
+                                <button class="time-slot">14:30</button>
+                                <button class="time-slot">15:00</button>
+                                <button class="time-slot">15:30</button>
+                                <button class="time-slot">16:00</button>
+                                <button class="time-slot">16:30</button>
+                                <button class="time-slot">17:00</button>
+                                <button class="time-slot">17:30</button>
                             </div>
                         </div>
                     </div>

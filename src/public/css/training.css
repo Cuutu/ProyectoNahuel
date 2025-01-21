@@ -852,76 +852,65 @@ body {
     background: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
+    padding: 2rem;
 }
 
-.calendar-header {
-    padding: 1rem;
-    border-bottom: 1px solid #eee;
-}
-
-.timezone-selector {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.timezone-wrapper {
+    margin-bottom: 2rem;
     color: #666;
 }
 
-.timezone-selector select {
+.timezone-select {
     border: none;
     background: transparent;
     color: #333;
     font-weight: 500;
+    cursor: pointer;
 }
 
-.calendar-body {
+.calendar-container {
     display: grid;
-    grid-template-columns: 350px 1fr;
-    min-height: 500px;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    min-height: 400px;
 }
 
-.date-picker {
-    padding: 1.5rem;
-    border-right: 1px solid #eee;
-}
-
-.month-header {
+.month-navigation {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 1.5rem;
 }
 
 .nav-btn {
     border: none;
     background: transparent;
+    font-size: 1.2rem;
     color: #666;
     cursor: pointer;
     padding: 0.5rem;
-    border-radius: 4px;
 }
 
 .nav-btn:hover {
-    background: #f5f5f5;
+    color: #333;
 }
 
-.calendar-days-header {
+.weekdays-header {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     text-align: center;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #666;
     margin-bottom: 0.5rem;
+    color: #666;
+    font-size: 0.9rem;
 }
 
-.calendar-dates {
+.dates-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 2px;
 }
 
-.calendar-date {
+.date-cell {
     aspect-ratio: 1;
     display: flex;
     align-items: center;
@@ -931,28 +920,37 @@ body {
     font-size: 0.9rem;
 }
 
-.calendar-date:hover {
+.date-cell:hover:not(.disabled) {
     background: #f5f5f5;
 }
 
-.calendar-date.selected {
+.date-cell.disabled {
+    color: #ccc;
+    cursor: default;
+}
+
+.date-cell.selected {
     background: #00e676;
     color: white;
 }
 
-.time-slots {
-    padding: 1.5rem;
+.time-slots-section {
+    border-left: 1px solid #eee;
+    padding-left: 2rem;
 }
 
-.time-slots h4 {
+.time-slots-section h4 {
     margin-bottom: 1rem;
     color: #333;
 }
 
-.slots-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 0.75rem;
+.time-slots-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 1rem;
 }
 
 .time-slot {
@@ -963,11 +961,12 @@ body {
     color: #333;
     cursor: pointer;
     transition: all 0.2s;
+    text-align: center;
 }
 
 .time-slot:hover {
-    background: #f5f5f5;
     border-color: #00e676;
+    background: #f5f5f5;
 }
 
 .time-slot.selected {
@@ -976,13 +975,35 @@ body {
     border-color: #00e676;
 }
 
+/* Estilizar scrollbar */
+.time-slots-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.time-slots-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.time-slots-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
 @media (max-width: 768px) {
-    .calendar-body {
+    .calendar-container {
         grid-template-columns: 1fr;
     }
 
-    .date-picker {
-        border-right: none;
-        border-bottom: 1px solid #eee;
+    .time-slots-section {
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-left: 0;
+        padding-top: 2rem;
+        margin-top: 2rem;
     }
 } 
