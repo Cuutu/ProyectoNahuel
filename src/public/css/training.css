@@ -1064,34 +1064,4 @@ body {
 .time-slot:hover:not(.selected) {
     background: #e8f5e9;
     border-color: #00e676;
-}
-
-.trading-view-card {
-    background: white;
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-}
-
-.trading-view-card img {
-    max-width: 200px;
-    margin-bottom: 1rem;
-}
-
-.trading-view-button {
-    display: inline-block;
-    background: #00e676;
-    color: white;
-    padding: 1rem 2rem;
-    border-radius: 4px;
-    text-decoration: none;
-    font-weight: bold;
-    margin-top: 1rem;
-    transition: background 0.3s;
-}
-
-.trading-view-button:hover {
-    background: #00c853;
 } 

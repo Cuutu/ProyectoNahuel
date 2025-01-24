@@ -25,7 +25,14 @@
                                 <% if (item.isPremium) { %>
                                     <div class="premium-badge">Premium</div>
                                 <% } %>
-                                <% if (item.type === 'multiple-pdf') { %>
+                                <% if (item.downloadUrl) { %>
+                                    <a href="<%= item.downloadUrl %>" 
+                                       class="resource-button" 
+                                       target="_blank" 
+                                       rel="noopener noreferrer">
+                                        <%= item.buttonText %>
+                                    </a>
+                                <% } else if (item.type === 'multiple-pdf') { %>
                                     <div class="pdf-grid">
                                         <% item.pdfs.forEach(pdf => { %>
                                             <div class="pdf-item">
