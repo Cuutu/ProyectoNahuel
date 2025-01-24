@@ -9,4 +9,11 @@ router.use(sessionPersist);
 router.get('/', trainingController.getTrainings);
 router.get('/analisis-tecnico', trainingController.getAnalisisTecnico);
 
+router.get('/trading-avanzado', (req, res) => {
+    res.render('training/trading-avanzado', {
+        title: 'Trading Avanzado',
+        user: req.user
+    });
+});
+
 module.exports = router; 

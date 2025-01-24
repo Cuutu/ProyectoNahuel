@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Script de recursos cargado'); // Log para verificar que el script se carga
-    
     // Obtener los modales
     const formulaModal = document.getElementById('formulaModal');
     const calendarModal = document.getElementById('calendarModal');
@@ -48,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Función para cerrar el modal
     function closeModal(modalId) {
         const modal = document.getElementById(modalId);
-        console.log('Intentando cerrar modal:', modalId);
         if (modal) {
             modal.style.display = 'none';
         }
@@ -56,11 +53,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Manejador específico para el botón de cierre del modal de material
     const materialModalClose = document.querySelector('#materialModal .close');
-    console.log('Botón de cierre del material modal:', materialModalClose);
 
     if (materialModalClose) {
         materialModalClose.addEventListener('click', function(e) {
-            console.log('Click en botón de cierre del material modal');
             e.preventDefault();
             closeModal('materialModal');
         });
@@ -201,18 +196,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Agregar funcionalidad para cerrar el modal de material
     document.querySelectorAll('.close').forEach(closeButton => {
-        console.log('Botón de cierre encontrado:', closeButton);
-        
         closeButton.addEventListener('click', function(e) {
-            console.log('Click en botón de cierre detectado');
-            
             // Encontrar el modal padre más cercano y ocultarlo
             const modal = this.closest('.modal');
-            console.log('Modal encontrado:', modal);
             
             if (modal) {
                 modal.style.display = 'none';
-                console.log('Modal ocultado');
             }
         });
     });
