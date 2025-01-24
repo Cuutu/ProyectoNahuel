@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Script de recursos cargado'); // Log para verificar que el script se carga
+    
     // Obtener los modales
     const formulaModal = document.getElementById('formulaModal');
     const calendarModal = document.getElementById('calendarModal');
@@ -134,11 +136,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Agregar funcionalidad para cerrar el modal de material
     document.querySelectorAll('.close').forEach(closeButton => {
-        closeButton.addEventListener('click', function() {
+        console.log('Botón de cierre encontrado:', closeButton);
+        
+        closeButton.addEventListener('click', function(e) {
+            console.log('Click en botón de cierre detectado');
+            
             // Encontrar el modal padre más cercano y ocultarlo
             const modal = this.closest('.modal');
+            console.log('Modal encontrado:', modal);
+            
             if (modal) {
                 modal.style.display = 'none';
+                console.log('Modal ocultado');
             }
         });
     });
