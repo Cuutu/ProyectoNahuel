@@ -60,6 +60,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para previsualizar PDFs
     window.previewPDF = function(pdfUrl) {
-        window.open(pdfUrl, '_blank');
-    };
+        const modal = document.getElementById('pdfModal');
+        const iframe = document.getElementById('pdfViewer');
+        iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`;
+        modal.style.display = 'block';
+    }
+
+    // Cerrar el modal cuando se hace clic en la X
+    document.querySelectorAll('.modal .close').forEach(closeBtn => {
+        closeBtn.onclick = function() {
+            this.closest('.modal').style.display = 'none';
+        }
+    });
+
+    // Cerrar el modal cuando se hace clic fuera de él
+    window.onclick = function(event) {
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
+        }
+    }
 });
