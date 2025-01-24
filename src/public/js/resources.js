@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 calendarModal.style.display = 'block';
             } else if (buttonText === 'Ver material') {
                 e.preventDefault();
-                materialModal.style.display = 'block';
+                showMaterialPopup();
             }
         });
     });
@@ -60,10 +60,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Función para previsualizar PDFs
     window.previewPDF = function(pdfUrl) {
-        const modal = document.getElementById('pdfModal');
-        const iframe = document.getElementById('pdfViewer');
-        iframe.src = `https://docs.google.com/viewer?url=${encodeURIComponent(window.location.origin + pdfUrl)}&embedded=true`;
-        modal.style.display = 'block';
+        const fullUrl = window.location.origin + pdfUrl;
+        
+        // Intentar primero abrir en una nueva pestaña
+        const newWindow = window.open(fullUrl, '_blank');
+        
+        // Si el navegador bloquea la apertura, usar Google Docs Viewer como fallback
+        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
+            window.open(viewerUrl, '_blank');
+        }
     }
 
     // Cerrar el modal cuando se hace clic en la X
@@ -80,3 +86,70 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Lista de PDFs disponibles
+const pdfList = [
+    {
+        title: "Estrategias Avanzadas",
+        filename: "estrategias-avanzadas.pdf"
+    },
+    {
+        title: "Cómo medir la cartera",
+        filename: "Como-medir-la-cartera-1.pdf"
+    },
+    {
+        title: "Cálculo CCL",
+        filename: "CALCULO-CCL-1.pdf"
+    },
+    {
+        title: "Gestión de Riesgo",
+        filename: "gestion-de-riesgo.pdf"
+    }
+];
+
+// Función para mostrar el popup con los PDFs
+function showMaterialPopup() {
+    const modal = document.getElementById('materialModal');
+    const modalContent = document.querySelector('.material-modal-content');
+    
+    // Generar el contenido del modal
+    let content = `
+        <span class="close">&times;</span>
+        <h2>Material Complementario</h2>
+        <div class="pdf-grid">
+    `;
+    
+    pdfList.forEach(pdf => {
+        content += `
+            <div class="pdf-item">
+                <h4>${pdf.title}</h4>
+                <div class="button-group">
+                    <a href="#" class="resource-button preview-btn" 
+                       onclick="previewPDF('/pdfs/${pdf.filename}')">
+                        <i class="fas fa-eye"></i> Previsualizar
+                    </a>
+                    <a href="/pdfs/${pdf.filename}" 
+                       class="resource-button download-btn" 
+                       download>
+                        <i class="fas fa-download"></i> Descargar
+                    </a>
+                </div>
+            </div>
+        `;
+    });
+    
+    content += `</div>`;
+    modalContent.innerHTML = content;
+    modal.style.display = "block";
+    
+    // Cerrar modal
+    const closeBtn = modalContent.querySelector('.close');
+    closeBtn.onclick = () => modal.style.display = "none";
+    
+    // Cerrar al hacer clic fuera
+    window.onclick = (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+}

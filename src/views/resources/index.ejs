@@ -38,10 +38,10 @@
                                             <div class="pdf-item">
                                                 <h4><%= pdf.title %></h4>
                                                 <div class="button-group">
-                                                    <a href="#" class="resource-button preview-btn" onclick="previewPDF('<%= pdf.pdfUrl %>')">
+                                                    <a href="#" class="resource-button preview-btn" onclick="previewPDF('/pdfs/<%= pdf.filename %>')">
                                                         <i class="fas fa-eye"></i> Previsualizar
                                                     </a>
-                                                    <a href="<%= pdf.pdfUrl %>" class="resource-button download-btn" download>
+                                                    <a href="/pdfs/<%= pdf.filename %>" class="resource-button download-btn" download>
                                                         <i class="fas fa-download"></i> Descargar
                                                     </a>
                                                 </div>
@@ -51,17 +51,19 @@
                                 <% } else if (item.type === 'pdf') { %>
                                     <div class="button-group">
                                         <a href="#" class="resource-button preview-btn" 
-                                           onclick="openPDFViewer('<%= item.pdfUrl %>')">
+                                           onclick="openPDFViewer('/pdfs/<%= item.pdfUrl %>')">
                                             <i class="fas fa-eye"></i> Previsualizar
                                         </a>
-                                        <a href="<%= item.pdfUrl %>" 
+                                        <a href="/pdfs/<%= item.pdfUrl %>" 
                                            class="resource-button download-btn" 
                                            download>
                                             <i class="fas fa-download"></i> Descargar
                                         </a>
                                     </div>
                                 <% } else if (item.type === 'material-modal') { %>
-                                    <button class="resource-button" data-type="material">Ver material</button>
+                                    <button onclick="showMaterialPopup()" class="resource-button">
+                                        Ver material
+                                    </button>
                                 <% } else { %>
                                     <button class="resource-button" data-type="<%= item.type %>"><%= item.buttonText %></button>
                                 <% } %>
@@ -121,25 +123,7 @@
 
     <!-- Modal para material complementario -->
     <div id="materialModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Material Complementario</h2>
-            
-            <div class="material-grid">
-                <% resources[0].items[1].pdfs.forEach(pdf => { %>
-                    <div class="material-item">
-                        <h3><%= pdf.title %></h3>
-                        <div class="button-group">
-                            <a href="#" class="resource-button preview-btn" onclick="previewPDF('<%= pdf.pdfUrl %>')">
-                                <i class="fas fa-eye"></i> Previsualizar
-                            </a>
-                            <a href="<%= pdf.pdfUrl %>" class="resource-button download-btn" download>
-                                <i class="fas fa-download"></i> Descargar
-                            </a>
-                        </div>
-                    </div>
-                <% }); %>
-            </div>
+        <div class="material-modal-content modal-content">
         </div>
     </div>
 

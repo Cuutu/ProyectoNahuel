@@ -265,4 +265,53 @@
     padding: 2rem;
     border-radius: 15px;
     position: relative;
+}
+
+/* Estilos para el modal de material */
+.material-modal-content {
+    background: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.material-modal-content h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.pdf-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.pdf-item h4 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.pdf-item .button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.pdf-item .resource-button {
+    min-width: 120px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
 } 
