@@ -76,12 +76,14 @@ document.addEventListener('DOMContentLoaded', function() {
         content += `</div>`;
         modalContent.innerHTML = content;
         modal.style.display = "block";
+        document.body.classList.add('modal-open');
     }
 
     // Manejar el cierre de los modales
     document.querySelectorAll('.modal .close').forEach(closeBtn => {
         closeBtn.addEventListener('click', function() {
             this.closest('.modal').style.display = 'none';
+            document.body.classList.remove('modal-open');
         });
     });
 
@@ -89,6 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('click', function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.style.display = 'none';
+            document.body.classList.remove('modal-open');
         }
     });
 
