@@ -131,4 +131,24 @@ document.addEventListener('DOMContentLoaded', function() {
             event.target.style.display = 'none';
         }
     }
+
+    // Agregar funcionalidad para cerrar el modal de material
+    document.querySelectorAll('.close').forEach(closeButton => {
+        closeButton.addEventListener('click', function() {
+            // Encontrar el modal padre más cercano y ocultarlo
+            const modal = this.closest('.modal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        });
+    });
+
+    // También agregar la funcionalidad de cerrar al hacer clic fuera del modal
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.style.display = 'none';
+            }
+        });
+    });
 });
