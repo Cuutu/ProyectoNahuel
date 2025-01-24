@@ -69,16 +69,61 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cerrar modal al hacer clic fuera del contenido
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
-            closeModal(event.target.id);
+            event.target.style.display = 'none';
         }
     };
 
-    // Función para mostrar el modal
+    // Función para mostrar el modal de material
     window.showMaterialPopup = function() {
         const modal = document.getElementById('materialModal');
-        if (modal) {
-            console.log('Mostrando modal de material');
-            modal.style.display = 'block';
+        const modalContent = modal.querySelector('.material-modal-content');
+        
+        // Asegurarse de que el contenido del modal esté presente
+        if (!modalContent.querySelector('h2')) {
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>Material Complementario</h2>
+                <div class="pdf-grid">
+                    <div class="pdf-item">
+                        <h3>Estrategias Avanzadas</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('estrategias')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('estrategias')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>Cómo medir la cartera</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('cartera')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('cartera')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>Cálculo CCL</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('ccl')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('ccl')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>Gestión de Riesgo</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('riesgo')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('riesgo')">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        modal.style.display = 'block';
+
+        // Agregar el evento de cierre al nuevo botón
+        const closeButton = modalContent.querySelector('.close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
         }
     };
 
