@@ -45,58 +45,42 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // Función para mostrar el popup con los PDFs
-    window.showMaterialPopup = function() {
-        const modal = document.getElementById('materialModal');
-        const modalContent = document.querySelector('.material-modal-content');
-        
-        let content = `
-            <span class="close">&times;</span>
-            <h2>Material Complementario</h2>
-            <div class="pdf-grid">
-        `;
-        
-        pdfList.forEach(pdf => {
-            content += `
-                <div class="pdf-item">
-                    <h4>${pdf.title}</h4>
-                    <div class="button-group">
-                        <a href="/pdfs/${pdf.filename}" 
-                           class="resource-button preview-btn" 
-                           target="_blank">
-                            <i class="fas fa-eye"></i> Previsualizar
-                        </a>
-                        <a href="/pdfs/${pdf.filename}" 
-                           class="resource-button download-btn" 
-                           download>
-                            <i class="fas fa-download"></i> Descargar
-                        </a>
-                    </div>
-                </div>
-            `;
-        });
-        
-        content += `</div>`;
-        modalContent.innerHTML = content;
-        modal.style.display = "block";
-        document.body.classList.add('modal-open');
+    // Función para cerrar el modal
+    function closeModal(modalId) {
+        const modal = document.getElementById(modalId);
+        console.log('Intentando cerrar modal:', modalId);
+        if (modal) {
+            modal.style.display = 'none';
+        }
     }
 
-    // Manejar el cierre de los modales
-    document.querySelectorAll('.modal .close').forEach(closeBtn => {
-        closeBtn.addEventListener('click', function() {
-            this.closest('.modal').style.display = 'none';
-            document.body.classList.remove('modal-open');
-        });
-    });
+    // Manejador específico para el botón de cierre del modal de material
+    const materialModalClose = document.querySelector('#materialModal .close');
+    console.log('Botón de cierre del material modal:', materialModalClose);
 
-    // Cerrar modales al hacer click fuera
-    window.addEventListener('click', function(event) {
+    if (materialModalClose) {
+        materialModalClose.addEventListener('click', function(e) {
+            console.log('Click en botón de cierre del material modal');
+            e.preventDefault();
+            closeModal('materialModal');
+        });
+    }
+
+    // Cerrar modal al hacer clic fuera del contenido
+    window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-            document.body.classList.remove('modal-open');
+            closeModal(event.target.id);
         }
-    });
+    };
+
+    // Función para mostrar el modal
+    window.showMaterialPopup = function() {
+        const modal = document.getElementById('materialModal');
+        if (modal) {
+            console.log('Mostrando modal de material');
+            modal.style.display = 'block';
+        }
+    };
 
     // Manejar la copia de fórmulas
     document.querySelectorAll('.copy-button').forEach(button => {
@@ -126,13 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
             this.closest('.modal').style.display = 'none';
         }
     });
-
-    // Cerrar el modal cuando se hace clic fuera de él
-    window.onclick = function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.style.display = 'none';
-        }
-    }
 
     // Agregar funcionalidad para cerrar el modal de material
     document.querySelectorAll('.close').forEach(closeButton => {
