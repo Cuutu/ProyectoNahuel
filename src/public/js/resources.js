@@ -23,23 +23,72 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Lista de PDFs disponibles
+    const pdfList = [
+        {
+            title: "Estrategias Avanzadas",
+            filename: "estrategias-avanzadas.pdf"
+        },
+        {
+            title: "Cómo medir la cartera",
+            filename: "Como-medir-la-cartera-1.pdf"
+        },
+        {
+            title: "Cálculo CCL",
+            filename: "CALCULO-CCL-1.pdf"
+        },
+        {
+            title: "Gestión de Riesgo",
+            filename: "gestion-de-riesgo.pdf"
+        }
+    ];
+
+    // Función para mostrar el popup con los PDFs
+    window.showMaterialPopup = function() {
+        const modal = document.getElementById('materialModal');
+        const modalContent = document.querySelector('.material-modal-content');
+        
+        let content = `
+            <span class="close">&times;</span>
+            <h2>Material Complementario</h2>
+            <div class="pdf-grid">
+        `;
+        
+        pdfList.forEach(pdf => {
+            content += `
+                <div class="pdf-item">
+                    <h4>${pdf.title}</h4>
+                    <div class="button-group">
+                        <button class="resource-button preview-btn" 
+                           onclick="openPDFViewer('/pdfs/${pdf.filename}')">
+                            <i class="fas fa-eye"></i> Previsualizar
+                        </button>
+                        <a href="/pdfs/${pdf.filename}" 
+                           class="resource-button download-btn" 
+                           download>
+                            <i class="fas fa-download"></i> Descargar
+                        </a>
+                    </div>
+                </div>
+            `;
+        });
+        
+        content += `</div>`;
+        modalContent.innerHTML = content;
+        modal.style.display = "block";
+    }
+
     // Manejar el cierre de los modales
-    document.querySelectorAll('.close').forEach(closeBtn => {
+    document.querySelectorAll('.modal .close').forEach(closeBtn => {
         closeBtn.addEventListener('click', function() {
-            formulaModal.style.display = 'none';
-            calendarModal.style.display = 'none';
-            materialModal.style.display = 'none';
+            this.closest('.modal').style.display = 'none';
         });
     });
 
     // Cerrar modales al hacer click fuera
     window.addEventListener('click', function(event) {
-        if (event.target === formulaModal || 
-            event.target === calendarModal || 
-            event.target === materialModal) {
-            formulaModal.style.display = 'none';
-            calendarModal.style.display = 'none';
-            materialModal.style.display = 'none';
+        if (event.target.classList.contains('modal')) {
+            event.target.style.display = 'none';
         }
     });
 
@@ -86,70 +135,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
-
-// Lista de PDFs disponibles
-const pdfList = [
-    {
-        title: "Estrategias Avanzadas",
-        filename: "estrategias-avanzadas.pdf"
-    },
-    {
-        title: "Cómo medir la cartera",
-        filename: "Como-medir-la-cartera-1.pdf"
-    },
-    {
-        title: "Cálculo CCL",
-        filename: "CALCULO-CCL-1.pdf"
-    },
-    {
-        title: "Gestión de Riesgo",
-        filename: "gestion-de-riesgo.pdf"
-    }
-];
-
-// Función para mostrar el popup con los PDFs
-function showMaterialPopup() {
-    const modal = document.getElementById('materialModal');
-    const modalContent = document.querySelector('.material-modal-content');
-    
-    // Generar el contenido del modal
-    let content = `
-        <span class="close">&times;</span>
-        <h2>Material Complementario</h2>
-        <div class="pdf-grid">
-    `;
-    
-    pdfList.forEach(pdf => {
-        content += `
-            <div class="pdf-item">
-                <h4>${pdf.title}</h4>
-                <div class="button-group">
-                    <a href="#" class="resource-button preview-btn" 
-                       onclick="previewPDF('/pdfs/${pdf.filename}')">
-                        <i class="fas fa-eye"></i> Previsualizar
-                    </a>
-                    <a href="/pdfs/${pdf.filename}" 
-                       class="resource-button download-btn" 
-                       download>
-                        <i class="fas fa-download"></i> Descargar
-                    </a>
-                </div>
-            </div>
-        `;
-    });
-    
-    content += `</div>`;
-    modalContent.innerHTML = content;
-    modal.style.display = "block";
-    
-    // Cerrar modal
-    const closeBtn = modalContent.querySelector('.close');
-    closeBtn.onclick = () => modal.style.display = "none";
-    
-    // Cerrar al hacer clic fuera
-    window.onclick = (event) => {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-}
