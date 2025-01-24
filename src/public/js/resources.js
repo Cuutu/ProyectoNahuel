@@ -59,10 +59,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="pdf-item">
                     <h4>${pdf.title}</h4>
                     <div class="button-group">
-                        <button class="resource-button preview-btn" 
-                           onclick="openPDFViewer('/pdfs/${pdf.filename}')">
+                        <a href="/pdfs/${pdf.filename}" 
+                           class="resource-button preview-btn" 
+                           target="_blank">
                             <i class="fas fa-eye"></i> Previsualizar
-                        </button>
+                        </a>
                         <a href="/pdfs/${pdf.filename}" 
                            class="resource-button download-btn" 
                            download>
@@ -111,17 +112,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Función para previsualizar PDFs
-    window.previewPDF = function(pdfUrl) {
+    window.openPDFViewer = function(pdfUrl) {
         const fullUrl = window.location.origin + pdfUrl;
-        
-        // Intentar primero abrir en una nueva pestaña
-        const newWindow = window.open(fullUrl, '_blank');
-        
-        // Si el navegador bloquea la apertura, usar Google Docs Viewer como fallback
-        if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
-            const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fullUrl)}&embedded=true`;
-            window.open(viewerUrl, '_blank');
-        }
+        // Abrir directamente en una nueva pestaña
+        window.open(fullUrl, '_blank');
     }
 
     // Cerrar el modal cuando se hace clic en la X
