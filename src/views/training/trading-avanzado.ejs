@@ -22,8 +22,8 @@
     <%- include('../partials/header') %>
     
     <main class="training-detail-container">
-        <!-- Hero Section con Título -->
-        <section class="hero-section">
+        <!-- Hero Section con fondo azul -->
+        <section class="hero-section-blue">
             <div class="container">
                 <h1>Trading Avanzado</h1>
                 <p class="hero-description">Domina estrategias avanzadas de trading y optimiza tus operaciones</p>
@@ -33,68 +33,49 @@
         <!-- Contenido del Curso -->
         <section class="course-content">
             <div class="container">
-                <div class="course-info">
-                    <div class="info-item">
-                        <i class="fas fa-clock"></i>
-                        <span>Duración: 8 semanas</span>
-                    </div>
-                    <div class="info-item">
-                        <i class="fas fa-dollar-sign"></i>
-                        <span>Precio: $299.99</span>
-                    </div>
+                <!-- Info del curso -->
+                <div class="course-info-center">
+                    <p>Duración: 8 semanas</p>
+                    <p>Precio: $299.99</p>
                 </div>
 
                 <!-- Timeline del Curso -->
-                <div class="timeline-container">
-                    <!-- Semana 1 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
+                <div class="course-timeline">
+                    <div class="timeline-weeks">
+                        <div class="week-item">
                             <h3>Semana 1: Estrategias Avanzadas</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i>Estrategias de momentum</li>
-                                <li><i class="fas fa-check"></i>Trading en múltiples temporalidades</li>
-                                <li><i class="fas fa-check"></i>Análisis de volumen avanzado</li>
-                            </ul>
                         </div>
-                    </div>
-
-                    <!-- Semana 2 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
+                        <div class="week-item">
                             <h3>Semana 2: Análisis Técnico Profundo</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i>Patrones armónicos</li>
-                                <li><i class="fas fa-check"></i>Ondas de Elliott</li>
-                                <li><i class="fas fa-check"></i>Fibonacci avanzado</li>
-                            </ul>
                         </div>
-                    </div>
-
-                    <!-- Semana 3 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
+                        <div class="week-item">
                             <h3>Semana 3: Trading Algorítmico</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i>Introducción a los bots de trading</li>
-                                <li><i class="fas fa-check"></i>Backtesting de estrategias</li>
-                                <li><i class="fas fa-check"></i>Automatización básica</li>
-                            </ul>
+                        </div>
+                        <div class="week-item">
+                            <h3>Semana 4: Gestión de Portafolio</h3>
                         </div>
                     </div>
 
-                    <!-- Semana 4 -->
-                    <div class="timeline-item">
-                        <div class="timeline-dot"></div>
-                        <div class="timeline-content">
-                            <h3>Semana 4: Gestión de Portafolio</h3>
-                            <ul>
-                                <li><i class="fas fa-check"></i>Diversificación avanzada</li>
-                                <li><i class="fas fa-check"></i>Gestión de riesgo profesional</li>
-                                <li><i class="fas fa-check"></i>Optimización de cartera</li>
-                            </ul>
+                    <div class="timeline-content">
+                        <ul class="content-list">
+                            <li>Estrategias de momentum</li>
+                            <li>Trading en múltiples temporalidades</li>
+                            <li>Análisis de volumen avanzado</li>
+                            <li>Patrones armónicos</li>
+                            <li>Ondas de Elliott</li>
+                            <li>Fibonacci avanzado</li>
+                            <li>Introducción a los bots de trading</li>
+                            <li>Backtesting de estrategias</li>
+                            <li>Automatización básica</li>
+                            <li>Diversificación avanzada</li>
+                            <li>Gestión de riesgo profesional</li>
+                            <li>Optimización de cartera</li>
+                        </ul>
+                        <div class="timeline-dots">
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
                         </div>
                     </div>
                 </div>
