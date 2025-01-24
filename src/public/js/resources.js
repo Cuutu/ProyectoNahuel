@@ -73,6 +73,49 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
 
+    // Funciones para previsualizar y descargar
+    window.previsualizar = function(tipo) {
+        let pdfUrl;
+        switch(tipo) {
+            case 'estrategias':
+                pdfUrl = '/pdfs/estrategias-avanzadas.pdf';
+                break;
+            case 'cartera':
+                pdfUrl = '/pdfs/Como-medir-la-cartera-1.pdf';
+                break;
+            case 'ccl':
+                pdfUrl = '/pdfs/CALCULO-CCL-1.pdf';
+                break;
+            case 'riesgo':
+                pdfUrl = '/pdfs/gestion-de-riesgo.pdf';
+                break;
+        }
+        if (pdfUrl) {
+            openPDFViewer(pdfUrl);
+        }
+    };
+
+    window.descargar = function(tipo) {
+        let pdfUrl;
+        switch(tipo) {
+            case 'estrategias':
+                pdfUrl = '/pdfs/estrategias-avanzadas.pdf';
+                break;
+            case 'cartera':
+                pdfUrl = '/pdfs/Como-medir-la-cartera-1.pdf';
+                break;
+            case 'ccl':
+                pdfUrl = '/pdfs/CALCULO-CCL-1.pdf';
+                break;
+            case 'riesgo':
+                pdfUrl = '/pdfs/gestion-de-riesgo.pdf';
+                break;
+        }
+        if (pdfUrl) {
+            window.location.href = pdfUrl;
+        }
+    };
+
     // Función para mostrar el modal de material
     window.showMaterialPopup = function() {
         const modal = document.getElementById('materialModal');
