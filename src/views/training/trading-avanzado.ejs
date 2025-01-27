@@ -5,27 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trading Avanzado - CryptoTrading</title>
     
-    <!-- Flatpickr CSS y Scripts -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
-    
-    <!-- Otros estilos -->
+    <!-- Estilos -->
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/training.css">
     <link rel="stylesheet" href="/css/animations.css">
-    <link rel="preload" href="/css/landing.css" as="style">
     <link rel="stylesheet" href="/css/roadmap.css">
-    <link rel="stylesheet" href="/css/calendar.css">
-    
-    <!-- Font Awesome si no está incluido -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <%- include('../partials/header') %>
     
     <main class="training-detail-container">
-        <!-- Hero Section con fondo azul -->
+        <!-- Hero Section -->
         <section class="hero-section-blue">
             <div class="container">
                 <h1>Trading Avanzado</h1>
@@ -72,59 +64,7 @@
             </div>
         </section>
 
-        <!-- Contenido del Curso -->
-        <section class="course-content">
-            <div class="container">
-                <!-- Info del curso -->
-                <div class="course-info-center">
-                    <p>Duración: 8 semanas</p>
-                    <p>Precio: $299.99</p>
-                </div>
-            <!--
-                 Timeline del Curso 
-                <div class="course-timeline">
-                    <div class="timeline-weeks">
-                        <div class="week-item">
-                            <h3>Semana 1: Estrategias Avanzadas</h3>
-                        </div>
-                        <div class="week-item">
-                            <h3>Semana 2: Análisis Técnico Profundo</h3>
-                        </div>
-                        <div class="week-item">
-                            <h3>Semana 3: Trading Algorítmico</h3>
-                        </div>
-                        <div class="week-item">
-                            <h3>Semana 4: Gestión de Portafolio</h3>
-                        </div>
-                    </div>
-
-                    <div class="timeline-content">
-                        <ul class="content-list">
-                            <li>Estrategias de momentum</li>
-                            <li>Trading en múltiples temporalidades</li>
-                            <li>Análisis de volumen avanzado</li>
-                            <li>Patrones armónicos</li>
-                            <li>Ondas de Elliott</li>
-                            <li>Fibonacci avanzado</li>
-                            <li>Introducción a los bots de trading</li>
-                            <li>Backtesting de estrategias</li>
-                            <li>Automatización básica</li>
-                            <li>Diversificación avanzada</li>
-                            <li>Gestión de riesgo profesional</li>
-                            <li>Optimización de cartera</li>
-                        </ul>
-                        <div class="timeline-dots">
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                            <span class="dot"></span>
-                        </div>
-                    </div>
-                </div> -->
-            </div>
-        </section> 
-
-        <!-- Roadmap con Diseño Moderno -->
+        <!-- Roadmap Section -->
         <section class="roadmap-section">
             <h2>Roadmap del Curso</h2>
             <div class="container">
@@ -215,6 +155,8 @@
         </section>
     </main>
 
+    <!-- Scripts -->
     <script src="/js/navbar.js"></script>
+    <script defer src="/js/animations.js"></script>
 </body>
 </html> 
