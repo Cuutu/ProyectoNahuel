@@ -344,98 +344,121 @@
 
 /* Estilos para el Roadmap */
 .roadmap-section {
-    padding: 6rem 0;
-    background: #f8f9fa;
+    padding: 4rem 0;
+    background: #f5f5f5;
 }
 
 .roadmap-section h2 {
     text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 4rem;
-    color: var(--primary-dark);
+    margin-bottom: 3rem;
+    font-size: 2rem;
+    color: #333;
 }
 
-.roadmap {
-    max-width: 1000px;
-    margin: 0 auto;
+.roadmap-container {
     position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.roadmap::before {
+.roadmap-timeline {
+    position: relative;
+    padding: 2rem 0;
+}
+
+.roadmap-timeline::before {
     content: '';
     position: absolute;
+    top: 0;
     left: 50%;
-    transform: translateX(-50%);
     width: 2px;
     height: 100%;
-    background: var(--primary);
+    background: #00e676;
+    transform: translateX(-50%);
 }
 
-.roadmap-item {
-    margin-bottom: 3rem;
+.timeline-item {
     position: relative;
-    width: 50%;
-    padding: 0 2rem;
+    margin: 2rem 0;
 }
 
-.roadmap-item:nth-child(odd) {
+.timeline-content {
+    position: relative;
+    width: 45%;
+}
+
+.timeline-content.left {
     left: 0;
 }
 
-.roadmap-item:nth-child(even) {
-    left: 50%;
+.timeline-content.right {
+    left: 55%;
 }
 
-.roadmap-content {
+.content-card {
     background: white;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    position: relative;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
 }
 
-.roadmap-content::before {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: var(--primary);
-    border-radius: 50%;
-    top: 50%;
-}
-
-.roadmap-item:nth-child(odd) .roadmap-content::before {
-    right: -42px;
-}
-
-.roadmap-item:nth-child(even) .roadmap-content::before {
-    left: -42px;
-}
-
-.week {
+.content-card h4 {
     color: #666;
     font-size: 0.9rem;
-    display: block;
     margin-bottom: 0.5rem;
 }
 
-.roadmap-content h3 {
+.content-card h3 {
+    color: #333;
+    font-size: 1.2rem;
     margin-bottom: 1rem;
-    color: var(--primary-dark);
 }
 
-.roadmap-content ul {
+.content-card ul {
     list-style: none;
     padding: 0;
 }
 
-.roadmap-content li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #eee;
+.content-card ul li {
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 0;
+    color: #666;
 }
 
-.roadmap-content li:last-child {
-    border-bottom: none;
+.content-card ul li i {
+    color: #00e676;
+    margin-right: 0.5rem;
+    font-size: 0.8rem;
+}
+
+/* Puntos en la línea temporal */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background: #00e676;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .roadmap-timeline::before {
+        left: 1rem;
+    }
+
+    .timeline-content {
+        width: 85%;
+        left: 3rem !important;
+    }
+
+    .timeline-item::after {
+        left: 1rem;
+    }
 }
 
 /* Estilos para la sección de características */
