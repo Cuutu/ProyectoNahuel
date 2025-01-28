@@ -44,12 +44,11 @@ router.get('/', (req, res) => {
                         ]
                     },
                     {
-                        title: "Estrategias Avanzadas",
+                        title: "Libros Recomendados",
                         description: "Técnicas profesionales de trading",
                         imageUrl: "/images/resources/ebook-advanced.jpg",
-                        pdfUrl: "/pdfs/estrategias-avanzadas.pdf",
-                        isPremium: true,
-                        type: "pdf"
+                        type: "multiple-pdf",
+                        isPremium: false
                     }
                 ]
             },
