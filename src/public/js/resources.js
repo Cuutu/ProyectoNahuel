@@ -26,8 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Lista de PDFs disponibles
     const pdfList = [
         {
-            title: "Estrategias Avanzadas",
-            filename: "estrategias-avanzadas.pdf"
+            title: "Ratios de conversión BYMA",
+            filename: "Ratios-de-Conversion-BYMA-1.pdf"
         },
         {
             title: "Cómo medir la cartera",
@@ -38,8 +38,8 @@ document.addEventListener('DOMContentLoaded', function() {
             filename: "CALCULO-CCL-1.pdf"
         },
         {
-            title: "Gestión de Riesgo",
-            filename: "gestion-de-riesgo.pdf"
+            title: "Ratios de conversión COMAFI",
+            filename: "Ratios-de-Conversion-COMAFI-1.pdf"
         }
     ];
 
@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let pdfUrl;
         switch(tipo) {
             case 'estrategias':
-                pdfUrl = '/pdfs/estrategias-avanzadas.pdf';
+                pdfUrl = '/pdfs/Ratios-de-Conversion-BYMA-1.pdf';
                 break;
             case 'cartera':
                 pdfUrl = '/pdfs/Como-medir-la-cartera-1.pdf';
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 pdfUrl = '/pdfs/CALCULO-CCL-1.pdf';
                 break;
             case 'riesgo':
-                pdfUrl = '/pdfs/gestion-de-riesgo.pdf';
+                pdfUrl = '/pdfs/Ratios-de-Conversion-COMAFI.pdf';
                 break;
         }
         if (pdfUrl) {
@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let pdfUrl;
         switch(tipo) {
             case 'estrategias':
-                pdfUrl = '/pdfs/estrategias-avanzadas.pdf';
+                pdfUrl = '/pdfs/Ratios-de-Conversion-BYMA-1.pdf';
                 break;
             case 'cartera':
                 pdfUrl = '/pdfs/Como-medir-la-cartera-1.pdf';
@@ -103,11 +103,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 pdfUrl = '/pdfs/CALCULO-CCL-1.pdf';
                 break;
             case 'riesgo':
-                pdfUrl = '/pdfs/gestion-de-riesgo.pdf';
+                pdfUrl = '/pdfs/Ratios-de-Conversion-COMAFI.pdf';
                 break;
         }
         if (pdfUrl) {
-            window.location.href = pdfUrl;
+            // Crear un elemento <a> temporal
+            const link = document.createElement('a');
+            link.href = pdfUrl;
+            link.download = pdfUrl.split('/').pop(); // Obtiene el nombre del archivo
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         }
     };
 
