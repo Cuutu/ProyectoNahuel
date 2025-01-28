@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Profesional - CryptoTrading</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/training.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/roadmap.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="training-detail-container">
+        <!-- Hero Section -->
+        <section class="hero-section-blue">
+            <div class="container">
+                <h1>Trading Profesional</h1>
+                <p class="hero-description">Conviértete en un trader profesional y domina el mercado institucional</p>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section" data-animate="fade-up">
+            <div class="container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1019511294?h=7d6b5c2f25"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contador de Usuarios con Iconos -->
+        <section class="stats-counter" data-animate="fade-up">
+            <div class="container">
+                <div class="counter-wrapper">
+                    <div class="counter-item">
+                        <i class="fas fa-users" style="color: #00e676;"></i>
+                        <div class="counter-info">
+                            <span class="counter-number" style="color: #333;">1,234</span>
+                            <span class="counter-label" style="color: #666;">Traders Profesionales</span>
+                        </div>
+                    </div>
+                    <div class="counter-item">
+                        <i class="fas fa-star" style="color: #00e676;"></i>
+                        <div class="counter-info">
+                            <span class="counter-number" style="color: #333;">100%</span>
+                            <span class="counter-label" style="color: #666;">Satisfacción</span>
+                        </div>
+                    </div>
+                    <div class="counter-item">
+                        <i class="fas fa-chart-line" style="color: #00e676;"></i>
+                        <div class="counter-info">
+                            <span class="counter-number" style="color: #333;">5.0</span>
+                            <span class="counter-label" style="color: #666;">Valoración</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info del Curso -->
+        <section class="course-info" data-animate="fade-up">
+            <div class="container">
+                <div class="course-info-center">
+                    <p><i class="far fa-clock"></i> 12 semanas</p>
+                    <p><i class="fas fa-dollar-sign"></i> $499.99</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Características del Curso -->
+        <section class="course-features">
+            <div class="container">
+                <ul class="features-list">
+                    <li><i class="fas fa-check"></i> Trading institucional</li>
+                    <li><i class="fas fa-check"></i> Estrategias propietarias</li>
+                    <li><i class="fas fa-check"></i> Gestión de capital</li>
+                    <li><i class="fas fa-check"></i> Mentoría personalizada</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/navbar.js"></script>
+    <script defer src="/js/animations.js"></script>
+</body>
+</html> 
