@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 formulaModal.style.display = 'block';
             } else if (buttonText === 'Ver calendarios') {
                 e.preventDefault();
-                calendarModal.style.display = 'block';
+                showCalendarModal();
             } else if (buttonText === 'Ver material') {
                 e.preventDefault();
                 showMaterialPopup();
@@ -302,4 +302,54 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         }
     };
+
+    // Crear el modal de calendarios
+    const modalContent = document.querySelector('.material-modal-content');
+    const modal = document.getElementById('materialModal');
+
+    function showCalendarModal() {
+        if (!modalContent.querySelector('h2')) {
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>Calendarios Económicos</h2>
+                <div class="calendar-links">
+                    <a href="https://www.investing.com/economic-calendar/" target="_blank" class="calendar-link">
+                        <i class="fas fa-chart-line"></i>
+                        Calendario de Inflación USA
+                    </a>
+                    <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" class="calendar-link">
+                        <i class="fas fa-university"></i>
+                        Calendario FED
+                    </a>
+                    <a href="https://www.investing.com/earnings-calendar/" target="_blank" class="calendar-link">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        Calendario de Balances
+                    </a>
+                </div>
+            `;
+        }
+
+        modal.style.display = 'block';
+
+        // Agregar el evento de cierre al nuevo botón
+        const closeButton = modalContent.querySelector('.close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+    }
+
+    // Agregar el evento al botón de calendarios
+    document.querySelector('[data-type="calendars"]').addEventListener('click', function(e) {
+        e.preventDefault();
+        showCalendarModal();
+    });
+
+    // Cerrar el modal si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === modal) {
+            modal.style.display = 'none';
+        }
+    });
 });
