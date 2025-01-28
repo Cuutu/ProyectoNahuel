@@ -34,16 +34,14 @@
                                     </a>
                                 <% } else if (item.type === 'multiple-pdf') { %>
                                     <div class="pdf-grid">
-                                        <% item.pdfs.forEach(pdf => { %>
-                                            <div class="pdf-item">
-                                                <h4>Libros Recomendados</h4>
-                                                <div class="button-group">
-                                                    <button class="resource-button" onclick="showBooksPopup()">
-                                                        Ver libros
-                                                    </button>
-                                                </div>
+                                        <div class="pdf-item">
+                                            <h4>Libros Recomendados</h4>
+                                            <div class="button-group">
+                                                <button class="resource-button" onclick="showBooksPopup()">
+                                                    Ver libros
+                                                </button>
                                             </div>
-                                        <% }); %>
+                                        </div>
                                     </div>
                                 <% } else if (item.type === 'pdf') { %>
                                     <div class="button-group">

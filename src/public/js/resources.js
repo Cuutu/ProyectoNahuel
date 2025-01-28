@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const formulaModal = document.getElementById('formulaModal');
     const calendarModal = document.getElementById('calendarModal');
     const materialModal = document.getElementById('materialModal');
+    const booksModal = document.getElementById('booksModal');
     
     // Obtener todos los botones de recursos
     document.querySelectorAll('.resource-button').forEach(button => {
@@ -19,6 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (buttonText === 'Ver material') {
                 e.preventDefault();
                 showMaterialPopup();
+            } else if (buttonText === 'Ver libros') {
+                e.preventDefault();
+                showBooksPopup();
             }
         });
     });
