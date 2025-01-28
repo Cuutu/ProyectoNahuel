@@ -129,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <h2>Material Complementario</h2>
                 <div class="pdf-grid">
                     <div class="pdf-item">
-                        <h3>Estrategias Avanzadas</h3>
+                        <h3>Ratios de conversión BYMA</h3>
                         <div class="button-group">
                             <button class="resource-button" onclick="previsualizar('estrategias')">Previsualizar</button>
                             <button class="resource-button" onclick="descargar('estrategias')">Descargar</button>
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         </div>
                     </div>
                     <div class="pdf-item">
-                        <h3>Gestión de Riesgo</h3>
+                        <h3>Ratios de conversión COMAFI</h3>
                         <div class="button-group">
                             <button class="resource-button" onclick="previsualizar('riesgo')">Previsualizar</button>
                             <button class="resource-button" onclick="descargar('riesgo')">Descargar</button>
