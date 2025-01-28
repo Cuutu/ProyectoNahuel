@@ -88,6 +88,18 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'riesgo':
                 pdfUrl = '/pdfs/Ratios-de-Conversion-COMAFI.pdf';
                 break;
+            case 'libro1':
+                pdfUrl = '/pdfs/Analisis-Tecnico-de-los-Mercados-Financieros-John-Murphy.pdf';
+                break;
+            case 'libro2':
+                pdfUrl = '/pdfs/EL-METODO-WYCKOFF-Enrique-Diaz-Valdecantos-PDFDrive-.pdf';
+                break;
+            case 'libro3':
+                pdfUrl = '/pdfs/Libro-Guia-para-invertir-Robert-T-Kiyosaki.pdf';
+                break;
+            case 'libro4':
+                pdfUrl = '/pdfs/Padre-Rico-Padre-Pobre.pdf';
+                break;
         }
         if (pdfUrl) {
             openPDFViewer(pdfUrl);
