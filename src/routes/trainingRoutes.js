@@ -16,4 +16,12 @@ router.get('/trading-avanzado', (req, res) => {
     });
 });
 
+// Agregar la ruta para trading profesional
+router.get('/trading-profesional', (req, res) => {
+    res.render('training/trading-profesional', {
+        title: 'Trading Profesional',
+        user: req.user
+    });
+});
+
 module.exports = router; 
