@@ -36,14 +36,11 @@
                                     <div class="pdf-grid">
                                         <% item.pdfs.forEach(pdf => { %>
                                             <div class="pdf-item">
-                                                <h4><%= pdf.title %></h4>
+                                                <h4>Libros Recomendados</h4>
                                                 <div class="button-group">
-                                                    <a href="#" class="resource-button preview-btn" onclick="previewPDF('/pdfs/<%= pdf.filename %>')">
-                                                        <i class="fas fa-eye"></i> Previsualizar
-                                                    </a>
-                                                    <a href="/pdfs/<%= pdf.filename %>" class="resource-button download-btn" download>
-                                                        <i class="fas fa-download"></i> Descargar
-                                                    </a>
+                                                    <button class="resource-button" onclick="showBooksPopup()">
+                                                        Ver libros
+                                                    </button>
                                                 </div>
                                             </div>
                                         <% }); %>
@@ -132,6 +129,12 @@
         <div class="modal-content pdf-content">
             <span class="close">&times;</span>
             <iframe id="pdfViewer" width="100%" height="600px"></iframe>
+        </div>
+    </div>
+
+    <!-- Agregar al final del archivo, junto a los otros modales -->
+    <div id="booksModal" class="modal">
+        <div class="material-modal-content">
         </div>
     </div>
 

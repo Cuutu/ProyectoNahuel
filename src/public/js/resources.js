@@ -105,6 +105,18 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'riesgo':
                 pdfUrl = '/pdfs/Ratios-de-Conversion-COMAFI.pdf';
                 break;
+            case 'libro1':
+                pdfUrl = '/pdfs/Analisis-Tecnico-de-los-Mercados-Financieros-John-Murphy.pdf';
+                break;
+            case 'libro2':
+                pdfUrl = '/pdfs/EL-METODO-WYCKOFF-Enrique-Diaz-Valdecantos-PDFDrive-.pdf';
+                break;
+            case 'libro3':
+                pdfUrl = '/pdfs/Libro-Guia-para-invertir-Robert-T-Kiyosaki.pdf';
+                break;
+            case 'libro4':
+                pdfUrl = '/pdfs/Padre-Rico-Padre-Pobre.pdf';
+                break;
         }
         if (pdfUrl) {
             // Crear un elemento <a> temporal
@@ -220,4 +232,58 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    // Función para mostrar el modal de libros recomendados
+    window.showBooksPopup = function() {
+        const modal = document.getElementById('booksModal');
+        const modalContent = modal.querySelector('.material-modal-content');
+        
+        // Asegurarse de que el contenido del modal esté presente
+        if (!modalContent.querySelector('h2')) {
+            modalContent.innerHTML = `
+                <span class="close">&times;</span>
+                <h2>Libros Recomendados</h2>
+                <div class="pdf-grid">
+                    <div class="pdf-item">
+                        <h3>Análisis Técnico de los Mercados Financieros</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('libro1')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('libro1')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>Trading en la Zona</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('libro2')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('libro2')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>El Inversor Inteligente</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('libro3')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('libro3')">Descargar</button>
+                        </div>
+                    </div>
+                    <div class="pdf-item">
+                        <h3>Psicología del Trading</h3>
+                        <div class="button-group">
+                            <button class="resource-button" onclick="previsualizar('libro4')">Previsualizar</button>
+                            <button class="resource-button" onclick="descargar('libro4')">Descargar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        modal.style.display = 'block';
+
+        // Agregar el evento de cierre al nuevo botón
+        const closeButton = modalContent.querySelector('.close');
+        if (closeButton) {
+            closeButton.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+    };
 });
