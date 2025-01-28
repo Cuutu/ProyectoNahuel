@@ -313,18 +313,24 @@ document.addEventListener('DOMContentLoaded', function() {
                 <span class="close">&times;</span>
                 <h2>Calendarios Económicos</h2>
                 <div class="calendar-links">
-                    <a href="https://www.investing.com/economic-calendar/" target="_blank" class="calendar-link">
-                        <i class="fas fa-chart-line"></i>
-                        Calendario de Inflación USA
-                    </a>
-                    <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" class="calendar-link">
-                        <i class="fas fa-university"></i>
-                        Calendario FED
-                    </a>
-                    <a href="https://www.investing.com/earnings-calendar/" target="_blank" class="calendar-link">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        Calendario de Balances
-                    </a>
+                    <div class="calendar-item">
+                        <h3>Calendario de Inflación USA</h3>
+                        <a href="https://www.investing.com/economic-calendar/" target="_blank" class="resource-button">
+                            Ver Calendario
+                        </a>
+                    </div>
+                    <div class="calendar-item">
+                        <h3>Calendario FED</h3>
+                        <a href="https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" target="_blank" class="resource-button">
+                            Ver Calendario
+                        </a>
+                    </div>
+                    <div class="calendar-item">
+                        <h3>Calendario de Balances</h3>
+                        <a href="https://www.investing.com/earnings-calendar/" target="_blank" class="resource-button">
+                            Ver Calendario
+                        </a>
+                    </div>
                 </div>
             `;
         }
