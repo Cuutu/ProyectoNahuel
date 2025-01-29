@@ -25,45 +25,49 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-// Configuración de la sesión
-const sessionMiddleware = session({
-    secret: process.env.SESSION_SECRET || 'tu_secreto_seguro',
-    resave: false,
-    saveUninitialized: false,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60,
-        autoRemove: 'native',
-        touchAfter: 24 * 3600
-    }),
-    cookie: {
-        secure: false,
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-        sameSite: 'lax'
-    },
-    name: 'sessionId'
-});
-
-app.use(sessionMiddleware);
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Middleware global para persistencia de sesión
 app.use((req, res, next) => {
-    // Debug
+    // Debug más detallado
     console.log('\n=== Debug de Sesión ===');
     console.log('SessionID:', req.sessionID);
     console.log('Session:', req.session);
     console.log('IsAuthenticated:', req.isAuthenticated());
     console.log('User:', req.user);
+    console.log('Cookies:', req.headers.cookie);
     
-    // Establecer variables globales para las vistas
-    res.locals.user = req.user || req.session.user;
-    res.locals.isAuthenticated = req.isAuthenticated() || !!req.session.user;
+    // Verificar y renovar la sesión si existe
+    if (req.session && (req.user || req.session.user)) {
+        req.session.touch(); // Renovar la sesión
+        res.locals.user = req.user || req.session.user;
+        res.locals.isAuthenticated = true;
+    } else {
+        res.locals.isAuthenticated = false;
+        res.locals.user = null;
+    }
     
     next();
 });
+
+// Configurar el middleware de sesión
+const sessionMiddleware = session({
+    secret: process.env.SESSION_SECRET || 'tu_clave_secreta',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000, // 24 horas
+        sameSite: 'lax'
+    },
+    store: new MongoStore({
+        mongoUrl: process.env.MONGODB_URI,
+        ttl: 24 * 60 * 60 // 24 horas
+    })
+});
+
+app.use(sessionMiddleware);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');

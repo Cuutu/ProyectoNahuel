@@ -26,8 +26,16 @@ const servicesController = {
     },
     getServices: async (req, res) => {
         try {
+            // Debug de sesión en el controlador
+            console.log('=== Debug Controlador Servicios ===');
+            console.log('Session:', req.session);
+            console.log('User:', req.user || req.session.user);
+            console.log('IsAuthenticated:', req.isAuthenticated());
+
             res.render('services', {
                 title: "Nuestros Servicios",
+                user: req.user || req.session.user,
+                isAuthenticated: req.isAuthenticated() || !!req.session.user,
                 description: "Descubre nuestros servicios premium de trading",
                 stats: {
                     signals: {
@@ -53,7 +61,8 @@ const servicesController = {
         } catch (error) {
             console.error('Error:', error);
             res.status(500).render('error', { 
-                message: 'Error al cargar la página'
+                message: 'Error al cargar la página',
+                user: req.user || req.session.user
             });
         }
     }
