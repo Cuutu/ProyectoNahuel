@@ -8,9 +8,18 @@ const isAuthenticated = (req, res, next) => {
 };
 
 const sessionPersist = (req, res, next) => {
+    // Debug de sesión
+    console.log('=== Session Persist Check ===');
+    console.log('Session:', req.session);
+    console.log('User:', req.session?.user);
+    
     if (req.session && req.session.user) {
-        res.locals.user = req.session.user;
+        // Renovar la sesión
         req.session.touch();
+        res.locals.user = req.session.user;
+        res.locals.isAuthenticated = true;
+    } else {
+        res.locals.isAuthenticated = false;
     }
     next();
 };
