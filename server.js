@@ -25,30 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-// Middleware global para persistencia de sesión
-app.use((req, res, next) => {
-    // Debug más detallado
-    console.log('\n=== Debug de Sesión ===');
-    console.log('SessionID:', req.sessionID);
-    console.log('Session:', req.session);
-    console.log('IsAuthenticated:', req.isAuthenticated());
-    console.log('User:', req.user);
-    console.log('Cookies:', req.headers.cookie);
-    
-    // Verificar y renovar la sesión si existe
-    if (req.session && (req.user || req.session.user)) {
-        req.session.touch(); // Renovar la sesión
-        res.locals.user = req.user || req.session.user;
-        res.locals.isAuthenticated = true;
-    } else {
-        res.locals.isAuthenticated = false;
-        res.locals.user = null;
-    }
-    
-    next();
-});
-
-// Configurar el middleware de sesión
+// Configurar el middleware de sesión primero
 const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET || 'tu_clave_secreta',
     resave: false,
@@ -65,9 +42,31 @@ const sessionMiddleware = session({
     })
 });
 
+// Aplicar middlewares en orden correcto
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Middleware global para persistencia de sesión
+app.use((req, res, next) => {
+    // Debug más detallado
+    console.log('\n=== Debug de Sesión ===');
+    console.log('SessionID:', req.sessionID);
+    console.log('Session:', req.session);
+    console.log('User:', req.user);
+    console.log('Cookies:', req.headers.cookie);
+    
+    // Verificar y establecer variables locales
+    res.locals.isAuthenticated = req.isAuthenticated() || !!req.session.user;
+    res.locals.user = req.user || req.session.user || null;
+    
+    // Renovar la sesión si existe
+    if (req.session && (req.user || req.session.user)) {
+        req.session.touch();
+    }
+    
+    next();
+});
 
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
