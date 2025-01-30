@@ -60,6 +60,10 @@ const paymentController = {
 
     createOrder: async (req, res) => {
         try {
+            if (!req.session.user) {
+                return res.status(401).json({ error: 'Usuario no autenticado' });
+            }
+
             const preference = {
                 items: [
                     {
@@ -75,18 +79,16 @@ const paymentController = {
                     pending: `${process.env.BASE_URL}/payment/pending`
                 },
                 auto_return: "approved",
-                payment_methods: {
-                    excluded_payment_types: [
-                        { id: "ticket" }
-                    ],
-                    installments: 1
-                },
-                statement_descriptor: "Nahuel Lozano Trading",
-                external_reference: `MP_${Date.now()}`
+                external_reference: `USER_${req.session.user._id}`,
+                notification_url: `${process.env.BASE_URL}/payment/webhook`
             };
 
             const preferenceResponse = await new Preference(client).create({ body: preference });
             
+            if (!preferenceResponse || !preferenceResponse.id) {
+                throw new Error('No se pudo crear la preferencia de pago');
+            }
+
             return res.json({
                 id: preferenceResponse.id,
                 init_point: preferenceResponse.init_point
@@ -95,7 +97,8 @@ const paymentController = {
             console.error('Error al crear preferencia:', error);
             return res.status(500).json({ 
                 error: true, 
-                message: 'Error al procesar el pago' 
+                message: 'Error al procesar el pago',
+                details: error.message 
             });
         }
     },

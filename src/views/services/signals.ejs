@@ -48,36 +48,46 @@
 
 <!-- Script de inicialización -->
 <script>
-const mp = new MercadoPago('TU_PUBLIC_KEY');
+// Asegurarnos de que la PUBLIC_KEY esté definida
+const mp = new MercadoPago(process.env.MERCADOPAGO_PUBLIC_KEY);
 
-fetch('/payment/create-order', {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    }
-})
-.then(response => response.json())
-.then(data => {
-    if (data.id) {
-        const checkout = mp.checkout({
-            preference: {
-                id: data.id
-            },
-            render: {
-                container: '.cho-container',
-                label: 'Contratar Ahora'
-            },
-            theme: {
-                elementsColor: '#00E676',
-                headerColor: '#00E676'
+// Agregar manejo de errores más detallado
+async function initPayment() {
+    try {
+        const response = await fetch('/payment/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
             }
         });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.id) {
+            const checkout = mp.checkout({
+                preference: {
+                    id: data.id
+                },
+                render: {
+                    container: '.cho-container',
+                    label: 'Contratar Ahora'
+                },
+                theme: {
+                    elementsColor: '#00E676',
+                    headerColor: '#00E676'
+                }
+            });
+        } else {
+            console.error('No se recibió ID de preferencia:', data);
+        }
+    } catch (error) {
+        console.error('Error en initPayment:', error);
     }
-})
-.catch(error => {
-    console.error('Error:', error);
-    alert('Error al inicializar el pago');
-});
+}
 </script>
 </body>
 </html> 
