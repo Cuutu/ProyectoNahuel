@@ -10,4 +10,51 @@
             "Análisis de mercado diario"
         ]
     }
-}); %> 
+}); %>
+
+<div class="pricing-card" data-animate="fade-left" data-delay="200">
+    <h3>Precio</h3>
+    <div class="price">$<%= service.price %>/mes</div>
+    <% if (locals.user) { %>
+        <div class="cho-container"></div>
+    <% } else { %>
+        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
+    <% } %>
+</div>
+
+<!-- Agregar el SDK de MercadoPago -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<!-- Script de inicialización -->
+<script>
+const mp = new MercadoPago('TU_PUBLIC_KEY');
+
+fetch('/payment/create-order', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+.then(response => response.json())
+.then(data => {
+    if (data.id) {
+        const checkout = mp.checkout({
+            preference: {
+                id: data.id
+            },
+            render: {
+                container: '.cho-container',
+                label: 'Contratar Ahora'
+            },
+            theme: {
+                elementsColor: '#00E676',
+                headerColor: '#00E676'
+            }
+        });
+    }
+})
+.catch(error => {
+    console.error('Error:', error);
+    alert('Error al inicializar el pago');
+});
+</script> 

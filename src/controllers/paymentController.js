@@ -61,30 +61,40 @@ const paymentController = {
             const preference = {
                 items: [
                     {
-                        title: "Señales Premium",
+                        title: "Señales Premium - Suscripción Mensual",
                         unit_price: 99.99,
                         quantity: 1,
-                        currency_id: "ARS"  // o "USD" según tu configuración
+                        currency_id: "ARS"
                     }
                 ],
                 back_urls: {
-                    success: "https://proyecto-nahuel.vercel.app/payment/success",
-                    failure: "https://proyecto-nahuel.vercel.app/payment/failure",
-                    pending: "https://proyecto-nahuel.vercel.app/payment/pending"
+                    success: `${process.env.BASE_URL}/payment/success`,
+                    failure: `${process.env.BASE_URL}/payment/failure`,
+                    pending: `${process.env.BASE_URL}/payment/pending`
                 },
                 auto_return: "approved",
-                notification_url: "https://proyecto-nahuel.vercel.app/webhook"
+                payment_methods: {
+                    excluded_payment_types: [
+                        { id: "ticket" }
+                    ],
+                    installments: 1
+                },
+                statement_descriptor: "Nahuel Lozano Trading",
+                external_reference: `MP_${Date.now()}`
             };
 
             const response = await mercadopago.preferences.create(preference);
-            console.log('Preference created:', response);
             
-            res.json({
+            return res.json({
+                id: response.body.id,
                 init_point: response.body.init_point
             });
         } catch (error) {
-            console.error('Error creating payment:', error);
-            res.status(500).json({ error: 'Error al crear el pago' });
+            console.error('Error al crear preferencia:', error);
+            return res.status(500).json({ 
+                error: true, 
+                message: 'Error al procesar el pago' 
+            });
         }
     },
 
