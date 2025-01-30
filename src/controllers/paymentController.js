@@ -1,10 +1,10 @@
 const Membership = require('../models/Membership');
 const MembershipType = require('../models/MembershipType');
-const mercadopago = require('mercadopago');
+const { MercadoPagoConfig, Preference } = require('mercadopago');
 
-// Configura MercadoPago con tu access token
-mercadopago.configure({
-    access_token: process.env.MERCADOPAGO_ACCESS_TOKEN
+// Configurar MercadoPago con tu access token
+const client = new MercadoPagoConfig({ 
+    accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN 
 });
 
 const paymentController = {
@@ -83,11 +83,11 @@ const paymentController = {
                 external_reference: `MP_${Date.now()}`
             };
 
-            const response = await mercadopago.preferences.create(preference);
+            const preferenceResponse = await new Preference(client).create({ body: preference });
             
             return res.json({
-                id: response.body.id,
-                init_point: response.body.init_point
+                id: preferenceResponse.id,
+                init_point: preferenceResponse.init_point
             });
         } catch (error) {
             console.error('Error al crear preferencia:', error);
@@ -104,7 +104,7 @@ const paymentController = {
             console.log('Payment notification received:', payment);
             
             if (payment.type === 'payment') {
-                const data = await mercadopago.payment.findById(payment['data.id']);
+                const data = await new Payment(client).get({ id: payment['data.id'] });
                 console.log('Payment data:', data);
                 // Aquí puedes actualizar el estado de la suscripción del usuario
             }
