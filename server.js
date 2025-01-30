@@ -25,44 +25,52 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
 
-// Configurar el middleware de sesión primero
+// Configurar el middleware de sesión
 const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET || 'tu_clave_secreta',
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
     cookie: {
-        secure: process.env.NODE_ENV === 'production',
+        secure: false,
         httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000, // 24 horas
+        maxAge: 30 * 24 * 60 * 60 * 1000,
         sameSite: 'lax'
     },
     store: new MongoStore({
         mongoUrl: process.env.MONGODB_URI,
-        ttl: 24 * 60 * 60 // 24 horas
+        ttl: 30 * 24 * 60 * 60,
+        autoRemove: 'native',
+        touchAfter: 24 * 3600
     })
 });
 
-// Aplicar middlewares en orden correcto
+// Aplicar middlewares en orden
 app.use(sessionMiddleware);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Middleware global para persistencia de sesión
 app.use((req, res, next) => {
-    // Debug más detallado
+    // Debug de sesión
     console.log('\n=== Debug de Sesión ===');
     console.log('SessionID:', req.sessionID);
     console.log('Session:', req.session);
     console.log('User:', req.user);
-    console.log('Cookies:', req.headers.cookie);
     
-    // Verificar y establecer variables locales
-    res.locals.isAuthenticated = req.isAuthenticated() || !!req.session.user;
+    // Verificar autenticación
+    const isUserAuthenticated = req.isAuthenticated() || !!req.session.user;
+    
+    // Establecer variables locales
+    res.locals.isAuthenticated = isUserAuthenticated;
     res.locals.user = req.user || req.session.user || null;
     
-    // Renovar la sesión si existe
-    if (req.session && (req.user || req.session.user)) {
+    // Si el usuario está autenticado, renovar la sesión
+    if (isUserAuthenticated) {
         req.session.touch();
+        // Asegurarse de que la información del usuario persista
+        if (!req.session.user && req.user) {
+            req.session.user = req.user;
+        }
     }
     
     next();
