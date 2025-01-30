@@ -45,6 +45,14 @@ router.get('/senales-premium', async (req, res) => {
         endDate: { $gt: new Date() }
     });
 
+    if (activeSubscription) {
+        console.log('=== Suscripción Activa ===');
+        console.log('Usuario:', userSession.email);
+        console.log('Tipo:', activeSubscription.serviceType);
+        console.log('Vence:', activeSubscription.endDate);
+        console.log('========================');
+    }
+
     res.render('services/signals', {
         title: 'Señales Premium',
         user: userSession,
