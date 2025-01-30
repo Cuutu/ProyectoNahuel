@@ -1,26 +1,34 @@
-<%- include('../services/service-template', {
-    service: {
-        name: "Señales Premium",
-        description: "Señales de trading en tiempo real con alta precisión",
-        price: "99.99",
-        features: [
-            "Señales 24/7 en tiempo real",
-            "Setup completo de entrada",
-            "Stop Loss y Take Profit",
-            "Análisis de mercado diario"
-        ]
-    }
-}); %>
+<%- include('../partials/header') %>
 
-<div class="pricing-card" data-animate="fade-left" data-delay="200">
-    <h3>Precio</h3>
-    <div class="price">$<%= service.price %>/mes</div>
-    <% if (locals.user) { %>
-        <div class="cho-container"></div>
+<div class="service-container">
+    <% if (hasActiveSubscription) { %>
+        <!-- Contenido para usuarios con suscripción activa -->
+        <div class="signals-content">
+            <h2>Señales Premium Activas</h2>
+            <!-- Aquí va el contenido exclusivo -->
+            <div class="signals-dashboard">
+                <!-- Contenido de las señales -->
+            </div>
+        </div>
     <% } else { %>
-        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
+        <!-- Template de venta normal -->
+        <%- include('../services/service-template', {
+            service: {
+                name: "Señales Premium",
+                description: "Señales de trading en tiempo real con alta precisión",
+                price: "99.99",
+                features: [
+                    "Señales 24/7 en tiempo real",
+                    "Setup completo de entrada",
+                    "Stop Loss y Take Profit",
+                    "Análisis de mercado diario"
+                ]
+            }
+        }); %>
     <% } %>
 </div>
+
+<%- include('../partials/footer') %>
 
 <!-- Agregar el SDK de MercadoPago -->
 <script src="https://sdk.mercadopago.com/js/v2"></script>

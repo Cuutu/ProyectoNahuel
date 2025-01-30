@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { sessionPersist } = require('../middleware/auth');
+const Subscription = require('../models/Subscription');
 
 // Aplicar middleware a todas las rutas de servicios
 router.use(sessionPersist);
@@ -14,12 +15,40 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/senales-premium', (req, res) => {
+router.get('/senales-premium', async (req, res) => {
     const userSession = req.session.user;
     
+    if (!userSession) {
+        return res.render('services/signals', {
+            title: 'Señales Premium',
+            user: null,
+            hasActiveSubscription: false,
+            service: {
+                name: "Señales Premium",
+                description: "Señales de trading en tiempo real con alta precisión",
+                price: "99.99",
+                features: [
+                    "Señales 24/7 en tiempo real",
+                    "Setup completo de entrada",
+                    "Stop Loss y Take Profit",
+                    "Análisis de mercado diario"
+                ]
+            }
+        });
+    }
+
+    // Verificar suscripción activa
+    const activeSubscription = await Subscription.findOne({
+        userId: userSession._id,
+        serviceType: 'signals',
+        status: 'active',
+        endDate: { $gt: new Date() }
+    });
+
     res.render('services/signals', {
         title: 'Señales Premium',
         user: userSession,
+        hasActiveSubscription: !!activeSubscription,
         service: {
             name: "Señales Premium",
             description: "Señales de trading en tiempo real con alta precisión",

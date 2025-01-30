@@ -1,6 +1,8 @@
 const Membership = require('../models/Membership');
 const MembershipType = require('../models/MembershipType');
-const { MercadoPagoConfig, Preference } = require('mercadopago');
+const { MercadoPagoConfig, Preference, Payment } = require('mercadopago');
+const Subscription = require('../models/Subscription');
+const User = require('../models/User');
 
 // Configurar MercadoPago con tu access token
 const client = new MercadoPagoConfig({ 
@@ -104,9 +106,29 @@ const paymentController = {
             console.log('Payment notification received:', payment);
             
             if (payment.type === 'payment') {
-                const data = await new Payment(client).get({ id: payment['data.id'] });
-                console.log('Payment data:', data);
-                // Aquí puedes actualizar el estado de la suscripción del usuario
+                const paymentData = await new Payment(client).get({ id: payment['data.id'] });
+                console.log('Payment data:', paymentData);
+
+                if (paymentData.status === 'approved') {
+                    // Crear suscripción
+                    const startDate = new Date();
+                    const endDate = new Date();
+                    endDate.setMonth(endDate.getMonth() + 1); // Agregar 1 mes
+
+                    const subscription = await Subscription.create({
+                        userId: paymentData.external_reference.split('_')[1], // Asumiendo que enviamos el userId en external_reference
+                        serviceType: 'signals',
+                        status: 'active',
+                        startDate,
+                        endDate,
+                        paymentId: paymentData.id
+                    });
+
+                    // Actualizar usuario con la suscripción activa
+                    await User.findByIdAndUpdate(subscription.userId, {
+                        $set: { activeSubscription: subscription._id }
+                    });
+                }
             }
             
             res.status(200).send('OK');
