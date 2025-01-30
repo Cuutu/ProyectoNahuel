@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Señales Premium - CryptoTrading</title>
     <!-- Agregar Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
 </head>
 <body>
 <%- include('../partials/header') %>
@@ -48,10 +49,7 @@
 
 <!-- Script de inicialización -->
 <script>
-// Asegurarnos de que la PUBLIC_KEY esté definida
-const mp = new MercadoPago(process.env.MERCADOPAGO_PUBLIC_KEY);
-
-// Agregar manejo de errores más detallado
+// Definir la función antes de usarla
 async function initPayment() {
     try {
         const response = await fetch('/payment/create-order', {
@@ -68,6 +66,7 @@ async function initPayment() {
         const data = await response.json();
         
         if (data.id) {
+            const mp = new MercadoPago('<%= process.env.MERCADOPAGO_PUBLIC_KEY %>');
             const checkout = mp.checkout({
                 preference: {
                     id: data.id
@@ -88,6 +87,13 @@ async function initPayment() {
         console.error('Error en initPayment:', error);
     }
 }
+
+// Asegurarnos de que el script de MercadoPago esté cargado
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof MercadoPago === 'undefined') {
+        console.error('MercadoPago script no está cargado');
+    }
+});
 </script>
 </body>
 </html> 
