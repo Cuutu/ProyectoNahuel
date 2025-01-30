@@ -40,7 +40,7 @@
                     <h3>Precio</h3>
                     <div class="price">$<%= service.price %>/mes</div>
                     <% if (locals.user) { %>
-                        <button class="cta-button" onclick="window.location.href='/checkout/<%= service.name.toLowerCase().replace(/\s+/g, '-') %>'">
+                        <button class="cta-button" onclick="initPayment()">
                             Contratar Ahora
                         </button>
                     <% } else { %>
@@ -53,5 +53,6 @@
 
     <script src="/js/navbar.js"></script>
     <script src="/js/animations.js"></script>
+    <script src="/js/payment.js"></script>
 </body>
 </html> 
