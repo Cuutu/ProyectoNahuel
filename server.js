@@ -84,12 +84,14 @@ const trainingRoutes = require('./src/routes/trainingRoutes');
 const consultingRoutes = require('./src/routes/consultingRoutes');
 const resourceRoutes = require('./src/routes/resourceRoutes');
 const apiRoutes = require('./src/routes/apiRoutes');
+const paymentRoutes = require('./src/routes/paymentRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/servicios', serviceRoutes);
 app.use('/entrenamientos', trainingRoutes);
 app.use('/asesoramientos', consultingRoutes);
+app.use('/payment', paymentRoutes);
 app.use('/recursos', resourceRoutes);
 app.use('/api', apiRoutes);
 
