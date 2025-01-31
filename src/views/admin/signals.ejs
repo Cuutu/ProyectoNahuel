@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Señales Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <%- include('../partials/header') %>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <h1 class="text-2xl font-bold mb-6">Gestionar Señales Premium</h1>
+
+            <!-- Formulario para nueva señal -->
+            <form id="signalForm" class="space-y-4 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Par de Trading</label>
+                        <input type="text" name="pair" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Precio de Entrada</label>
+                        <input type="number" step="0.00000001" name="entryPrice" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Stop Loss</label>
+                        <input type="number" step="0.00000001" name="stopLoss" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Take Profit</label>
+                        <input type="number" step="0.00000001" name="takeProfit" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Riesgo (%)</label>
+                        <input type="number" step="0.1" name="risk" required 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500">
+                    </div>
+                </div>
+                <button type="submit" 
+                        class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition-colors">
+                    Publicar Señal
+                </button>
+            </form>
+
+            <!-- Lista de señales activas -->
+            <div class="space-y-4">
+                <h2 class="text-xl font-semibold">Señales Activas</h2>
+                <div id="activeSignals" class="space-y-4">
+                    <!-- Las señales se cargarán aquí dinámicamente -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+    document.getElementById('signalForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const signalData = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('/api/signals', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(signalData)
+            });
+
+            if (response.ok) {
+                alert('Señal publicada exitosamente');
+                e.target.reset();
+                loadActiveSignals();
+            } else {
+                throw new Error('Error al publicar la señal');
+            }
+        } catch (error) {
+            alert('Error: ' + error.message);
+        }
+    });
+
+    async function loadActiveSignals() {
+        try {
+            const response = await fetch('/api/signals');
+            const signals = await response.json();
+            
+            const signalsHTML = signals.map(signal => `
+                <div class="bg-gray-50 p-4 rounded-lg shadow">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold">${signal.pair}</h3>
+                        <button onclick="updateSignalStatus('${signal._id}', 'completed')" 
+                                class="text-sm text-green-500 hover:text-green-700">
+                            Marcar como completada
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 mt-2">
+                        <p>Entrada: ${signal.entryPrice}</p>
+                        <p>SL: ${signal.stopLoss}</p>
+                        <p>TP: ${signal.takeProfit}</p>
+                        <p>Riesgo: ${signal.risk}%</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('activeSignals').innerHTML = signalsHTML;
+        } catch (error) {
+            console.error('Error cargando señales:', error);
+        }
+    }
+
+    // Cargar señales al iniciar
+    loadActiveSignals();
+    </script>
+</body>
+</html> 
