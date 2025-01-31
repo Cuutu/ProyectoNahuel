@@ -17,11 +17,42 @@
 <div class="service-container">
     <% if (hasActiveSubscription) { %>
         <!-- Contenido para usuarios con suscripción activa -->
-        <div class="signals-content">
-            <h2>Señales Premium Activas</h2>
-            <!-- Aquí va el contenido exclusivo -->
-            <div class="signals-dashboard">
-                <!-- Contenido de las señales -->
+        <div class="signals-content bg-gray-900 p-8 rounded-lg">
+            <h2 class="text-3xl font-bold text-green-400 mb-6">Señales Premium Activas</h2>
+            
+            <div class="signals-dashboard grid gap-6">
+                <!-- Señal Individual -->
+                <div class="signal-card bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-white">BTC/USDT</h3>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Activa</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="text-gray-300">
+                            <p class="text-sm">Precio de Entrada</p>
+                            <p class="text-lg font-bold text-white">$45,000</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Stop Loss</p>
+                            <p class="text-lg font-bold text-red-500">$44,500</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Take Profit</p>
+                            <p class="text-lg font-bold text-green-500">$46,000</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Riesgo/Beneficio</p>
+                            <p class="text-lg font-bold text-yellow-500">1:2</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center text-sm text-gray-400">
+                        <span>Riesgo: 2%</span>
+                        <span>Ganancia Potencial: 4%</span>
+                        <span>Hace 2 horas</span>
+                    </div>
+                </div>
             </div>
         </div>
     <% } else { %>
