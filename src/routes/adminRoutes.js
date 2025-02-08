@@ -41,7 +41,7 @@ router.get('/updates', isAdmin, async (req, res) => {
     try {
         const updates = await Update.find().sort({ createdAt: -1 });
         res.render('admin/updates/index', {
-            user: req.user,
+            user: req.session.user,
             title: 'Gestión de Actualizaciones',
             updates,
             isAuthenticated: true
@@ -51,7 +51,7 @@ router.get('/updates', isAdmin, async (req, res) => {
         res.status(500).render('error', {
             message: 'Error al cargar actualizaciones',
             error: process.env.NODE_ENV === 'development' ? error : {},
-            user: req.user,
+            user: req.session.user,
             isAuthenticated: true
         });
     }

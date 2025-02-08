@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/css/landing.css">
 </head>
 <body>
-    <%- include('./partials/header') %>
+    <%- include('./partials/header', { 
+        user: user,
+        isAuthenticated: isAuthenticated,
+        title: 'Error'
+    }) %>
     
     <main class="error-container">
         <h1>Error</h1>
