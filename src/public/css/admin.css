@@ -200,4 +200,79 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+/* Estilos para la sección de actualizaciones */
+.updates-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.updates-container {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.update-item {
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.update-item h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.update-date {
+    color: #666;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+}
+
+.update-content {
+    margin: 1rem 0;
+}
+
+.update-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn-primary {
+    background: #00ff88;
+    color: #000;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.btn-edit, .btn-delete {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-edit {
+    background: #00ff88;
+    color: #000;
+    text-decoration: none;
+}
+
+.btn-delete {
+    background: #ff4444;
+    color: white;
+}
+
+.no-updates {
+    text-align: center;
+    color: #666;
+    padding: 2rem;
 } 

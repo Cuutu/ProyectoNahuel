@@ -1,38 +1,28 @@
 <%- include('../../partials/header') %>
 
-<div class="admin-dashboard container">
-    <div class="admin-header">
+<div class="container">
+    <div class="updates-header">
         <h1>Gestión de Actualizaciones</h1>
-        <a href="/admin/updates/new" class="admin-btn">
-            <i class="fas fa-plus"></i> Nueva Actualización
+        <a href="/admin/updates/new" class="btn-primary">
+            Nueva Actualización
         </a>
     </div>
 
-    <div class="updates-list">
+    <div class="updates-container">
         <% if (updates && updates.length > 0) { %>
             <% updates.forEach(update => { %>
-                <div class="update-card">
-                    <div class="update-header">
-                        <h2><%= update.title %></h2>
-                        <span class="update-date">
-                            <%= new Date(update.createdAt).toLocaleDateString() %>
-                        </span>
-                    </div>
+                <div class="update-item">
+                    <h2><%= update.title %></h2>
+                    <p class="update-date"><%= new Date(update.createdAt).toLocaleDateString() %></p>
                     <p class="update-content"><%= update.content %></p>
                     <div class="update-actions">
-                        <a href="/admin/updates/edit/<%= update._id %>" class="admin-btn btn-edit">
-                            <i class="fas fa-edit"></i> Editar
-                        </a>
-                        <button class="admin-btn btn-delete" data-id="<%= update._id %>">
-                            <i class="fas fa-trash"></i> Eliminar
-                        </button>
+                        <a href="/admin/updates/edit/<%= update._id %>" class="btn-edit">Editar</a>
+                        <button class="btn-delete" data-id="<%= update._id %>">Eliminar</button>
                     </div>
                 </div>
             <% }) %>
         <% } else { %>
-            <div class="no-updates">
-                <p>No hay actualizaciones disponibles</p>
-            </div>
+            <p class="no-updates">No hay actualizaciones disponibles</p>
         <% } %>
     </div>
 </div> 
