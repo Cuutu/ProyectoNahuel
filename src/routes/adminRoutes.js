@@ -9,4 +9,12 @@ router.use(isAdmin);
 // Rutas del panel de administración
 router.get('/dashboard', adminController.getDashboard);
 
+// Ruta del panel admin
+router.get('/', isAdmin, (req, res) => {
+    res.render('admin/dashboard', { 
+        user: req.user,
+        title: 'Panel de Administración'
+    });
+});
+
 module.exports = router; 

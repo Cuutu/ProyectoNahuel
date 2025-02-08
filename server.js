@@ -85,6 +85,7 @@ const consultingRoutes = require('./src/routes/consultingRoutes');
 const resourceRoutes = require('./src/routes/resourceRoutes');
 const apiRoutes = require('./src/routes/apiRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
+const adminRoutes = require('./src/routes/adminRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
@@ -94,6 +95,7 @@ app.use('/asesoramientos', consultingRoutes);
 app.use('/payment', paymentRoutes);
 app.use('/recursos', resourceRoutes);
 app.use('/api', apiRoutes);
+app.use('/admin', adminRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {
