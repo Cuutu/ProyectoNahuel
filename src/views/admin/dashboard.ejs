@@ -10,46 +10,29 @@
 <body>
     <%- include('../partials/header') %>
     
-    <main class="admin-container">
-        <div class="admin-sidebar">
-            <nav class="admin-nav">
-                <a href="/admin/signals" class="admin-nav-item">
-                    <i class="fas fa-chart-line"></i>
-                    Señales Premium
-                </a>
-                <a href="/admin/mentoring" class="admin-nav-item">
-                    <i class="fas fa-chalkboard-teacher"></i>
-                    Mentoría PRO
-                </a>
-                <a href="/admin/community" class="admin-nav-item">
-                    <i class="fas fa-users"></i>
-                    Comunidad VIP
-                </a>
-                <a href="/admin/stats" class="admin-nav-item">
-                    <i class="fas fa-chart-bar"></i>
-                    Estadísticas
-                </a>
-            </nav>
+    <div class="admin-dashboard container">
+        <div class="admin-header">
+            <h1>Panel de Administración</h1>
         </div>
 
-        <div class="admin-content">
-            <h1>Panel de Administración</h1>
-            <div class="admin-stats-grid">
-                <div class="stat-card">
-                    <h3>Señales Activas</h3>
-                    <p class="stat-number"><%=stats.signalsCount%></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Usuarios Premium</h3>
-                    <p class="stat-number"><%=stats.premiumUsers%></p>
-                </div>
-                <div class="stat-card">
-                    <h3>Mentorías Activas</h3>
-                    <p class="stat-number"><%=stats.mentoringCount%></p>
-                </div>
+        <div class="admin-grid">
+            <!-- Sección de Usuarios -->
+            <div class="admin-card">
+                <h2>Gestión de Usuarios</h2>
+                <p>Total de usuarios: <%= users ? users.length : 0 %></p>
+                <a href="/admin/users" class="admin-btn">Ver Usuarios</a>
+            </div>
+
+            <!-- Sección de Membresías -->
+            <div class="admin-card">
+                <h2>Gestión de Membresías</h2>
+                <p>Membresías activas: <%= memberships ? memberships.length : 0 %></p>
+                <a href="/admin/memberships" class="admin-btn">Ver Membresías</a>
             </div>
         </div>
-    </main>
+    </div>
+
+    <%- include('../partials/footer') %>
 
     <script src="https://kit.fontawesome.com/your-code.js"></script>
 </body>
