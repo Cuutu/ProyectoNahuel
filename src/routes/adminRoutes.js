@@ -36,4 +36,31 @@ router.get('/', isAdmin, async (req, res) => {
     }
 });
 
+// Ruta para ver todas las actualizaciones
+router.get('/updates', isAdmin, async (req, res) => {
+    try {
+        const updates = await Update.find({}).sort({ createdAt: -1 });
+        res.render('admin/updates/index', {
+            user: req.user,
+            title: 'Gestión de Actualizaciones',
+            updates
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar actualizaciones',
+            error: process.env.NODE_ENV === 'development' ? error : {},
+            user: req.user
+        });
+    }
+});
+
+// Ruta para mostrar el formulario de nueva actualización
+router.get('/updates/new', isAdmin, (req, res) => {
+    res.render('admin/updates/new', {
+        user: req.user,
+        title: 'Nueva Actualización'
+    });
+});
+
 module.exports = router; 
