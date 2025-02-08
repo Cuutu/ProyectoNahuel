@@ -36,21 +36,23 @@ router.get('/', isAdmin, async (req, res) => {
     }
 });
 
-// Ruta para ver todas las actualizaciones
+// Ruta para ver actualizaciones
 router.get('/updates', isAdmin, async (req, res) => {
     try {
-        const updates = await Update.find({}).sort({ createdAt: -1 });
+        const updates = await Update.find().sort({ createdAt: -1 });
         res.render('admin/updates/index', {
             user: req.user,
             title: 'Gestión de Actualizaciones',
-            updates
+            updates,
+            isAuthenticated: true
         });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).render('error', {
             message: 'Error al cargar actualizaciones',
             error: process.env.NODE_ENV === 'development' ? error : {},
-            user: req.user
+            user: req.user,
+            isAuthenticated: true
         });
     }
 });
