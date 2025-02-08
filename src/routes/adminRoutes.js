@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 const User = require('../models/User');
-const Update = require('../models/Update');
+// Comentamos temporalmente el modelo Update hasta que esté completamente configurado
+// const Update = require('../models/Update');
 const multer = require('multer');
 const upload = multer({ dest: 'src/public/uploads/' });
 
@@ -23,12 +24,14 @@ router.get('/', isAdmin, async (req, res) => {
     try {
         const users = await User.find({});
         const memberships = await User.find({ 'membership.status': 'active' });
-
+        
         res.render('admin/dashboard', { 
             user: req.user,
             title: 'Panel de Administración',
             users,
-            memberships
+            memberships,
+            // Temporalmente establecemos updates como array vacío
+            updates: []
         });
     } catch (error) {
         console.error('Error:', error);
