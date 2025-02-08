@@ -12,22 +12,32 @@
     
     <div class="admin-dashboard container">
         <div class="admin-header">
-            <h1>Panel de Administración</h1>
+            <h1><i class="fas fa-tools"></i> Panel de Administración</h1>
         </div>
 
         <div class="admin-grid">
             <!-- Sección de Usuarios -->
             <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
                 <h2>Gestión de Usuarios</h2>
                 <p>Total de usuarios: <%= users ? users.length : 0 %></p>
-                <a href="/admin/users" class="admin-btn">Ver Usuarios</a>
+                <a href="/admin/users" class="admin-btn">
+                    <i class="fas fa-eye"></i> Ver Usuarios
+                </a>
             </div>
 
             <!-- Sección de Membresías -->
             <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
                 <h2>Gestión de Membresías</h2>
                 <p>Membresías activas: <%= memberships ? memberships.length : 0 %></p>
-                <a href="/admin/memberships" class="admin-btn">Ver Membresías</a>
+                <a href="/admin/memberships" class="admin-btn">
+                    <i class="fas fa-eye"></i> Ver Membresías
+                </a>
             </div>
         </div>
     </div>
