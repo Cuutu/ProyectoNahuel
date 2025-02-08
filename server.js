@@ -108,7 +108,9 @@ app.use((err, req, res, next) => {
     res.status(500).render('error', {
         message: 'Ha ocurrido un error en el servidor',
         error: process.env.NODE_ENV === 'development' ? err : {},
-        user: req.user
+        user: req.session.user || null,
+        isAuthenticated: !!req.session.user,
+        title: 'Error'
     });
 });
 
