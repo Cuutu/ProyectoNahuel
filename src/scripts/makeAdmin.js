@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 const User = require('../models/User');
-require('dotenv').config();
 
 async function makeAdmin() {
     try {
-        // Conectar a la base de datos
-        await mongoose.connect(process.env.MONGODB_URI);
+        // URL de conexión actualizada
+        const MONGODB_URI = "mongodb+srv://Tortu:asdasd123@proyectonahuel.jgjgs.mongodb.net/?retryWrites=true&w=majority&appName=ProyectoNahuel";
+        
+        await mongoose.connect(MONGODB_URI);
         console.log('Conectado a MongoDB');
 
-        // Actualizar el usuario (reemplaza con el email que quieras hacer admin)
         const result = await User.findOneAndUpdate(
-            { email: "tu-email@gmail.com" }, // Reemplaza con tu email
-            { isAdmin: true },
+            { email: "joaquinperez028@gmail.com" }, // Reemplaza con el email que quieres hacer admin
+            { 
+                isAdmin: true,
+                role: "admin"
+            },
             { new: true }
         );
 
