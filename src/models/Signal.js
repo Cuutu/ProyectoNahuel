@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
 
 const signalSchema = new mongoose.Schema({
-    pair: {
+    tipo: {
+        type: String,
+        required: true,
+        enum: ['LONG', 'SHORT']
+    },
+    par: {
         type: String,
         required: true
     },
-    entryPrice: {
+    entrada: {
         type: Number,
         required: true
     },
@@ -17,27 +22,37 @@ const signalSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    risk: {
+    riesgo: {
         type: Number,
         required: true
     },
-    potentialProfit: {
-        type: Number,
-        required: true
-    },
-    status: {
+    estado: {
         type: String,
-        enum: ['active', 'completed', 'cancelled'],
-        default: 'active'
+        enum: ['ACTIVA', 'COMPLETADA', 'CANCELADA'],
+        default: 'ACTIVA'
     },
-    createdAt: {
+    resultado: {
+        type: Number,
+        default: 0
+    },
+    esPremium: {
+        type: Boolean,
+        default: true // Por defecto todas las señales son premium
+    },
+    suscripcionActiva: {
+        type: Boolean,
+        default: false // Por defecto la suscripción está inactiva
+    },
+    fechaCreacion: {
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    fechaActualizacion: {
         type: Date,
         default: Date.now
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Signal', signalSchema); 

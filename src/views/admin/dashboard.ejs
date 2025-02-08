@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="admin-container">
+        <div class="admin-sidebar">
+            <nav class="admin-nav">
+                <a href="/admin/signals" class="admin-nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    Señales Premium
+                </a>
+                <a href="/admin/mentoring" class="admin-nav-item">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    Mentoría PRO
+                </a>
+                <a href="/admin/community" class="admin-nav-item">
+                    <i class="fas fa-users"></i>
+                    Comunidad VIP
+                </a>
+                <a href="/admin/stats" class="admin-nav-item">
+                    <i class="fas fa-chart-bar"></i>
+                    Estadísticas
+                </a>
+            </nav>
+        </div>
+
+        <div class="admin-content">
+            <h1>Panel de Administración</h1>
+            <div class="admin-stats-grid">
+                <div class="stat-card">
+                    <h3>Señales Activas</h3>
+                    <p class="stat-number"><%=stats.signalsCount%></p>
+                </div>
+                <div class="stat-card">
+                    <h3>Usuarios Premium</h3>
+                    <p class="stat-number"><%=stats.premiumUsers%></p>
+                </div>
+                <div class="stat-card">
+                    <h3>Mentorías Activas</h3>
+                    <p class="stat-number"><%=stats.mentoringCount%></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://kit.fontawesome.com/your-code.js"></script>
+</body>
+</html> 

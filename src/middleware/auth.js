@@ -24,4 +24,29 @@ const sessionPersist = (req, res, next) => {
     next();
 };
 
-module.exports = { isAuthenticated, sessionPersist }; 
+const isAdmin = async (req, res, next) => {
+    if (!req.session.user) {
+        return res.redirect('/auth/login');
+    }
+    
+    try {
+        const user = await User.findById(req.session.user.id);
+        if (!user || !user.isAdmin) {
+            return res.status(403).render('error', {
+                message: 'Acceso no autorizado'
+            });
+        }
+        next();
+    } catch (error) {
+        console.error('Error en middleware admin:', error);
+        res.status(500).render('error', {
+            message: 'Error al verificar permisos'
+        });
+    }
+};
+
+module.exports = {
+    isAuthenticated,
+    sessionPersist,
+    isAdmin
+}; 
