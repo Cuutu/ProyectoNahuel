@@ -10,7 +10,7 @@ async function makeAdmin() {
         console.log('Conectado a MongoDB');
 
         const result = await User.findOneAndUpdate(
-            { email: "joaquinperez028@gmail.com" }, // Reemplaza con el email que quieres hacer admin
+            { email: "franco.l.varela99@gmail.com" }, // Reemplaza con el email que quieres hacer admin
             { 
                 isAdmin: true,
                 role: "admin"

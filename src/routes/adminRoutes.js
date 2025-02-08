@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
+const Update = require('../models/Update');
 
 // Middleware para verificar si es admin
 const isAdmin = (req, res, next) => {
@@ -16,12 +17,14 @@ router.get('/', isAdmin, async (req, res) => {
     try {
         const users = await User.find({});
         const memberships = await User.find({ 'membership.status': 'active' });
+        const updates = await Update.find({});
         
         res.render('admin/dashboard', { 
             user: req.user,
             title: 'Panel de Administración',
             users,
-            memberships
+            memberships,
+            updates
         });
     } catch (error) {
         console.error('Error:', error);
