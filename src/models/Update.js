@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const updateSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     content: {
         type: String,
@@ -11,10 +12,6 @@ const updateSchema = new mongoose.Schema({
     },
     imageUrl: {
         type: String
-    },
-    isForSignals: {
-        type: Boolean,
-        default: true
     },
     createdAt: {
         type: Date,
@@ -24,6 +21,10 @@ const updateSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
+    },
+    isForSignals: {
+        type: Boolean,
+        default: true
     }
 });
 
