@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
             enum: ['active', 'inactive', 'pending'],
             default: 'inactive'
         }
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps: true

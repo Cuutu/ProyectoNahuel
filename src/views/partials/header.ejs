@@ -16,6 +16,11 @@
             <% if (isAuthenticated && user) { %>
                 <div class="user-menu">
                     <span class="user-name">Hola, <%= user.nombre %></span>
+                    <% if (user.isAdmin) { %>
+                        <a href="/admin/dashboard" class="nav-link admin-link">
+                            <i class="fas fa-cog"></i> Panel Admin
+                        </a>
+                    <% } %>
                     <a href="/user/dashboard" class="nav-link">Mi Perfil</a>
                     <form action="/auth/logout" method="POST" class="logout-form">
                         <button type="submit">Cerrar Sesión</button>
