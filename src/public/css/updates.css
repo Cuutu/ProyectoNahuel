@@ -1,0 +1,56 @@
+.update-form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.update-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.update-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.update-form .form-control {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.update-form .form-control:focus {
+    border-color: #00ff88;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+}
+
+.update-form textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.update-form input[type="file"] {
+    padding: 0.5rem;
+    cursor: pointer;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+} 

@@ -1,0 +1,30 @@
+<%- include('../../partials/header') %>
+
+<div class="admin-dashboard container">
+    <div class="admin-header">
+        <h1><i class="fas fa-newspaper"></i> Nueva Actualización</h1>
+    </div>
+
+    <div class="update-form-container">
+        <form action="/admin/updates" method="POST" enctype="multipart/form-data" class="update-form">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input type="text" id="title" name="title" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="content">Contenido</label>
+                <textarea id="content" name="content" required class="form-control" rows="10"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="image">Imagen (opcional)</label>
+                <input type="file" id="image" name="image" class="form-control" accept="image/*">
+            </div>
+
+            <button type="submit" class="admin-btn">
+                <i class="fas fa-save"></i> Publicar Actualización
+            </button>
+        </form>
+    </div>
+</div> 
