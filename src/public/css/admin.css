@@ -492,4 +492,58 @@
     .title-text {
         align-items: center;
     }
+}
+
+/* Badges de membresía */
+.membership-badge {
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-block;
+}
+
+.membership-badge.premium {
+    background: #ffd700;
+    color: #000;
+}
+
+.membership-badge.pro {
+    background: #ff8c00;
+    color: white;
+}
+
+.membership-badge.free {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.membership-badge.vip {
+    background: linear-gradient(45deg, #ff3366, #ff6b6b);
+    color: white;
+}
+
+/* Ajuste del ancho de la tabla para la nueva columna */
+.users-table th,
+.users-table td {
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
+}
+
+/* Responsive para la nueva columna */
+@media (max-width: 1024px) {
+    .users-table {
+        font-size: 0.85rem;
+    }
+    
+    .users-table th,
+    .users-table td {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .membership-badge,
+    .role-badge {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.8rem;
+    }
 } 

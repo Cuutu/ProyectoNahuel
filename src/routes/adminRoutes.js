@@ -68,7 +68,7 @@ router.get('/updates/new', isAdmin, (req, res) => {
 // Ruta para ver usuarios
 router.get('/users', isAdmin, async (req, res) => {
     try {
-        const users = await User.find({}, 'nombre apellido email telefono createdAt isAdmin');
+        const users = await User.find({}, 'nombre apellido email telefono createdAt isAdmin membresia');
         res.render('admin/users/index', { 
             users,
             user: req.user,

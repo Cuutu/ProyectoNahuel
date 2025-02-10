@@ -38,6 +38,7 @@
                         <th>Teléfono</th>
                         <th>Fecha de registro</th>
                         <th>Rol</th>
+                        <th>Membresía</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
@@ -51,6 +52,11 @@
                             <td>
                                 <span class="role-badge <%= user.isAdmin ? 'admin' : 'user' %>">
                                     <%= user.isAdmin ? 'Admin' : 'Usuario' %>
+                                </span>
+                            </td>
+                            <td>
+                                <span class="membership-badge <%= user.membresia || 'free' %>">
+                                    <%= user.membresia ? user.membresia.toUpperCase() : 'FREE' %>
                                 </span>
                             </td>
                             <td class="actions">
