@@ -1,5 +1,29 @@
 const mongoose = require('mongoose');
 
+const membershipSchema = new mongoose.Schema({
+    // Servicios
+    servicios: {
+        type: String,
+        enum: ['free', 'basic', 'premium', 'pro'],
+        default: 'free'
+    },
+    // Entrenamientos
+    entrenamientos: {
+        type: String,
+        enum: ['free', 'basic', 'premium', 'pro'],
+        default: 'free'
+    },
+    // Asesoramiento
+    asesoramiento: {
+        type: Boolean,
+        default: false
+    },
+    // Fechas de vencimiento para cada tipo
+    vencimientoServicios: Date,
+    vencimientoEntrenamientos: Date,
+    vencimientoAsesoramiento: Date
+});
+
 const userSchema = new mongoose.Schema({
     googleId: String,
     nombre: {
@@ -34,7 +58,8 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    membresias: membershipSchema,
 }, {
     timestamps: true
 });

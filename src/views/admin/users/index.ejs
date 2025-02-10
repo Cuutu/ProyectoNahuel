@@ -54,10 +54,35 @@
                                     <%= user.isAdmin ? 'Admin' : 'Usuario' %>
                                 </span>
                             </td>
-                            <td>
-                                <span class="membership-badge <%= user.membresia || 'free' %>">
-                                    <%= user.membresia ? user.membresia.toUpperCase() : 'FREE' %>
-                                </span>
+                            <td class="memberships">
+                                <div class="membership-container">
+                                    <% if (user.membresias.servicios !== 'free') { %>
+                                        <span class="membership-badge servicios <%= user.membresias.servicios %>">
+                                            Servicios <%= user.membresias.servicios.toUpperCase() %>
+                                            <small><%= formatDate(user.membresias.vencimientoServicios) %></small>
+                                        </span>
+                                    <% } %>
+                                    
+                                    <% if (user.membresias.entrenamientos !== 'free') { %>
+                                        <span class="membership-badge entrenamientos <%= user.membresias.entrenamientos %>">
+                                            Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %>
+                                            <small><%= formatDate(user.membresias.vencimientoEntrenamientos) %></small>
+                                        </span>
+                                    <% } %>
+                                    
+                                    <% if (user.membresias.asesoramiento) { %>
+                                        <span class="membership-badge asesoramiento">
+                                            Asesoramiento
+                                            <small><%= formatDate(user.membresias.vencimientoAsesoramiento) %></small>
+                                        </span>
+                                    <% } %>
+                                    
+                                    <% if (user.membresias.servicios === 'free' && 
+                                           user.membresias.entrenamientos === 'free' && 
+                                           !user.membresias.asesoramiento) { %>
+                                        <span class="membership-badge free">FREE</span>
+                                    <% } %>
+                                </div>
                             </td>
                             <td class="actions">
                                 <button class="action-btn edit" data-id="<%= user._id %>">
