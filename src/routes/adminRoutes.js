@@ -21,7 +21,7 @@ router.get('/', isAdmin, async (req, res) => {
         
         res.render('admin/dashboard', { 
             user: req.user,
-            title: 'Panel de Administración',
+            title: 'Panel de Administración.',
             users,
             memberships,
             updates
