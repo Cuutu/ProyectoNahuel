@@ -112,24 +112,82 @@
                     </thead>
                     <tbody>
                         <% users.forEach(user => { %>
-                            <% if (user.membresias?.servicios !== 'free') { %>
+                            <% if (user.membresias && user.membresias.servicios && user.membresias.servicios !== 'free') { %>
                                 <tr>
                                     <td><%= user.nombre %> <%= user.apellido %></td>
                                     <td>Servicios <%= user.membresias.servicios.toUpperCase() %></td>
-                                    <td><%= new Date(user.membresias.vencimientoServicios).toLocaleDateString() %></td>
+                                    <td>
+                                        <%= user.membresias.vencimientoServicios ? 
+                                            new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
                                     <td class="status">
-                                        <% const diasRestantes = Math.ceil((new Date(user.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24)) %>
+                                        <% 
+                                        let diasRestantes = 0;
+                                        if (user.membresias.vencimientoServicios) {
+                                            diasRestantes = Math.ceil(
+                                                (new Date(user.membresias.vencimientoServicios) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
                                         <span class="status-badge <%= diasRestantes <= 7 ? 'warning' : 'active' %>">
                                             <%= diasRestantes <= 7 ? 'Por vencer' : 'Activo' %>
                                         </span>
                                     </td>
                                 </tr>
                             <% } %>
-                            <% if (user.membresias?.entrenamientos !== 'free') { %>
-                                <!-- Similar para entrenamientos -->
+                            
+                            <% if (user.membresias && user.membresias.entrenamientos && user.membresias.entrenamientos !== 'free') { %>
+                                <tr>
+                                    <td><%= user.nombre %> <%= user.apellido %></td>
+                                    <td>Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %></td>
+                                    <td>
+                                        <%= user.membresias.vencimientoEntrenamientos ? 
+                                            new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
+                                    <td class="status">
+                                        <% 
+                                        let diasRestantesEnt = 0;
+                                        if (user.membresias.vencimientoEntrenamientos) {
+                                            diasRestantesEnt = Math.ceil(
+                                                (new Date(user.membresias.vencimientoEntrenamientos) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
+                                        <span class="status-badge <%= diasRestantesEnt <= 7 ? 'warning' : 'active' %>">
+                                            <%= diasRestantesEnt <= 7 ? 'Por vencer' : 'Activo' %>
+                                        </span>
+                                    </td>
+                                </tr>
                             <% } %>
-                            <% if (user.membresias?.asesoramiento) { %>
-                                <!-- Similar para asesoramiento -->
+                            
+                            <% if (user.membresias && user.membresias.asesoramiento) { %>
+                                <tr>
+                                    <td><%= user.nombre %> <%= user.apellido %></td>
+                                    <td>Asesoramiento</td>
+                                    <td>
+                                        <%= user.membresias.vencimientoAsesoramiento ? 
+                                            new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
+                                    <td class="status">
+                                        <% 
+                                        let diasRestantesAs = 0;
+                                        if (user.membresias.vencimientoAsesoramiento) {
+                                            diasRestantesAs = Math.ceil(
+                                                (new Date(user.membresias.vencimientoAsesoramiento) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
+                                        <span class="status-badge <%= diasRestantesAs <= 7 ? 'warning' : 'active' %>">
+                                            <%= diasRestantesAs <= 7 ? 'Por vencer' : 'Activo' %>
+                                        </span>
+                                    </td>
+                                </tr>
                             <% } %>
                         <% }) %>
                     </tbody>
