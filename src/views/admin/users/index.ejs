@@ -56,30 +56,33 @@
                             </td>
                             <td class="memberships">
                                 <div class="membership-container">
-                                    <% if (user.membresias.servicios !== 'free') { %>
-                                        <span class="membership-badge servicios <%= user.membresias.servicios %>">
-                                            Servicios <%= user.membresias.servicios.toUpperCase() %>
-                                            <small><%= formatDate(user.membresias.vencimientoServicios) %></small>
-                                        </span>
+                                    <% if (user.membresias) { %>
+                                        <% if (user.membresias.servicios && user.membresias.servicios !== 'free') { %>
+                                            <span class="membership-badge servicios <%= user.membresias.servicios %>">
+                                                Servicios <%= user.membresias.servicios.toUpperCase() %>
+                                                <small><%= user.membresias.vencimientoServicios ? new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
+                                        
+                                        <% if (user.membresias.entrenamientos && user.membresias.entrenamientos !== 'free') { %>
+                                            <span class="membership-badge entrenamientos <%= user.membresias.entrenamientos %>">
+                                                Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %>
+                                                <small><%= user.membresias.vencimientoEntrenamientos ? new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
+                                        
+                                        <% if (user.membresias && user.membresias.asesoramiento) { %>
+                                            <span class="membership-badge asesoramiento">
+                                                Asesoramiento
+                                                <small><%= user.membresias.vencimientoAsesoramiento ? new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
                                     <% } %>
                                     
-                                    <% if (user.membresias.entrenamientos !== 'free') { %>
-                                        <span class="membership-badge entrenamientos <%= user.membresias.entrenamientos %>">
-                                            Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %>
-                                            <small><%= formatDate(user.membresias.vencimientoEntrenamientos) %></small>
-                                        </span>
-                                    <% } %>
-                                    
-                                    <% if (user.membresias.asesoramiento) { %>
-                                        <span class="membership-badge asesoramiento">
-                                            Asesoramiento
-                                            <small><%= formatDate(user.membresias.vencimientoAsesoramiento) %></small>
-                                        </span>
-                                    <% } %>
-                                    
-                                    <% if (user.membresias.servicios === 'free' && 
+                                    <% if (!user.membresias || 
+                                          (user.membresias.servicios === 'free' && 
                                            user.membresias.entrenamientos === 'free' && 
-                                           !user.membresias.asesoramiento) { %>
+                                           !user.membresias.asesoramiento)) { %>
                                         <span class="membership-badge free">FREE</span>
                                     <% } %>
                                 </div>

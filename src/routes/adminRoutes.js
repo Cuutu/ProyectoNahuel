@@ -68,9 +68,23 @@ router.get('/updates/new', isAdmin, (req, res) => {
 // Ruta para ver usuarios
 router.get('/users', isAdmin, async (req, res) => {
     try {
-        const users = await User.find({}, 'nombre apellido email telefono createdAt isAdmin membresia');
+        const users = await User.find({});
+        
+        // Asegurarnos de que cada usuario tenga valores por defecto de membresías
+        const processedUsers = users.map(user => {
+            const userData = user.toObject();
+            if (!userData.membresias) {
+                userData.membresias = {
+                    servicios: 'free',
+                    entrenamientos: 'free',
+                    asesoramiento: false
+                };
+            }
+            return userData;
+        });
+
         res.render('admin/users/index', { 
-            users,
+            users: processedUsers,
             user: req.user,
             isAuthenticated: true
         });
