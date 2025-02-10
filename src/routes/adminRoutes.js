@@ -65,4 +65,23 @@ router.get('/updates/new', isAdmin, (req, res) => {
     });
 });
 
+// Ruta para ver usuarios
+router.get('/users', isAdmin, async (req, res) => {
+    try {
+        const users = await User.find({}, 'nombre apellido email telefono createdAt isAdmin');
+        res.render('admin/users/index', { 
+            users,
+            user: req.user,
+            isAuthenticated: true
+        });
+    } catch (error) {
+        console.error('Error al obtener usuarios:', error);
+        res.render('error', { 
+            message: 'Error al cargar usuarios',
+            user: req.user,
+            isAuthenticated: true
+        });
+    }
+});
+
 module.exports = router; 
