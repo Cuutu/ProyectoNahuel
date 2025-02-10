@@ -5,7 +5,7 @@
     background: #f5f5f5;
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
 }
 
 .admin-sidebar {
@@ -116,14 +116,23 @@
 }
 
 .admin-header {
-    margin-bottom: 3rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
     text-align: center;
 }
 
 .admin-header h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #333;
-    animation: fadeInDown 0.5s ease-out;
+    margin-bottom: 0.5rem;
+}
+
+.admin-header p {
+    color: #666;
+    font-size: 1.1rem;
 }
 
 .admin-grid {
@@ -165,21 +174,23 @@
 }
 
 .admin-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
     background: #00ff88;
     color: #000;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
+    border: none;
+    border-radius: 12px;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .admin-btn:hover {
     background: #00e676;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.2);
 }
 
 /* Animaciones */
@@ -285,40 +296,65 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
 }
 
 .search-input {
-    padding: 0.5rem 1rem;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    width: 300px;
+    flex: 1;
+    max-width: 400px;
+    padding: 0.8rem 1.2rem;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #00ff88;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
 }
 
 .users-table-container {
     background: white;
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    margin-top: 2rem;
 }
 
 .users-table {
     width: 100%;
-    border-collapse: collapse;
-}
-
-.users-table th,
-.users-table td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #eee;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 .users-table th {
     background: #f8f9fa;
+    padding: 1rem 1.5rem;
     font-weight: 600;
+    color: #444;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.users-table th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.users-table th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.users-table td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
     color: #333;
+}
+
+.users-table tr:last-child td {
+    border-bottom: none;
 }
 
 .users-table tr:hover {
@@ -326,10 +362,11 @@
 }
 
 .role-badge {
-    padding: 0.25rem 0.75rem;
+    padding: 0.4rem 1rem;
     border-radius: 20px;
     font-size: 0.85rem;
     font-weight: 500;
+    display: inline-block;
 }
 
 .role-badge.admin {
@@ -338,30 +375,70 @@
 }
 
 .role-badge.user {
-    background: #e9ecef;
-    color: #495057;
+    background: #f0f0f0;
+    color: #666;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-start;
 }
 
 .action-btn {
     padding: 0.5rem;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin: 0 0.25rem;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .action-btn.edit {
-    background: #00ff88;
-    color: #000;
+    background: #e3fff0;
+    color: #00cc6a;
 }
 
 .action-btn.delete {
-    background: #ff3b3b;
-    color: white;
+    background: #ffe3e3;
+    color: #ff3b3b;
 }
 
 .action-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.action-btn.edit:hover {
+    background: #00ff88;
+    color: #000;
+}
+
+.action-btn.delete:hover {
+    background: #ff3b3b;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-container {
+        padding: 1rem;
+    }
+
+    .table-actions {
+        flex-direction: column;
+    }
+
+    .search-input {
+        max-width: 100%;
+    }
+
+    .users-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 } 
