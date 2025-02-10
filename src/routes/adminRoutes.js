@@ -98,4 +98,72 @@ router.get('/users', isAdmin, async (req, res) => {
     }
 });
 
+// Ruta para ver membresías
+router.get('/memberships', isAdmin, async (req, res) => {
+    try {
+        const users = await User.find({});
+        
+        // Estadísticas de membresías
+        const stats = {
+            // Servicios
+            servicios: {
+                basic: users.filter(u => u.membresias?.servicios === 'basic').length,
+                premium: users.filter(u => u.membresias?.servicios === 'premium').length,
+                pro: users.filter(u => u.membresias?.servicios === 'pro').length,
+                total: users.filter(u => u.membresias?.servicios !== 'free').length,
+                proximos_vencer: users.filter(u => {
+                    if (!u.membresias?.vencimientoServicios) return false;
+                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24));
+                    return diasRestantes <= 7 && diasRestantes > 0;
+                })
+            },
+            // Entrenamientos
+            entrenamientos: {
+                basic: users.filter(u => u.membresias?.entrenamientos === 'basic').length,
+                premium: users.filter(u => u.membresias?.entrenamientos === 'premium').length,
+                pro: users.filter(u => u.membresias?.entrenamientos === 'pro').length,
+                total: users.filter(u => u.membresias?.entrenamientos !== 'free').length,
+                proximos_vencer: users.filter(u => {
+                    if (!u.membresias?.vencimientoEntrenamientos) return false;
+                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoEntrenamientos) - new Date()) / (1000 * 60 * 60 * 24));
+                    return diasRestantes <= 7 && diasRestantes > 0;
+                })
+            },
+            // Asesoramiento
+            asesoramiento: {
+                activos: users.filter(u => u.membresias?.asesoramiento).length,
+                proximos_vencer: users.filter(u => {
+                    if (!u.membresias?.vencimientoAsesoramiento) return false;
+                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoAsesoramiento) - new Date()) / (1000 * 60 * 60 * 24));
+                    return diasRestantes <= 7 && diasRestantes > 0;
+                })
+            },
+            // Total de usuarios con alguna membresía activa
+            total_activos: users.filter(u => 
+                (u.membresias?.servicios !== 'free') || 
+                (u.membresias?.entrenamientos !== 'free') || 
+                u.membresias?.asesoramiento
+            ).length
+        };
+
+        res.render('admin/memberships/index', {
+            stats,
+            users: users.filter(u => 
+                (u.membresias?.servicios !== 'free') || 
+                (u.membresias?.entrenamientos !== 'free') || 
+                u.membresias?.asesoramiento
+            ),
+            user: req.user,
+            isAuthenticated: true
+        });
+    } catch (error) {
+        console.error('Error al obtener membresías:', error);
+        res.render('error', {
+            message: 'Error al cargar membresías',
+            user: req.user,
+            isAuthenticated: true
+        });
+    }
+});
+
 module.exports = router; 
