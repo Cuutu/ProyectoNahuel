@@ -159,7 +159,7 @@ router.get('/memberships', async (req, res) => {
     } catch (error) {
         console.error('Error al obtener membresías:', error);
         res.render('error', {
-            message: 'Error al cargar membresías',
+            message: 'Error al cargar membresías.',
             user: req.user,
             isAuthenticated: true
         });
