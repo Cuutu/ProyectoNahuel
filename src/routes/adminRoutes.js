@@ -17,6 +17,14 @@ const isAdminMiddleware = (req, res, next) => {
 // Aplicar middleware de admin a todas las rutas
 router.use(isAdminMiddleware);
 
+// Middleware de debug
+router.use((req, res, next) => {
+    console.log('Ruta admin accedida:', req.path);
+    console.log('Usuario:', req.user);
+    console.log('Método:', req.method);
+    next();
+});
+
 // Ruta del panel admin
 router.get('/', async (req, res) => {
     try {
