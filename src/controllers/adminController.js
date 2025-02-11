@@ -33,12 +33,16 @@ const adminController = {
     // Mostrar formulario de nueva actualización
     showUpdateForm: async (req, res) => {
         try {
+            console.log('Accediendo al formulario de actualizaciones');
+            console.log('Usuario:', req.user);
+            console.log('Sesión:', req.session);
+            
             res.render('admin/updates/new', {
                 title: 'Nueva Actualización',
                 user: req.user
             });
         } catch (error) {
-            console.error('Error al mostrar formulario:', error);
+            console.error('Error detallado:', error);
             res.status(500).render('error', {
                 message: 'Error al cargar el formulario'
             });
