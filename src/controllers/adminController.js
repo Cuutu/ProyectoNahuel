@@ -72,11 +72,19 @@ const adminController = {
     // Listar actualizaciones
     listUpdates: async (req, res) => {
         try {
-            console.log('Intentando listar actualizaciones');
-            res.send('Lista de actualizaciones');
+            const updates = await Update.find()
+                .sort({ createdAt: -1 });
+            
+            res.render('admin/updates/index', {
+                title: 'Actualizaciones',
+                updates,
+                user: req.user || req.session.user
+            });
         } catch (error) {
-            console.error('Error en listUpdates:', error);
-            next(error);
+            console.error('Error al listar actualizaciones:', error);
+            res.status(500).render('error', {
+                message: 'Error al cargar las actualizaciones'
+            });
         }
     }
 };
