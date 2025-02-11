@@ -76,6 +76,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Middleware para logging de todas las peticiones
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
+
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/dashboardRoutes');
@@ -102,21 +108,38 @@ app.get('/', (req, res) => {
     res.render('landing', { user: req.user });
 });
 
-// Middleware para manejar errores
+// Manejador de rutas no encontradas
+app.use((req, res, next) => {
+    console.log('Ruta no encontrada:', req.url);
+    const error = new Error('Ruta no encontrada');
+    error.status = 404;
+    next(error);
+});
+
+// Manejador de errores
 app.use((err, req, res, next) => {
-    console.error('Error en servidor:', err);
-    res.status(500).render('error', {
-        message: 'Ha ocurrido un error en el servidor',
+    console.error('Error completo:', {
+        message: err.message,
+        stack: err.stack,
+        status: err.status || 500
+    });
+
+    res.status(err.status || 500);
+    res.render('error', {
+        message: process.env.NODE_ENV === 'development' 
+            ? `Error: ${err.message}\n${err.stack}` 
+            : 'Ha ocurrido un error en el servidor',
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });
 
-// El puerto solo se usa en desarrollo
-if (process.env.NODE_ENV !== 'production') {
-    const PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-        console.log(`Servidor corriendo en puerto ${PORT}`);
-    });
-}
+// Iniciar servidor
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en puerto ${PORT}`);
+    console.log('Rutas disponibles:', app._router.stack
+        .filter(r => r.route)
+        .map(r => `${Object.keys(r.route.methods)} ${r.route.path}`));
+});
 
 module.exports = app;

@@ -19,9 +19,12 @@ router.use(isAdminMiddleware);
 
 // Middleware de debug
 router.use((req, res, next) => {
-    console.log('Ruta admin accedida:', req.path);
-    console.log('Usuario:', req.user);
-    console.log('Método:', req.method);
+    console.log('Ruta admin accedida:', {
+        path: req.path,
+        method: req.method,
+        user: req.user,
+        session: req.session
+    });
     next();
 });
 
@@ -47,6 +50,11 @@ router.get('/', async (req, res) => {
             user: req.user
         });
     }
+});
+
+// Ruta de prueba
+router.get('/test', (req, res) => {
+    res.send('Ruta admin de prueba funcionando');
 });
 
 // Ruta para ver actualizaciones

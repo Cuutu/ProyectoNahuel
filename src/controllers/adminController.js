@@ -33,19 +33,11 @@ const adminController = {
     // Mostrar formulario de nueva actualización
     showUpdateForm: async (req, res) => {
         try {
-            console.log('Accediendo al formulario de actualizaciones');
-            console.log('Usuario:', req.user);
-            console.log('Sesión:', req.session);
-            
-            res.render('admin/updates/new', {
-                title: 'Nueva Actualización',
-                user: req.user
-            });
+            console.log('Intentando mostrar formulario');
+            res.send('Formulario de actualización');
         } catch (error) {
-            console.error('Error detallado:', error);
-            res.status(500).render('error', {
-                message: 'Error al cargar el formulario'
-            });
+            console.error('Error en showUpdateForm:', error);
+            next(error);
         }
     },
 
@@ -80,17 +72,11 @@ const adminController = {
     // Listar actualizaciones
     listUpdates: async (req, res) => {
         try {
-            const updates = await Update.find().sort({ createdAt: -1 });
-            res.render('admin/updates/index', {
-                title: 'Actualizaciones',
-                updates,
-                user: req.user
-            });
+            console.log('Intentando listar actualizaciones');
+            res.send('Lista de actualizaciones');
         } catch (error) {
-            console.error('Error al listar actualizaciones:', error);
-            res.status(500).render('error', {
-                message: 'Error al cargar las actualizaciones'
-            });
+            console.error('Error en listUpdates:', error);
+            next(error);
         }
     }
 };
