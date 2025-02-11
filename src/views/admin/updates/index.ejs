@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actualizaciones - Panel Admin</title>
+    <title>Alertas - Panel Admin</title>
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="/css/updates.css">
@@ -13,8 +13,8 @@
     
     <div class="admin-container">
         <div class="title-row">
-            <h1>Actualizaciones</h1>
-            <a href="/admin/updates/new" class="btn-new">Nueva Actualización</a>
+            <h1>ALERTAS</h1>
+            <a href="/admin/updates/new" class="btn-new">Nueva alerta</a>
         </div>
 
         <div class="updates-content">
@@ -56,7 +56,7 @@
                                                 onclick="closeUpdate('<%= update._id %>')"
                                             >
                                                 <i class="fas fa-check-circle"></i>
-                                                Cerrar Actualización
+                                                Cerrar alerta
                                             </button>
                                         <% } %>
                                     </div>
@@ -67,7 +67,7 @@
                 </div>
             <% } else { %>
                 <div class="no-updates">
-                    <p>No hay actualizaciones disponibles</p>
+                    <p>No hay alertas disponibles</p>
                 </div>
             <% } %>
         </div>
@@ -79,7 +79,7 @@
                 <i class="fas fa-question-circle"></i>
             </div>
             <h3 class="popup-title">Confirmar Acción</h3>
-            <p class="popup-message">¿Estás seguro de que deseas cerrar esta actualización?</p>
+            <p class="popup-message">¿Estás seguro de que deseas cerrar esta alerta?</p>
             <div class="popup-buttons">
                 <button id="confirmBtn" class="popup-btn popup-btn-confirm">
                     <i class="fas fa-check"></i> Aceptar
@@ -116,11 +116,11 @@
             if (response.ok) {
                 window.location.reload();
             } else {
-                alert('Error al cerrar la actualización');
+                alert('Error al cerrar la alerta');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al cerrar la actualización');
+            alert('Error al cerrar la alerta');
         }
     });
 

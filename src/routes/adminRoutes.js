@@ -169,4 +169,7 @@ router.get('/memberships', async (req, res) => {
 // Ruta para crear nueva actualización
 router.post('/updates', adminController.createUpdate);
 
+// Ruta para cerrar actualización
+router.put('/updates/:id/close', adminController.closeUpdate);
+
 module.exports = router; 

@@ -34,7 +34,7 @@ const adminController = {
     showUpdateForm: async (req, res) => {
         try {
             res.render('admin/updates/new', {
-                title: 'Nueva Actualización',
+                title: 'Nueva alerta',
                 user: req.user || req.session.user
             });
         } catch (error) {
@@ -73,9 +73,9 @@ const adminController = {
             
             res.redirect('/admin/updates');
         } catch (error) {
-            console.error('Error al crear actualización:', error);
+            console.error('Error al crear alerta:', error);
             res.status(500).render('error', {
-                message: 'Error al crear la actualización',
+                message: 'Error al crear la alerta',
                 error: process.env.NODE_ENV === 'development' ? error : {}
             });
         }
@@ -88,17 +88,49 @@ const adminController = {
                 .sort({ createdAt: -1 });
             
             res.render('admin/updates/index', {
-                title: 'Actualizaciones',
+                title: 'Alertas',
                 updates,
                 user: req.user || req.session.user
             });
         } catch (error) {
-            console.error('Error al listar actualizaciones:', error);
+            console.error('Error al listar alerta:', error);
             res.status(500).render('error', {
-                message: 'Error al cargar las actualizaciones'
+                message: 'Error al cargar las alerta'
             });
         }
-    }
+    },
+
+    closeUpdate: async (req, res) => {
+        try {
+            const updateId = req.params.id;
+            
+            const update = await Update.findByIdAndUpdate(
+                updateId,
+                { estado: 'COMPLETADA' },
+                { new: true }
+            );
+
+            if (!update) {
+                return res.status(404).json({ 
+                    success: false, 
+                    message: 'Alerta no encontrada' 
+                });
+            }
+
+            res.json({ 
+                success: true, 
+                message: 'Alerta cerrada exitosamente',
+                update 
+            });
+
+        } catch (error) {
+            console.error('Error al cerrar la alerta:', error);
+            res.status(500).json({ 
+                success: false, 
+                message: 'Error al cerrar la alerta' 
+            });
+        }
+    },
 };
 
 module.exports = adminController; 
