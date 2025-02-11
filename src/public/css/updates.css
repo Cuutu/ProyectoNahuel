@@ -165,20 +165,15 @@
     padding: 2rem;
     min-height: calc(100vh - 70px);
     background: #f5f5f5;
-}
-
-.title-row {
     display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-bottom: 2rem;
-    gap: 1rem;
+    flex-direction: column;
 }
 
-.title-row h1 {
+/* Estilo para el contenedor del título y botón */
+h1 {
+    display: inline-block;
     margin: 0;
-    font-size: 2rem;
-    color: #333;
+    margin-right: 1rem;
 }
 
 .btn-new {
@@ -198,6 +193,7 @@
 }
 
 .updates-content {
+    width: 100%;
     margin-top: 2rem;
 }
 
@@ -310,18 +306,19 @@
 }
 
 @media (max-width: 768px) {
-    .admin-container {
-        padding: 1rem;
-    }
-
-    .title-row {
+    .updates-header {
         flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
+        justify-content: space-between;
+        padding: 0;
     }
 
-    .title-row h1 {
+    .updates-header h1 {
         font-size: 1.5rem;
+    }
+
+    .btn-new {
+        padding: 0.5rem 1rem;
+        margin-left: 0.5rem;
     }
 }
 
