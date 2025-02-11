@@ -24,7 +24,7 @@
             <% if (updates && updates.length > 0) { %>
                 <div class="updates-list">
                     <% updates.forEach(update => { %>
-                        <div class="update-card">
+                        <div class="update-card" data-timestamp="<%= new Date().toISOString() %>">
                             <div class="update-type <%= update.tipo.toLowerCase() %>">
                                 <%= update.tipo %>
                             </div>
