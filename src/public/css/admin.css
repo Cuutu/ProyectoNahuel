@@ -688,4 +688,291 @@
     .stats-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* Header de membresías */
+.memberships-header {
+    background: linear-gradient(135deg, #00ff88 0%, #00e676 100%);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    color: #000;
+}
+
+.header-title i {
+    font-size: 2.5rem;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    border-radius: 15px;
+}
+
+.title-text h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+.title-text p {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* Grid de estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.stats-card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-5px);
+}
+
+.stats-card h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: #333;
+    margin-bottom: 1.8rem;
+    font-size: 1.5rem;
+}
+
+.stats-card h2 i {
+    color: #00ff88;
+    background: rgba(0, 255, 136, 0.1);
+    padding: 0.8rem;
+    border-radius: 12px;
+}
+
+.stats-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stat-breakdown {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 1.5rem;
+}
+
+.stat-breakdown .stat-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.stat-breakdown .stat-item:last-child {
+    border-bottom: none;
+}
+
+/* Sección de advertencias */
+.warning-section {
+    background: #fff8f8;
+    border-radius: 15px;
+    padding: 1.2rem;
+    margin-top: 1rem;
+}
+
+.warning-section h3 {
+    color: #ff3b3b;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.warning-section h3:before {
+    content: '⚠️';
+}
+
+.warning-count {
+    background: #ffe3e3;
+    color: #ff3b3b;
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* Tabla de membresías */
+.memberships-list {
+    background: white;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.memberships-list h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+table th {
+    background: #f8f9fa;
+    padding: 1.2rem 1.5rem;
+    font-weight: 600;
+    color: #444;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+table td {
+    padding: 1.2rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+table tr:hover td {
+    background: #f8f9fa;
+}
+
+/* Badges de estado */
+.status-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.status-badge.active {
+    background: #e3fff0;
+    color: #00cc6a;
+}
+
+.status-badge.active:before {
+    content: '●';
+    color: #00cc6a;
+}
+
+.status-badge.warning {
+    background: #fff3e3;
+    color: #ff8f00;
+}
+
+.status-badge.warning:before {
+    content: '●';
+    color: #ff8f00;
+}
+
+/* Badges de membresía */
+.membership-type {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.membership-type.basic {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.membership-type.premium {
+    background: #fff8e1;
+    color: #ffa000;
+}
+
+.membership-type.pro {
+    background: #fce4ec;
+    color: #c2185b;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .memberships-header {
+        padding: 1.5rem;
+    }
+
+    .header-title {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-card {
+        padding: 1.5rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    table th,
+    table td {
+        padding: 1rem;
+    }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stats-card {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.stats-card:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.stats-card:nth-child(3) {
+    animation-delay: 0.2s;
 } 
