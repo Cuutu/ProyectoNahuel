@@ -2,9 +2,11 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 const Update = require('../models/Update');
+const adminController = require('../controllers/adminController');
+const { isAdmin } = require('../middleware/auth');
 
 // Middleware para verificar si es admin
-const isAdmin = (req, res, next) => {
+const isAdminMiddleware = (req, res, next) => {
     if (req.user && req.user.isAdmin) {
         next();
     } else {
@@ -12,8 +14,11 @@ const isAdmin = (req, res, next) => {
     }
 };
 
+// Aplicar middleware de admin a todas las rutas
+router.use(isAdminMiddleware);
+
 // Ruta del panel admin
-router.get('/', isAdmin, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const users = await User.find({});
         const memberships = await User.find({ 'membership.status': 'active' });
@@ -37,36 +42,13 @@ router.get('/', isAdmin, async (req, res) => {
 });
 
 // Ruta para ver actualizaciones
-router.get('/updates', isAdmin, async (req, res) => {
-    try {
-        const updates = await Update.find().sort({ createdAt: -1 });
-        res.render('admin/updates/index', {
-            user: req.session.user,
-            title: 'Gestión de Actualizaciones',
-            updates,
-            isAuthenticated: true
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        res.status(500).render('error', {
-            message: 'Error al cargar actualizaciones',
-            error: process.env.NODE_ENV === 'development' ? error : {},
-            user: req.session.user,
-            isAuthenticated: true
-        });
-    }
-});
+router.get('/updates', adminController.listUpdates);
 
 // Ruta para mostrar el formulario de nueva actualización
-router.get('/updates/new', isAdmin, (req, res) => {
-    res.render('admin/updates/new', {
-        user: req.user,
-        title: 'Nueva Actualización'
-    });
-});
+router.get('/updates/new', adminController.showUpdateForm);
 
 // Ruta para ver usuarios
-router.get('/users', isAdmin, async (req, res) => {
+router.get('/users', async (req, res) => {
     try {
         const users = await User.find({});
         
@@ -99,7 +81,7 @@ router.get('/users', isAdmin, async (req, res) => {
 });
 
 // Ruta para ver membresías
-router.get('/memberships', isAdmin, async (req, res) => {
+router.get('/memberships', async (req, res) => {
     try {
         const users = await User.find({});
         
@@ -167,5 +149,8 @@ router.get('/memberships', isAdmin, async (req, res) => {
         });
     }
 });
+
+// Ruta para crear nueva actualización
+router.post('/updates', adminController.createUpdate);
 
 module.exports = router; 

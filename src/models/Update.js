@@ -1,31 +1,35 @@
 const mongoose = require('mongoose');
 
 const updateSchema = new mongoose.Schema({
-    title: {
+    tipo: {
         type: String,
         required: true,
-        trim: true
+        enum: ['LONG', 'SHORT', 'GENERAL']
     },
-    content: {
+    titulo: {
         type: String,
         required: true
     },
-    imageUrl: {
-        type: String
+    descripcion: {
+        type: String,
+        required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now
+    par: String,
+    entrada: Number,
+    stopLoss: Number,
+    takeProfit: Number,
+    estado: {
+        type: String,
+        enum: ['ACTIVA', 'COMPLETADA', 'CANCELADA'],
+        default: 'ACTIVA'
     },
-    author: {
+    createdBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    },
-    isForSignals: {
-        type: Boolean,
-        default: true
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Update', updateSchema); 
