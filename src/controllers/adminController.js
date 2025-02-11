@@ -33,30 +33,42 @@ const adminController = {
     // Mostrar formulario de nueva actualización
     showUpdateForm: async (req, res) => {
         try {
-            console.log('Intentando mostrar formulario');
-            res.send('Formulario de actualización');
+            res.render('admin/updates/new', {
+                title: 'Nueva Actualización',
+                user: req.user || req.session.user
+            });
         } catch (error) {
-            console.error('Error en showUpdateForm:', error);
-            next(error);
+            console.error('Error al mostrar formulario:', error);
+            res.status(500).render('error', {
+                message: 'Error al cargar el formulario'
+            });
         }
     },
 
     // Crear nueva actualización
     createUpdate: async (req, res) => {
         try {
-            const { tipo, titulo, descripcion, par, entrada, stopLoss, takeProfit } = req.body;
+            const { tipo, titulo, descripcion, par, entrada, stopLoss, takeProfit, estado } = req.body;
             
-            const update = new Update({
+            const updateData = {
                 tipo,
                 titulo,
                 descripcion,
-                par,
-                entrada,
-                stopLoss,
-                takeProfit,
-                createdBy: req.user._id
-            });
+                estado: estado || 'ACTIVA',
+                createdBy: req.user?._id || req.session?.user?._id
+            };
 
+            // Solo agregar campos de trading si no es tipo GENERAL
+            if (tipo !== 'GENERAL') {
+                Object.assign(updateData, {
+                    par,
+                    entrada: entrada ? parseFloat(entrada) : undefined,
+                    stopLoss: stopLoss ? parseFloat(stopLoss) : undefined,
+                    takeProfit: takeProfit ? parseFloat(takeProfit) : undefined
+                });
+            }
+
+            const update = new Update(updateData);
             await update.save();
             
             res.redirect('/admin/updates');
@@ -64,7 +76,7 @@ const adminController = {
             console.error('Error al crear actualización:', error);
             res.status(500).render('error', {
                 message: 'Error al crear la actualización',
-                error: error
+                error: process.env.NODE_ENV === 'development' ? error : {}
             });
         }
     },
