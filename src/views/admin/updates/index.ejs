@@ -73,28 +73,69 @@
         </div>
     </div>
 
-    <script>
-    async function closeUpdate(updateId) {
-        if (confirm('¿Estás seguro de que deseas cerrar esta actualización?')) {
-            try {
-                const response = await fetch(`/admin/updates/${updateId}/close`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                });
+    <div id="confirmPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h3 class="popup-title">Confirmar Acción</h3>
+            <p class="popup-message">¿Estás seguro de que deseas cerrar esta actualización?</p>
+            <div class="popup-buttons">
+                <button id="confirmBtn" class="popup-btn popup-btn-confirm">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+                <button id="cancelBtn" class="popup-btn popup-btn-cancel">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
 
-                if (response.ok) {
-                    window.location.reload();
-                } else {
-                    alert('Error al cerrar la actualización');
+    <script>
+    let currentUpdateId = null;
+
+    function showConfirmPopup(updateId) {
+        currentUpdateId = updateId;
+        const popup = document.getElementById('confirmPopup');
+        popup.classList.add('active');
+    }
+
+    async function closeUpdate(updateId) {
+        showConfirmPopup(updateId);
+    }
+
+    document.getElementById('confirmBtn').addEventListener('click', async () => {
+        try {
+            const response = await fetch(`/admin/updates/${currentUpdateId}/close`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
                 }
-            } catch (error) {
-                console.error('Error:', error);
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
                 alert('Error al cerrar la actualización');
             }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al cerrar la actualización');
         }
-    }
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+        const popup = document.getElementById('confirmPopup');
+        popup.classList.remove('active');
+        currentUpdateId = null;
+    });
+
+    document.getElementById('confirmPopup').addEventListener('click', (e) => {
+        if (e.target.classList.contains('popup-overlay')) {
+            e.target.classList.remove('active');
+            currentUpdateId = null;
+        }
+    });
     </script>
 </body>
 </html>
