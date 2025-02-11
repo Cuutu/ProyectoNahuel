@@ -22,28 +22,50 @@
     font-weight: 500;
 }
 
-.update-form .form-control {
+.update-form input,
+.update-form select,
+.update-form textarea {
+    background: linear-gradient(45deg, #00ff88, #00e676);
+    color: #000;
+    padding: 0.8rem 1.6rem;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: none;
+    transition: all 0.3s ease;
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
 }
 
-.update-form .form-control:focus {
-    border-color: #00ff88;
+.update-form input:hover,
+.update-form select:hover,
+.update-form textarea:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, #00e676, #00ff88);
+}
+
+.update-form input:focus,
+.update-form select:focus,
+.update-form textarea:focus {
     outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, #00e676, #00ff88);
 }
 
 .update-form textarea {
-    resize: vertical;
     min-height: 150px;
+    resize: vertical;
 }
 
-.update-form input[type="file"] {
-    padding: 0.5rem;
-    cursor: pointer;
+.update-form select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23000' viewBox='0 0 16 16'%3E%3Cpath d='M8 11.5l-6-6h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 2.5rem;
 }
 
 /* Animación de entrada */
