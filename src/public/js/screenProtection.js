@@ -1,4 +1,14 @@
-import html2canvas from 'html2canvas';
+import DisableDevtool from 'disable-devtool';
+
+DisableDevtool({
+    disableSelect: true,
+    disableCopy: true,
+    disableCut: true,
+    disableScreenshot: true,
+    disablePrint: true,
+    clearLog: true,
+    disableRightClick: true,
+});
 
 class ScreenProtection {
     constructor() {
@@ -6,62 +16,54 @@ class ScreenProtection {
     }
 
     init() {
-        // Proteger los elementos con clase update-card
-        const protectedElements = document.querySelectorAll('.update-card');
-        
-        // Configurar html2canvas
-        html2canvas.prototype.getContextWindow = () => {
-            return null; // Previene la captura del canvas
-        };
-
-        // Observar intentos de captura
-        protectedElements.forEach(element => {
-            // Prevenir captura directa
-            element.addEventListener('beforescreenshot', (e) => {
-                e.preventDefault();
-                this.protectContent(element);
+        // Prevenir captura usando la API nativa
+        if (document.documentElement.requestFullscreen) {
+            document.documentElement.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement) {
+                    this.hideContent();
+                } else {
+                    this.showContent();
+                }
             });
+        }
 
-            // Prevenir copiar
-            element.addEventListener('copy', (e) => {
-                e.preventDefault();
-                return false;
-            });
-
-            // Prevenir arrastrar
-            element.addEventListener('dragstart', (e) => {
-                e.preventDefault();
-                return false;
-            });
-        });
-
-        // Detectar cambios de visibilidad
+        // Detectar pérdida de foco
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
-                protectedElements.forEach(el => this.protectContent(el));
+                this.hideContent();
+            } else {
+                this.showContent();
+            }
+        });
+
+        // Prevenir teclas de captura
+        document.addEventListener('keydown', (e) => {
+            if (
+                e.key === 'PrintScreen' ||
+                (e.ctrlKey && e.key === 'p') ||
+                (e.ctrlKey && e.shiftKey && e.key === 'i') ||
+                (e.ctrlKey && e.key === 's')
+            ) {
+                e.preventDefault();
+                this.hideContent();
+                return false;
             }
         });
     }
 
-    protectContent(element) {
-        // Crear una capa de protección
-        const overlay = document.createElement('div');
-        overlay.className = 'protection-overlay';
-        overlay.innerHTML = `
-            <div class="protection-message">
-                <i class="fas fa-lock"></i>
-                Contenido Protegido
-            </div>
-        `;
+    hideContent() {
+        document.querySelectorAll('.update-card').forEach(el => {
+            el.style.filter = 'blur(20px)';
+            el.style.userSelect = 'none';
+        });
+    }
 
-        element.appendChild(overlay);
-
-        // Remover después de un momento
-        setTimeout(() => {
-            overlay.remove();
-        }, 1500);
+    showContent() {
+        document.querySelectorAll('.update-card').forEach(el => {
+            el.style.filter = 'none';
+            el.style.userSelect = 'auto';
+        });
     }
 }
 
-// Inicializar la protección
 new ScreenProtection();
