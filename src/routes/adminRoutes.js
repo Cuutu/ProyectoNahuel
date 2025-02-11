@@ -103,6 +103,13 @@ router.get('/memberships', isAdmin, async (req, res) => {
     try {
         const users = await User.find({});
         
+        // Función auxiliar para verificar si una membresía está activa (no es free)
+        const isMembresiaActiva = (user) => {
+            return (user.membresias?.servicios && user.membresias.servicios !== 'free') || 
+                   (user.membresias?.entrenamientos && user.membresias.entrenamientos !== 'free') || 
+                   user.membresias?.asesoramiento === true;
+        };
+
         // Estadísticas de membresías
         const stats = {
             // Servicios
@@ -110,9 +117,9 @@ router.get('/memberships', isAdmin, async (req, res) => {
                 basic: users.filter(u => u.membresias?.servicios === 'basic').length,
                 premium: users.filter(u => u.membresias?.servicios === 'premium').length,
                 pro: users.filter(u => u.membresias?.servicios === 'pro').length,
-                total: users.filter(u => u.membresias?.servicios !== 'free').length,
+                total: users.filter(u => u.membresias?.servicios && u.membresias.servicios !== 'free').length,
                 proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoServicios) return false;
+                    if (!u.membresias?.vencimientoServicios || u.membresias.servicios === 'free') return false;
                     const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24));
                     return diasRestantes <= 7 && diasRestantes > 0;
                 })
@@ -122,37 +129,32 @@ router.get('/memberships', isAdmin, async (req, res) => {
                 basic: users.filter(u => u.membresias?.entrenamientos === 'basic').length,
                 premium: users.filter(u => u.membresias?.entrenamientos === 'premium').length,
                 pro: users.filter(u => u.membresias?.entrenamientos === 'pro').length,
-                total: users.filter(u => u.membresias?.entrenamientos !== 'free').length,
+                total: users.filter(u => u.membresias?.entrenamientos && u.membresias.entrenamientos !== 'free').length,
                 proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoEntrenamientos) return false;
+                    if (!u.membresias?.vencimientoEntrenamientos || u.membresias.entrenamientos === 'free') return false;
                     const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoEntrenamientos) - new Date()) / (1000 * 60 * 60 * 24));
                     return diasRestantes <= 7 && diasRestantes > 0;
                 })
             },
             // Asesoramiento
             asesoramiento: {
-                activos: users.filter(u => u.membresias?.asesoramiento).length,
+                activos: users.filter(u => u.membresias?.asesoramiento === true).length,
                 proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoAsesoramiento) return false;
+                    if (!u.membresias?.vencimientoAsesoramiento || !u.membresias.asesoramiento) return false;
                     const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoAsesoramiento) - new Date()) / (1000 * 60 * 60 * 24));
                     return diasRestantes <= 7 && diasRestantes > 0;
                 })
             },
-            // Total de usuarios con alguna membresía activa
-            total_activos: users.filter(u => 
-                (u.membresias?.servicios !== 'free') || 
-                (u.membresias?.entrenamientos !== 'free') || 
-                u.membresias?.asesoramiento
-            ).length
+            // Total de usuarios con alguna membresía paga activa
+            total_activos: users.filter(isMembresiaActiva).length
         };
+
+        // Filtrar solo usuarios con membresías pagas
+        const usuariosActivos = users.filter(isMembresiaActiva);
 
         res.render('admin/memberships/index', {
             stats,
-            users: users.filter(u => 
-                (u.membresias?.servicios !== 'free') || 
-                (u.membresias?.entrenamientos !== 'free') || 
-                u.membresias?.asesoramiento
-            ),
+            users: usuariosActivos,
             user: req.user,
             isAuthenticated: true
         });
