@@ -1,3 +1,6 @@
+/* Importar fuentes de Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
+
 .update-form-container {
     max-width: 800px;
     margin: 0 auto;
@@ -507,21 +510,22 @@ h1 {
 
 .popup-content {
     background: white;
-    padding: 2rem;
-    border-radius: 16px;
+    padding: 2.5rem;
+    border-radius: 20px;
     width: 90%;
     max-width: 400px;
     text-align: center;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
     animation: popupIn 0.3s ease;
+    font-family: 'Inter', sans-serif;
 }
 
 @keyframes popupIn {
-    from {
-        transform: scale(0.9);
+    0% {
+        transform: scale(0.95);
         opacity: 0;
     }
-    to {
+    100% {
         transform: scale(1);
         opacity: 1;
     }
@@ -534,16 +538,20 @@ h1 {
 }
 
 .popup-title {
-    font-size: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
     font-weight: 600;
     color: #1a1a1a;
     margin-bottom: 1rem;
+    letter-spacing: -0.5px;
 }
 
 .popup-message {
+    font-family: 'Inter', sans-serif;
     color: #666;
     margin-bottom: 2rem;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 1.1rem;
 }
 
 .popup-buttons {
@@ -553,17 +561,21 @@ h1 {
 }
 
 .popup-btn {
-    padding: 0.8rem 2rem;
+    font-family: 'Inter', sans-serif;
+    padding: 0.9rem 2.2rem;
     border-radius: 30px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s ease;
     border: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.2px;
 }
 
 .popup-btn-confirm {
     background: #00ff88;
     color: #000;
+    font-weight: 600;
 }
 
 .popup-btn-confirm:hover {
@@ -574,6 +586,7 @@ h1 {
 .popup-btn-cancel {
     background: #f0f0f0;
     color: #666;
+    font-weight: 500;
 }
 
 .popup-btn-cancel:hover {
