@@ -9,17 +9,25 @@
     <link rel="stylesheet" href="/css/updates.css">
     <link rel="stylesheet" href="/css/screenProtection.css">
     <meta http-equiv="screen-capture" content="deny">
-    <script src="https://unpkg.com/disable-devtool/disable-devtool.min.js"></script>
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-            window.DisableDevtool({
-                disableSelect: true,
-                disableCopy: true,
-                disableCut: true,
-                disableScreenshot: true,
-                disablePrint: true,
-                clearLog: true,
-                disableRightClick: true
+            // Configuración básica de protección
+            document.addEventListener('keydown', function(e) {
+                if (
+                    e.key === 'PrintScreen' ||
+                    (e.ctrlKey && e.key === 'p') ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'i') ||
+                    (e.ctrlKey && e.key === 's')
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Deshabilitar clic derecho
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
             });
         });
     </script>

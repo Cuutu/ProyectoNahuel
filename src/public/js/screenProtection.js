@@ -2,56 +2,36 @@
 class ScreenProtection {
     constructor() {
         this.init();
+        this.addProtectionLayer();
     }
 
     init() {
-        // Prevenir captura usando la API nativa
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.addEventListener('fullscreenchange', () => {
-                if (document.fullscreenElement) {
-                    this.hideContent();
-                } else {
-                    this.showContent();
-                }
-            });
-        }
-
-        // Detectar pérdida de foco
+        // Detectar cambios de visibilidad
         document.addEventListener('visibilitychange', () => {
+            const protectedElements = document.querySelectorAll('.update-card');
             if (document.hidden) {
-                this.hideContent();
+                protectedElements.forEach(el => {
+                    el.style.filter = 'blur(20px)';
+                });
             } else {
-                this.showContent();
-            }
-        });
-
-        // Prevenir teclas de captura
-        document.addEventListener('keydown', (e) => {
-            if (
-                e.key === 'PrintScreen' ||
-                (e.ctrlKey && e.key === 'p') ||
-                (e.ctrlKey && e.shiftKey && e.key === 'i') ||
-                (e.ctrlKey && e.key === 's')
-            ) {
-                e.preventDefault();
-                this.hideContent();
-                return false;
+                protectedElements.forEach(el => {
+                    el.style.filter = 'none';
+                });
             }
         });
     }
 
-    hideContent() {
-        document.querySelectorAll('.update-card').forEach(el => {
-            el.style.filter = 'blur(20px)';
-            el.style.userSelect = 'none';
-        });
-    }
-
-    showContent() {
-        document.querySelectorAll('.update-card').forEach(el => {
-            el.style.filter = 'none';
-            el.style.userSelect = 'auto';
-        });
+    addProtectionLayer() {
+        const style = document.createElement('style');
+        style.textContent = `
+            .update-card {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+        `;
+        document.head.appendChild(style);
     }
 }
 
