@@ -1,15 +1,4 @@
-import DisableDevtool from 'disable-devtool';
-
-DisableDevtool({
-    disableSelect: true,
-    disableCopy: true,
-    disableCut: true,
-    disableScreenshot: true,
-    disablePrint: true,
-    clearLog: true,
-    disableRightClick: true,
-});
-
+// Sin usar import/export
 class ScreenProtection {
     constructor() {
         this.init();
@@ -66,4 +55,7 @@ class ScreenProtection {
     }
 }
 
-new ScreenProtection();
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    new ScreenProtection();
+});

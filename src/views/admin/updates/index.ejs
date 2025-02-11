@@ -9,18 +9,18 @@
     <link rel="stylesheet" href="/css/updates.css">
     <link rel="stylesheet" href="/css/screenProtection.css">
     <meta http-equiv="screen-capture" content="deny">
-    <script src="https://unpkg.com/disable-devtool"></script>
-    <script type="module">
-        import DisableDevtool from 'disable-devtool';
-        
-        DisableDevtool({
-            disableSelect: true,
-            disableCopy: true,
-            disableCut: true,
-            disableScreenshot: true,
-            disablePrint: true,
-            clearLog: true,
-            disableRightClick: true,
+    <script src="https://unpkg.com/disable-devtool/disable-devtool.min.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            window.DisableDevtool({
+                disableSelect: true,
+                disableCopy: true,
+                disableCut: true,
+                disableScreenshot: true,
+                disablePrint: true,
+                clearLog: true,
+                disableRightClick: true
+            });
         });
     </script>
     <script src="/js/screenProtection.js"></script>
