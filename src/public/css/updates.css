@@ -165,27 +165,24 @@
     padding: 2rem;
     min-height: calc(100vh - 70px);
     background: #f5f5f5;
-    display: flex;
-    flex-direction: column;
 }
 
-.updates-header {
+.title-row {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
+    justify-content: flex-start;
     margin-bottom: 2rem;
-    width: 100%;
+    gap: 1rem;
 }
 
-.updates-header h1 {
+.title-row h1 {
+    margin: 0;
     font-size: 2rem;
     color: #333;
-    margin: 0;
 }
 
 .btn-new {
+    display: inline-block;
     background: #00ff88;
     color: #000;
     padding: 0.75rem 1.5rem;
@@ -193,11 +190,14 @@
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
-    margin-left: 1rem;
+}
+
+.btn-new:hover {
+    background: #00e676;
+    transform: translateY(-2px);
 }
 
 .updates-content {
-    width: 100%;
     margin-top: 2rem;
 }
 
@@ -310,19 +310,18 @@
 }
 
 @media (max-width: 768px) {
-    .updates-header {
+    .admin-container {
+        padding: 1rem;
+    }
+
+    .title-row {
         flex-direction: row;
-        justify-content: space-between;
-        padding: 0;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    .updates-header h1 {
+    .title-row h1 {
         font-size: 1.5rem;
-    }
-
-    .btn-new {
-        padding: 0.5rem 1rem;
-        margin-left: 0.5rem;
     }
 }
 
