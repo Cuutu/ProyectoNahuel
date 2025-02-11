@@ -1,79 +1,67 @@
-class ScreenProtectionAPI {
+import html2canvas from 'html2canvas';
+
+class ScreenProtection {
     constructor() {
         this.init();
-        this.addProtectionLayer();
     }
 
     init() {
-        // Prevenir captura de pantalla usando la API nativa
-        if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
-            const originalGetDisplayMedia = navigator.mediaDevices.getDisplayMedia;
-            navigator.mediaDevices.getDisplayMedia = async function(constraints) {
-                try {
-                    const protectedElements = document.querySelectorAll('.update-card');
-                    protectedElements.forEach(el => el.classList.add('protected-content'));
-                    
-                    const stream = await originalGetDisplayMedia.call(this, constraints);
-                    
-                    stream.getTracks().forEach(track => {
-                        track.onended = () => {
-                            protectedElements.forEach(el => el.classList.remove('protected-content'));
-                        };
-                    });
-                    
-                    return stream;
-                } catch (err) {
-                    const protectedElements = document.querySelectorAll('.update-card');
-                    protectedElements.forEach(el => el.classList.remove('protected-content'));
-                    throw err;
-                }
-            };
-        }
+        // Proteger los elementos con clase update-card
+        const protectedElements = document.querySelectorAll('.update-card');
+        
+        // Configurar html2canvas
+        html2canvas.prototype.getContextWindow = () => {
+            return null; // Previene la captura del canvas
+        };
 
-        // Detectar modo pantalla completa
-        document.addEventListener('fullscreenchange', () => {
-            const protectedElements = document.querySelectorAll('.update-card');
-            if (document.fullscreenElement) {
-                protectedElements.forEach(el => el.classList.add('protected-content'));
-            } else {
-                protectedElements.forEach(el => el.classList.remove('protected-content'));
+        // Observar intentos de captura
+        protectedElements.forEach(element => {
+            // Prevenir captura directa
+            element.addEventListener('beforescreenshot', (e) => {
+                e.preventDefault();
+                this.protectContent(element);
+            });
+
+            // Prevenir copiar
+            element.addEventListener('copy', (e) => {
+                e.preventDefault();
+                return false;
+            });
+
+            // Prevenir arrastrar
+            element.addEventListener('dragstart', (e) => {
+                e.preventDefault();
+                return false;
+            });
+        });
+
+        // Detectar cambios de visibilidad
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                protectedElements.forEach(el => this.protectContent(el));
             }
         });
     }
 
-    addProtectionLayer() {
-        // Prevenir PrintScreen y otras teclas
-        document.addEventListener('keydown', (e) => {
-            if (
-                e.key === 'PrintScreen' ||
-                (e.ctrlKey && e.key === 'p') ||
-                (e.ctrlKey && e.shiftKey && e.key === 'i') ||
-                (e.ctrlKey && e.key === 's')
-            ) {
-                e.preventDefault();
-                return false;
-            }
-        });
+    protectContent(element) {
+        // Crear una capa de protección
+        const overlay = document.createElement('div');
+        overlay.className = 'protection-overlay';
+        overlay.innerHTML = `
+            <div class="protection-message">
+                <i class="fas fa-lock"></i>
+                Contenido Protegido
+            </div>
+        `;
 
-        // Prevenir clic derecho
-        document.addEventListener('contextmenu', (e) => {
-            if (e.target.closest('.update-card')) {
-                e.preventDefault();
-                return false;
-            }
-        });
+        element.appendChild(overlay);
 
-        // Observar cambios de visibilidad
-        document.addEventListener('visibilitychange', () => {
-            const protectedElements = document.querySelectorAll('.update-card');
-            if (document.hidden) {
-                protectedElements.forEach(el => el.classList.add('protected-content'));
-            } else {
-                protectedElements.forEach(el => el.classList.remove('protected-content'));
-            }
-        });
+        // Remover después de un momento
+        setTimeout(() => {
+            overlay.remove();
+        }, 1500);
     }
 }
 
 // Inicializar la protección
-new ScreenProtectionAPI();
+new ScreenProtection();
