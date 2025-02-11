@@ -592,4 +592,46 @@ h1 {
 .popup-btn-cancel:hover {
     background: #e0e0e0;
     transform: translateY(-2px);
+}
+
+/* Estilos para el botón de cerrar alerta */
+.btn-close-alert {
+    background: linear-gradient(45deg, #00ff88, #00e676);
+    color: #000;
+    padding: 0.8rem 1.6rem;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-close-alert i {
+    font-size: 1rem;
+}
+
+.btn-close-alert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+    background: linear-gradient(45deg, #00e676, #00ff88);
+}
+
+.btn-close-alert:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 255, 136, 0.2);
+}
+
+.btn-close-alert:disabled {
+    background: #e0e0e0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
 } 
