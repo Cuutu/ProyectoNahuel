@@ -46,8 +46,19 @@
                                             minute: '2-digit'
                                         }) %>
                                     </span>
-                                    <div class="update-status <%= update.estado.toLowerCase() %>">
-                                        <%= update.estado %>
+                                    <div class="update-actions">
+                                        <div class="update-status <%= update.estado.toLowerCase() %>">
+                                            <%= update.estado %>
+                                        </div>
+                                        <% if (update.estado === 'ACTIVA') { %>
+                                            <button 
+                                                class="btn-close-update" 
+                                                onclick="closeUpdate('<%= update._id %>')"
+                                            >
+                                                <i class="fas fa-check-circle"></i>
+                                                Cerrar Actualización
+                                            </button>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>
@@ -61,5 +72,29 @@
             <% } %>
         </div>
     </div>
+
+    <script>
+    async function closeUpdate(updateId) {
+        if (confirm('¿Estás seguro de que deseas cerrar esta actualización?')) {
+            try {
+                const response = await fetch(`/admin/updates/${updateId}/close`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert('Error al cerrar la actualización');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error al cerrar la actualización');
+            }
+        }
+    }
+    </script>
 </body>
 </html>
