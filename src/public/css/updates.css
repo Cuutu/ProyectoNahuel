@@ -74,83 +74,104 @@
 }
 
 .update-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+    overflow: hidden;
+    transition: transform 0.3s ease;
 }
 
 .update-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
 }
 
 .update-header {
+    background: linear-gradient(45deg, #0A2647, #144272);
+    color: white;
+    padding: 1.5rem;
+    position: relative;
+}
+
+.update-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.update-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.trading-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    padding: 2rem;
+    background: #f8f9fa;
+}
+
+.info-item {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.info-label {
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.info-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.update-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
-}
-
-.update-header h2 {
-    margin: 0;
-    font-size: 1.25rem;
-    color: #333;
+    padding: 1.2rem 2rem;
+    background: white;
+    border-top: 1px solid #eee;
 }
 
 .update-date {
     color: #666;
     font-size: 0.9rem;
-}
-
-.update-content {
-    color: #444;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-}
-
-.update-actions {
     display: flex;
-    gap: 1rem;
-}
-
-.admin-btn {
-    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
+}
+
+.update-status {
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    font-weight: 500;
     font-size: 0.9rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    background: #00ff88;
-    color: #000;
+    text-transform: uppercase;
 }
 
-.admin-btn:hover {
-    transform: translateY(-2px);
-    background: #00e676;
+.status-activa {
+    background: rgba(0, 255, 136, 0.15);
+    color: #00cc6a;
 }
 
-.btn-edit {
-    background: #3498db;
-    color: white;
+.status-completada {
+    background: rgba(64, 158, 255, 0.15);
+    color: #409eff;
 }
 
-.btn-edit:hover {
-    background: #2980b9;
-}
-
-.btn-delete {
-    background: #e74c3c;
-    color: white;
-}
-
-.btn-delete:hover {
-    background: #c0392b;
+.status-cancelada {
+    background: rgba(255, 59, 59, 0.15);
+    color: #ff3b3b;
 }
 
 .no-updates {
@@ -450,5 +471,18 @@ h1 {
     .btn-submit,
     .btn-cancel {
         width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .trading-info {
+        grid-template-columns: 1fr;
+        padding: 1.5rem;
+    }
+    
+    .update-footer {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
     }
 } 
