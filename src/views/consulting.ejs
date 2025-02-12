@@ -68,6 +68,42 @@
                 </div>
             </div>
         </section>
+
+        <div class="container">
+            <div class="calendar-section">
+                <h2>Calendario de Asesoramiento</h2>
+                <div class="calendar-card">
+                    <div class="timezone-wrapper">
+                        <span>Zona horaria:</span>
+                        <select class="timezone-select">
+                            <option>(GMT-3) Argentina Time</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <!-- Aquí va el calendario -->
+                        <div class="date-picker">
+                            <div class="month-navigation">
+                                <button class="nav-btn" onclick="changeMonth(-1)">←</button>
+                                <h3 id="currentMonth">Enero 2025</h3>
+                                <button class="nav-btn" onclick="changeMonth(1)">→</button>
+                            </div>
+                            
+                            <div class="weekdays-header">
+                                <span>LU</span>
+                                <span>MA</span>
+                                <span>MI</span>
+                                <span>JU</span>
+                                <span>VI</span>
+                                <span>SA</span>
+                                <span>DO</span>
+                            </div>
+                            <div class="dates-grid" id="datesGrid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Scripts -->
