@@ -36,14 +36,14 @@
                 <h2>Reserva tu Mentoría</h2>
                 <div class="booking-container">
                     <div class="calendar-wrapper">
-                        <input type="text" id="booking-calendar" placeholder="Selecciona una fecha y hora" class="booking-input">
+                        <input type="text" id="booking-calendar" placeholder="Selecciona una fecha y hora" class="schedule-input">
                     </div>
                     <div class="booking-info">
                         <h3>Detalles de la Reserva</h3>
                         <p>Duración: 1 hora</p>
                         <p>Precio: $99.99</p>
                         <div id="selected-datetime"></div>
-                        <button id="confirm-booking" class="cta-button">Confirmar Reserva</button>
+                        <button id="confirm-booking" class="btn-nueva-alerta">CONFIRMAR RESERVA</button>
                     </div>
                 </div>
             </div>
@@ -72,6 +72,43 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#booking-calendar", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            locale: "es",
+            minTime: "09:00",
+            maxTime: "18:00",
+            disable: [
+                function(date) {
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ],
+            onChange: function(selectedDates) {
+                const confirmBtn = document.getElementById('confirm-booking');
+                const selectedDatetimeDiv = document.getElementById('selected-datetime');
+                if (selectedDates.length > 0) {
+                    const formattedDate = selectedDates[0].toLocaleString('es-ES', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    selectedDatetimeDiv.textContent = `Fecha seleccionada: ${formattedDate}`;
+                    confirmBtn.disabled = false;
+                } else {
+                    selectedDatetimeDiv.textContent = '';
+                    confirmBtn.disabled = true;
+                }
+            }
+        });
+    });
+    </script>
     <script src="https://apis.google.com/js/api.js"></script>
     <script src="/js/animations.js"></script>
     <script src="/js/navbar.js"></script>
