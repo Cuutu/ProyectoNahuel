@@ -78,4 +78,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Cargar clases al iniciar
     loadUpcomingClasses();
+
+    const confirmBtn = document.getElementById('confirm-booking');
+    
+    confirmBtn.addEventListener('click', async function() {
+        const selectedDate = calendar.selectedDates[0];
+        
+        if (!selectedDate) {
+            alert('Por favor selecciona una fecha y hora');
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/mentoring/book', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    date: selectedDate.toISOString(),
+                    duration: '1 hora',
+                    price: 99.99
+                })
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Reserva confirmada exitosamente');
+                window.location.href = '/dashboard'; // Redirige al dashboard
+            } else {
+                throw new Error('Error al procesar la reserva');
+            }
+        } catch (error) {
+            alert('Error al procesar la reserva: ' + error.message);
+        }
+    });
 }); 
