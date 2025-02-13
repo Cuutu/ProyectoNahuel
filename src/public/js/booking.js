@@ -16,48 +16,37 @@ document.addEventListener('DOMContentLoaded', function() {
     // Aplicar la configuración en español globalmente
     flatpickr.localize(spanishConfig);
 
-    const calendar = flatpickr("#schedule-calendar", {
+    const calendar = flatpickr("#booking-calendar", {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         minDate: "today",
-        inline: true,
-        time_24hr: true,
-        minuteIncrement: 30,
+        locale: "es",
         minTime: "09:00",
         maxTime: "18:00",
-        locale: spanishConfig,
-        showMonths: 1,
         disable: [
             function(date) {
                 return (date.getDay() === 0 || date.getDay() === 6);
             }
         ],
-        hideDisabled: true,
-        onChange: function(selectedDates, dateStr) {
+        onChange: function(selectedDates) {
+            const confirmBtn = document.getElementById('confirm-booking');
+            const selectedDatetimeDiv = document.getElementById('selected-datetime');
             if (selectedDates.length > 0) {
-                const date = selectedDates[0];
-                if (date.getDay() === 0 || date.getDay() === 6) {
-                    this.clear();
-                }
+                const formattedDate = selectedDates[0].toLocaleString('es-ES', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+                selectedDatetimeDiv.textContent = `Fecha seleccionada: ${formattedDate}`;
+                confirmBtn.disabled = false;
+            } else {
+                selectedDatetimeDiv.textContent = '';
+                confirmBtn.disabled = true;
             }
         }
-    });
-
-    // Manejador para el botón de agendar
-    document.getElementById('schedule-class').addEventListener('click', function() {
-        const selectedDate = calendar.selectedDates[0];
-        if (!selectedDate) {
-            alert('Por favor selecciona una fecha y hora para la clase');
-            return;
-        }
-        alert(`Clase agendada para: ${selectedDate.toLocaleString('es-ES', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        })}`);
     });
 
     // Función para cargar las próximas clases
@@ -79,8 +68,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar clases al iniciar
     loadUpcomingClasses();
 
+    // Agregar el event listener al botón
     const confirmBtn = document.getElementById('confirm-booking');
-    
     confirmBtn.addEventListener('click', async function() {
         const selectedDate = calendar.selectedDates[0];
         
@@ -93,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const response = await fetch('/api/mentoring/book', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
                     date: selectedDate.toISOString(),
@@ -102,14 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
 
-            if (response.ok) {
-                const result = await response.json();
-                alert('Reserva confirmada exitosamente');
-                window.location.href = '/dashboard'; // Redirige al dashboard
-            } else {
+            if (!response.ok) {
                 throw new Error('Error al procesar la reserva');
             }
+
+            const result = await response.json();
+            if (result.success) {
+                alert('Reserva confirmada exitosamente');
+                window.location.href = '/dashboard';
+            } else {
+                throw new Error(result.error || 'Error al procesar la reserva');
+            }
         } catch (error) {
+            console.error('Error:', error);
             alert('Error al procesar la reserva: ' + error.message);
         }
     });
