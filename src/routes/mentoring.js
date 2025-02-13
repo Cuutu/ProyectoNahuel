@@ -1,15 +1,25 @@
 const express = require('express');
 const router = express.Router();
 const Mentoring = require('../models/mentoring');
-const auth = require('../middleware/auth');
 
-router.post('/api/mentoring/book', auth, async (req, res) => {
+// Middleware para verificar autenticación
+const isAuthenticated = (req, res, next) => {
+    if (req.session && req.session.user) {
+        return next();
+    }
+    res.status(401).json({
+        success: false,
+        error: 'Usuario no autenticado'
+    });
+};
+
+router.post('/api/mentoring/book', isAuthenticated, async (req, res) => {
     try {
         const mentoring = new Mentoring({
-            userId: req.user.id,
+            userId: req.session.user._id,
             date: new Date(req.body.date),
-            duration: req.body.duration,
-            price: req.body.price,
+            duration: '1 hora',
+            price: 99.99,
             status: 'pending'
         });
 
@@ -20,9 +30,12 @@ router.post('/api/mentoring/book', auth, async (req, res) => {
             mentoring: mentoring
         });
     } catch (error) {
+        console.error('Error al crear mentoría:', error);
         res.status(500).json({
             success: false,
-            error: error.message
+            error: 'Error al procesar la reserva'
         });
     }
-}); 
+});
+
+module.exports = router; 

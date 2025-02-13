@@ -92,6 +92,7 @@ const resourceRoutes = require('./src/routes/resourceRoutes');
 const apiRoutes = require('./src/routes/apiRoutes');
 const paymentRoutes = require('./src/routes/paymentRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const mentoringRoutes = require('./src/routes/mentoring');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
@@ -102,6 +103,7 @@ app.use('/payment', paymentRoutes);
 app.use('/recursos', resourceRoutes);
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
+app.use('/', mentoringRoutes);
 
 // Ruta principal
 app.get('/', (req, res) => {

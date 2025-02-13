@@ -84,21 +84,26 @@ document.addEventListener('DOMContentLoaded', function() {
                 },
                 body: JSON.stringify({
                     date: selectedDate.toISOString()
-                })
+                }),
+                credentials: 'same-origin' // Importante para enviar cookies de sesión
             });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'Error al procesar la reserva');
+            }
 
             const data = await response.json();
 
             if (data.success) {
                 alert('¡Reserva confirmada exitosamente!');
-                // Opcional: redirigir a una página de confirmación
-                window.location.href = '/booking/success';
+                window.location.href = '/asesoramientos?success=true';
             } else {
                 throw new Error(data.error || 'Error al procesar la reserva');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Hubo un error al procesar tu reserva. Por favor intenta nuevamente.');
+            alert('Error al procesar la reserva: ' + error.message);
         }
     });
 }); 
