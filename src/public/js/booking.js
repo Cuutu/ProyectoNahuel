@@ -69,46 +69,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Agregar el event listener al botón
     confirmBtn.addEventListener('click', async function() {
-        if (!calendar) {
-            alert('Error: El calendario no está inicializado');
-            return;
-        }
-
-        const selectedDate = calendar.selectedDates[0];
-        
-        if (!selectedDate) {
-            alert('Por favor selecciona una fecha y hora');
-            return;
-        }
-
         try {
+            const selectedDate = calendar.selectedDates[0];
+            
+            if (!selectedDate) {
+                alert('Por favor selecciona una fecha y hora');
+                return;
+            }
+
             const response = await fetch('/api/mentoring/book', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    date: selectedDate.toISOString(),
-                    duration: '1 hora',
-                    price: 99.99
+                    date: selectedDate.toISOString()
                 })
             });
 
-            if (!response.ok) {
-                throw new Error('Error al procesar la reserva');
-            }
+            const data = await response.json();
 
-            const result = await response.json();
-            if (result.success) {
-                alert('Reserva confirmada exitosamente');
-                window.location.href = '/dashboard';
+            if (data.success) {
+                alert('¡Reserva confirmada exitosamente!');
+                // Opcional: redirigir a una página de confirmación
+                window.location.href = '/booking/success';
             } else {
-                throw new Error(result.error || 'Error al procesar la reserva');
+                throw new Error(data.error || 'Error al procesar la reserva');
             }
         } catch (error) {
             console.error('Error:', error);
-            alert('Error al procesar la reserva: ' + error.message);
+            alert('Hubo un error al procesar tu reserva. Por favor intenta nuevamente.');
         }
     });
 }); 
