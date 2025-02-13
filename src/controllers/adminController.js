@@ -131,6 +131,38 @@ const adminController = {
             });
         }
     },
+
+    getMemberships: async (req, res) => {
+        try {
+            const users = await User.find({});
+            
+            const totalActivos = users.filter(user => 
+                user.membresias?.servicios !== 'free' || 
+                user.membresias?.entrenamientos !== 'free' ||
+                user.membresias?.asesoramiento
+            ).length;
+            
+            const totalServicios = users.filter(user => 
+                user.membresias?.servicios && 
+                user.membresias.servicios !== 'free'
+            ).length;
+            
+            const totalEntrenamientos = users.filter(user => 
+                user.membresias?.entrenamientos && 
+                user.membresias.entrenamientos !== 'free'
+            ).length;
+
+            res.render('admin/memberships', {
+                users,
+                totalActivos,
+                totalServicios,
+                totalEntrenamientos
+            });
+        } catch (error) {
+            console.error('Error al obtener membresías:', error);
+            res.status(500).render('error', { message: 'Error al cargar membresías' });
+        }
+    },
 };
 
 module.exports = adminController; 
