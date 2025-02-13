@@ -26,7 +26,7 @@ router.post('/v1/classes', async (req, res) => {
         res.json({ success: true, message: 'Clase agendada correctamente' });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ success: false, error: 'Error al agendar la clase' });
+        res.status(500).json({ success: false, error: 'Error al agendar la clase.' });
     }
 });
 
