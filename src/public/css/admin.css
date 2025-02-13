@@ -5,7 +5,7 @@
     background: #f5f5f5;
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 2rem;
+    padding: 2rem;
 }
 
 .admin-sidebar {
@@ -1099,4 +1099,161 @@ table tr:hover td {
         display: block;
         overflow-x: auto;
     }
+}
+
+/* Estilos generales de la página */
+.admin-container {
+    padding: 2rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #1a1a1a;
+}
+
+/* Estilos de las tarjetas de estadísticas */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Estilos de la tabla */
+.table-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background: #f5f5f5;
+    padding: 1rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.table td {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+}
+
+/* Badges de membresía */
+.membership-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin: 0.25rem;
+}
+
+.membership-badge.servicios {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.membership-badge.entrenamientos {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.membership-badge.asesoramiento {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.membership-badge.free {
+    background-color: #f5f5f5;
+    color: #757575;
+}
+
+.membership-badge small {
+    display: block;
+    font-size: 0.75rem;
+    opacity: 0.8;
+}
+
+/* Botones de acción */
+.btn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Estados */
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+}
+
+.status-badge.active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+}
+
+.status-badge.warning {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.status-badge.status-confirmed {
+    background-color: #e3f2fd;
+    color: #1976d2;
+}
+
+.status-badge.status-pending {
+    background-color: #fff3e0;
+    color: #f57c00;
+}
+
+.status-badge.status-cancelled {
+    background-color: #ffebee;
+    color: #c62828;
 } 
