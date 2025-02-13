@@ -12,11 +12,11 @@ const mentoringSchema = new mongoose.Schema({
     },
     duration: {
         type: String,
-        required: true
+        default: '1 hora'
     },
     price: {
         type: Number,
-        required: true
+        default: 99.99
     },
     status: {
         type: String,

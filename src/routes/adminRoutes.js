@@ -4,6 +4,7 @@ const User = require('../models/User');
 const Update = require('../models/Update');
 const adminController = require('../controllers/adminController');
 const { isAdmin } = require('../middleware/auth');
+const Mentoring = require('../models/mentoring');
 
 // Middleware para verificar si es admin
 const isAdminMiddleware = (req, res, next) => {
@@ -100,6 +101,9 @@ router.get('/users', async (req, res) => {
 router.get('/memberships', async (req, res) => {
     try {
         const users = await User.find({});
+        const mentorings = await Mentoring.find()
+            .populate('userId', 'nombre apellido email')
+            .sort({ date: 1 });
         
         // Función auxiliar para verificar si una membresía está activa (no es free)
         const isMembresiaActiva = (user) => {
@@ -144,17 +148,33 @@ router.get('/memberships', async (req, res) => {
                 })
             },
             // Total de usuarios con alguna membresía paga activa
-            total_activos: users.filter(isMembresiaActiva).length
+            total_activos: users.filter(isMembresiaActiva).length,
+            // Agregar estadísticas de mentorías
+            mentorias: {
+                pendientes: mentorings.filter(m => m.status === 'pending').length,
+                confirmadas: mentorings.filter(m => m.status === 'confirmed').length,
+                completadas: mentorings.filter(m => m.status === 'completed').length,
+                total: mentorings.length
+            }
         };
 
         // Filtrar solo usuarios con membresías pagas
         const usuariosActivos = users.filter(isMembresiaActiva);
 
-        res.render('admin/memberships/index', {
+        res.render('admin/memberships', { 
+            users, 
             stats,
-            users: usuariosActivos,
-            user: req.user,
-            isAuthenticated: true
+            mentorings,
+            formatDate: (date) => {
+                return new Date(date).toLocaleString('es-ES', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
+            }
         });
     } catch (error) {
         console.error('Error al obtener membresías:', error);
