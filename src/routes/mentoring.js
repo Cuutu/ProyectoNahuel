@@ -38,4 +38,35 @@ router.post('/api/mentoring/book', isAuthenticated, async (req, res) => {
     }
 });
 
+router.put('/api/mentoring/:id/status', isAuthenticated, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+
+        const mentoring = await Mentoring.findByIdAndUpdate(
+            id,
+            { status },
+            { new: true }
+        );
+
+        if (!mentoring) {
+            return res.status(404).json({
+                success: false,
+                error: 'Mentoría no encontrada'
+            });
+        }
+
+        res.json({
+            success: true,
+            mentoring
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Error al actualizar el estado de la mentoría'
+        });
+    }
+});
+
 module.exports = router; 

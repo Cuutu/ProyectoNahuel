@@ -112,7 +112,7 @@ router.get('/memberships', async (req, res) => {
                    user.membresias?.asesoramiento === true;
         };
 
-        // Estadísticas de membresías
+        // Estadísticas de membresías y mentorías
         const stats = {
             // Servicios
             servicios: {
@@ -140,48 +140,30 @@ router.get('/memberships', async (req, res) => {
             },
             // Asesoramiento
             asesoramiento: {
-                activos: users.filter(u => u.membresias?.asesoramiento === true).length,
-                proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoAsesoramiento || !u.membresias.asesoramiento) return false;
-                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoAsesoramiento) - new Date()) / (1000 * 60 * 60 * 24));
-                    return diasRestantes <= 7 && diasRestantes > 0;
-                })
+                activos: mentorings.filter(m => m.status === 'pending' || m.status === 'confirmed').length,
+                completados: mentorings.filter(m => m.status === 'completed').length,
+                cancelados: mentorings.filter(m => m.status === 'cancelled').length,
+                total: mentorings.length
             },
             // Total de usuarios con alguna membresía paga activa
-            total_activos: users.filter(isMembresiaActiva).length,
-            // Agregar estadísticas de mentorías
-            mentorias: {
-                pendientes: mentorings.filter(m => m.status === 'pending').length,
-                confirmadas: mentorings.filter(m => m.status === 'confirmed').length,
-                completadas: mentorings.filter(m => m.status === 'completed').length,
-                total: mentorings.length
-            }
+            total_activos: users.filter(isMembresiaActiva).length
         };
 
         // Filtrar solo usuarios con membresías pagas
         const usuariosActivos = users.filter(isMembresiaActiva);
 
-        res.render('admin/memberships', { 
-            users, 
-            stats,
+        res.render('admin/memberships', {
+            users: usuariosActivos,
             mentorings,
-            formatDate: (date) => {
-                return new Date(date).toLocaleString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-            }
+            stats,
+            title: 'Gestión de Membresías',
+            user: req.user
         });
     } catch (error) {
-        console.error('Error al obtener membresías:', error);
-        res.render('error', {
-            message: 'Error al cargar membresías.',
-            user: req.user,
-            isAuthenticated: true
+        console.error('Error:', error);
+        res.status(500).render('error', { 
+            message: 'Error al cargar la página',
+            user: req.user
         });
     }
 });
