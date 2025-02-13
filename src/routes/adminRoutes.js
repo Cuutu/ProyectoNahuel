@@ -149,11 +149,8 @@ router.get('/memberships', async (req, res) => {
             total_activos: users.filter(isMembresiaActiva).length
         };
 
-        // Filtrar solo usuarios con membresías pagas
-        const usuariosActivos = users.filter(isMembresiaActiva);
-
         res.render('admin/memberships', {
-            users: usuariosActivos,
+            users: users,
             mentorings,
             stats,
             title: 'Gestión de Membresías',
