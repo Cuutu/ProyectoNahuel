@@ -1,53 +1,52 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Forzar la configuración en español
-    const spanishConfig = {
-        weekdays: {
-            shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-        },
-        months: {
-            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-        },
-        firstDayOfWeek: 1,
-        time_24hr: true
-    };
+    // Primero verificamos que estemos en la página correcta
+    const bookingCalendar = document.getElementById('booking-calendar');
+    const confirmBtn = document.getElementById('confirm-booking');
+    
+    if (!bookingCalendar || !confirmBtn) {
+        console.log('No estamos en la página de reservas');
+        return; // Si no estamos en la página de reservas, salimos
+    }
 
-    // Aplicar la configuración en español globalmente
-    flatpickr.localize(spanishConfig);
+    let calendar;
+    try {
+        calendar = flatpickr("#booking-calendar", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            locale: "es",
+            minTime: "09:00",
+            maxTime: "18:00",
+            disable: [
+                function(date) {
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ],
+            onChange: function(selectedDates) {
+                const selectedDatetimeDiv = document.getElementById('selected-datetime');
+                if (!selectedDatetimeDiv) return;
 
-    const calendar = flatpickr("#booking-calendar", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-        minDate: "today",
-        locale: "es",
-        minTime: "09:00",
-        maxTime: "18:00",
-        disable: [
-            function(date) {
-                return (date.getDay() === 0 || date.getDay() === 6);
+                if (selectedDates.length > 0) {
+                    const formattedDate = selectedDates[0].toLocaleString('es-ES', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    selectedDatetimeDiv.textContent = `Fecha seleccionada: ${formattedDate}`;
+                    confirmBtn.disabled = false;
+                } else {
+                    selectedDatetimeDiv.textContent = '';
+                    confirmBtn.disabled = true;
+                }
             }
-        ],
-        onChange: function(selectedDates) {
-            const confirmBtn = document.getElementById('confirm-booking');
-            const selectedDatetimeDiv = document.getElementById('selected-datetime');
-            if (selectedDates.length > 0) {
-                const formattedDate = selectedDates[0].toLocaleString('es-ES', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                });
-                selectedDatetimeDiv.textContent = `Fecha seleccionada: ${formattedDate}`;
-                confirmBtn.disabled = false;
-            } else {
-                selectedDatetimeDiv.textContent = '';
-                confirmBtn.disabled = true;
-            }
-        }
-    });
+        });
+    } catch (error) {
+        console.error('Error inicializando el calendario:', error);
+        return;
+    }
 
     // Función para cargar las próximas clases
     function loadUpcomingClasses() {
@@ -69,8 +68,12 @@ document.addEventListener('DOMContentLoaded', function() {
     loadUpcomingClasses();
 
     // Agregar el event listener al botón
-    const confirmBtn = document.getElementById('confirm-booking');
     confirmBtn.addEventListener('click', async function() {
+        if (!calendar) {
+            alert('Error: El calendario no está inicializado');
+            return;
+        }
+
         const selectedDate = calendar.selectedDates[0];
         
         if (!selectedDate) {
