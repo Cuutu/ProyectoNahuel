@@ -105,53 +105,37 @@ router.get('/memberships', async (req, res) => {
             .populate('userId', 'nombre apellido email')
             .sort({ date: 1 });
         
-        // Función auxiliar para verificar si una membresía está activa (no es free)
-        const isMembresiaActiva = (user) => {
-            return (user.membresias?.servicios && user.membresias.servicios !== 'free') || 
-                   (user.membresias?.entrenamientos && user.membresias.entrenamientos !== 'free') || 
-                   user.membresias?.asesoramiento === true;
-        };
+        // Calcular estadísticas
+        const totalActivos = users.filter(user => 
+            user.membresias?.servicios !== 'free' || 
+            user.membresias?.entrenamientos !== 'free' ||
+            user.membresias?.asesoramiento
+        ).length;
+        
+        const totalServicios = users.filter(user => 
+            user.membresias?.servicios && 
+            user.membresias.servicios !== 'free'
+        ).length;
+        
+        const totalEntrenamientos = users.filter(user => 
+            user.membresias?.entrenamientos && 
+            user.membresias.entrenamientos !== 'free'
+        ).length;
 
-        // Estadísticas de membresías y mentorías
+        // Estadísticas de asesoramiento
         const stats = {
-            // Servicios
-            servicios: {
-                basic: users.filter(u => u.membresias?.servicios === 'basic').length,
-                premium: users.filter(u => u.membresias?.servicios === 'premium').length,
-                pro: users.filter(u => u.membresias?.servicios === 'pro').length,
-                total: users.filter(u => u.membresias?.servicios && u.membresias.servicios !== 'free').length,
-                proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoServicios || u.membresias.servicios === 'free') return false;
-                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24));
-                    return diasRestantes <= 7 && diasRestantes > 0;
-                })
-            },
-            // Entrenamientos
-            entrenamientos: {
-                basic: users.filter(u => u.membresias?.entrenamientos === 'basic').length,
-                premium: users.filter(u => u.membresias?.entrenamientos === 'premium').length,
-                pro: users.filter(u => u.membresias?.entrenamientos === 'pro').length,
-                total: users.filter(u => u.membresias?.entrenamientos && u.membresias.entrenamientos !== 'free').length,
-                proximos_vencer: users.filter(u => {
-                    if (!u.membresias?.vencimientoEntrenamientos || u.membresias.entrenamientos === 'free') return false;
-                    const diasRestantes = Math.ceil((new Date(u.membresias.vencimientoEntrenamientos) - new Date()) / (1000 * 60 * 60 * 24));
-                    return diasRestantes <= 7 && diasRestantes > 0;
-                })
-            },
-            // Asesoramiento
             asesoramiento: {
                 activos: mentorings.filter(m => m.status === 'pending' || m.status === 'confirmed').length,
-                completados: mentorings.filter(m => m.status === 'completed').length,
-                cancelados: mentorings.filter(m => m.status === 'cancelled').length,
                 total: mentorings.length
-            },
-            // Total de usuarios con alguna membresía paga activa
-            total_activos: users.filter(isMembresiaActiva).length
+            }
         };
 
         res.render('admin/memberships', {
-            users: users,
+            users,
             mentorings,
+            totalActivos,
+            totalServicios,
+            totalEntrenamientos,
             stats,
             title: 'Gestión de Membresías',
             user: req.user
