@@ -1425,4 +1425,35 @@ table tr:hover td {
         display: block;
         overflow-x: auto;
     }
+}
+
+.membership-section {
+    margin-top: 2rem;
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.membership-section h3 {
+    color: #333;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #00ff88;
+}
+
+.table-responsive {
+    margin-top: 1rem;
+}
+
+.btn-edit i {
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .membership-section {
+        margin: 1rem;
+        padding: 1rem;
+    }
 } 

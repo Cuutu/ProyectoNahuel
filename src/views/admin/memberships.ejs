@@ -31,41 +31,82 @@
             </div>
         </div>
 
-        <div class="table-responsive">
-            <table class="memberships-table">
-                <thead>
-                    <tr>
-                        <th>Usuario</th>
-                        <th>Tipo</th>
-                        <th>Plan</th>
-                        <th>Vencimiento</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% users.forEach(user => { %>
-                        <tr class="membership-row">
-                            <td><%= user.nombre %> <%= user.apellido %></td>
-                            <td><%= user.membresias?.tipo || 'No especificado' %></td>
-                            <td><%= user.membresias?.plan?.toUpperCase() || 'FREE' %></td>
-                            <td><%= user.membresias?.vencimiento ? new Date(user.membresias.vencimiento).toLocaleDateString() : 'Sin fecha' %></td>
-                            <td>
-                                <% const diasRestantes = user.membresias?.vencimiento ? 
-                                    Math.ceil((new Date(user.membresias.vencimiento) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
-                                <span class="status-badge <%= diasRestantes <= 7 ? 'warning' : 'active' %>">
-                                    <%= diasRestantes <= 7 ? 'Por vencer' : 'Activo' %>
-                                </span>
-                            </td>
-                            <td>
-                                <button class="btn-edit" onclick="editarMembresia('<%= user._id %>')">
-                                    Editar
-                                </button>
-                            </td>
+        <!-- Sección de Servicios -->
+        <div class="membership-section">
+            <h3>Servicios Activos</h3>
+            <div class="table-responsive">
+                <table class="memberships-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Plan</th>
+                            <th>Vencimiento</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
                         </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        <% users.filter(user => user.membresias?.servicios && user.membresias.servicios !== 'free').forEach(user => { %>
+                            <tr class="membership-row">
+                                <td><%= user.nombre %> <%= user.apellido %></td>
+                                <td><%= user.membresias.servicios.toUpperCase() %></td>
+                                <td><%= user.membresias.vencimientoServicios ? new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 'Sin fecha' %></td>
+                                <td>
+                                    <% const diasRestantesServ = user.membresias.vencimientoServicios ? 
+                                        Math.ceil((new Date(user.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
+                                    <span class="status-badge <%= diasRestantesServ <= 7 ? 'warning' : 'active' %>">
+                                        <%= diasRestantesServ <= 7 ? 'Por vencer' : 'Activo' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn-edit" onclick="editarMembresia('<%= user._id %>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Sección de Entrenamientos -->
+        <div class="membership-section">
+            <h3>Entrenamientos Activos</h3>
+            <div class="table-responsive">
+                <table class="memberships-table">
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Plan</th>
+                            <th>Vencimiento</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.filter(user => user.membresias?.entrenamientos && user.membresias.entrenamientos !== 'free').forEach(user => { %>
+                            <tr class="membership-row">
+                                <td><%= user.nombre %> <%= user.apellido %></td>
+                                <td><%= user.membresias.entrenamientos.toUpperCase() %></td>
+                                <td><%= user.membresias.vencimientoEntrenamientos ? new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() : 'Sin fecha' %></td>
+                                <td>
+                                    <% const diasRestantesEnt = user.membresias.vencimientoEntrenamientos ? 
+                                        Math.ceil((new Date(user.membresias.vencimientoEntrenamientos) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
+                                    <span class="status-badge <%= diasRestantesEnt <= 7 ? 'warning' : 'active' %>">
+                                        <%= diasRestantesEnt <= 7 ? 'Por vencer' : 'Activo' %>
+                                    </span>
+                                </td>
+                                <td>
+                                    <button class="btn-edit" onclick="editarMembresia('<%= user._id %>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
