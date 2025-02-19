@@ -2,10 +2,10 @@ const servicesController = {
     getSignals: async (req, res) => {
         try {
             res.render('services/signals', {
-                title: "Señales Premium",
+                title: "Trader Call",
                 user: req.session.user,
                 service: {
-                    name: "Señales Premium",
+                    name: "Trader Call",
                     description: "Señales de trading en tiempo real con alta precisión",
                     price: "99.99",
                     features: [
@@ -41,19 +41,19 @@ const servicesController = {
                     signals: {
                         count: 1500,
                         label: 'Traders Activos',
-                        description: 'en Señales Premium',
+                        description: 'en Trader Call',
                         icon: '👥'
                     },
                     mentoring: {
                         count: 500,
                         label: 'Alumnos',
-                        description: 'en Mentoría PRO',
+                        description: 'en Smart Money',
                         icon: '👨‍🏫'
                     },
                     community: {
                         count: 2500,
                         label: 'Miembros VIP',
-                        description: 'en nuestra Comunidad',
+                        description: 'en Dividend King',
                         icon: '🌟'
                     }
                 }

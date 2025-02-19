@@ -20,11 +20,11 @@ router.get('/senales-premium', async (req, res) => {
     
     if (!userSession) {
         return res.render('services/signals', {
-            title: 'Señales Premium',
+            title: 'Trader Call',
             user: null,
             hasActiveSubscription: false,
             service: {
-                name: "Señales Premium",
+                name: "Trader Call",
                 description: "Señales de trading en tiempo real con alta precisión",
                 price: "99.99",
                 features: [
@@ -54,11 +54,11 @@ router.get('/senales-premium', async (req, res) => {
     }
 
     res.render('services/signals', {
-        title: 'Señales Premium',
+        title: 'Trader Call',
         user: userSession,
         hasActiveSubscription: !!activeSubscription,
         service: {
-            name: "Señales Premium",
+            name: "Trader Call",
             description: "Señales de trading en tiempo real con alta precisión",
             price: "99.99",
             features: [
@@ -75,10 +75,10 @@ router.get('/mentoria-pro', (req, res) => {
     const userSession = req.session.user;
     
     res.render('services/mentoring', {
-        title: 'Mentoría Pro',
+        title: 'Smart Money',
         user: userSession,
         service: {
-            name: "Mentoría Pro",
+            name: "Smart Money",
             description: "Mentoría personalizada para traders avanzados",
             price: "199.99",
             features: [
@@ -95,10 +95,10 @@ router.get('/comunidad-vip', (req, res) => {
     const userSession = req.session.user;
     
     res.render('services/community', {
-        title: 'Comunidad VIP',
+        title: 'Dividend King',
         user: userSession,
         service: {
-            name: "Comunidad VIP",
+            name: "Dividend King",
             description: "Comunidad de traders avanzados para intercambiar ideas",
             price: "49.99",
             features: [
