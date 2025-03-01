@@ -1,4 +1,5 @@
 const { google } = require('googleapis');
+require('dotenv').config();
 
 // Crear cliente OAuth2
 const oauth2Client = new google.auth.OAuth2(
@@ -13,6 +14,9 @@ oauth2Client.setCredentials({
 });
 
 // Crear cliente de calendario
-const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
+const calendar = google.calendar({ 
+    version: 'v3', 
+    auth: oauth2Client 
+});
 
-module.exports = { calendar }; 
+module.exports = { oauth2Client, calendar }; 

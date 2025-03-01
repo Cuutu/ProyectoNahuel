@@ -2,6 +2,14 @@ const express = require('express');
 const router = express.Router();
 const passport = require('passport');
 const authController = require('../controllers/authController');
+const { google } = require('googleapis');
+require('dotenv').config();
+
+const oauth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_CLIENT_ID_2,
+    process.env.GOOGLE_CLIENT_SECRET_2,
+    process.env.GOOGLE_REDIRECT_URI
+);
 
 // Rutas de registro
 router.get('/register', (req, res) => {
@@ -38,25 +46,28 @@ router.get('/google',
     })
 );
 
-router.get('/google/callback',
-    passport.authenticate('google', { 
-        failureRedirect: '/auth/login',
-        failureFlash: true
-    }),
-    (req, res, next) => {
-        console.log('Callback de Google ejecutado');
-        console.log('Usuario autenticado:', req.user?._id);
+router.get('/auth/google/callback', async (req, res) => {
+    const { code } = req.query;
+    
+    try {
+        const { tokens } = await oauth2Client.getToken(code);
+        console.log('Nuevo Refresh Token:', tokens.refresh_token);
         
-        // Forzar guardado de sesión
-        req.session.save((err) => {
-            if (err) {
-                console.error('Error al guardar sesión:', err);
-                return next(err);
-            }
-            console.log('Sesión guardada correctamente');
-            res.redirect('/');
-        });
+        // Guardar el token en una variable de entorno temporal
+        process.env.GOOGLE_REFRESH_TOKEN = tokens.refresh_token;
+        
+        res.send(`
+            <h1>Autorización Exitosa</h1>
+            <p>Tu refresh token es: ${tokens.refresh_token}</p>
+            <p>Por favor, guarda este token en tus variables de entorno (.env)</p>
+            <script>
+                console.log("Refresh Token:", "${tokens.refresh_token}");
+            </script>
+        `);
+    } catch (error) {
+        console.error('Error al obtener tokens:', error);
+        res.status(500).send('Error al procesar la autorización');
     }
-);
+});
 
 module.exports = router; 

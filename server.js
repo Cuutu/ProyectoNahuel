@@ -96,7 +96,7 @@ const mentoringRoutes = require('./src/routes/mentoring');
 const cursosRoutes = require('./src/routes/cursosRoutes');
 const indexRoutes = require('./src/routes/index');
 
-app.use('/auth', authRoutes);
+app.use('/', authRoutes);
 app.use('/user', userRoutes);
 app.use('/alertas', serviceRoutes);
 app.use('/entrenamientos', trainingRoutes);
