@@ -4,11 +4,23 @@ const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
 const { oauth2Client, calendar } = require('../config/googleAuth');
+const mongoose = require('mongoose');
+
+// Asegurarse de que MongoDB esté conectado
+const connectDB = async () => {
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('MongoDB conectado');
+    } catch (error) {
+        console.error('Error conectando a MongoDB:', error);
+        throw error;
+    }
+};
 
 // Obtener todas las clases
 router.get('/v1/classes', async (req, res) => {
     try {
-        // Aquí iría la lógica para obtener las clases
+        await connectDB();
         res.json({ 
             success: true, 
             classes: [] 
@@ -84,6 +96,8 @@ router.post('/subscribe', handleSubscription);
 // Obtener horarios ocupados
 router.get('/booked-slots', async (req, res) => {
     try {
+        await connectDB();
+        
         const response = await calendar.events.list({
             calendarId: 'primary',
             timeMin: new Date().toISOString(),
@@ -106,6 +120,8 @@ router.get('/booked-slots', async (req, res) => {
 // Reservar turno
 router.post('/book-appointment', isAuthenticated, async (req, res) => {
     try {
+        await connectDB();
+        
         const { datetime } = req.body;
         
         const event = {
