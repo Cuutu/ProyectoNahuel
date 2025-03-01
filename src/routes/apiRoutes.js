@@ -3,7 +3,7 @@ const router = express.Router();
 const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
-const { oauth2Client } = require('../config/googleAuth');
+const { oauth2Client, calendar } = require('../config/googleAuth');
 
 // Obtener todas las clases
 router.get('/v1/classes', async (req, res) => {
@@ -82,10 +82,61 @@ router.get('/favicon.ico', (req, res) => {
 router.post('/subscribe', handleSubscription);
 
 // Obtener horarios ocupados
-router.get('/booked-slots', appointmentController.getBookedSlots);
+router.get('/booked-slots', async (req, res) => {
+    try {
+        const response = await calendar.events.list({
+            calendarId: 'primary',
+            timeMin: new Date().toISOString(),
+            maxResults: 10,
+            singleEvents: true,
+            orderBy: 'startTime',
+        });
+
+        const events = response.data.items;
+        res.json({ success: true, events });
+    } catch (error) {
+        console.error('Error al obtener eventos:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: 'Error al obtener horarios ocupados' 
+        });
+    }
+});
 
 // Reservar turno
-router.post('/book-appointment', isAuthenticated, appointmentController.bookAppointment);
+router.post('/book-appointment', isAuthenticated, async (req, res) => {
+    try {
+        const { datetime } = req.body;
+        
+        const event = {
+            summary: 'Consultoría',
+            start: {
+                dateTime: datetime,
+                timeZone: 'America/Argentina/Buenos_Aires',
+            },
+            end: {
+                dateTime: new Date(new Date(datetime).getTime() + 60*60*1000).toISOString(),
+                timeZone: 'America/Argentina/Buenos_Aires',
+            },
+        };
+
+        const response = await calendar.events.insert({
+            calendarId: 'primary',
+            resource: event,
+        });
+
+        res.json({ 
+            success: true, 
+            event: response.data 
+        });
+    } catch (error) {
+        console.error('Error al crear evento:', error);
+        res.status(500).json({ 
+            success: false, 
+            error: 'Error al reservar el turno' 
+        });
+    }
+});
 
 // Genera la URL de autorización
 const url = oauth2Client.generateAuthUrl({
