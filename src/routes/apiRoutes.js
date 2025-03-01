@@ -4,6 +4,7 @@ const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
 const { google } = require('googleapis');
+const connectDB = require('../config/database');
 
 // Obtener todas las clases
 router.get('/v1/classes', async (req, res) => {
@@ -73,11 +74,16 @@ router.get('/favicon.ico', (req, res) => {
 // Nueva ruta para suscripciones
 router.post('/subscribe', handleSubscription);
 
-// Obtener horarios ocupados
-router.get('/booked-slots', appointmentController.getBookedSlots);
+// Asegurarse de que la conexión esté establecida antes de usar oauth2Client
+connectDB().then(() => {
+    // Obtener horarios ocupados
+    router.get('/booked-slots', appointmentController.getBookedSlots);
 
-// Reservar turno
-router.post('/book-appointment', isAuthenticated, appointmentController.bookAppointment);
+    // Reservar turno
+    router.post('/book-appointment', isAuthenticated, appointmentController.bookAppointment);
+}).catch(err => {
+    console.error('Error al conectar con MongoDB:', err);
+});
 
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
