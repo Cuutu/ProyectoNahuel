@@ -3,7 +3,7 @@ const router = express.Router();
 const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
-const { oauth2Client, calendar } = require('../config/googleAuth');
+const { oauth2Client, getAuthenticatedCalendar } = require('../config/googleAuth');
 const mongoose = require('mongoose');
 
 // Asegurarse de que MongoDB esté conectado
@@ -96,6 +96,7 @@ router.post('/subscribe', handleSubscription);
 // Obtener horarios ocupados
 router.get('/booked-slots', async (req, res) => {
     try {
+        const calendar = await getAuthenticatedCalendar();
         const response = await calendar.events.list({
             calendarId: 'primary',
             timeMin: new Date().toISOString(),
@@ -127,6 +128,7 @@ router.post('/book-appointment', isAuthenticated, async (req, res) => {
     }
 
     try {
+        const calendar = await getAuthenticatedCalendar();
         const { datetime } = req.body;
         
         const event = {
