@@ -3,8 +3,8 @@ const Appointment = require('../models/Appointment');
 
 // Configurar cliente de Google Calendar
 const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
+    process.env.GOOGLE_CLIENT_ID_2,
+    process.env.GOOGLE_CLIENT_SECRET_2,
     process.env.GOOGLE_REDIRECT_URI
 );
 
