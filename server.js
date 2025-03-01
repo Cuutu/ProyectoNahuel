@@ -141,5 +141,4 @@ app.listen(PORT, () => {
         .filter(r => r.route)
         .map(r => `${Object.keys(r.route.methods)} ${r.route.path}`));
 });
-
 module.exports = app;

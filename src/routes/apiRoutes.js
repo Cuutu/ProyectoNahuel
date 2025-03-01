@@ -96,8 +96,6 @@ router.post('/subscribe', handleSubscription);
 // Obtener horarios ocupados
 router.get('/booked-slots', async (req, res) => {
     try {
-        await connectDB();
-        
         const response = await calendar.events.list({
             calendarId: 'primary',
             timeMin: new Date().toISOString(),
@@ -106,8 +104,10 @@ router.get('/booked-slots', async (req, res) => {
             orderBy: 'startTime',
         });
 
-        const events = response.data.items;
-        res.json({ success: true, events });
+        res.json({ 
+            success: true, 
+            events: response.data.items 
+        });
     } catch (error) {
         console.error('Error al obtener eventos:', error);
         res.status(500).json({ 
@@ -119,13 +119,19 @@ router.get('/booked-slots', async (req, res) => {
 
 // Reservar turno
 router.post('/book-appointment', isAuthenticated, async (req, res) => {
+    if (!req.user) {
+        return res.status(401).json({ 
+            success: false, 
+            error: 'Usuario no autenticado' 
+        });
+    }
+
     try {
-        await connectDB();
-        
         const { datetime } = req.body;
         
         const event = {
             summary: 'Consultoría',
+            description: `Reserva para ${req.user.email || 'usuario'}`,
             start: {
                 dateTime: datetime,
                 timeZone: 'America/Argentina/Buenos_Aires',
