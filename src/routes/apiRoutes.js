@@ -3,21 +3,22 @@ const router = express.Router();
 const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
-const { google } = require('googleapis');
+const { oauth2Client } = require('../config/googleAuth');
 
 // Obtener todas las clases
 router.get('/v1/classes', async (req, res) => {
     try {
-        // Aquí deberías obtener las clases de tu base de datos
-        // Por ahora retornamos un array de ejemplo
-        const classes = [
-            { date: new Date(), id: 1 },
-            { date: new Date(Date.now() + 86400000), id: 2 } // mañana
-        ];
-        res.json({ success: true, classes });
+        // Aquí iría la lógica para obtener las clases
+        res.json({ 
+            success: true, 
+            classes: [] 
+        });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ success: false, error: 'Error interno del servidor' });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Error al obtener las clases.' 
+        });
     }
 });
 
@@ -25,10 +26,17 @@ router.get('/v1/classes', async (req, res) => {
 router.post('/v1/classes', async (req, res) => {
     try {
         const { date } = req.body;
-        res.json({ success: true, message: 'Clase agendada correctamente' });
+        // Aquí iría la lógica para crear una clase
+        res.json({ 
+            success: true, 
+            message: 'Clase agendada correctamente' 
+        });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).json({ success: false, error: 'Error al agendar la clase.' });
+        res.status(500).json({ 
+            success: false, 
+            error: 'Error al agendar la clase.' 
+        });
     }
 });
 
@@ -78,12 +86,6 @@ router.get('/booked-slots', appointmentController.getBookedSlots);
 
 // Reservar turno
 router.post('/book-appointment', isAuthenticated, appointmentController.bookAppointment);
-
-const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID,
-    process.env.GOOGLE_CLIENT_SECRET,
-    process.env.GOOGLE_REDIRECT_URI
-);
 
 // Genera la URL de autorización
 const url = oauth2Client.generateAuthUrl({

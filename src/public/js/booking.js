@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     loadUpcomingClasses();
 
     // Función para cargar horarios ocupados
-    async function loadBookedSlots(selectedDates, dateStr) {
+    async function loadBookedSlots() {
         try {
             const response = await fetch('/api/booked-slots', {
                 method: 'GET',
@@ -136,4 +136,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Error al procesar la reserva');
         }
     });
+
+    // Cargar horarios ocupados al iniciar
+    loadBookedSlots();
 }); 

@@ -1,18 +1,5 @@
-const { google } = require('googleapis');
+const { calendar } = require('../config/googleAuth');
 const Appointment = require('../models/Appointment');
-
-// Configurar cliente de Google Calendar
-const oauth2Client = new google.auth.OAuth2(
-    process.env.GOOGLE_CLIENT_ID_2,
-    process.env.GOOGLE_CLIENT_SECRET_2,
-    process.env.GOOGLE_REDIRECT_URI
-);
-
-oauth2Client.setCredentials({
-    refresh_token: process.env.GOOGLE_REFRESH_TOKEN
-});
-
-const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
 
 exports.getBookedSlots = async (req, res) => {
     try {
