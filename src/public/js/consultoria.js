@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM cargado');
+
     let bookedSlots = [];
 
     // Función para cargar turnos ocupados
@@ -50,62 +52,73 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         onChange: function(selectedDates, dateStr) {
             const fechaSeleccionada = document.getElementById('fecha-seleccionada');
-            if (selectedDates.length > 0) {
+            if (fechaSeleccionada && selectedDates.length > 0) {
                 const fecha = selectedDates[0];
-                const dia = fecha.getDate();
-                const mes = fecha.toLocaleString('es-ES', { month: 'long' });
-                const año = fecha.getFullYear();
-                const hora = fecha.getHours().toString().padStart(2, '0');
-                const minutos = fecha.getMinutes().toString().padStart(2, '0');
-                
-                fechaSeleccionada.textContent = `${dia} de ${mes} de ${año} a las ${hora}:${minutos}`;
-            } else {
-                fechaSeleccionada.textContent = 'Selecciona una fecha en el calendario';
+                fechaSeleccionada.textContent = fecha.toLocaleDateString('es-ES', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit'
+                });
             }
         },
         onOpen: loadBookedSlots
     });
 
-    // Manejar el envío del formulario
-    const formPago = document.getElementById('form-pago');
-    formPago.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const fechaSeleccionada = calendario.selectedDates[0];
-        if (!fechaSeleccionada) {
-            alert('Por favor, selecciona una fecha y hora para tu consultoría');
-            return;
-        }
+    // Manejar el envío del formulario usando delegación de eventos
+    document.addEventListener('submit', function(e) {
+        // Verificar si el evento viene del formulario de reserva
+        if (e.target && e.target.matches('#form-reserva')) {
+            e.preventDefault();
+            console.log('Formulario enviado');
 
-        try {
-            const response = await fetch('/api/bookings', {
+            const fechaSeleccionada = calendario.selectedDates[0];
+            if (!fechaSeleccionada) {
+                alert('Por favor, selecciona una fecha y hora para tu consultoría');
+                return;
+            }
+
+            const formData = {
+                fecha: fechaSeleccionada.toISOString(),
+                nombre: e.target.nombre.value,
+                email: e.target.email.value,
+                telefono: e.target.telefono.value
+            };
+
+            console.log('Datos del formulario:', formData);
+
+            // Enviar la reserva al servidor
+            fetch('/api/bookings', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    fecha: fechaSeleccionada.toISOString(),
-                    nombre: this.nombre.value,
-                    email: this.email.value,
-                    telefono: this.telefono.value
-                })
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                if (data.success) {
+                    alert('¡Reserva confirmada exitosamente!');
+                    e.target.reset();
+                    calendario.clear();
+                    const fechaSeleccionada = document.getElementById('fecha-seleccionada');
+                    if (fechaSeleccionada) {
+                        fechaSeleccionada.textContent = 'Selecciona una fecha en el calendario';
+                    }
+                } else {
+                    alert(data.message || 'Error al procesar la reserva');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error al procesar la reserva');
             });
-
-            const data = await response.json();
-            
-            if (data.success) {
-                alert('Reserva confirmada exitosamente');
-                // Recargar los turnos ocupados
-                await loadBookedSlots();
-                // Limpiar el formulario
-                this.reset();
-                calendario.clear();
-            } else {
-                alert('Error al procesar la reserva. Por favor, intenta nuevamente.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error al procesar la reserva. Por favor, intenta nuevamente.');
         }
     });
-}); 
+
+    // Debug para verificar que los elementos existen
+    console.log('Formulario encontrado:', !!document.getElementById('form-reserva'));
+    console.log('Botón encontrado:', !!document.getElementById('btn-confirmar'));
+});
