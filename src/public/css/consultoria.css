@@ -6,6 +6,9 @@
     --warning: #FFC107;
     --light: #F8F9FA;
     --dark: #212529;
+    --gray-100: #f0f0f0;
+    --gray-200: #e0e0e0;
+    --gray-800: #333;
 }
 
 .consultoria-container {
@@ -140,11 +143,47 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.resumen-turno {
+.calendario-wrapper {
+    background: white;
     padding: 2rem;
-    background: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.calendario-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--gray-200);
     border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.calendario-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+}
+
+.resumen-turno {
+    background: var(--gray-100);
+    padding: 2rem;
+    border-radius: 12px;
     border-left: 4px solid var(--accent);
+    margin-bottom: 2rem;
+}
+
+.resumen-turno h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.resumen-turno p {
+    color: var(--gray-800);
+    font-size: 1.1rem;
 }
 
 /* Sección FAQ */
