@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+</head>
+<body>
+    <%- include('./partials/header', { 
+        user: user,
+        isAuthenticated: isAuthenticated,
+        title: 'Error'
+    }) %>
+    
+    <main class="error-container">
+        <h1>Error</h1>
+        <p><%= message %></p>
+        <% if (error && Object.keys(error).length > 0) { %>
+            <pre><%= JSON.stringify(error, null, 2) %></pre>
+        <% } %>
+        <a href="/" class="btn-primary">Volver al inicio</a>
+    </main>
+</body>
+</html> 

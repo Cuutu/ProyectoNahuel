@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Actualización - Panel Admin</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/updates.css">
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <div class="admin-container">
+        <div class="form-header">
+            <h1>Nueva Actualización</h1>
+            <a href="/admin/updates" class="btn-back">Volver</a>
+        </div>
+
+        <div class="update-form-container">
+            <form action="/admin/updates" method="POST" class="update-form" id="updateForm">
+                <div class="form-group">
+                    <label for="tipo">Tipo de Señal</label>
+                    <select name="tipo" id="tipo" required>
+                        <option value="">Seleccionar tipo</option>
+                        <option value="LONG">LONG</option>
+                        <option value="SHORT">SHORT</option>
+                        <option value="GENERAL">GENERAL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input type="text" id="titulo" name="titulo" required 
+                           placeholder="Ej: Señal BTC/USDT">
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" name="descripcion" required 
+                              placeholder="Detalles de la señal..."></textarea>
+                </div>
+
+                <div class="trading-details" id="tradingDetails">
+                    <div class="form-group">
+                        <label for="par">Par de Trading</label>
+                        <input type="text" id="par" name="par" 
+                               placeholder="Ej: BTC/USDT">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="entrada">Precio de Entrada</label>
+                            <input type="number" id="entrada" name="entrada" 
+                                   step="0.00000001" placeholder="0.00">
+                        </div>
+                        <div class="form-group half">
+                            <label for="stopLoss">Stop Loss</label>
+                            <input type="number" id="stopLoss" name="stopLoss" 
+                                   step="0.00000001" placeholder="0.00">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half">
+                            <label for="takeProfit">Take Profit</label>
+                            <input type="number" id="takeProfit" name="takeProfit" 
+                                   step="0.00000001" placeholder="0.00">
+                        </div>
+                        <div class="form-group half">
+                            <label for="estado">Estado</label>
+                            <select name="estado" id="estado">
+                                <option value="ACTIVA">ACTIVA</option>
+                                <option value="COMPLETADA">COMPLETADA</option>
+                                <option value="CANCELADA">CANCELADA</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Crear Actualización</button>
+                    <button type="button" class="btn-cancel" onclick="window.location.href='/admin/updates'">
+                        Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('tipo').addEventListener('change', function() {
+            const tradingDetails = document.getElementById('tradingDetails');
+            if (this.value === 'GENERAL') {
+                tradingDetails.style.display = 'none';
+            } else {
+                tradingDetails.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html> 

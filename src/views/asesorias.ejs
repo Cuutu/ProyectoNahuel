@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesoramientos - CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/consulting.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <!-- Calendario -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="/css/asesorias.css">
+</head>
+<body>
+    <%- include('./partials/header') %>
+    
+    <main class="consulting-container">
+        <div class="asesorias-container">
+            <!-- Sección de Video con título arriba -->
+            <section class="video-section">
+                <h2>¿Cómo funcionan nuestras asesorías?</h2>
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://player.vimeo.com/video/76979871?autoplay=1&loop=1&byline=0&title=0&background=0"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        loading="eager"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </section>
+
+            <!-- Sección de Cartas en línea horizontal -->
+            <div class="cards-container">
+                <!-- Carta Consultorio Financiero -->
+                <div class="card">
+                    <h3>Consultorio Financiero</h3>
+                    <p>Sesiones personalizadas de 30 minutos donde resolveremos tus dudas específicas sobre:</p>
+                    <ul>
+                        <li>Análisis de tu cartera actual</li>
+                        <li>Estrategias de inversión</li>
+                        <li>Gestión de riesgo</li>
+                        <li>Planificación financiera</li>
+                    </ul>
+                    <a href="/consultoria-financiera" class="btn-primary">Reservar Consulta</a>
+                </div>
+
+                <!-- Carta Cuenta Asesorada -->
+                <div class="card">
+                    <h3>Cuenta Asesorada</h3>
+                    <p>Seguimiento continuo de tu cartera con:</p>
+                    <ul>
+                        <li>Análisis mensual de tu portafolio</li>
+                        <li>Rebalanceo estratégico</li>
+                        <li>Alertas de oportunidades</li>
+                        <li>Reportes de rendimiento</li>
+                    </ul>
+                    <a href="/cuenta-asesorada" class="btn-primary">Solicitar Asesoramiento</a>
+                </div>
+            </div>
+
+            <!-- Sección de FAQ -->
+            <section class="faq-section">
+                <h2 class="text-2xl font-bold mb-6">Preguntas Frecuentes</h2>
+                <div class="space-y-4">
+                    <details class="bg-white rounded-lg p-4">
+                        <summary class="font-semibold cursor-pointer">¿Cuál es el costo de las asesorías?</summary>
+                        <p class="mt-2 text-gray-600">Los costos varían según el tipo de asesoría. El consultorio financiero tiene un valor por sesión, mientras que la cuenta asesorada se cobra mensualmente.</p>
+                    </details>
+
+                    <details class="bg-white rounded-lg p-4">
+                        <summary class="font-semibold cursor-pointer">¿Cómo agendo una asesoría?</summary>
+                        <p class="mt-2 text-gray-600">Puedes agendar directamente desde nuestra plataforma seleccionando el horario disponible que mejor te convenga.</p>
+                    </details>
+
+                    <details class="bg-white rounded-lg p-4">
+                        <summary class="font-semibold cursor-pointer">¿Qué necesito para comenzar?</summary>
+                        <p class="mt-2 text-gray-600">Para el consultorio financiero solo necesitas tus dudas específicas. Para la cuenta asesorada, necesitaremos un detalle de tu cartera actual y objetivos de inversión.</p>
+                    </details>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#booking-calendar", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            minDate: "today",
+            locale: "es",
+            minTime: "09:00",
+            maxTime: "18:00",
+            disable: [
+                function(date) {
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ],
+            onChange: function(selectedDates) {
+                const confirmBtn = document.getElementById('confirm-booking');
+                const selectedDatetimeDiv = document.getElementById('selected-datetime');
+                if (selectedDates.length > 0) {
+                    const formattedDate = selectedDates[0].toLocaleString('es-ES', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    selectedDatetimeDiv.textContent = `Fecha seleccionada: ${formattedDate}`;
+                    confirmBtn.disabled = false;
+                } else {
+                    selectedDatetimeDiv.textContent = '';
+                    confirmBtn.disabled = true;
+                }
+            }
+        });
+    });
+    </script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/navbar.js"></script>
+    <script src="/js/booking.js"></script>
+</body>
+</html> 

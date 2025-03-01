@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entrenamientos - CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/training.css">
+</head>
+<body>
+    <%- include('./partials/header', { user: locals.user }) %>
+    
+    <main class="training-container">
+        <!-- Video Hero Section -->
+        <section class="hero-section video-hero" data-animate="fade-up">
+            <div class="container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1019511294?h=7d6b5c2f25"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section" data-animate="fade-up" data-delay="200">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>1600+</h3>
+                        <p>Estudiantes Activos</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>92%</h3>
+                        <p>Tasa de Finalización</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>4.8/5</h3>
+                        <p>Satisfacción</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Courses Grid -->
+        <section class="courses-section">
+            <div class="container">
+                <h2 data-animate="fade-down">Nuestros Entrenamientos</h2>
+                <div class="courses-grid">
+                    <!-- Análisis Técnico -->
+                    <div class="course-card" data-animate="fade-up" data-delay="100">
+                        <div class="course-header">
+                            <h3>Análisis Técnico</h3>
+                            <p class="duration">8 semanas</p>
+                        </div>
+                        <p class="description">Domina las herramientas y conceptos fundamentales del análisis técnico en trading</p>
+                        <ul class="features">
+                            <li>Patrones de velas japonesas</li>
+                            <li>Indicadores técnicos</li>
+                            <li>Análisis de tendencias</li>
+                            <li>Gestión del riesgo</li>
+                        </ul>
+                        <div class="course-footer">
+                            <div class="price">$199.99</div>
+                            <% if (locals.user) { %>
+                                <a href="/entrenamientos/analisis-tecnico" class="cta-button">Ver Detalles</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Trading Avanzado -->
+                    <div class="course-card" data-animate="fade-up" data-delay="200">
+                        <div class="course-header">
+                            <h3>Trading Avanzado</h3>
+                            <p class="duration">8 semanas</p>
+                        </div>
+                        <p class="description">Domina estrategias avanzadas de trading</p>
+                        <ul class="features">
+                            <li>Estrategias avanzadas</li>
+                            <li>Análisis técnico profundo</li>
+                            <li>Trading algorítmico</li>
+                            <li>Gestión de portafolio</li>
+                        </ul>
+                        <div class="course-footer">
+                            <div class="price">$299.99</div>
+                            <% if (locals.user) { %>
+                                <a href="/entrenamientos/trading-avanzado" class="cta-button">Ver Detalles</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Trading Profesional -->
+                    <div class="course-card" data-animate="fade-up" data-delay="400">
+                        <div class="course-header">
+                            <h3>Trading Profesional</h3>
+                            <p class="duration">12 semanas</p>
+                        </div>
+                        <p class="description">Conviértete en un trader profesional</p>
+                        <ul class="features">
+                            <li>Trading institucional</li>
+                            <li>Estrategias propietarias</li>
+                            <li>Gestión de capital</li>
+                            <li>Mentoría personalizada</li>
+                        </ul>
+                        <div class="course-footer">
+                            <div class="price">$499.99</div>
+                            <% if (locals.user) { %>
+                                <a href="/entrenamientos/trading-profesional" class="cta-button">Ver Detalles</a>
+                            <% } else { %>
+                                <a href="/auth/login" class="cta-button">Iniciar Sesión</a>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="/js/animations.js"></script>
+    <script src="/js/navbar.js"></script>
+</body>
+</html> 

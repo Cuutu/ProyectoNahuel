@@ -1,0 +1,76 @@
+<link rel="stylesheet" href="/css/servicios.css"> 
+<%- include('partials/header') %>
+
+<div class="cuenta-asesorada-container">
+    <h1>Cuenta Asesorada</h1>
+
+    <section class="descripcion-servicio">
+        <h2>Gestión Profesional de tu Cartera</h2>
+        <div class="beneficios">
+            <div class="beneficio-card">
+                <h3>Análisis Mensual</h3>
+                <p>Revisión detallada del rendimiento de tu portafolio y ajustes necesarios.</p>
+            </div>
+            <div class="beneficio-card">
+                <h3>Rebalanceo Estratégico</h3>
+                <p>Optimización periódica de tu cartera según las condiciones del mercado.</p>
+            </div>
+            <div class="beneficio-card">
+                <h3>Alertas y Reportes</h3>
+                <p>Notificaciones de oportunidades y reportes mensuales de rendimiento.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="planes-precio">
+        <h2>Planes Disponibles</h2>
+        <div class="planes-container">
+            <div class="plan-card">
+                <h3>Plan Básico</h3>
+                <p class="precio">$100 USD/mes</p>
+                <ul>
+                    <li>Análisis mensual</li>
+                    <li>Rebalanceo trimestral</li>
+                    <li>Reportes básicos</li>
+                </ul>
+                <button class="btn-primary">Seleccionar Plan</button>
+            </div>
+            <div class="plan-card destacado">
+                <h3>Plan Premium</h3>
+                <p class="precio">$200 USD/mes</p>
+                <ul>
+                    <li>Análisis semanal</li>
+                    <li>Rebalanceo mensual</li>
+                    <li>Reportes detallados</li>
+                    <li>Acceso prioritario</li>
+                </ul>
+                <button class="btn-primary">Seleccionar Plan</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="formulario-contacto">
+        <h2>Solicitar Asesoramiento</h2>
+        <form id="form-asesoramiento">
+            <div class="form-group">
+                <label for="nombre">Nombre completo</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="monto">Monto a invertir (USD)</label>
+                <input type="number" id="monto" name="monto" required>
+            </div>
+            <div class="form-group">
+                <label for="mensaje">Mensaje</label>
+                <textarea id="mensaje" name="mensaje" rows="4"></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Enviar Solicitud</button>
+        </form>
+    </section>
+</div>
+
+<%- include('partials/footer') %> 

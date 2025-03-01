@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Estadísticas - Panel Admin</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-chart-bar"></i> Gestión de Estadísticas</h1>
+            <p>Edita las estadísticas que se muestran en la página principal</p>
+        </div>
+        
+        <div class="stats-preview">
+            <h3>Vista previa</h3>
+            <% if (stats && stats.length > 0) { %>
+                <div class="stats-row">
+                    <% stats.forEach(stat => { %>
+                        <div class="stat-card preview <%= !stat.visible ? 'hidden-stat' : '' %>">
+                            <h2 class="stat-number"><%= stat.value %></h2>
+                            <p class="stat-text"><%= stat.text %></p>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p>No hay estadísticas disponibles. Se mostrarán aquí cuando se creen.</p>
+            <% } %>
+        </div>
+        
+        <% if (stats && stats.length > 0) { %>
+            <div class="admin-form-container">
+                <% stats.forEach(stat => { %>
+                    <form action="/admin/stats/update" method="POST" class="admin-form">
+                        <input type="hidden" name="id" value="<%= stat._id %>">
+                        
+                        <div class="form-group">
+                            <label for="value-<%= stat._id %>">Valor:</label>
+                            <input type="text" id="value-<%= stat._id %>" name="value" value="<%= stat.value %>" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="text-<%= stat._id %>">Texto:</label>
+                            <input type="text" id="text-<%= stat._id %>" name="text" value="<%= stat.text %>" required>
+                        </div>
+                        
+                        <div class="form-group visibility-toggle">
+                            <label class="toggle-label">
+                                <input type="checkbox" name="visible" <%= stat.visible ? 'checked' : '' %>>
+                                <span class="toggle-text">Visible en la página principal</span>
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="admin-button">
+                            <i class="fas fa-save"></i> Actualizar
+                        </button>
+                    </form>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="no-stats-message">
+                <p>No hay estadísticas para editar. Serán creadas automáticamente cuando alguien visite la página principal.</p>
+                <a href="/" class="admin-button" target="_blank">Visitar página principal</a>
+            </div>
+        <% } %>
+        
+        <div class="admin-actions">
+            <a href="/admin" class="admin-button secondary">
+                <i class="fas fa-arrow-left"></i> Volver al Panel
+            </a>
+        </div>
+    </div>
+    
+    <script src="/js/admin.js"></script>
+</body>
+</html> 

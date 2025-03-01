@@ -1,0 +1,226 @@
+.schedule-section {
+    padding: 4rem 0;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schedule-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.calendar-wrapper {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.schedule-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: white;
+    transition: all 0.3s ease;
+}
+
+.schedule-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Estilos del calendario */
+.flatpickr-calendar {
+    background: #000 !important;
+    border: none !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+.flatpickr-months {
+    background: #000 !important;
+}
+
+.flatpickr-month {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-weekdays {
+    background: #000 !important;
+}
+
+.flatpickr-weekday {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-day {
+    background: #000 !important;
+    color: #fff !important;
+    border: none !important;
+}
+
+/* Día seleccionado */
+.flatpickr-day.selected {
+    background: #00e676 !important;
+    border-color: #00e676 !important;
+    color: #000 !important;
+}
+
+/* Hover sobre los días */
+.flatpickr-day:hover {
+    background: #00e676 !important;
+    border-color: #00e676 !important;
+    color: #000 !important;
+}
+
+.flatpickr-day.today {
+    border-color: #fff !important;
+}
+
+.flatpickr-current-month {
+    color: #fff !important;
+}
+
+.flatpickr-monthDropdown-months {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-time {
+    background: #000 !important;
+    border-top: 1px solid #333 !important;
+}
+
+.flatpickr-time input {
+    color: #fff !important;
+}
+
+.numInputWrapper input {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.numInputWrapper:hover {
+    background: #333 !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+    background: #000 !important;
+    color: #fff !important;
+}
+
+.flatpickr-current-month input.cur-year {
+    color: #fff !important;
+}
+
+.schedule-info {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+/* Botón de agendar */
+.agendar-btn, 
+button#schedule-class {
+    width: 100%;
+    padding: 0.875rem;
+    background: #00e676;
+    color: #000;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-transform: uppercase;
+    margin-top: 1rem;
+}
+
+.agendar-btn:hover,
+button#schedule-class:hover {
+    background: #00c853;
+}
+
+/* Color del texto para los días y encabezados */
+.flatpickr-day {
+    color: #fff !important;
+}
+
+.flatpickr-weekday,
+.flatpickr-monthDropdown-months,
+.flatpickr-current-month .cur-month,
+.flatpickr-current-month .cur-year {
+    color: #fff !important;
+}
+
+/* Flechas de navegación */
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg {
+    fill: #fff !important;
+}
+
+.flatpickr-prev-month:hover svg,
+.flatpickr-next-month:hover svg {
+    fill: #00e676 !important;
+}
+
+#selected-datetime {
+    margin: 1rem 0;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.booking-confirm-btn {
+    width: 100%;
+    padding: 1rem;
+    background: #00ff88;
+    color: #000;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 136, 0.2);
+}
+
+.booking-confirm-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 255, 136, 0.3);
+    background: #00e676;
+}
+
+.booking-confirm-btn:disabled {
+    background: #e0e0e0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+} 

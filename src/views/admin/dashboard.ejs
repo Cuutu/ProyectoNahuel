@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <div class="admin-dashboard container">
+        <div class="admin-header">
+            <h1><i class="fas fa-tools"></i> Panel de Administración</h1>
+        </div>
+
+        <div class="admin-grid">
+            <!-- Sección de Usuarios -->
+            <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h2>Gestión de Usuarios</h2>
+                <p>Total de usuarios: <%= users ? users.length : 0 %></p>
+                <a href="/admin/users" class="btn-nueva-alerta">
+                    <i class="fas fa-eye"></i>
+                    Ver Usuarios
+                </a>
+            </div>
+
+            <!-- Sección de Membresías -->
+            <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <h2>Gestión de Membresías</h2>
+                <p>Membresías activas: <%= memberships ? memberships.length : 0 %></p>
+                <a href="/admin/memberships" class="btn-nueva-alerta">
+                    <i class="fas fa-eye"></i>
+                    Ver Membresías
+                </a>
+            </div>
+            
+            <!-- Sección de Actualizaciones de Señales (mantener esta sección) -->
+            <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h2>Actualizaciones de Señales</h2>
+                <p>Total de actualizaciones: <%= updates ? updates.length : 0 %></p>
+                <a href="/admin/updates" class="btn-nueva-alerta">
+                    <i class="fas fa-eye"></i>
+                    Ver Actualizaciones
+                </a>
+            </div>
+            
+            <!-- Nueva sección de Estadísticas -->
+            <div class="admin-card">
+                <div class="card-icon">
+                    <i class="fas fa-chart-bar"></i>
+                </div>
+                <h2>Gestión de Estadísticas</h2>
+                <p>Estadísticas en página principal</p>
+                <a href="/admin/stats" class="btn-nueva-alerta">
+                    <i class="fas fa-edit"></i>
+                    Editar Estadísticas
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/footer') %>
+
+    <script src="https://kit.fontawesome.com/your-code.js"></script>
+</body>
+</html> 

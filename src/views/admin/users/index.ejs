@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Usuarios - Panel Admin</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <div class="admin-container">
+        <div class="users-header">
+            <div class="users-title">
+                <i class="fas fa-users"></i>
+                <div class="title-text">
+                    <h1>Gestión de Usuarios</h1>
+                    <p>Total de usuarios: <%= users.length %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="users-table-container">
+            <div class="table-actions">
+                <input type="text" id="searchUser" placeholder="Buscar usuario..." class="search-input">
+                <button class="admin-btn">
+                    <i class="fas fa-download"></i> Exportar
+                </button>
+            </div>
+
+            <table class="users-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Teléfono</th>
+                        <th>Fecha de registro</th>
+                        <th>Rol</th>
+                        <th>Membresía</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.nombre %> <%= user.apellido %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.telefono || 'No especificado' %></td>
+                            <td><%= new Date(user.createdAt).toLocaleDateString('es-ES') %></td>
+                            <td>
+                                <span class="role-badge <%= user.isAdmin ? 'admin' : 'user' %>">
+                                    <%= user.isAdmin ? 'Admin' : 'Usuario' %>
+                                </span>
+                            </td>
+                            <td class="memberships">
+                                <div class="membership-container">
+                                    <% if (user.membresias) { %>
+                                        <% if (user.membresias.servicios && user.membresias.servicios !== 'free') { %>
+                                            <span class="membership-badge servicios <%= user.membresias.servicios %>">
+                                                Servicios <%= user.membresias.servicios.toUpperCase() %>
+                                                <small><%= user.membresias.vencimientoServicios ? new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
+                                        
+                                        <% if (user.membresias.entrenamientos && user.membresias.entrenamientos !== 'free') { %>
+                                            <span class="membership-badge entrenamientos <%= user.membresias.entrenamientos %>">
+                                                Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %>
+                                                <small><%= user.membresias.vencimientoEntrenamientos ? new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
+                                        
+                                        <% if (user.membresias && user.membresias.asesoramiento) { %>
+                                            <span class="membership-badge asesoramiento">
+                                                Asesoramiento
+                                                <small><%= user.membresias.vencimientoAsesoramiento ? new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() : 'Sin vencimiento' %></small>
+                                            </span>
+                                        <% } %>
+                                    <% } %>
+                                    
+                                    <% if (!user.membresias || 
+                                          (user.membresias.servicios === 'free' && 
+                                           user.membresias.entrenamientos === 'free' && 
+                                           !user.membresias.asesoramiento)) { %>
+                                        <span class="membership-badge free">FREE</span>
+                                    <% } %>
+                                </div>
+                            </td>
+                            <td class="actions">
+                                <button class="action-btn edit" data-id="<%= user._id %>">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete" data-id="<%= user._id %>">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="/js/admin/users.js"></script>
+</body>
+</html> 

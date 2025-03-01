@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas - Panel Admin</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="/css/updates.css">
+    <link rel="stylesheet" href="/css/screenProtection.css">
+    <meta http-equiv="screen-capture" content="deny">
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            // Configuración básica de protección
+            document.addEventListener('keydown', function(e) {
+                if (
+                    e.key === 'PrintScreen' ||
+                    (e.ctrlKey && e.key === 'p') ||
+                    (e.ctrlKey && e.shiftKey && e.key === 'i') ||
+                    (e.ctrlKey && e.key === 's')
+                ) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // Deshabilitar clic derecho
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+        });
+    </script>
+    <script src="/js/screenProtection.js"></script>
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <div class="admin-container">
+        <div class="alerts-header">
+            <h1 class="alerts-title">ALERTAS</h1>
+            <a href="/admin/updates/new" class="btn-nueva-alerta">
+                <i class="fas fa-plus"></i>
+                NUEVA ALERTA
+            </a>
+        </div>
+
+        <div class="updates-content">
+            <% if (updates && updates.length > 0) { %>
+                <div class="updates-list">
+                    <% updates.forEach(update => { %>
+                        <div class="update-card" data-timestamp="<%= new Date().toISOString() %>">
+                            <div class="update-type <%= update.tipo.toLowerCase() %>">
+                                <%= update.tipo %>
+                            </div>
+                            <div class="update-content">
+                                <h3><%= update.titulo %></h3>
+                                <p><%= update.descripcion %></p>
+                                <% if (update.par) { %>
+                                    <div class="update-details">
+                                        <span class="detail-item">Par: <%= update.par %></span>
+                                        <span class="detail-item">Entrada: <%= update.entrada %></span>
+                                        <span class="detail-item">SL: <%= update.stopLoss %></span>
+                                        <span class="detail-item">TP: <%= update.takeProfit %></span>
+                                    </div>
+                                <% } %>
+                                <div class="update-footer">
+                                    <span class="update-date">
+                                        <%= new Date(update.createdAt).toLocaleDateString('es-ES', {
+                                            day: '2-digit',
+                                            month: '2-digit',
+                                            year: 'numeric',
+                                            hour: '2-digit',
+                                            minute: '2-digit'
+                                        }) %>
+                                    </span>
+                                    <div class="update-actions">
+                                        <div class="update-status <%= update.estado.toLowerCase() %>">
+                                            <%= update.estado %>
+                                        </div>
+                                        <% if (update.estado === 'ACTIVA') { %>
+                                            <button 
+                                                class="btn-close-alert" 
+                                                onclick="closeUpdate('<%= update._id %>')"
+                                            >
+                                                <i class="fas fa-check-circle"></i>
+                                                Cerrar alerta
+                                            </button>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <div class="no-updates">
+                    <p>No hay alertas disponibles</p>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <div id="confirmPopup" class="popup-overlay">
+        <div class="popup-content">
+            <div class="popup-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <h3 class="popup-title">Confirmar Acción</h3>
+            <p class="popup-message">¿Estás seguro de que deseas cerrar esta alerta?</p>
+            <div class="popup-buttons">
+                <button id="confirmBtn" class="popup-btn popup-btn-confirm">
+                    <i class="fas fa-check"></i> Aceptar
+                </button>
+                <button id="cancelBtn" class="popup-btn popup-btn-cancel">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    let currentUpdateId = null;
+
+    function showConfirmPopup(updateId) {
+        currentUpdateId = updateId;
+        const popup = document.getElementById('confirmPopup');
+        popup.classList.add('active');
+    }
+
+    async function closeUpdate(updateId) {
+        showConfirmPopup(updateId);
+    }
+
+    document.getElementById('confirmBtn').addEventListener('click', async () => {
+        try {
+            const response = await fetch(`/admin/updates/${currentUpdateId}/close`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.reload();
+            } else {
+                alert('Error al cerrar la alerta');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Error al cerrar la alerta');
+        }
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+        const popup = document.getElementById('confirmPopup');
+        popup.classList.remove('active');
+        currentUpdateId = null;
+    });
+
+    document.getElementById('confirmPopup').addEventListener('click', (e) => {
+        if (e.target.classList.contains('popup-overlay')) {
+            e.target.classList.remove('active');
+            currentUpdateId = null;
+        }
+    });
+    </script>
+</body>
+</html>

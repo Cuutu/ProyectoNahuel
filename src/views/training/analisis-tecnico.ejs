@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Técnico - CryptoTrading</title>
+    
+    <!-- Flatpickr CSS y Scripts -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
+    
+    <!-- Otros estilos -->
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/training.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="preload" href="/css/landing.css" as="style">
+    <link rel="stylesheet" href="/css/roadmap.css">
+    <link rel="stylesheet" href="/css/calendar.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="training-detail-container">
+        <!-- Hero Section con Título -->
+        <section class="hero-section">
+            <div class="container">
+                <h1>Análisis Técnico</h1>
+                <p class="hero-description">Aprende a interpretar gráficos y tomar decisiones informadas en el mercado</p>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section class="video-section" data-animate="fade-up">
+            <div class="container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://player.vimeo.com/video/1019511294?h=7d6b5c2f25"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contador de Usuarios con Iconos -->
+        <section class="stats-counter" data-animate="fade-up">
+            <div class="container">
+                <div class="counter-wrapper">
+                    <div class="counter-item">
+                        <i class="fas fa-users"></i>
+                        <span class="counter-number">1,234</span>
+                        <span class="counter-label">Estudiantes Activos</span>
+                    </div>
+                    <div class="counter-item">
+                        <i class="fas fa-star"></i>
+                        <span class="counter-number">98%</span>
+                        <span class="counter-label">Satisfacción</span>
+                    </div>
+                    <div class="counter-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span class="counter-number">4.8</span>
+                        <span class="counter-label">Valoración</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Características Destacadas -->
+        <section class="features-section" data-animate="fade-up">
+            <div class="container">
+                <h2>¿Por qué elegir este curso?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3>Contenido Actualizado</h3>
+                        <p>Material didáctico actualizado con las últimas tendencias del mercado</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <h3>Soporte Personalizado</h3>
+                        <p>Acceso directo a mentores expertos para resolver tus dudas</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Práctica Real</h3>
+                        <p>Ejercicios prácticos en mercados reales</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Roadmap con Diseño Moderno -->
+        <section class="roadmap-section">
+            <h2>Roadmap del Curso</h2>
+            <div class="container">
+                <div class="relative">
+                    <!-- Línea horizontal del timeline -->
+                    <div class="timeline-line"></div>
+
+                    <!-- Contenido del timeline -->
+                    <div class="timeline-content">
+                        <!-- Semana 1 - Arriba -->
+                        <div class="timeline-item">
+                            <!-- Punto verde -->
+                            <div class="timeline-dot"></div>
+                            <!-- Línea vertical -->
+                            <div class="timeline-line-vertical up"></div>
+                            <div class="timeline-card up">
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <p class="week">Semana 1</p>
+                                        <h3>Fundamentos del Análisis Técnico</h3>
+                                    </div>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i>Introducción al análisis técnico</li>
+                                        <li><i class="fas fa-check"></i>Tipos de gráficos y temporalidades</li>
+                                        <li><i class="fas fa-check"></i>Conceptos básicos de tendencias</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Semana 2 - Abajo -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line-vertical down"></div>
+                            <div class="timeline-card down">
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <p class="week">Semana 2</p>
+                                        <h3>Indicadores y Osciladores</h3>
+                                    </div>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i>Medias móviles y tipos</li>
+                                        <li><i class="fas fa-check"></i>RSI y MACD</li>
+                                        <li><i class="fas fa-check"></i>Bandas de Bollinger</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Semana 3 - Arriba -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line-vertical up"></div>
+                            <div class="timeline-card up">
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <p class="week">Semana 3</p>
+                                        <h3>Patrones de Velas y Precio</h3>
+                                    </div>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i>Patrones de velas japonesas</li>
+                                        <li><i class="fas fa-check"></i>Patrones de continuación</li>
+                                        <li><i class="fas fa-check"></i>Patrones de reversión</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Semana 4 - Abajo -->
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-line-vertical down"></div>
+                            <div class="timeline-card down">
+                                <div class="card-content">
+                                    <div class="card-header">
+                                        <p class="week">Semana 4</p>
+                                        <h3>Estrategias de Trading</h3>
+                                    </div>
+                                    <ul>
+                                        <li><i class="fas fa-check"></i>Desarrollo de estrategias</li>
+                                        <li><i class="fas fa-check"></i>Gestión de riesgo</li>
+                                        <li><i class="fas fa-check"></i>Plan de trading</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Primero el Calendario -->
+        <div class="container">
+            <div class="calendar-section">
+                <h2>Calendario de Clases</h2>
+                <div class="calendar-card">
+                    <div class="timezone-wrapper">
+                        <span>Zona horaria:</span>
+                        <select class="timezone-select">
+                            <option>(GMT-3) Argentina Time</option>
+                        </select>
+                    </div>
+                    
+                    <div class="calendar-container">
+                        <div class="date-picker">
+                            <div class="month-navigation">
+                                <button class="nav-btn" onclick="changeMonth(-1)">←</button>
+                                <h3 id="currentMonth">Enero 2025</h3>
+                                <button class="nav-btn" onclick="changeMonth(1)">→</button>
+                            </div>
+                            
+                            <div class="weekdays-header">
+                                <span>LU</span>
+                                <span>MA</span>
+                                <span>MI</span>
+                                <span>JU</span>
+                                <span>VI</span>
+                                <span>SA</span>
+                                <span>DO</span>
+                            </div>
+
+                            <div class="dates-grid">
+                                <div class="date-cell disabled">30</div>
+                                <div class="date-cell disabled">31</div>
+                                <div class="date-cell" onclick="selectDate(this)">1</div>
+                                <div class="date-cell" onclick="selectDate(this)">2</div>
+                                <div class="date-cell" onclick="selectDate(this)">3</div>
+                                <div class="date-cell disabled">4</div>
+                                <div class="date-cell disabled">5</div>
+                                <div class="date-cell" onclick="selectDate(this)">6</div>
+                                <div class="date-cell" onclick="selectDate(this)">7</div>
+                                <div class="date-cell" onclick="selectDate(this)">8</div>
+                                <div class="date-cell" onclick="selectDate(this)">9</div>
+                                <div class="date-cell" onclick="selectDate(this)">10</div>
+                                <div class="date-cell disabled">11</div>
+                                <div class="date-cell disabled">12</div>
+                                <div class="date-cell" onclick="selectDate(this)">13</div>
+                                <div class="date-cell" onclick="selectDate(this)">14</div>
+                                <div class="date-cell" onclick="selectDate(this)">15</div>
+                                <div class="date-cell" onclick="selectDate(this)">16</div>
+                                <div class="date-cell" onclick="selectDate(this)">17</div>
+                                <div class="date-cell" onclick="selectDate(this)">18</div>
+                                <div class="date-cell" onclick="selectDate(this)">19</div>
+                                <div class="date-cell" onclick="selectDate(this)">20</div>
+                                <div class="date-cell" onclick="selectDate(this)">21</div>
+                                <div class="date-cell" onclick="selectDate(this)">22</div>
+                                <div class="date-cell" onclick="selectDate(this)">23</div>
+                                <div class="date-cell" onclick="selectDate(this)">24</div>
+                                <div class="date-cell" onclick="selectDate(this)">25</div>
+                                <div class="date-cell" onclick="selectDate(this)">26</div>
+                                <div class="date-cell" onclick="selectDate(this)">27</div>
+                                <div class="date-cell" onclick="selectDate(this)">28</div>
+                                <div class="date-cell" onclick="selectDate(this)">29</div>
+                                <div class="date-cell" onclick="selectDate(this)">30</div>
+                                <div class="date-cell" onclick="selectDate(this)">31</div>
+                                <div class="date-cell disabled">1</div>
+                                <div class="date-cell disabled">2</div>
+                            </div>
+                        </div>
+
+                        <div class="time-slots-section">
+                            <h4>Horarios disponibles</h4>
+                            <div class="time-slots-container">
+                                <button class="time-slot" onclick="selectTime(this)">09:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">09:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">10:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">10:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">11:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">11:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">12:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">12:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">13:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">13:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">14:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">14:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">15:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">15:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">16:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">16:30</button>
+                                <button class="time-slot" onclick="selectTime(this)">17:00</button>
+                                <button class="time-slot" onclick="selectTime(this)">17:30</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="booking-footer">
+                        <button class="booking-button" onclick="bookAppointment()" disabled>
+                            AGENDAR CLASE
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Después el Curso Completo -->
+            <div class="course-info">
+                <div class="info-card">
+                    <h2>Curso Completo</h2>
+                    <p>Domina el análisis técnico con nuestro curso especializado</p>
+                    <ul class="features-list">
+                        <li><i class="fas fa-check"></i>Acceso de por vida</li>
+                        <li><i class="fas fa-check"></i>Certificado de finalización</li>
+                        <li><i class="fas fa-check"></i>Recursos descargables</li>
+                        <li><i class="fas fa-check"></i>Soporte premium</li>
+                    </ul>
+                    <button class="cta-button">INSCRIBIRSE AHORA</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script defer src="/js/animations.js"></script>
+    <script src="/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="/js/teacher-schedule.js"></script>
+    <script src="/js/booking.js"></script>
+
+    <script>
+    const months = [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ];
+
+    let currentDate = new Date(2025, 0); // Empezamos en Enero 2025
+
+    function changeMonth(delta) {
+        // Actualizar la fecha actual
+        currentDate.setMonth(currentDate.getMonth() + delta);
+        
+        // Actualizar el título del mes
+        const monthTitle = document.getElementById('currentMonth');
+        monthTitle.textContent = `${months[currentDate.getMonth()]} ${currentDate.getFullYear()}`;
+        
+        // Generar los días del nuevo mes
+        generateCalendarDays();
+    }
+
+    function generateCalendarDays() {
+        const datesGrid = document.querySelector('.dates-grid');
+        datesGrid.innerHTML = ''; // Limpiar el calendario actual
+        
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        
+        // Obtener el día de la semana del primer día (0 = Domingo, 1 = Lunes, ...)
+        let firstDayIndex = firstDay.getDay() - 1; // Ajustar para que la semana empiece en Lunes
+        if (firstDayIndex === -1) firstDayIndex = 6; // Si es domingo, ponerlo al final
+        
+        // Agregar días del mes anterior
+        const prevMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 0);
+        for (let i = firstDayIndex - 1; i >= 0; i--) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'date-cell disabled';
+            dayElement.textContent = prevMonth.getDate() - i;
+            datesGrid.appendChild(dayElement);
+        }
+        
+        // Agregar días del mes actual
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayElement = document.createElement('div');
+            const dayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), day).getDay();
+            
+            // Deshabilitar sábados y domingos
+            if (dayOfWeek === 0 || dayOfWeek === 6) {
+                dayElement.className = 'date-cell disabled';
+            } else {
+                dayElement.className = 'date-cell';
+                dayElement.onclick = function() { selectDate(this); };
+            }
+            
+            dayElement.textContent = day;
+            datesGrid.appendChild(dayElement);
+        }
+        
+        // Agregar días del mes siguiente si es necesario
+        const totalCells = 42; // 6 filas x 7 días
+        const remainingCells = totalCells - datesGrid.children.length;
+        for (let i = 1; i <= remainingCells; i++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'date-cell disabled';
+            dayElement.textContent = i;
+            datesGrid.appendChild(dayElement);
+        }
+    }
+
+    // Inicializar el calendario
+    generateCalendarDays();
+
+    let selectedDate = null;
+    let selectedTime = null;
+
+    function selectDate(element) {
+        // No permitir selección si está deshabilitado
+        if (element.classList.contains('disabled')) {
+            return;
+        }
+        
+        // Remover selección previa
+        document.querySelectorAll('.date-cell.selected').forEach(cell => {
+            cell.classList.remove('selected');
+        });
+        
+        // Agregar nueva selección
+        element.classList.add('selected');
+        selectedDate = element.textContent;
+        updateBookingButton();
+    }
+
+    function selectTime(element) {
+        // Remover selección previa
+        document.querySelectorAll('.time-slot.selected').forEach(slot => {
+            slot.classList.remove('selected');
+        });
+        
+        // Agregar nueva selección
+        element.classList.add('selected');
+        selectedTime = element.textContent;
+        updateBookingButton();
+    }
+
+    function updateBookingButton() {
+        const bookingButton = document.querySelector('.booking-button');
+        bookingButton.disabled = !(selectedDate && selectedTime);
+    }
+
+    function bookAppointment() {
+        if (selectedDate && selectedTime) {
+            alert(`Clase agendada para el día ${selectedDate} a las ${selectedTime}`);
+            // Aquí puedes agregar la lógica para guardar la cita
+        }
+    }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil - Nahuel Lozano</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+    
+    <main class="dashboard-container">
+        <div class="dashboard-content">
+            <div class="user-profile-section">
+                <h1>Mi Perfil</h1>
+                
+                <div class="profile-card">
+                    <div class="profile-info">
+                        <h2>Información Personal</h2>
+                        <div class="info-group">
+                            <label>Nombre:</label>
+                            <p><%= user.nombre %> <%= user.apellido %></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Email:</label>
+                            <p><%= user.email %></p>
+                        </div>
+                        <div class="info-group">
+                            <label>Teléfono:</label>
+                            <p><%= user.telefono %></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="membership-card">
+                    <h2>Mi Membresía</h2>
+                    <% if (user.membership) { %>
+                        <div class="membership-info">
+                            <div class="info-group">
+                                <label>Plan Actual:</label>
+                                <p><%= user.membership.name %></p>
+                            </div>
+                            <div class="info-group">
+                                <label>Estado:</label>
+                                <p class="status-active">Activa</p>
+                            </div>
+                            <div class="info-group">
+                                <label>Vence:</label>
+                                <p><%= user.membership.endDate %></p>
+                            </div>
+                        </div>
+                    <% } else { %>
+                        <div class="no-membership">
+                            <p>No tienes una membresía activa</p>
+                            <a href="/alertas" class="cta-button">Ver Planes</a>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/js/navbar.js"></script>
+</body>
+</html> 

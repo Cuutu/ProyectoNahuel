@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas - Nahuel Lozano</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    
+    <%- include('./partials/header', { user: locals.user }) %>
+
+    <main class="main-content">
+        <!-- Título principal -->
+        <section class="hero-section">
+            <div class="container">
+                <h1 class="section-title" data-animate="fade-up">Alertas</h1>
+                <div class="title-underline"></div>
+            </div>
+        </section>
+
+        <!-- Servicios en formato de tarjetas simples -->
+        <section class="services-container">
+            <div class="container">
+                <div class="services-grid">
+                    <!-- Trader Call -->
+                    <div class="service-box" data-animate="fade-up" data-delay="100">
+                        <h2>Trader Call</h2>
+                        <p>Señales de trading en tiempo real con alta precisión</p>
+                        <ul>
+                            <li>Señales 24/7 en tiempo real</li>
+                            <li>Setup completo de entrada</li>
+                            <li>Stop Loss y Take Profit</li>
+                            <li>Análisis de mercado diario</li>
+                        </ul>
+                        <a href="/alertas/trader-call" class="cta-button">Comenzar Ahora</a>
+                    </div>
+
+                    <!-- Smart Money -->
+                    <div class="service-box" data-animate="fade-up" data-delay="200">
+                        <h2>Smart Money</h2>
+                        <p>Formación personalizada con traders expertos</p>
+                        <ul>
+                            <li>Sesiones personalizadas</li>
+                            <li>Plan de trading individual</li>
+                            <li>Revisión de operaciones</li>
+                            <li>Soporte prioritario 24/7</li>
+                        </ul>
+                        <a href="/alertas/smart-money" class="cta-button">Reservar Mentoría</a>
+                    </div>
+                </div>
+
+                <!-- CashFlow -->
+                <div class="service-box" data-animate="fade-up" data-delay="300">
+                    <h2>CashFlow</h2>
+                    <p>Acceso exclusivo a nuestra comunidad de traders</p>
+                    <ul>
+                        <li>Chat grupal en tiempo real</li>
+                        <li>Webinars semanales</li>
+                        <li>Biblioteca de recursos</li>
+                        <li>Eventos exclusivos</li>
+                    </ul>
+                    <a href="/alertas/cashflow" class="cta-button">Unirse Ahora</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Preguntas frecuentes -->
+        <section class="faq-section">
+            <div class="container">
+                <h2>Preguntas Frecuentes</h2>
+                
+                <div class="space-y-4">
+                    <details>
+                        <summary>¿Qué es Trader Call? ¿Para qué sirve?</summary>
+                        <p>Trader Call es un servicio de suscripción de alertas de trading, donde comparto mi estrategia de trading de corto-mediano plazo que vengo llevando a cabo en los mercados desde hace varios años. Este servicio tiene como finalidad ayudar a la comunidad inversora a invertir de manera profesional en el mercado de capitales argentino, proporcionando mi mirada y para que empiecen con el pie derecho en este mundo tan hostil. De la mano de Trader Call, podrás comenzar a operar en el mercado con la seguridad de una análisis técnico exhaustivo y profesional para enterarte antes que nadie de las mejores oportunidades de inversión.</p>
+                        <p>luego de la suscripción, se enviará un mail a la dirección de correo electrónico vinculada a la cuenta de mercadopago con la que se realizó la suscripción. En dicho correo se enviará el link de acceso al canal privado de telegram para comenzar a disfrutar del servicio. tenga en cuenta que tanto el envío del correo con la información como la aceptación en telegram puede demorar hasta 48hs hábiles.</p>
+                    </details>
+                    
+                    <details>
+                        <summary>¿Como funcionan las alertas de trading?</summary>
+                        <p>EL MECANISMO DE LAS ALERTAS FUNCIONA A TRAVÉS DE UN CANAL PRIVADO DE TELEGRAM DONDE, LES COMENTO MI MIRADA DEL MERCADO MEDIANTE UN INFORME DIARIO Y QUÉ SEÑALES DE COMPRA O VENTA TENEMOS CADA DÍA. ESTE INFORME SE PUBLICA ENTRE LAS 18 Y LAS 22 HS DE CADA HÁBIL BURSÁTIL, DESPUÉS DEL CIERRE DEL MERCADO. ESTO SE DEBE A QUE EL ANÁLISIS TÉCNICO DEBE REALIZARSE CON EL MERCADO CERRADO, PARA TENER UNA MAYOR PRECISIÓN Y FIABILIDAD. ES POR ESTO QUE LAS OPERACIONES A MERCADO DE LOS SUSCRIPTORES QUE QUIERAN OPERAR BAJO ESTA ESTRATEGIA DEBERÁN PASARSE AL DÍA HÁBIL BURSÁTIL SIGUIENTE, EN CUALQUIER HORARIO. CABE DESTACAR QUE, NO HAY ALERTAS DE COMPRA O VENTA TODOS LOS DÍAS, YA QUE, EL MERCADO PUEDE NO ARROJAR NINGUNA SEÑAL MEDIANTE MI MÉTODO DE TRADING.</p>
+                        <p>el análisis y las alertas de trading son sobre el activo que cotiza en usa, en dólares. pero esto no presenta ningun inconveniente en realizar operaciones en cedears contra pesos y en argentina. ESTO PERMITE QUE PUEDAS INGRESAR EN CADA ALERTA CON MENOR CANTIDAD DE DINERO Y EN PESOS, YA QUE LOS CEDEARS COTIZAN TANTO EN PESOS COMO EN DÓLARES Y TIENEN UN RATIO DE CONVERSIÓN QUE FACILITA EL ACCESO A INVERSORES CON MENOR CAPITAL INICIAL. de hecho, el servicio contempla LA INVERSIÓN EN CEDEARS Y EN PESOS COMO la preferible YA QUE SUELE HABER MUCHO MÁS VOLUMEN DE OPERACIONES EN EL MERCADO LOCAL EN ESA MONEDA.</p>
+                        <p>TODOS LOS DÍAS SE HACE UN REPASO DEL ESTADO ACTUAL DE TODAS LAS ALERTAS ACTIVADAS MEDIANTE UN INFORME DE MERCADO. LAS ALERTAS ESTÁN RIGUROSAMENTE ANALIZADAS BAJO MI MÉTODO DE TRADING Y TIENEN COMO HORIZONTE UNA DURACIÓN DESDE UN PAR DE DÍAS HASTA 3 MESES.</p>
+                        <p>CADA ALERTA DE COMPRA TIENE ASIGNADO UN NIVEL DE RIESGO PROPIO, QUE CONTEMPLA TANTO EL RIESGO DEL CONTEXTO GENERAL DE MERCADO, COMO DEL RIESGO PARTICULAR DE CADA ACTIVO.</p>
+                        <p>ESTE SERVICIO NO TIENE VÍNCULO ALGUNO CON BROKERS DE BOLSA ARGENTINOS O INTERNACIONALES, POR LO QUE DICHA ESTRATEGIA PUEDE SER APLICADA POR LOS INVERSORES EN CUALQUIER CUENTA DE INVERSIONES, INDEPENDIENTEMENTE DEL BROKER O INTERMEDIARIO QUE UTILICE.</p>
+                    </details>
+                    
+                    <details>
+                        <summary>¿Las alertas tienen vencimiento?</summary>
+                        <p>Si, tanto las alertas de compra como de venta tienen 24 horas de vencimiento. Esto se debe a que el análisis realizado del activo y del contexto en general cambia día a día, siguiendo el desarrollo del mercado. EN CADA INFORME DETALLAMOS A QUÉ ACTIVOS, DE LOS QUE YA TUVIERON ALERTAS DE COMPRA CON FECHAS ANTERIORES, SE PUEDE INGRESAR AL DÍA SIGUIENTE EN EL CASO QUE HUBIERA ALGUNO.</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Cuánto dinero hay que invertir?</summary>
+                        <p>NO HAY UN MÍNIMO DE DINERO CON EL QUE TENGAS QUE COMENZAR, PERO UNA SUMA RECOMENDABLE SERÍA EL EQUIVALENTE A u$D 1.000.-</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Como son los pagos de la suscripción?</summary>
+                        <p>Solo aceptamos suscripciones y pagos por mercadopago</p>
+                        <p>Los cobros de mercado pago son automáticos y tienen en cuenta la oferta de los 30 días gratis, por lo que usted empezará a pagar su suscripción luego de 30 días. Todos los 1ro de mes, se debitará del método de pago asociado el importe de la suscripción con la referencia "TRADERCALL". En el caso del primer pago, luego de los 30 días gratis, se debitará el prorrateo correspondiente de los días del mes en curso hasta llegar al primer día del mes siguiente. Esto quiere decir, que el primer cobro por la suscripción, que será luego de los 30 días de iniciada la suscripción, puede ser menor al valor del mes entero, ya que corresponden al prorrateo de días. Luego de hecho el primer pago, todos los 1ro de cada mes, se debitará el valor total de la suscripción. Cabe destacar, que son días corridos y no días hábiles.</p>
+                        <p>IMPORTANTE: Tenga a bien contar con los fondos suficientes en el método de pago seleccionado para no tener inconvenientes con el estado de su suscripción.</p>
+                        <p>ES OPORTUNO ACLARAR QUE, EN NINGÚN CASO SE COBRARÁN COMISIONES EXTRAS A LA HORA DE REALIZAR LAS OPERACIONES A MERCADO, YA QUE NO EXISTE VÍNCULO ALGUNO ENTRE EL SERVICIO DE ALERTAS Y NINGUN BROKER DE BOLSA ARGENTINO O INTERNACIONAL.</p>
+                        <p>tenga en cuenta que las comunicaciones respecto al estado de su suscripción serán por correo electrónico, el mismo con el cual se realizó la suscripción por mercadopago. no se harán comunicaciones de este tipo por telegram.</p>
+                    </details>
+
+                    <details>
+                        <summary>¿Seguís con dudas?</summary>
+                        <p>Escribime un correo ELECTRÓNICO a la siguiente casilla para resolver las dudas que te puedan surgir: lozanonahuel@gmail.com.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <%- include('./partials/footer') %>
+
+    <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
+</body>
+</html> 

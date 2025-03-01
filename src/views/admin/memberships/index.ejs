@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Membresías - Panel Admin</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <div class="admin-container">
+        <div class="memberships-header">
+            <div class="header-title">
+                <i class="fas fa-id-card"></i>
+                <div class="title-text">
+                    <h1>Gestión de Membresías</h1>
+                    <p>Total de membresías activas: <%= stats.total_activos %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <!-- Servicios -->
+            <div class="stats-card">
+                <h2><i class="fas fa-cogs"></i> Servicios</h2>
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Activos:</span>
+                        <span class="stat-value"><%= stats.servicios.total %></span>
+                    </div>
+                    <div class="stat-breakdown">
+                        <div class="stat-item basic">
+                            <span>Basic:</span>
+                            <span><%= stats.servicios.basic %></span>
+                        </div>
+                        <div class="stat-item premium">
+                            <span>Premium:</span>
+                            <span><%= stats.servicios.premium %></span>
+                        </div>
+                        <div class="stat-item pro">
+                            <span>Pro:</span>
+                            <span><%= stats.servicios.pro %></span>
+                        </div>
+                    </div>
+                    <div class="warning-section">
+                        <h3>Próximos a vencer</h3>
+                        <span class="warning-count"><%= stats.servicios.proximos_vencer.length %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Entrenamientos -->
+            <div class="stats-card">
+                <h2><i class="fas fa-dumbbell"></i> Entrenamientos</h2>
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Activos:</span>
+                        <span class="stat-value"><%= stats.entrenamientos.total %></span>
+                    </div>
+                    <div class="stat-breakdown">
+                        <div class="stat-item basic">
+                            <span>Basic:</span>
+                            <span><%= stats.entrenamientos.basic %></span>
+                        </div>
+                        <div class="stat-item premium">
+                            <span>Premium:</span>
+                            <span><%= stats.entrenamientos.premium %></span>
+                        </div>
+                        <div class="stat-item pro">
+                            <span>Pro:</span>
+                            <span><%= stats.entrenamientos.pro %></span>
+                        </div>
+                    </div>
+                    <div class="warning-section">
+                        <h3>Próximos a vencer</h3>
+                        <span class="warning-count"><%= stats.entrenamientos.proximos_vencer.length %></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asesoramiento -->
+            <div class="stats-card">
+                <h2><i class="fas fa-user-tie"></i> Asesoramiento</h2>
+                <div class="stats-content">
+                    <div class="stat-item">
+                        <span class="stat-label">Total Activos:</span>
+                        <span class="stat-value"><%= stats.asesoramiento.activos %></span>
+                    </div>
+                    <div class="warning-section">
+                        <h3>Próximos a vencer</h3>
+                        <span class="warning-count"><%= stats.asesoramiento.proximos_vencer.length %></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lista de usuarios con membresías -->
+        <div class="memberships-list">
+            <h2>Usuarios con Membresías Activas</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Usuario</th>
+                            <th>Membresía</th>
+                            <th>Fecha de Vencimiento</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                            <% if (user.membresias && user.membresias.servicios && user.membresias.servicios !== 'free') { %>
+                                <tr>
+                                    <td><%= user.nombre %> <%= user.apellido %></td>
+                                    <td>Servicios <%= user.membresias.servicios.toUpperCase() %></td>
+                                    <td>
+                                        <%= user.membresias.vencimientoServicios ? 
+                                            new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
+                                    <td class="status">
+                                        <% 
+                                        let diasRestantes = 0;
+                                        if (user.membresias.vencimientoServicios) {
+                                            diasRestantes = Math.ceil(
+                                                (new Date(user.membresias.vencimientoServicios) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
+                                        <span class="status-badge <%= diasRestantes <= 7 ? 'warning' : 'active' %>">
+                                            <%= diasRestantes <= 7 ? 'Por vencer' : 'Activo' %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <% } %>
+                            
+                            <% if (user.membresias && user.membresias.entrenamientos && user.membresias.entrenamientos !== 'free') { %>
+                                <tr>
+                                    <td><%= user.nombre %> <%= user.apellido %></td>
+                                    <td>Entrenamientos <%= user.membresias.entrenamientos.toUpperCase() %></td>
+                                    <td>
+                                        <%= user.membresias.vencimientoEntrenamientos ? 
+                                            new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
+                                    <td class="status">
+                                        <% 
+                                        let diasRestantesEnt = 0;
+                                        if (user.membresias.vencimientoEntrenamientos) {
+                                            diasRestantesEnt = Math.ceil(
+                                                (new Date(user.membresias.vencimientoEntrenamientos) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
+                                        <span class="status-badge <%= diasRestantesEnt <= 7 ? 'warning' : 'active' %>">
+                                            <%= diasRestantesEnt <= 7 ? 'Por vencer' : 'Activo' %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <% } %>
+                            
+                            <% if (user.membresias && user.membresias.asesoramiento) { %>
+                                <tr>
+                                    <td><%= user.nombre %> <%= user.apellido %></td>
+                                    <td>Asesoramiento</td>
+                                    <td>
+                                        <%= user.membresias.vencimientoAsesoramiento ? 
+                                            new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() : 
+                                            'Sin fecha' %>
+                                    </td>
+                                    <td class="status">
+                                        <% 
+                                        let diasRestantesAs = 0;
+                                        if (user.membresias.vencimientoAsesoramiento) {
+                                            diasRestantesAs = Math.ceil(
+                                                (new Date(user.membresias.vencimientoAsesoramiento) - new Date()) / 
+                                                (1000 * 60 * 60 * 24)
+                                            );
+                                        }
+                                        %>
+                                        <span class="status-badge <%= diasRestantesAs <= 7 ? 'warning' : 'active' %>">
+                                            <%= diasRestantesAs <= 7 ? 'Por vencer' : 'Activo' %>
+                                        </span>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin/memberships.js"></script>
+</body>
+</html> 

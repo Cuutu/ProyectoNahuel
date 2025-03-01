@@ -1,0 +1,20 @@
+:root {
+    --primary: #1B262C;
+    --secondary: #0F4C75;
+    --accent: #00B7C2;
+    --success: #00FF88;
+    --warning: #FFC107;
+    --light: #F8F9FA;
+    --dark: #212529;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+} 

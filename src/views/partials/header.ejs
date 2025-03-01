@@ -1,0 +1,54 @@
+<header class="header">
+    <div class="nav-container">
+        <a href="/" class="logo">Nahuel Lozano</a>
+        
+        <button class="mobile-menu-btn">
+            <span class="hamburger-icon">☰</span>
+        </button>
+
+        <nav class="nav-links">
+            <div class="dropdown">
+                <a href="/alertas" class="dropdown-trigger">Alertas</a>
+                <div class="dropdown-menu">
+                    <a href="/alertas/trader-call">Trader Call</a>
+                    <a href="/alertas/smart-money">Smart Money</a>
+                    <a href="/alertas/cashflow">CashFlow</a>
+                </div>
+            </div>
+            <a href="/entrenamientos">Entrenamientos</a>
+            <div class="dropdown">
+                <a href="/asesorias" class="dropdown-trigger">Asesorías</a>
+                <div class="dropdown-menu">
+                    <a href="/consultoria-financiera">Consultorio Financiero</a>
+                    <a href="/cuenta-asesorada">Cuenta Asesorada</a>
+                </div>
+            </div>
+            <a href="/cursos">Cursos</a>
+            <a href="/recursos">Recursos</a>
+            
+            <% if (isAuthenticated && user) { %>
+                <div class="user-menu">
+                    <span class="user-name" style="color: white;">Hola, <%= user.nombre %></span>
+                    <% if (user.isAdmin) { %>
+                        <a href="/admin" class="admin-link">
+                            <i class="fas fa-cog"></i>
+                            Panel Admin
+                        </a>
+                    <% } %>
+                    <a href="/user/dashboard" class="nav-link">Mi Perfil</a>
+                    <form action="/auth/logout" method="POST" class="logout-form">
+                        <button type="submit">Cerrar Sesión</button>
+                    </form>
+                </div>
+            <% } else { %>
+                <div class="auth-buttons">
+                    <a href="/auth/login" class="auth-btn login">Iniciar Sesión</a>
+                    <a href="/auth/register" class="auth-btn register">Registrarse</a>
+                </div>
+            <% } %>
+        </nav>
+    </div>
+</header>
+
+<link rel="stylesheet" href="/css/admin.css">
+<link rel="stylesheet" href="/css/updates.css">

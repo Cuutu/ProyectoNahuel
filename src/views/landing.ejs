@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoTrading</title>
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/popup.css">
+</head>
+<body>
+    <%- include('./partials/header') %>
+    
+    <main>
+        <!-- VIDEO SECTION -->
+        <section id="video" class="video-section">
+            <div class="container">
+                <div class="video-wrapper">
+                    <iframe 
+                        src="https://player.vimeo.com/video/76979871?autoplay=1&loop=1&byline=0&title=0&background=0"
+                        width="100%"
+                        height="100%"
+                        frameborder="0"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        loading="eager"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="cta-button-container">
+                    <% if (locals.user) { %>
+                        <a href="/user/dashboard" class="btn-primary-blue">¡COMENZÁ A APRENDER!</a>
+                    <% } else { %>
+                        <a href="/auth/login" class="btn-primary-blue">¡COMENZÁ A APRENDER!</a>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección del carrusel de empresas -->
+        <section class="carousel-section">
+            <div class="container">
+                <h2 class="carousel-title">Empresas que confiaron en mí</h2>
+                
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <!-- Las imágenes del carrusel -->
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/balanzlogo.png" alt="Balanz">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/bmblogo.png" alt="Bullet Market Brokers">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/dolarhoy.png" alt="Dolar Hoy">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/forbesAR.png" alt="Forbes Argentina">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/iandinas.png" alt="Inversiones Andinas">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/inviulogo.png" alt="Inviu">
+                        </div>
+                        <div class="swiper-slide">
+                            <img src="/img/carousel/tradingview.png" alt="TradingView">
+                        </div>
+                    </div>
+                    <!-- Añadir paginación -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Añadir flechas de navegación -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección de estadísticas -->
+        <section id="stats" class="stats-section">
+            <div class="container">
+                <div class="stats-row">
+                    <% if (typeof stats !== 'undefined' && stats && stats.length > 0) { %>
+                        <% stats.filter(stat => stat.visible !== false).forEach(stat => { %>
+                            <div class="stat-card">
+                                <h2 class="stat-number"><%= stat.value %></h2>
+                                <p class="stat-text"><%= stat.text %></p>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <div class="stat-card">
+                            <h2 class="stat-number">7 años</h2>
+                            <p class="stat-text">trabajando con el mercado</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2 class="stat-number">+1500</h2>
+                            <p class="stat-text">alumnos</p>
+                        </div>
+                        <div class="stat-card">
+                            <h2 class="stat-number">+300</h2>
+                            <p class="stat-text">horas de formación</p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="/js/navbar.js"></script>
+    <script src="/js/popup.js"></script>
+    <script src="/js/animations.js"></script>
+
+    <!-- Añadir antes de cerrar el body -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                loop: true,
+                autoplay: {
+                    delay: 3000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                breakpoints: {
+                    // cuando la ventana es <= 768px
+                    768: {
+                        slidesPerView: 2,
+                        spaceBetween: 15,
+                    },
+                    // cuando la ventana es <= 480px
+                    480: {
+                        slidesPerView: 1,
+                        spaceBetween: 10,
+                    }
+                }
+            });
+        });
+    </script>
+
+</body>
+</html> 

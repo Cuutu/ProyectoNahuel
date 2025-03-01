@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= service.name %> - CryptoTrading</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/services.css">
+    <link rel="stylesheet" href="/css/service-detail.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="service-hero">
+        <div class="container">
+            <h1 data-animate="fade-down"><%= service.name %></h1>
+            <p class="service-description" data-animate="fade-up" data-delay="200">
+                <%= service.description %>
+            </p>
+        </div>
+    </section>
+
+    <!-- Detalles del Servicio -->
+    <section class="service-details">
+        <div class="container">
+            <div class="service-content">
+                <div class="features-list" data-animate="fade-right">
+                    <h2>Características Incluidas</h2>
+                    <ul>
+                        <% service.features.forEach(feature => { %>
+                            <li><%= feature %></li>
+                        <% }); %>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card" data-animate="fade-left" data-delay="200">
+                    <h3>Precio</h3>
+                    <div class="price">$<%= service.price %>/mes</div>
+                    <% if (locals.user) { %>
+                        <button class="cta-button" onclick="initPayment()">
+                            Contratar Ahora
+                        </button>
+                    <% } else { %>
+                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/payment.js"></script>
+</body>
+</html> 

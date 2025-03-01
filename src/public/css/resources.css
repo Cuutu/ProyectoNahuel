@@ -1,0 +1,443 @@
+/* Contenedor principal */
+.resources-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.section-block {
+    margin-bottom: 6rem;
+    background: #f8f9fa;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: #00ff88;
+    border-radius: 2px;
+}
+
+/* Nuevo contenedor para las tarjetas */
+.resources-grid {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
+}
+
+.resource-card {
+    flex: 1 1 300px;
+    max-width: 350px;
+    min-width: 300px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.resource-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.resource-card:hover img {
+    transform: scale(1.02);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+    height: 100%;
+    text-align: center;
+}
+
+.card-content > *:last-child {
+    margin-top: auto;
+}
+
+.card-content h3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #222;
+    margin: 0 auto;
+}
+
+.card-content p {
+    font-size: 1rem;
+    color: #555;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.resource-button {
+    color: black;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    display: block;
+    margin: auto auto 0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #00ff88;
+    border: 2px solid #00ff88;
+    text-align: center;
+    font-size: 0.95rem;
+    width: fit-content;
+    min-width: 160px;
+}
+
+.resource-button:hover {
+    background: white;
+    color: #00ff88;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 255, 136, 0.2);
+}
+
+.resource-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 255, 136, 0.2);
+}
+
+.premium-badge {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #333;
+    padding: 0.4rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .section-block {
+        padding: 2rem 1rem;
+    }
+    
+    .resource-card {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+} 
+
+.button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.preview-btn, .download-btn {
+    min-width: 130px;
+    font-size: 0.9rem;
+}
+
+.preview-btn {
+    background: white;
+    color: #00ff88;
+    border: 2px solid #00ff88;
+}
+
+.preview-btn:hover {
+    background: #00ff88;
+    color: black;
+}
+
+.download-btn {
+    background: #00ff88;
+    color: black;
+}
+
+.download-btn:hover {
+    background: white;
+    color: #00ff88;
+}
+
+/* Para los íconos */
+.resource-button i {
+    margin-right: 0.5rem;
+} 
+
+.pdf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.pdf-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1rem;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.pdf-item h4 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.pdf-item .button-group {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.pdf-item .resource-button {
+    min-width: 120px;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+} 
+
+.material-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.material-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1.5rem;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.material-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+}
+
+.material-item h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.material-item .button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.material-item .resource-button {
+    flex: 1;
+    max-width: 150px;
+}
+
+/* Estilos existentes del modal */
+.modal-content {
+    max-width: 800px;
+    width: 90%;
+    margin: 5% auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-content h2 {
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    text-align: center;
+}
+
+/* Estilos para el modal/popup */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
+}
+
+.material-modal-content {
+    background: #fff;
+    margin: 5vh auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+.pdf-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.pdf-item:hover {
+    transform: translateY(-3px);
+}
+
+.pdf-item h4 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.pdf-item .button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.pdf-item .resource-button {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+/* Asegurar que el modal esté por encima de todo */
+#materialModal {
+    z-index: 9999;
+}
+
+/* Prevenir scroll del body cuando el modal está abierto */
+body.modal-open {
+    overflow: hidden;
+}
+
+/* Estilos del modal de calendarios */
+.calendar-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.calendar-item {
+    background: rgba(0, 255, 136, 0.05);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.calendar-item:hover {
+    transform: translateY(-3px);
+}
+
+.calendar-item h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.resource-button {
+    display: inline-block;
+    width: 100%;
+    padding: 0.8rem;
+    background: #00e676;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.resource-button:hover {
+    background: #00c853;
+}
+
+/* Estilo del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow-y: auto;
+}
+
+.modal-content {
+    background: #fff;
+    margin: 5vh auto;
+    padding: 25px;
+    width: 90%;
+    max-width: 1000px;
+    border-radius: 12px;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .calendar-links {
+        grid-template-columns: 1fr;
+    }
+} 

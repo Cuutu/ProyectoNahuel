@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Señales Premium - CryptoTrading</title>
+    <!-- Agregar Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="icon" type="image/x-icon" href="/img/favicon.ico">
+</head>
+<body>
+<%- include('../partials/header') %>
+
+<div class="service-container">
+    <% if (hasActiveSubscription) { %>
+        <!-- Contenido para usuarios con suscripción activa -->
+        <div class="signals-content bg-gray-900 p-8 rounded-lg">
+            <h2 class="text-3xl font-bold text-green-400 mb-6">Señales Premium Activas</h2>
+            
+            <div class="signals-dashboard grid gap-6">
+                <!-- Señal Individual -->
+                <div class="signal-card bg-gray-800 p-6 rounded-lg shadow-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-xl font-bold text-white">BTC/USDT</h3>
+                        <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Activa</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div class="text-gray-300">
+                            <p class="text-sm">Precio de Entrada</p>
+                            <p class="text-lg font-bold text-white">$45,000</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Stop Loss</p>
+                            <p class="text-lg font-bold text-red-500">$44,500</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Take Profit</p>
+                            <p class="text-lg font-bold text-green-500">$46,000</p>
+                        </div>
+                        <div class="text-gray-300">
+                            <p class="text-sm">Riesgo/Beneficio</p>
+                            <p class="text-lg font-bold text-yellow-500">1:2</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between items-center text-sm text-gray-400">
+                        <span>Riesgo: 2%</span>
+                        <span>Ganancia Potencial: 4%</span>
+                        <span>Hace 2 horas</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } else { %>
+        <!-- Template de venta normal -->
+        <%- include('../services/service-template', {
+            service: {
+                name: "Señales Premium",
+                description: "Señales de trading en tiempo real con alta precisión",
+                price: "99.99",
+                features: [
+                    "Señales 24/7 en tiempo real",
+                    "Setup completo de entrada",
+                    "Stop Loss y Take Profit",
+                    "Análisis de mercado diario"
+                ]
+            }
+        }); %>
+    <% } %>
+</div>
+
+<%- include('../partials/footer') %>
+
+<!-- Agregar el SDK de MercadoPago -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+
+<!-- Script de inicialización -->
+<script>
+// Definir la función antes de usarla
+async function initPayment() {
+    try {
+        const response = await fetch('/payment/create-order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        
+        if (data.id) {
+            const mp = new MercadoPago('<%= process.env.MERCADOPAGO_PUBLIC_KEY %>');
+            const checkout = mp.checkout({
+                preference: {
+                    id: data.id
+                },
+                render: {
+                    container: '.cho-container',
+                    label: 'Contratar Ahora'
+                },
+                theme: {
+                    elementsColor: '#00E676',
+                    headerColor: '#00E676'
+                }
+            });
+        } else {
+            console.error('No se recibió ID de preferencia:', data);
+        }
+    } catch (error) {
+        console.error('Error en initPayment:', error);
+    }
+}
+
+// Asegurarnos de que el script de MercadoPago esté cargado
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof MercadoPago === 'undefined') {
+        console.error('MercadoPago script no está cargado');
+    }
+});
+</script>
+</body>
+</html> 
