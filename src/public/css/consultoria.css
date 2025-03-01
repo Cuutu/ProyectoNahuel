@@ -115,40 +115,25 @@
 /* Sección Turnos */
 .turnos-section {
     margin-bottom: 4rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.4s forwards;
-}
-
-#calendario {
-    background: white;
     padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-}
-
-/* Sección Reserva */
-.reserva-section {
-    margin-bottom: 4rem;
-    opacity: 0;
-    animation: fadeInUp 1s ease 0.6s forwards;
-}
-
-.reserva-wrapper {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
     background: white;
-    padding: 2rem;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.turnos-section h2 {
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1.8rem;
 }
 
 .calendario-wrapper {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
+    background: var(--gray-100);
+    border-radius: 8px;
 }
 
 .calendario-input {
@@ -160,12 +145,48 @@
     cursor: pointer;
     background: white;
     transition: all 0.3s ease;
+    text-align: center;
 }
 
 .calendario-input:focus {
     outline: none;
     border-color: var(--accent);
     box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.1);
+}
+
+/* Estilos específicos para Flatpickr */
+.flatpickr-calendar {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    border-radius: 12px !important;
+}
+
+.flatpickr-day.selected {
+    background: var(--accent) !important;
+    border-color: var(--accent) !important;
+    color: var(--dark) !important;
+}
+
+.flatpickr-day:hover {
+    background: rgba(0, 255, 136, 0.1) !important;
+}
+
+/* Sección Reserva */
+.reserva-section {
+    margin-top: 4rem;
+}
+
+.reserva-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .reserva-wrapper {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .resumen-turno {

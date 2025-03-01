@@ -59,17 +59,15 @@
             <!-- Sección 3: Próximos Turnos -->
             <section class="turnos-section">
                 <h2>Próximos Turnos Disponibles</h2>
-                <div id="calendario"></div>
+                <div class="calendario-wrapper">
+                    <input type="text" id="calendario-turno" class="calendario-input" placeholder="Selecciona fecha y hora" readonly>
+                </div>
             </section>
 
             <!-- Sección 4: Sacar Turno -->
             <section class="reserva-section">
                 <h2>Reservar tu Turno</h2>
                 <div class="reserva-wrapper">
-                    <div class="calendario-wrapper">
-                        <h3>Selecciona Fecha y Hora</h3>
-                        <input type="text" id="calendario-turno" class="calendario-input" placeholder="Selecciona fecha y hora" readonly>
-                    </div>
                     <div id="resumen-turno" class="resumen-turno">
                         <h3>Turno Seleccionado</h3>
                         <p id="fecha-seleccionada">Selecciona una fecha en el calendario</p>
