@@ -3,7 +3,7 @@ const router = express.Router();
 const { handleSubscription } = require('../controllers/subscriptionController');
 const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
-const { oauth2Client, getAuthenticatedCalendar } = require('../config/googleAuth');
+const { calendar } = require('../config/googleAuth');
 const mongoose = require('mongoose');
 
 // Asegurarse de que MongoDB esté conectado
@@ -96,44 +96,27 @@ router.post('/subscribe', handleSubscription);
 // Obtener horarios ocupados
 router.get('/booked-slots', async (req, res) => {
     try {
-        const calendar = await getAuthenticatedCalendar();
         const response = await calendar.events.list({
             calendarId: 'primary',
             timeMin: new Date().toISOString(),
-            maxResults: 10,
             singleEvents: true,
             orderBy: 'startTime',
         });
 
-        res.json({ 
-            success: true, 
-            events: response.data.items 
-        });
+        res.json({ success: true, events: response.data.items });
     } catch (error) {
-        console.error('Error al obtener eventos:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Error al obtener horarios ocupados' 
-        });
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al obtener horarios' });
     }
 });
 
 // Reservar turno
 router.post('/book-appointment', isAuthenticated, async (req, res) => {
-    if (!req.user) {
-        return res.status(401).json({ 
-            success: false, 
-            error: 'Usuario no autenticado' 
-        });
-    }
-
     try {
-        const calendar = await getAuthenticatedCalendar();
         const { datetime } = req.body;
         
         const event = {
             summary: 'Consultoría',
-            description: `Reserva para ${req.user.email || 'usuario'}`,
             start: {
                 dateTime: datetime,
                 timeZone: 'America/Argentina/Buenos_Aires',
@@ -149,29 +132,11 @@ router.post('/book-appointment', isAuthenticated, async (req, res) => {
             resource: event,
         });
 
-        res.json({ 
-            success: true, 
-            event: response.data 
-        });
+        res.json({ success: true, event: response.data });
     } catch (error) {
-        console.error('Error al crear evento:', error);
-        res.status(500).json({ 
-            success: false, 
-            error: 'Error al reservar el turno' 
-        });
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al reservar turno' });
     }
 });
-
-// Genera la URL de autorización
-const url = oauth2Client.generateAuthUrl({
-    access_type: 'offline',
-    scope: ['https://www.googleapis.com/auth/calendar']
-});
-
-console.log('Visita esta URL para autorizar:', url);
-
-// Después de obtener el código de autorización, úsalo para obtener el refresh token
-const { tokens } = await oauth2Client.getToken('CÓDIGO_DE_AUTORIZACIÓN');
-console.log('Refresh Token:', tokens.refresh_token);
 
 module.exports = router; 
