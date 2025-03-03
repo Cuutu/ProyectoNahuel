@@ -16,186 +16,259 @@
     <%- include('../partials/header') %>
 
     <!-- Hero Section -->
-    <section class="alert-hero">
-        <div class="container">
-            <h1 data-animate="fade-down">Trader Call</h1>
-            <p class="alert-description" data-animate="fade-up" data-delay="200">
-                Señales de trading en tiempo real con alta precisión
-            </p>
+    <section class="bg-gradient-to-r from-gray-900 to-gray-800 text-white py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-6" data-animate="fade-down">Trader Call</h1>
+                <p class="text-xl md:text-2xl mb-8" data-animate="fade-up" data-delay="200">
+                    Señales de trading en tiempo real con alta precisión
+                </p>
+            </div>
         </div>
     </section>
 
-    <!-- Video explicativo -->
-    <section class="video-section">
-        <div class="container">
-            <h2 class="section-title" data-animate="fade-up">¿Cómo funciona Trader Call?</h2>
-            <div class="video-container" data-animate="fade-up" data-delay="200">
-                <!-- Reemplazar con el ID de video correcto -->
-                <iframe width="100%" height="500" src="https://www.youtube.com/embed/VIDEO_ID" title="Trader Call - Alertas de Trading" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- Sección de Servicios -->
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Tarjeta de Servicio -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105" data-animate="fade-up" data-delay="100">
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <i class="fas fa-chart-line text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-4">Señales Precisas</h3>
+                            <p class="text-gray-600 text-center">
+                                Recibe alertas de trading con alta precisión y análisis técnico detallado para maximizar tus ganancias.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Servicio -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105" data-animate="fade-up" data-delay="200">
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <i class="fas fa-users text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-4">Comunidad Exclusiva</h3>
+                            <p class="text-gray-600 text-center">
+                                Únete a nuestra comunidad privada de traders donde compartimos estrategias y analizamos el mercado en tiempo real.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta de Servicio -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:transform hover:scale-105" data-animate="fade-up" data-delay="300">
+                        <div class="p-6">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 mx-auto">
+                                <i class="fas fa-book text-white text-2xl"></i>
+                            </div>
+                            <h3 class="text-xl font-semibold text-center mb-4">Análisis Diario</h3>
+                            <p class="text-gray-600 text-center">
+                                Recibe informes detallados del mercado y análisis post-operación para mejorar tu comprensión del trading.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Características y Precio -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Características -->
+                    <div class="bg-white rounded-lg shadow-lg p-8" data-animate="fade-right">
+                        <h2 class="text-2xl font-bold mb-6 text-gray-800">Características Incluidas</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Señales 24/7 en tiempo real</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Setup completo de entrada</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Stop Loss y Take Profit</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Análisis de mercado diario</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Acceso a canal privado de Telegram</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Informes detallados post-mercado</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="flex-shrink-0 h-6 w-6 text-blue-600 mr-2">
+                                    <i class="fas fa-check-circle"></i>
+                                </span>
+                                <span class="text-gray-700">Alertas de oportunidades especiales</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Precio -->
+                    <div class="bg-gradient-to-r from-blue-600 to-blue-800 rounded-lg shadow-lg p-8 text-white" data-animate="fade-left" data-delay="200">
+                        <h2 class="text-2xl font-bold mb-6">Precio</h2>
+                        <div class="mb-6">
+                            <span class="text-4xl font-bold">$99.99</span>
+                            <span class="text-xl">/mes</span>
+                        </div>
+                        <p class="mb-8 text-blue-100">Primeros 30 días gratis</p>
+                        <% if (locals.user) { %>
+                            <button class="w-full py-3 px-6 bg-white text-blue-600 font-bold rounded-lg transition-colors duration-300 hover:bg-gray-100" onclick="initPayment('signals', {price: 99.99, title: 'Trader Call - Servicio Premium'})">
+                                Contratar Ahora
+                            </button>
+                        <% } else { %>
+                            <a href="/auth/login" class="block w-full py-3 px-6 bg-white text-blue-600 font-bold rounded-lg text-center transition-colors duration-300 hover:bg-gray-100">
+                                Iniciar Sesión para Contratar
+                            </a>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Estadísticas -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid" data-animate="fade-up">
-                <div class="stat-card">
-                    <div class="stat-number">85%</div>
-                    <div class="stat-label">Tasa de éxito</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">1500+</div>
-                    <div class="stat-label">Traders activos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Soporte disponible</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">3+</div>
-                    <div class="stat-label">Años de experiencia</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Detalles de la Alerta -->
-    <section class="alert-details">
-        <div class="container">
-            <div class="alert-content">
-                <div class="features-list" data-animate="fade-right">
-                    <h2>Características Incluidas</h2>
-                    <ul>
-                        <li>Señales 24/7 en tiempo real</li>
-                        <li>Setup completo de entrada</li>
-                        <li>Stop Loss y Take Profit</li>
-                        <li>Análisis de mercado diario</li>
-                        <li>Acceso a canal privado de Telegram</li>
-                        <li>Informes detallados post-mercado</li>
-                        <li>Alertas de oportunidades especiales</li>
-                    </ul>
-                </div>
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12" data-animate="fade-up">Resultados que Hablan por Sí Mismos</h2>
                 
-                <div class="pricing-card" data-animate="fade-left" data-delay="200">
-                    <h3>Precio</h3>
-                    <div class="price">$149.99/mes</div>
-                    <p class="price-note">Primeros 30 días gratis</p>
-                    <% if (locals.user) { %>
-                        <button class="cta-button" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
-                            Contratar Ahora
-                        </button>
-                    <% } else { %>
-                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
-                    <% } %>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center" data-animate="fade-up" data-delay="100">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">85%</div>
+                        <div class="text-gray-600">Tasa de éxito</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center" data-animate="fade-up" data-delay="200">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">1500+</div>
+                        <div class="text-gray-600">Traders activos</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center" data-animate="fade-up" data-delay="300">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">24/7</div>
+                        <div class="text-gray-600">Soporte disponible</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6 text-center" data-animate="fade-up" data-delay="400">
+                        <div class="text-4xl font-bold text-blue-600 mb-2">3+</div>
+                        <div class="text-gray-600">Años de experiencia</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Testimonios -->
-    <section class="testimonials-section">
-        <div class="container">
-            <h2 class="section-title" data-animate="fade-up">Lo que dicen nuestros traders</h2>
-            
-            <div class="testimonials-slider" data-animate="fade-up" data-delay="200">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Desde que me suscribí a Trader Call, mi rendimiento ha mejorado significativamente. Las alertas son precisas y el análisis diario es invaluable."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/img/testimonials/user1.jpg" alt="Usuario" class="author-image">
-                        <div class="author-info">
-                            <h4>Carlos Rodríguez</h4>
-                            <p>Trader desde 2020</p>
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12" data-animate="fade-up">Lo que dicen nuestros traders</h2>
+                
+                <div class="testimonials-slider" data-animate="fade-up" data-delay="200">
+                    <div class="testimonial-card bg-white rounded-lg shadow-lg p-6 mb-8">
+                        <div class="mb-4">
+                            <p class="text-gray-600 italic">"Desde que me suscribí a Trader Call, mi rendimiento ha mejorado significativamente. Las alertas son precisas y el análisis diario es invaluable."</p>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 rounded-full bg-gray-300 mr-4"></div>
+                            <div>
+                                <h4 class="font-semibold">Carlos Rodríguez</h4>
+                                <p class="text-sm text-gray-500">Trader desde 2020</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"El servicio es excepcional. Las alertas son claras y el soporte es rápido. Definitivamente vale cada centavo."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/img/testimonials/user2.jpg" alt="Usuario" class="author-image">
-                        <div class="author-info">
-                            <h4>Laura Martínez</h4>
-                            <p>Inversora particular</p>
-                        </div>
-                    </div>
+                <div class="flex justify-center space-x-4">
+                    <button class="prev-btn w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center transition-colors duration-300 hover:bg-gray-300">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="next-btn w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center transition-colors duration-300 hover:bg-gray-300">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
-                
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Trader Call me ha ayudado a entender mejor el mercado. No solo recibo alertas, sino que aprendo con cada análisis."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="/img/testimonials/user3.jpg" alt="Usuario" class="author-image">
-                        <div class="author-info">
-                            <h4>Martín González</h4>
-                            <p>Trader principiante</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="testimonial-controls">
-                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
-                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
 
     <!-- Preguntas frecuentes -->
-    <section class="faq-section">
-        <div class="container">
-            <h2 class="section-title" data-animate="fade-up">Preguntas Frecuentes</h2>
-            
-            <div class="faq-container" data-animate="fade-up" data-delay="200">
-                <details>
-                    <summary>¿Qué es Trader Call? ¿Para qué sirve?</summary>
-                    <p>Trader Call es un servicio de suscripción de alertas de trading, donde comparto mi estrategia de trading de corto-mediano plazo que vengo llevando a cabo en los mercados desde hace varios años. Este servicio tiene como finalidad ayudar a la comunidad inversora a invertir de manera profesional en el mercado de capitales argentino, proporcionando mi mirada y para que empiecen con el pie derecho en este mundo tan hostil. De la mano de Trader Call, podrás comenzar a operar en el mercado con la seguridad de una análisis técnico exhaustivo y profesional para enterarte antes que nadie de las mejores oportunidades de inversión.</p>
-                    <p>Luego de la suscripción, se enviará un mail a la dirección de correo electrónico vinculada a la cuenta de mercadopago con la que se realizó la suscripción. En dicho correo se enviará el link de acceso al canal privado de telegram para comenzar a disfrutar del servicio. Tenga en cuenta que tanto el envío del correo con la información como la aceptación en telegram puede demorar hasta 48hs hábiles.</p>
-                </details>
+    <section class="py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12" data-animate="fade-up">Preguntas Frecuentes</h2>
                 
-                <details>
-                    <summary>¿Como funcionan las alertas de trading?</summary>
-                    <p>EL MECANISMO DE LAS ALERTAS FUNCIONA A TRAVÉS DE UN CANAL PRIVADO DE TELEGRAM DONDE, LES COMENTO MI MIRADA DEL MERCADO MEDIANTE UN INFORME DIARIO Y QUÉ SEÑALES DE COMPRA O VENTA TENEMOS CADA DÍA. ESTE INFORME SE PUBLICA ENTRE LAS 18 Y LAS 22 HS DE CADA HÁBIL BURSÁTIL, DESPUÉS DEL CIERRE DEL MERCADO. ESTO SE DEBE A QUE EL ANÁLISIS TÉCNICO DEBE REALIZARSE CON EL MERCADO CERRADO, PARA TENER UNA MAYOR PRECISIÓN Y FIABILIDAD. ES POR ESTO QUE LAS OPERACIONES A MERCADO DE LOS SUSCRIPTORES QUE QUIERAN OPERAR BAJO ESTA ESTRATEGIA DEBERÁN PASARSE AL DÍA HÁBIL BURSÁTIL SIGUIENTE, EN CUALQUIER HORARIO. CABE DESTACAR QUE, NO HAY ALERTAS DE COMPRA O VENTA TODOS LOS DÍAS, YA QUE, EL MERCADO PUEDE NO ARROJAR NINGUNA SEÑAL MEDIANTE MI MÉTODO DE TRADING.</p>
-                    <p>El análisis y las alertas de trading son sobre el activo que cotiza en USA, en dólares. Pero esto no presenta ningun inconveniente en realizar operaciones en CEDEARs contra pesos y en Argentina. ESTO PERMITE QUE PUEDAS INGRESAR EN CADA ALERTA CON MENOR CANTIDAD DE DINERO Y EN PESOS, YA QUE LOS CEDEARS COTIZAN TANTO EN PESOS COMO EN DÓLARES Y TIENEN UN RATIO DE CONVERSIÓN QUE FACILITA EL ACCESO A INVERSORES CON MENOR CAPITAL INICIAL. De hecho, el servicio contempla LA INVERSIÓN EN CEDEARS Y EN PESOS COMO la preferible YA QUE SUELE HABER MUCHO MÁS VOLUMEN DE OPERACIONES EN EL MERCADO LOCAL EN ESA MONEDA.</p>
-                </details>
-                
-                <details>
-                    <summary>¿Las alertas tienen vencimiento?</summary>
-                    <p>Sí, tanto las alertas de compra como de venta tienen 24 horas de vencimiento. Esto se debe a que el análisis realizado del activo y del contexto en general cambia día a día, siguiendo el desarrollo del mercado. EN CADA INFORME DETALLAMOS A QUÉ ACTIVOS, DE LOS QUE YA TUVIERON ALERTAS DE COMPRA CON FECHAS ANTERIORES, SE PUEDE INGRESAR AL DÍA SIGUIENTE EN EL CASO QUE HUBIERA ALGUNO.</p>
-                </details>
+                <div class="space-y-6" data-animate="fade-up" data-delay="200">
+                    <details class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <summary class="px-6 py-4 font-semibold cursor-pointer focus:outline-none">¿Qué es Trader Call? ¿Para qué sirve?</summary>
+                        <div class="px-6 py-4 border-t border-gray-200">
+                            <p class="text-gray-600 mb-4">Trader Call es un servicio de suscripción de alertas de trading, donde comparto mi estrategia de trading de corto-mediano plazo que vengo llevando a cabo en los mercados desde hace varios años. Este servicio tiene como finalidad ayudar a la comunidad inversora a invertir de manera profesional en el mercado de capitales argentino, proporcionando mi mirada y para que empiecen con el pie derecho en este mundo tan hostil.</p>
+                            <p class="text-gray-600">Luego de la suscripción, se enviará un mail a la dirección de correo electrónico vinculada a la cuenta de mercadopago con la que se realizó la suscripción. En dicho correo se enviará el link de acceso al canal privado de telegram para comenzar a disfrutar del servicio. Tenga en cuenta que tanto el envío del correo con la información como la aceptación en telegram puede demorar hasta 48hs hábiles.</p>
+                        </div>
+                    </details>
+                    
+                    <details class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <summary class="px-6 py-4 font-semibold cursor-pointer focus:outline-none">¿Las alertas tienen vencimiento?</summary>
+                        <div class="px-6 py-4 border-t border-gray-200">
+                            <p class="text-gray-600">Sí, tanto las alertas de compra como de venta tienen 24 horas de vencimiento. Esto se debe a que el análisis realizado del activo y del contexto en general cambia día a día, siguiendo el desarrollo del mercado. EN CADA INFORME DETALLAMOS A QUÉ ACTIVOS, DE LOS QUE YA TUVIERON ALERTAS DE COMPRA CON FECHAS ANTERIORES, SE PUEDE INGRESAR AL DÍA SIGUIENTE EN EL CASO QUE HUBIERA ALGUNO.</p>
+                        </div>
+                    </details>
 
-                <details>
-                    <summary>¿Cuánto dinero hay que invertir?</summary>
-                    <p>NO HAY UN MÍNIMO DE DINERO CON EL QUE TENGAS QUE COMENZAR, PERO UNA SUMA RECOMENDABLE SERÍA EL EQUIVALENTE A u$D 1.000.-</p>
-                </details>
+                    <details class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <summary class="px-6 py-4 font-semibold cursor-pointer focus:outline-none">¿Cuánto dinero hay que invertir?</summary>
+                        <div class="px-6 py-4 border-t border-gray-200">
+                            <p class="text-gray-600">NO HAY UN MÍNIMO DE DINERO CON EL QUE TENGAS QUE COMENZAR, PERO UNA SUMA RECOMENDABLE SERÍA EL EQUIVALENTE A u$D 1.000.-</p>
+                        </div>
+                    </details>
 
-                <details>
-                    <summary>¿Como son los pagos de la suscripción?</summary>
-                    <p>Solo aceptamos suscripciones y pagos por MercadoPago. Los cobros son automáticos y tienen en cuenta la oferta de los 30 días gratis, por lo que usted empezará a pagar su suscripción luego de 30 días. Todos los 1ro de mes, se debitará del método de pago asociado el importe de la suscripción con la referencia "TRADERCALL".</p>
-                    <p>IMPORTANTE: Tenga a bien contar con los fondos suficientes en el método de pago seleccionado para no tener inconvenientes con el estado de su suscripción.</p>
-                    <p>ES OPORTUNO ACLARAR QUE, EN NINGÚN CASO SE COBRARÁN COMISIONES EXTRAS A LA HORA DE REALIZAR LAS OPERACIONES A MERCADO, YA QUE NO EXISTE VÍNCULO ALGUNO ENTRE EL SERVICIO DE ALERTAS Y NINGUN BROKER DE BOLSA ARGENTINO O INTERNACIONAL.</p>
-                </details>
+                    <details class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <summary class="px-6 py-4 font-semibold cursor-pointer focus:outline-none">¿Como son los pagos de la suscripción?</summary>
+                        <div class="px-6 py-4 border-t border-gray-200">
+                            <p class="text-gray-600 mb-4">Solo aceptamos suscripciones y pagos por MercadoPago. Los cobros son automáticos y tienen en cuenta la oferta de los 30 días gratis, por lo que usted empezará a pagar su suscripción luego de 30 días. Todos los 1ro de mes, se debitará del método de pago asociado el importe de la suscripción con la referencia "TRADERCALL".</p>
+                            <p class="text-gray-600 mb-4">IMPORTANTE: Tenga a bien contar con los fondos suficientes en el método de pago seleccionado para no tener inconvenientes con el estado de su suscripción.</p>
+                            <p class="text-gray-600">ES OPORTUNO ACLARAR QUE, EN NINGÚN CASO SE COBRARÁN COMISIONES EXTRAS A LA HORA DE REALIZAR LAS OPERACIONES A MERCADO, YA QUE NO EXISTE VÍNCULO ALGUNO ENTRE EL SERVICIO DE ALERTAS Y NINGUN BROKER DE BOLSA ARGENTINO O INTERNACIONAL.</p>
+                        </div>
+                    </details>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Final -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-content" data-animate="fade-up">
-                <h2>¿Listo para mejorar tus resultados de trading?</h2>
-                <p>Únete a Trader Call hoy y comienza a recibir alertas de trading de alta precisión</p>
+    <section class="py-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center" data-animate="fade-up">
+                <h2 class="text-3xl font-bold mb-6">¿Listo para mejorar tus resultados de trading?</h2>
+                <p class="text-xl mb-8">Únete a Trader Call hoy y comienza a recibir alertas de trading de alta precisión</p>
                 <% if (locals.user) { %>
-                    <button class="cta-button-large" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
+                    <button class="py-4 px-8 bg-white text-blue-600 font-bold rounded-lg text-xl transition-colors duration-300 hover:bg-gray-100" onclick="initPayment('signals', {price: 99.99, title: 'Trader Call - Servicio Premium'})">
                         Comenzar Ahora - Primeros 30 días GRATIS
                     </button>
                 <% } else { %>
-                    <a href="/auth/login" class="cta-button-large">Iniciar Sesión para Contratar</a>
+                    <a href="/auth/login" class="inline-block py-4 px-8 bg-white text-blue-600 font-bold rounded-lg text-xl transition-colors duration-300 hover:bg-gray-100">
+                        Iniciar Sesión para Contratar
+                    </a>
                 <% } %>
             </div>
         </div>
@@ -233,12 +306,6 @@
                 currentIndex = (currentIndex + 1) % testimonials.length;
                 showTestimonial(currentIndex);
             });
-
-            // Auto-rotación cada 5 segundos
-            setInterval(() => {
-                currentIndex = (currentIndex + 1) % testimonials.length;
-                showTestimonial(currentIndex);
-            }, 5000);
         });
     </script>
 </body>

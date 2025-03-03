@@ -70,6 +70,13 @@
                 ]
             }
         }); %>
+        
+        <!-- Botón de pago para usuarios sin suscripción -->
+        <div class="payment-button-container">
+            <button class="cta-button" onclick="handlePayment()">
+                Contratar Ahora
+            </button>
+        </div>
     <% } %>
 </div>
 
@@ -82,24 +89,25 @@
 <script src="/js/payment.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Agregar botón de pago si no hay suscripción activa
-    <% if (!hasActiveSubscription) { %>
-        const paymentButton = document.createElement('button');
-        paymentButton.className = 'cta-button';
-        paymentButton.textContent = 'Contratar Ahora';
-        paymentButton.onclick = function() {
-            initPayment('signals', {
-                price: 99.99,
-                title: 'Señales Premium - Suscripción Mensual'
-            });
-        };
-        
-        // Buscar el contenedor donde agregar el botón
+    // Configurar el botón de pago
+    window.handlePayment = function() {
+        initPayment('signals', {
+            price: 99.99,
+            title: 'Señales Premium - Suscripción Mensual'
+        });
+    };
+    
+    // Si no hay un botón de pago en la página, intentar agregarlo
+    if (!document.querySelector('.payment-button-container')) {
         const priceContainer = document.querySelector('.service-price');
         if (priceContainer) {
+            const paymentButton = document.createElement('button');
+            paymentButton.className = 'cta-button';
+            paymentButton.textContent = 'Contratar Ahora';
+            paymentButton.onclick = handlePayment;
             priceContainer.appendChild(paymentButton);
         }
-    <% } %>
+    }
 });
 </script>
 </body>
