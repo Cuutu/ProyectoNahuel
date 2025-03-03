@@ -79,51 +79,27 @@
 <script src="https://sdk.mercadopago.com/js/v2"></script>
 
 <!-- Script de inicialización -->
+<script src="/js/payment.js"></script>
 <script>
-// Definir la función antes de usarla
-async function initPayment() {
-    try {
-        const response = await fetch('/payment/create-order', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        if (data.id) {
-            const mp = new MercadoPago('<%= process.env.MERCADOPAGO_PUBLIC_KEY %>');
-            const checkout = mp.checkout({
-                preference: {
-                    id: data.id
-                },
-                render: {
-                    container: '.cho-container',
-                    label: 'Contratar Ahora'
-                },
-                theme: {
-                    elementsColor: '#00E676',
-                    headerColor: '#00E676'
-                }
-            });
-        } else {
-            console.error('No se recibió ID de preferencia:', data);
-        }
-    } catch (error) {
-        console.error('Error en initPayment:', error);
-    }
-}
-
-// Asegurarnos de que el script de MercadoPago esté cargado
 document.addEventListener('DOMContentLoaded', function() {
-    if (typeof MercadoPago === 'undefined') {
-        console.error('MercadoPago script no está cargado');
-    }
+    // Agregar botón de pago si no hay suscripción activa
+    <% if (!hasActiveSubscription) { %>
+        const paymentButton = document.createElement('button');
+        paymentButton.className = 'cta-button';
+        paymentButton.textContent = 'Contratar Ahora';
+        paymentButton.onclick = function() {
+            initPayment('signals', {
+                price: 99.99,
+                title: 'Señales Premium - Suscripción Mensual'
+            });
+        };
+        
+        // Buscar el contenedor donde agregar el botón
+        const priceContainer = document.querySelector('.service-price');
+        if (priceContainer) {
+            priceContainer.appendChild(paymentButton);
+        }
+    <% } %>
 });
 </script>
 </body>

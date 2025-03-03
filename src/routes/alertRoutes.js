@@ -47,37 +47,23 @@ router.get('/', async (req, res) => {
 router.get('/trader-call', async (req, res) => {
     const userSession = req.session.user;
     
-    if (!userSession) {
-        return res.render('alerts/signals', {
-            title: 'Trader Call',
-            user: null,
-            hasActiveSubscription: false,
-            service: {
-                name: "Trader Call",
-                description: "Señales de trading en tiempo real con alta precisión",
-                price: "99.99",
-                features: [
-                    "Señales 24/7 en tiempo real",
-                    "Setup completo de entrada",
-                    "Stop Loss y Take Profit",
-                    "Análisis de mercado diario"
-                ]
-            }
+    // Verificar suscripción activa si el usuario está logueado
+    let hasActiveSubscription = false;
+    if (userSession) {
+        const activeSubscription = await Subscription.findOne({
+            userId: userSession._id,
+            serviceType: 'signals',
+            status: 'active',
+            endDate: { $gt: new Date() }
         });
+        hasActiveSubscription = !!activeSubscription;
     }
 
-    // Verificar suscripción activa
-    const activeSubscription = await Subscription.findOne({
-        userId: userSession._id,
-        serviceType: 'signals',
-        status: 'active',
-        endDate: { $gt: new Date() }
-    });
-
-    res.render('alerts/signals', {
-        title: 'Trader Call',
+    // Renderizar la nueva vista específica de Trader Call
+    res.render('alerts/trader-call', {
+        title: 'Trader Call - Alertas de Trading',
         user: userSession,
-        hasActiveSubscription: !!activeSubscription,
+        hasActiveSubscription: hasActiveSubscription,
         service: {
             name: "Trader Call",
             description: "Señales de trading en tiempo real con alta precisión",
@@ -86,7 +72,10 @@ router.get('/trader-call', async (req, res) => {
                 "Señales 24/7 en tiempo real",
                 "Setup completo de entrada",
                 "Stop Loss y Take Profit",
-                "Análisis de mercado diario"
+                "Análisis de mercado diario",
+                "Acceso a canal privado de Telegram",
+                "Informes detallados post-mercado",
+                "Alertas de oportunidades especiales"
             ]
         }
     });

@@ -5,6 +5,7 @@ const appointmentController = require('../controllers/appointmentController');
 const { isAuthenticated } = require('../middleware/auth');
 const { calendar } = require('../config/googleAuth');
 const mongoose = require('mongoose');
+const paymentController = require('../controllers/paymentController');
 
 // Asegurarse de que MongoDB esté conectado
 const connectDB = async () => {
@@ -138,5 +139,8 @@ router.post('/book-appointment', isAuthenticated, async (req, res) => {
         res.status(500).json({ success: false, error: 'Error al reservar turno' });
     }
 });
+
+// Ruta para crear una orden de pago
+router.post('/create-order', isAuthenticated, paymentController.createOrder);
 
 module.exports = router; 

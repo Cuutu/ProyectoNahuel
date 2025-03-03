@@ -64,11 +64,37 @@ const paymentController = {
                 return res.status(401).json({ error: 'Usuario no autenticado' });
             }
 
+            const { serviceType, price, title } = req.body;
+            
+            // Configurar los detalles del servicio según el tipo
+            let serviceDetails = {
+                title: "Señales Premium - Suscripción Mensual",
+                unit_price: 99.99,
+                serviceType: "signals"
+            };
+            
+            // Si se proporciona un tipo de servicio específico, usar esos detalles
+            if (serviceType) {
+                if (serviceType === "traderCall") {
+                    serviceDetails = {
+                        title: title || "Trader Call - Servicio Premium",
+                        unit_price: price || 149.99,
+                        serviceType: "traderCall"
+                    };
+                } else if (serviceType === "signals") {
+                    serviceDetails = {
+                        title: title || "Señales Premium - Suscripción Mensual",
+                        unit_price: price || 99.99,
+                        serviceType: "signals"
+                    };
+                }
+            }
+
             const preference = {
                 items: [
                     {
-                        title: "Señales Premium - Suscripción Mensual",
-                        unit_price: 99.99,
+                        title: serviceDetails.title,
+                        unit_price: serviceDetails.unit_price,
                         quantity: 1,
                         currency_id: "ARS"
                     }
@@ -79,7 +105,7 @@ const paymentController = {
                     pending: `${process.env.BASE_URL}/payment/pending`
                 },
                 auto_return: "approved",
-                external_reference: `USER_${req.session.user._id}`,
+                external_reference: `USER_${req.session.user._id}_SERVICE_${serviceDetails.serviceType}`,
                 notification_url: `${process.env.BASE_URL}/payment/webhook`
             };
 
@@ -113,14 +139,26 @@ const paymentController = {
                 console.log('Payment data:', paymentData);
 
                 if (paymentData.status === 'approved') {
+                    // Extraer información del external_reference
+                    const externalRef = paymentData.external_reference || '';
+                    const parts = externalRef.split('_');
+                    const userId = parts[1];
+                    const serviceType = parts[3] || 'signals'; // Por defecto 'signals' si no se especifica
+                    
                     // Crear suscripción
                     const startDate = new Date();
                     const endDate = new Date();
-                    endDate.setMonth(endDate.getMonth() + 1); // Agregar 1 mes
+                    
+                    // Si es trader call, la duración es diferente (podría ser un servicio único)
+                    if (serviceType === 'traderCall') {
+                        endDate.setMonth(endDate.getMonth() + 3); // 3 meses para Trader Call
+                    } else {
+                        endDate.setMonth(endDate.getMonth() + 1); // 1 mes para señales
+                    }
 
                     const subscription = await Subscription.create({
-                        userId: paymentData.external_reference.split('_')[1], // Asumiendo que enviamos el userId en external_reference
-                        serviceType: 'signals',
+                        userId: userId,
+                        serviceType: serviceType,
                         status: 'active',
                         startDate,
                         endDate,

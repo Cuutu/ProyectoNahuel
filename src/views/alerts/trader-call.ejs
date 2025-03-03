@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trader Call - Alertas de Trading - Nahuel Lozano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/alerts.css">
+    <link rel="stylesheet" href="/css/alert-detail.css">
+    <link rel="stylesheet" href="/css/animations.css">
+</head>
+<body>
+    <%- include('../partials/header') %>
+
+    <!-- Hero Section -->
+    <section class="alert-hero">
+        <div class="container">
+            <h1 data-animate="fade-down">Trader Call</h1>
+            <p class="alert-description" data-animate="fade-up" data-delay="200">
+                Señales de trading en tiempo real con alta precisión
+            </p>
+        </div>
+    </section>
+
+    <!-- Video explicativo -->
+    <section class="video-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">¿Cómo funciona Trader Call?</h2>
+            <div class="video-container" data-animate="fade-up" data-delay="200">
+                <!-- Reemplazar con el ID de video correcto -->
+                <iframe width="100%" height="500" src="https://www.youtube.com/embed/VIDEO_ID" title="Trader Call - Alertas de Trading" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Estadísticas -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid" data-animate="fade-up">
+                <div class="stat-card">
+                    <div class="stat-number">85%</div>
+                    <div class="stat-label">Tasa de éxito</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1500+</div>
+                    <div class="stat-label">Traders activos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Soporte disponible</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">3+</div>
+                    <div class="stat-label">Años de experiencia</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalles de la Alerta -->
+    <section class="alert-details">
+        <div class="container">
+            <div class="alert-content">
+                <div class="features-list" data-animate="fade-right">
+                    <h2>Características Incluidas</h2>
+                    <ul>
+                        <li>Señales 24/7 en tiempo real</li>
+                        <li>Setup completo de entrada</li>
+                        <li>Stop Loss y Take Profit</li>
+                        <li>Análisis de mercado diario</li>
+                        <li>Acceso a canal privado de Telegram</li>
+                        <li>Informes detallados post-mercado</li>
+                        <li>Alertas de oportunidades especiales</li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-card" data-animate="fade-left" data-delay="200">
+                    <h3>Precio</h3>
+                    <div class="price">$149.99/mes</div>
+                    <p class="price-note">Primeros 30 días gratis</p>
+                    <% if (locals.user) { %>
+                        <button class="cta-button" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
+                            Contratar Ahora
+                        </button>
+                    <% } else { %>
+                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonios -->
+    <section class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Lo que dicen nuestros traders</h2>
+            
+            <div class="testimonials-slider" data-animate="fade-up" data-delay="200">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Desde que me suscribí a Trader Call, mi rendimiento ha mejorado significativamente. Las alertas son precisas y el análisis diario es invaluable."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/img/testimonials/user1.jpg" alt="Usuario" class="author-image">
+                        <div class="author-info">
+                            <h4>Carlos Rodríguez</h4>
+                            <p>Trader desde 2020</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"El servicio es excepcional. Las alertas son claras y el soporte es rápido. Definitivamente vale cada centavo."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/img/testimonials/user2.jpg" alt="Usuario" class="author-image">
+                        <div class="author-info">
+                            <h4>Laura Martínez</h4>
+                            <p>Inversora particular</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"Trader Call me ha ayudado a entender mejor el mercado. No solo recibo alertas, sino que aprendo con cada análisis."</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/img/testimonials/user3.jpg" alt="Usuario" class="author-image">
+                        <div class="author-info">
+                            <h4>Martín González</h4>
+                            <p>Trader principiante</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-controls">
+                <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+                <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preguntas frecuentes -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Preguntas Frecuentes</h2>
+            
+            <div class="faq-container" data-animate="fade-up" data-delay="200">
+                <details>
+                    <summary>¿Qué es Trader Call? ¿Para qué sirve?</summary>
+                    <p>Trader Call es un servicio de suscripción de alertas de trading, donde comparto mi estrategia de trading de corto-mediano plazo que vengo llevando a cabo en los mercados desde hace varios años. Este servicio tiene como finalidad ayudar a la comunidad inversora a invertir de manera profesional en el mercado de capitales argentino, proporcionando mi mirada y para que empiecen con el pie derecho en este mundo tan hostil. De la mano de Trader Call, podrás comenzar a operar en el mercado con la seguridad de una análisis técnico exhaustivo y profesional para enterarte antes que nadie de las mejores oportunidades de inversión.</p>
+                    <p>Luego de la suscripción, se enviará un mail a la dirección de correo electrónico vinculada a la cuenta de mercadopago con la que se realizó la suscripción. En dicho correo se enviará el link de acceso al canal privado de telegram para comenzar a disfrutar del servicio. Tenga en cuenta que tanto el envío del correo con la información como la aceptación en telegram puede demorar hasta 48hs hábiles.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Como funcionan las alertas de trading?</summary>
+                    <p>EL MECANISMO DE LAS ALERTAS FUNCIONA A TRAVÉS DE UN CANAL PRIVADO DE TELEGRAM DONDE, LES COMENTO MI MIRADA DEL MERCADO MEDIANTE UN INFORME DIARIO Y QUÉ SEÑALES DE COMPRA O VENTA TENEMOS CADA DÍA. ESTE INFORME SE PUBLICA ENTRE LAS 18 Y LAS 22 HS DE CADA HÁBIL BURSÁTIL, DESPUÉS DEL CIERRE DEL MERCADO. ESTO SE DEBE A QUE EL ANÁLISIS TÉCNICO DEBE REALIZARSE CON EL MERCADO CERRADO, PARA TENER UNA MAYOR PRECISIÓN Y FIABILIDAD. ES POR ESTO QUE LAS OPERACIONES A MERCADO DE LOS SUSCRIPTORES QUE QUIERAN OPERAR BAJO ESTA ESTRATEGIA DEBERÁN PASARSE AL DÍA HÁBIL BURSÁTIL SIGUIENTE, EN CUALQUIER HORARIO. CABE DESTACAR QUE, NO HAY ALERTAS DE COMPRA O VENTA TODOS LOS DÍAS, YA QUE, EL MERCADO PUEDE NO ARROJAR NINGUNA SEÑAL MEDIANTE MI MÉTODO DE TRADING.</p>
+                    <p>El análisis y las alertas de trading son sobre el activo que cotiza en USA, en dólares. Pero esto no presenta ningun inconveniente en realizar operaciones en CEDEARs contra pesos y en Argentina. ESTO PERMITE QUE PUEDAS INGRESAR EN CADA ALERTA CON MENOR CANTIDAD DE DINERO Y EN PESOS, YA QUE LOS CEDEARS COTIZAN TANTO EN PESOS COMO EN DÓLARES Y TIENEN UN RATIO DE CONVERSIÓN QUE FACILITA EL ACCESO A INVERSORES CON MENOR CAPITAL INICIAL. De hecho, el servicio contempla LA INVERSIÓN EN CEDEARS Y EN PESOS COMO la preferible YA QUE SUELE HABER MUCHO MÁS VOLUMEN DE OPERACIONES EN EL MERCADO LOCAL EN ESA MONEDA.</p>
+                </details>
+                
+                <details>
+                    <summary>¿Las alertas tienen vencimiento?</summary>
+                    <p>Sí, tanto las alertas de compra como de venta tienen 24 horas de vencimiento. Esto se debe a que el análisis realizado del activo y del contexto en general cambia día a día, siguiendo el desarrollo del mercado. EN CADA INFORME DETALLAMOS A QUÉ ACTIVOS, DE LOS QUE YA TUVIERON ALERTAS DE COMPRA CON FECHAS ANTERIORES, SE PUEDE INGRESAR AL DÍA SIGUIENTE EN EL CASO QUE HUBIERA ALGUNO.</p>
+                </details>
+
+                <details>
+                    <summary>¿Cuánto dinero hay que invertir?</summary>
+                    <p>NO HAY UN MÍNIMO DE DINERO CON EL QUE TENGAS QUE COMENZAR, PERO UNA SUMA RECOMENDABLE SERÍA EL EQUIVALENTE A u$D 1.000.-</p>
+                </details>
+
+                <details>
+                    <summary>¿Como son los pagos de la suscripción?</summary>
+                    <p>Solo aceptamos suscripciones y pagos por MercadoPago. Los cobros son automáticos y tienen en cuenta la oferta de los 30 días gratis, por lo que usted empezará a pagar su suscripción luego de 30 días. Todos los 1ro de mes, se debitará del método de pago asociado el importe de la suscripción con la referencia "TRADERCALL".</p>
+                    <p>IMPORTANTE: Tenga a bien contar con los fondos suficientes en el método de pago seleccionado para no tener inconvenientes con el estado de su suscripción.</p>
+                    <p>ES OPORTUNO ACLARAR QUE, EN NINGÚN CASO SE COBRARÁN COMISIONES EXTRAS A LA HORA DE REALIZAR LAS OPERACIONES A MERCADO, YA QUE NO EXISTE VÍNCULO ALGUNO ENTRE EL SERVICIO DE ALERTAS Y NINGUN BROKER DE BOLSA ARGENTINO O INTERNACIONAL.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content" data-animate="fade-up">
+                <h2>¿Listo para mejorar tus resultados de trading?</h2>
+                <p>Únete a Trader Call hoy y comienza a recibir alertas de trading de alta precisión</p>
+                <% if (locals.user) { %>
+                    <button class="cta-button-large" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
+                        Comenzar Ahora - Primeros 30 días GRATIS
+                    </button>
+                <% } else { %>
+                    <a href="/auth/login" class="cta-button-large">Iniciar Sesión para Contratar</a>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <%- include('../partials/footer') %>
+
+    <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/payment.js"></script>
+    <script>
+        // Script para el slider de testimonios
+        document.addEventListener('DOMContentLoaded', function() {
+            const testimonials = document.querySelectorAll('.testimonial-card');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            let currentIndex = 0;
+
+            function showTestimonial(index) {
+                testimonials.forEach((testimonial, i) => {
+                    testimonial.style.display = i === index ? 'block' : 'none';
+                });
+            }
+
+            // Mostrar el primer testimonio al cargar
+            showTestimonial(currentIndex);
+
+            // Botones de navegación
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+                showTestimonial(currentIndex);
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % testimonials.length;
+                showTestimonial(currentIndex);
+            });
+
+            // Auto-rotación cada 5 segundos
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % testimonials.length;
+                showTestimonial(currentIndex);
+            }, 5000);
+        });
+    </script>
+</body>
+</html> 
