@@ -85,7 +85,7 @@ app.use((req, res, next) => {
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/dashboardRoutes');
-const serviceRoutes = require('./src/routes/serviceRoutes');
+const alertRoutes = require('./src/routes/alertRoutes');
 const trainingRoutes = require('./src/routes/trainingRoutes');
 const consultingRoutes = require('./src/routes/consultingRoutes');
 const resourceRoutes = require('./src/routes/resourceRoutes');
@@ -98,7 +98,7 @@ const indexRoutes = require('./src/routes/index');
 
 app.use('/', authRoutes);
 app.use('/user', userRoutes);
-app.use('/alertas', serviceRoutes);
+app.use('/alertas', alertRoutes);
 app.use('/entrenamientos', trainingRoutes);
 app.use('/asesorias', consultingRoutes);
 app.use('/payment', paymentRoutes);

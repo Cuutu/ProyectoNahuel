@@ -1,11 +1,11 @@
-/* Reset específico para la página de servicios */
+/* Reset específico para la página de alertas */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Contenedor principal de servicios */
+/* Contenedor principal de alertas */
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -13,23 +13,23 @@
 }
 
 /* Título de la sección */
-.services-title {
+.alerts-title {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 3rem;
     color: #333;
 }
 
-/* Grid de servicios */
-.services-grid {
+/* Grid de alertas */
+.alerts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     padding: 1rem;
 }
 
-/* Tarjeta de servicio */
-.service-card {
+/* Tarjeta de alerta */
+.alert-card {
     background: white;
     border-radius: 15px;
     padding: 2rem;
@@ -41,18 +41,18 @@
     cursor: pointer;
 }
 
-.service-card:hover {
+.alert-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* Efecto adicional para los elementos internos en hover */
-.service-card:hover .card-header h3 {
+.alert-card:hover .card-header h3 {
     color: #00ff88;
     transition: color 0.3s ease;
 }
 
-.service-card:hover .cta-button {
+.alert-card:hover .cta-button {
     background: #00cc6a;
     transform: scale(1.05);
     transition: all 0.3s ease;
@@ -172,15 +172,15 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
 }
 
-/* Ajuste para la sección de servicios */
-.services-section {
+/* Ajuste para la sección de alertas */
+.alerts-section {
     padding-top: 2rem;
     margin-top: 2rem;
 }
 
 /* Ajuste responsive para el video */
 @media (max-width: 768px) {
-    .services-grid {
+    .alerts-grid {
         grid-template-columns: 1fr;
     }
 
@@ -224,18 +224,18 @@
     border-radius: 2px;
 }
 
-.services-container {
+.alerts-container {
     padding: 2rem 0;
 }
 
-.services-grid {
+.alerts-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
     margin-bottom: 2rem;
 }
 
-.service-box {
+.alert-box {
     background: #fff;
     border-radius: 8px;
     padding: 2rem;
@@ -243,34 +243,34 @@
     transition: transform 0.3s ease;
 }
 
-.service-box:hover {
+.alert-box:hover {
     transform: translateY(-5px);
 }
 
-.service-box h2 {
+.alert-box h2 {
     color: #333;
     margin-bottom: 1rem;
     font-size: 1.8rem;
 }
 
-.service-box p {
+.alert-box p {
     color: #666;
     margin-bottom: 1.5rem;
 }
 
-.service-box ul {
+.alert-box ul {
     list-style-type: none;
     padding: 0;
     margin-bottom: 2rem;
 }
 
-.service-box ul li {
+.alert-box ul li {
     padding: 0.5rem 0;
     position: relative;
     padding-left: 1.5rem;
 }
 
-.service-box ul li:before {
+.alert-box ul li:before {
     content: "•";
     color: #00e676;
     position: absolute;
@@ -366,7 +366,7 @@ details p {
 }
 
 @media (max-width: 768px) {
-    .services-grid {
+    .alerts-grid {
         grid-template-columns: 1fr;
     }
     

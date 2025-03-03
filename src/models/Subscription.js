@@ -9,7 +9,8 @@ const subscriptionSchema = new mongoose.Schema({
     serviceType: {
         type: String,
         required: true,
-        enum: ['signals', 'mentoring', 'community']
+        enum: ['signals', 'mentoring', 'community'],
+        default: 'signals'
     },
     status: {
         type: String,

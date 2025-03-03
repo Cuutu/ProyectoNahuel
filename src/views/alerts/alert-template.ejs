@@ -8,27 +8,27 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/landing.css">
-    <link rel="stylesheet" href="/css/services.css">
-    <link rel="stylesheet" href="/css/service-detail.css">
+    <link rel="stylesheet" href="/css/alerts.css">
+    <link rel="stylesheet" href="/css/alert-detail.css">
     <link rel="stylesheet" href="/css/animations.css">
 </head>
 <body>
     <%- include('../partials/header') %>
 
     <!-- Hero Section -->
-    <section class="service-hero">
+    <section class="alert-hero">
         <div class="container">
             <h1 data-animate="fade-down"><%= service.name %></h1>
-            <p class="service-description" data-animate="fade-up" data-delay="200">
+            <p class="alert-description" data-animate="fade-up" data-delay="200">
                 <%= service.description %>
             </p>
         </div>
     </section>
 
-    <!-- Detalles del Servicio -->
-    <section class="service-details">
+    <!-- Detalles de la Alerta -->
+    <section class="alert-details">
         <div class="container">
-            <div class="service-content">
+            <div class="alert-content">
                 <div class="features-list" data-animate="fade-right">
                     <h2>Características Incluidas</h2>
                     <ul>

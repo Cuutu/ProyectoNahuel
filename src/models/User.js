@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const membershipSchema = new mongoose.Schema({
-    // Servicios
-    servicios: {
+    // Alertas (anteriormente Servicios)
+    alertas: {
         type: String,
         enum: ['free', 'basic', 'premium', 'pro'],
         default: 'free'
@@ -19,7 +19,7 @@ const membershipSchema = new mongoose.Schema({
         default: false
     },
     // Fechas de vencimiento para cada tipo
-    vencimientoServicios: Date,
+    vencimientoAlertas: Date,
     vencimientoEntrenamientos: Date,
     vencimientoAsesoramiento: Date
 });

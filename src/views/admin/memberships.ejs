@@ -31,43 +31,42 @@
             </div>
         </div>
 
-        <!-- Sección de Servicios -->
-        <div class="membership-section">
-            <h3>Servicios Activos</h3>
-            <div class="table-responsive">
-                <table class="memberships-table">
-                    <thead>
+        <!-- Sección de Alertas (anteriormente Servicios) -->
+        <div class="stats-card">
+            <h3>Alertas Activas</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Usuario</th>
+                        <th>Nivel</th>
+                        <th>Vencimiento</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.filter(user => user.membresias?.alertas && user.membresias.alertas !== 'free').forEach(user => { %>
                         <tr>
-                            <th>Usuario</th>
-                            <th>Plan</th>
-                            <th>Vencimiento</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
+                            <td><%= user.nombre %> <%= user.apellido %></td>
+                            <td><%= user.membresias.alertas.toUpperCase() %></td>
+                            <td><%= user.membresias.vencimientoAlertas ? new Date(user.membresias.vencimientoAlertas).toLocaleDateString() : 'Sin fecha' %></td>
+                            <% const diasRestantesAlerta = user.membresias.vencimientoAlertas ?
+                                Math.ceil((new Date(user.membresias.vencimientoAlertas) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
+                            <td>
+                                <% const diasRestantesServ = user.membresias.vencimientoAlertas ? 
+                                    Math.ceil((new Date(user.membresias.vencimientoAlertas) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
+                                <span class="status-badge <%= diasRestantesServ <= 7 ? 'warning' : 'active' %>">
+                                    <%= diasRestantesServ <= 7 ? 'Por vencer' : 'Activo' %>
+                                </span>
+                            </td>
+                            <td>
+                                <button class="btn-edit" onclick="editarMembresia('<%= user._id %>')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <% users.filter(user => user.membresias?.servicios && user.membresias.servicios !== 'free').forEach(user => { %>
-                            <tr class="membership-row">
-                                <td><%= user.nombre %> <%= user.apellido %></td>
-                                <td><%= user.membresias.servicios.toUpperCase() %></td>
-                                <td><%= user.membresias.vencimientoServicios ? new Date(user.membresias.vencimientoServicios).toLocaleDateString() : 'Sin fecha' %></td>
-                                <td>
-                                    <% const diasRestantesServ = user.membresias.vencimientoServicios ? 
-                                        Math.ceil((new Date(user.membresias.vencimientoServicios) - new Date()) / (1000 * 60 * 60 * 24)) : 0 %>
-                                    <span class="status-badge <%= diasRestantesServ <= 7 ? 'warning' : 'active' %>">
-                                        <%= diasRestantesServ <= 7 ? 'Por vencer' : 'Activo' %>
-                                    </span>
-                                </td>
-                                <td>
-                                    <button class="btn-edit" onclick="editarMembresia('<%= user._id %>')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            </div>
+                    <% }) %>
+                </tbody>
+            </table>
         </div>
 
         <!-- Sección de Entrenamientos -->

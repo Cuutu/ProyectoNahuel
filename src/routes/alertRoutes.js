@@ -3,13 +3,13 @@ const router = express.Router();
 const { sessionPersist } = require('../middleware/auth');
 const Subscription = require('../models/Subscription');
 
-// Aplicar middleware a todas las rutas de servicios
+// Aplicar middleware a todas las rutas de alertas
 router.use(sessionPersist);
 
-// Ruta principal de servicios
+// Ruta principal de alertas
 router.get('/', async (req, res) => {
     try {
-        res.render('services', {
+        res.render('alerts', {
             title: "Nuestras Alertas",
             user: req.user || req.session.user,
             isAuthenticated: req.isAuthenticated() || !!req.session.user,
@@ -48,7 +48,7 @@ router.get('/trader-call', async (req, res) => {
     const userSession = req.session.user;
     
     if (!userSession) {
-        return res.render('services/signals', {
+        return res.render('alerts/signals', {
             title: 'Trader Call',
             user: null,
             hasActiveSubscription: false,
@@ -74,7 +74,7 @@ router.get('/trader-call', async (req, res) => {
         endDate: { $gt: new Date() }
     });
 
-    res.render('services/signals', {
+    res.render('alerts/signals', {
         title: 'Trader Call',
         user: userSession,
         hasActiveSubscription: !!activeSubscription,
@@ -94,7 +94,7 @@ router.get('/trader-call', async (req, res) => {
 
 router.get('/smart-money', (req, res) => {
     const userSession = req.session.user;
-    res.render('services/mentoring', {
+    res.render('alerts/mentoring', {
         title: 'Smart Money',
         user: userSession,
         service: {
@@ -113,7 +113,7 @@ router.get('/smart-money', (req, res) => {
 
 router.get('/cashflow', (req, res) => {
     const userSession = req.session.user;
-    res.render('services/community', {
+    res.render('alerts/community', {
         title: 'CashFlow',
         user: userSession,
         service: {
