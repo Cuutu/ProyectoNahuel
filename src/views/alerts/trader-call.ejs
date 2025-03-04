@@ -190,7 +190,7 @@
             
             // Configurar slides iniciales
             slides.forEach((slide, index) => {
-                slide.style.left = slideWidth * index + 'px';
+                slide.style.transform = `translateX(${slideWidth * index}px)`;
                 
                 // Crear dots para navegación
                 const dot = document.createElement('button');
@@ -207,7 +207,10 @@
                 if (index < 0) index = slides.length - 1;
                 if (index >= slides.length) index = 0;
                 
-                track.style.transform = `translateX(-${slideWidth * index}px)`;
+                slides.forEach((slide, i) => {
+                    slide.style.transform = `translateX(${slideWidth * (i - index)}px)`;
+                });
+                
                 currentSlide = index;
                 
                 // Actualizar dots activos
