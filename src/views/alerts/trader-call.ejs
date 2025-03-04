@@ -185,12 +185,13 @@
             
             if (!track || !slides.length || !nextButton || !prevButton || !dotsContainer) return;
             
-            const slideWidth = slides[0].getBoundingClientRect().width;
             let currentSlide = 0;
             
             // Configurar slides iniciales
             slides.forEach((slide, index) => {
-                slide.style.transform = `translateX(${slideWidth * index}px)`;
+                if (index === 0) {
+                    slide.classList.add('active');
+                }
                 
                 // Crear dots para navegación
                 const dot = document.createElement('button');
@@ -207,9 +208,13 @@
                 if (index < 0) index = slides.length - 1;
                 if (index >= slides.length) index = 0;
                 
-                slides.forEach((slide, i) => {
-                    slide.style.transform = `translateX(${slideWidth * (i - index)}px)`;
+                // Ocultar todos los slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
                 });
+                
+                // Mostrar el slide actual
+                slides[index].classList.add('active');
                 
                 currentSlide = index;
                 
