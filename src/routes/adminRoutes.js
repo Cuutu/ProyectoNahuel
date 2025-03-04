@@ -57,7 +57,7 @@ router.get('/', async (req, res) => {
 // Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
-        // Eliminar duplicados
+        // Eliminar duplicados automáticamente cada vez que se carga la página
         await removeDuplicateStats();
         
         // Verificar si hay estadísticas de landing, si no, inicializarlas
@@ -195,8 +195,8 @@ router.post('/stats/clean-duplicates', async (req, res) => {
     try {
         await removeDuplicateStats();
         
-        // Redireccionar a la página de estadísticas
-        res.redirect('/admin/stats');
+        // Redireccionar a la página de estadísticas con un parámetro para indicar que se limpiaron los duplicados
+        res.redirect('/admin/stats?clean=true');
     } catch (error) {
         console.error('Error al limpiar estadísticas duplicadas:', error);
         res.status(500).render('error', {
