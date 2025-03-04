@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { sessionPersist } = require('../middleware/auth');
 const Subscription = require('../models/Subscription');
-const TraderCallStats = require('../models/TraderCallStats');
+const Stats = require('../models/Stats');
 
 // Aplicar middleware a todas las rutas de alertas
 router.use(sessionPersist);
@@ -63,46 +63,50 @@ router.get('/trader-call', async (req, res) => {
     // Obtener estadísticas de Trader Call
     let traderCallStats = [];
     try {
-        traderCallStats = await TraderCallStats.find({ visible: true }).sort('order');
+        traderCallStats = await Stats.find({ category: 'trader-call', visible: true }).sort('order');
         
         // Si no hay estadísticas, inicializar con valores predeterminados
         if (traderCallStats.length === 0) {
             const initialStats = [
                 {
                     value: '85%',
-                    label: '% de rendimiento del último año',
+                    text: '% de rendimiento del último año',
                     order: 1,
-                    visible: true
+                    visible: true,
+                    category: 'trader-call'
                 },
                 {
                     value: '+500',
-                    label: 'Usuarios activos',
+                    text: 'Usuarios activos',
                     order: 2,
-                    visible: true
+                    visible: true,
+                    category: 'trader-call'
                 },
                 {
                     value: '+1300',
-                    label: 'Alertas enviadas',
+                    text: 'Alertas enviadas',
                     order: 3,
-                    visible: true
+                    visible: true,
+                    category: 'trader-call'
                 },
                 {
                     value: '24/7',
-                    label: 'Soporte disponible',
+                    text: 'Soporte disponible',
                     order: 4,
-                    visible: true
+                    visible: true,
+                    category: 'trader-call'
                 }
             ];
             
-            await TraderCallStats.insertMany(initialStats);
-            traderCallStats = await TraderCallStats.find({ visible: true }).sort('order');
+            await Stats.insertMany(initialStats);
+            traderCallStats = await Stats.find({ category: 'trader-call', visible: true }).sort('order');
         }
     } catch (error) {
         console.error('Error al obtener estadísticas de Trader Call:', error);
         // Continuar con estadísticas vacías si hay error
     }
 
-    // Renderizar la nueva vista específica de Trader Call
+    // Renderizar la vista específica de Trader Call
     res.render('alerts/trader-call', {
         title: 'Trader Call - Alertas de Trading',
         user: userSession,

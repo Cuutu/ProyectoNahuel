@@ -55,40 +55,82 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Ruta para ver estadísticas
+// Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
-        // Verificar si hay estadísticas, si no, inicializarlas
-        const count = await Stats.countDocuments();
+        // Verificar si hay estadísticas de landing, si no, inicializarlas
+        const landingCount = await Stats.countDocuments({ category: 'landing' });
         
-        if (count === 0) {
-            // Datos iniciales
-            const initialStats = [
+        if (landingCount === 0) {
+            // Datos iniciales para landing
+            const initialLandingStats = [
                 {
                     value: '7 años',
                     text: 'trabajando con el mercado',
-                    order: 1
+                    order: 1,
+                    category: 'landing'
                 },
                 {
                     value: '+1500',
                     text: 'alumnos',
-                    order: 2
+                    order: 2,
+                    category: 'landing'
                 },
                 {
                     value: '+300',
                     text: 'horas de formación',
-                    order: 3
+                    order: 3,
+                    category: 'landing'
                 }
             ];
             
-            await Stats.insertMany(initialStats);
-            console.log('Estadísticas inicializadas desde el panel de administración');
+            await Stats.insertMany(initialLandingStats);
+            console.log('Estadísticas de landing inicializadas desde el panel de administración');
         }
         
-        const stats = await Stats.find().sort('order');
+        // Verificar si hay estadísticas de trader-call, si no, inicializarlas
+        const traderCallCount = await Stats.countDocuments({ category: 'trader-call' });
+        
+        if (traderCallCount === 0) {
+            // Datos iniciales para trader-call
+            const initialTraderCallStats = [
+                {
+                    value: '85%',
+                    text: '% de rendimiento del último año',
+                    order: 1,
+                    category: 'trader-call'
+                },
+                {
+                    value: '+500',
+                    text: 'Usuarios activos',
+                    order: 2,
+                    category: 'trader-call'
+                },
+                {
+                    value: '+1300',
+                    text: 'Alertas enviadas',
+                    order: 3,
+                    category: 'trader-call'
+                },
+                {
+                    value: '24/7',
+                    text: 'Soporte disponible',
+                    order: 4,
+                    category: 'trader-call'
+                }
+            ];
+            
+            await Stats.insertMany(initialTraderCallStats);
+            console.log('Estadísticas de Trader Call inicializadas desde el panel de administración');
+        }
+        
+        // Obtener todas las estadísticas
+        const landingStats = await Stats.find({ category: 'landing' }).sort('order');
+        const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
         
         res.render('admin/stats', { 
-            stats,
+            landingStats,
+            traderCallStats,
             title: 'Gestión de Estadísticas',
             user: req.user
         });
@@ -104,7 +146,7 @@ router.get('/stats', async (req, res) => {
 // Ruta para actualizar estadísticas
 router.post('/stats/update', async (req, res) => {
     try {
-        const { id, value, text, visible } = req.body;
+        const { id, value, text, visible, category } = req.body;
         
         // Verificar que los datos sean válidos
         if (!id || !value || !text) {
@@ -120,7 +162,8 @@ router.post('/stats/update', async (req, res) => {
             { 
                 value, 
                 text, 
-                visible: visible === 'on' // Convertir checkbox a booleano
+                visible: visible === 'on', // Convertir checkbox a booleano
+                category // Mantener la categoría
             },
             { new: true } // Para obtener el documento actualizado
         );

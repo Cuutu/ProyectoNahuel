@@ -16,7 +16,14 @@ const StatsSchema = new mongoose.Schema({
     visible: {
         type: Boolean,
         default: true
+    },
+    category: {
+        type: String,
+        enum: ['landing', 'trader-call'],
+        default: 'landing'
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Stats', StatsSchema); 
