@@ -106,23 +106,47 @@
 
 /* Estilos para la página de detalle de alertas */
 .alert-hero {
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: white;
     padding: 5rem 2rem;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('/img/pattern-bg.svg') repeat;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.alert-hero .container {
+    position: relative;
+    z-index: 2;
 }
 
 .alert-hero h1 {
-    font-size: 3rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(90deg, #3b82f6, #60a5fa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
 }
 
 .alert-description {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     max-width: 800px;
     margin: 0 auto;
     opacity: 0.9;
+    line-height: 1.6;
 }
 
 /* Video a pantalla completa */
@@ -149,14 +173,14 @@
 /* Sección de estadísticas */
 .stats-section {
     padding: 4rem 2rem;
-    background-color: #f8f9fa;
+    background-color: #f8fafc;
 }
 
 .section-title {
     font-size: 2.2rem;
     text-align: center;
     margin-bottom: 2rem;
-    color: #333;
+    color: #0f172a;
 }
 
 .stats-grid {
@@ -174,16 +198,19 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     text-align: center;
     transition: transform 0.3s ease;
+    border: 1px solid #e2e8f0;
 }
 
 .stat-card:hover {
     transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+    border-color: #3b82f6;
 }
 
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #00cc6a;
+    color: #3b82f6;
     margin-bottom: 0.5rem;
 }
 
@@ -204,6 +231,7 @@
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
 }
 
 .google-sheets-container iframe {
@@ -218,8 +246,8 @@
 
 .download-button {
     display: inline-block;
-    background: #00ff88;
-    color: #1a1a2e;
+    background: #3b82f6;
+    color: white;
     padding: 0.8rem 1.5rem;
     border-radius: 5px;
     font-weight: 600;
@@ -228,7 +256,7 @@
 }
 
 .download-button:hover {
-    background: #00cc6a;
+    background: #2563eb;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -236,7 +264,7 @@
 /* Carrusel de imágenes con informes y alertas */
 .reports-carousel-section {
     padding: 4rem 2rem;
-    background-color: #f8f9fa;
+    background-color: #f8fafc;
 }
 
 .carousel-container {
@@ -247,6 +275,7 @@
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     height: 500px;
+    border: 1px solid #e2e8f0;
 }
 
 .carousel-track {
@@ -309,6 +338,7 @@
 
 .carousel-button:hover {
     background: white;
+    color: #3b82f6;
 }
 
 .carousel-button.prev {
@@ -341,13 +371,13 @@
 }
 
 .carousel-dot.active {
-    background: white;
+    background: #3b82f6;
     transform: scale(1.2);
 }
 
 .alert-details {
     padding: 4rem 2rem;
-    background-color: #f8f9fa;
+    background-color: white;
 }
 
 .pricing-container {
@@ -365,33 +395,57 @@
     text-align: center;
     max-width: 400px;
     width: 100%;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.pricing-card:hover {
+    border-color: #3b82f6;
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.1);
+    transform: translateY(-10px);
 }
 
 .pricing-card h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: #333;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+    font-weight: 700;
 }
 
 .price {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #00cc6a;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #3b82f6;
     margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.price::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #3b82f6;
+    border-radius: 3px;
 }
 
 .price-note {
-    font-size: 1rem;
-    color: #666;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2.5rem;
+    font-weight: 500;
 }
 
 .cta-button {
-    background: #00ff88;
-    color: #1a1a2e;
+    background: #3b82f6;
+    color: white;
     border: none;
-    padding: 1rem 2rem;
-    border-radius: 5px;
+    padding: 1.2rem 2rem;
+    border-radius: 8px;
     font-size: 1.2rem;
     font-weight: 600;
     cursor: pointer;
@@ -399,12 +453,14 @@
     display: inline-block;
     text-decoration: none;
     width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .cta-button:hover {
-    background: #00cc6a;
+    background: #2563eb;
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
 }
 
 /* Estilos para la sección de testimonios */
@@ -468,8 +524,8 @@
 }
 
 .prev-btn, .next-btn {
-    background: #00ff88;
-    color: #1a1a2e;
+    background: #3b82f6;
+    color: white;
     border: none;
     width: 40px;
     height: 40px;
@@ -482,7 +538,7 @@
 }
 
 .prev-btn:hover, .next-btn:hover {
-    background: #00cc6a;
+    background: #2563eb;
     transform: scale(1.1);
 }
 
@@ -541,7 +597,7 @@ details p {
 /* Estilos para la sección CTA final */
 .cta-section {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
     color: white;
     text-align: center;
 }
@@ -559,8 +615,8 @@ details p {
 }
 
 .cta-button-large {
-    background: #00ff88;
-    color: #1a1a2e;
+    background: #3b82f6;
+    color: white;
     border: none;
     padding: 1rem 2rem;
     border-radius: 5px;
@@ -573,7 +629,7 @@ details p {
 }
 
 .cta-button-large:hover {
-    background: #00cc6a;
+    background: #2563eb;
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
