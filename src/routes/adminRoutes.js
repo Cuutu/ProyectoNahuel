@@ -6,7 +6,6 @@ const adminController = require('../controllers/adminController');
 const { isAdmin } = require('../middleware/auth');
 const Mentoring = require('../models/mentoring');
 const Stats = require('../models/Stats');
-const TraderCallStats = require('../models/TraderCallStats');
 
 // Middleware para verificar si es admin
 const isAdminMiddleware = (req, res, next) => {
@@ -58,7 +57,7 @@ router.get('/', async (req, res) => {
 // Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
-        // Verificar si hay estadísticas duplicadas y eliminarlas
+        // Eliminar duplicados
         await removeDuplicateStats();
         
         // Verificar si hay estadísticas de landing, si no, inicializarlas
@@ -146,49 +145,6 @@ router.get('/stats', async (req, res) => {
     }
 });
 
-// Función para eliminar estadísticas duplicadas
-async function removeDuplicateStats() {
-    try {
-        // Obtener todas las estadísticas agrupadas por categoría y orden
-        const landingStats = await Stats.find({ category: 'landing' }).sort('order');
-        const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
-        
-        // Mapa para rastrear órdenes únicos por categoría
-        const uniqueOrders = {
-            'landing': new Set(),
-            'trader-call': new Set()
-        };
-        
-        // IDs de estadísticas a mantener
-        const keepIds = [];
-        
-        // Procesar estadísticas de landing
-        for (const stat of landingStats) {
-            if (!uniqueOrders['landing'].has(stat.order)) {
-                uniqueOrders['landing'].add(stat.order);
-                keepIds.push(stat._id);
-            }
-        }
-        
-        // Procesar estadísticas de trader-call
-        for (const stat of traderCallStats) {
-            if (!uniqueOrders['trader-call'].has(stat.order)) {
-                uniqueOrders['trader-call'].add(stat.order);
-                keepIds.push(stat._id);
-            }
-        }
-        
-        // Eliminar estadísticas duplicadas
-        const result = await Stats.deleteMany({ _id: { $nin: keepIds } });
-        
-        if (result.deletedCount > 0) {
-            console.log(`Se eliminaron ${result.deletedCount} estadísticas duplicadas`);
-        }
-    } catch (error) {
-        console.error('Error al eliminar estadísticas duplicadas:', error);
-    }
-}
-
 // Ruta para actualizar estadísticas
 router.post('/stats/update', async (req, res) => {
     try {
@@ -233,6 +189,70 @@ router.post('/stats/update', async (req, res) => {
         });
     }
 });
+
+// Ruta para limpiar estadísticas duplicadas
+router.post('/stats/clean-duplicates', async (req, res) => {
+    try {
+        await removeDuplicateStats();
+        
+        // Redireccionar a la página de estadísticas
+        res.redirect('/admin/stats');
+    } catch (error) {
+        console.error('Error al limpiar estadísticas duplicadas:', error);
+        res.status(500).render('error', {
+            message: 'Error al limpiar estadísticas duplicadas',
+            user: req.user
+        });
+    }
+});
+
+// Función para eliminar estadísticas duplicadas
+async function removeDuplicateStats() {
+    try {
+        // Obtener todas las estadísticas agrupadas por categoría y orden
+        const landingStats = await Stats.find({ category: 'landing' }).sort('order');
+        const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
+        
+        // Mapa para rastrear órdenes únicos por categoría
+        const uniqueOrders = {
+            'landing': new Set(),
+            'trader-call': new Set()
+        };
+        
+        // IDs de estadísticas a mantener
+        const keepIds = [];
+        
+        // Procesar estadísticas de landing
+        for (const stat of landingStats) {
+            if (!uniqueOrders['landing'].has(stat.order)) {
+                uniqueOrders['landing'].add(stat.order);
+                keepIds.push(stat._id);
+            }
+        }
+        
+        // Procesar estadísticas de trader-call
+        for (const stat of traderCallStats) {
+            if (!uniqueOrders['trader-call'].has(stat.order)) {
+                uniqueOrders['trader-call'].add(stat.order);
+                keepIds.push(stat._id);
+            }
+        }
+        
+        // Eliminar estadísticas duplicadas
+        const result = await Stats.deleteMany({ 
+            $or: [
+                { category: 'landing', _id: { $nin: keepIds } },
+                { category: 'trader-call', _id: { $nin: keepIds } }
+            ]
+        });
+        
+        if (result.deletedCount > 0) {
+            console.log(`Se eliminaron ${result.deletedCount} estadísticas duplicadas`);
+        }
+    } catch (error) {
+        console.error('Error al eliminar estadísticas duplicadas:', error);
+    }
+}
 
 // Ruta de prueba
 router.get('/test', (req, res) => {
@@ -335,116 +355,5 @@ router.post('/updates', adminController.createUpdate);
 
 // Ruta para cerrar actualización
 router.put('/updates/:id/close', adminController.closeUpdate);
-
-// Ruta para ver estadísticas de Trader Call
-router.get('/trader-call-stats', async (req, res) => {
-    try {
-        // Verificar si hay estadísticas, si no, inicializarlas
-        const count = await TraderCallStats.countDocuments();
-        
-        if (count === 0) {
-            // Datos iniciales basados en la vista actual
-            const initialStats = [
-                {
-                    value: '85%',
-                    label: '% de rendimiento del último año',
-                    order: 1
-                },
-                {
-                    value: '+500',
-                    label: 'Usuarios activos',
-                    order: 2
-                },
-                {
-                    value: '+1300',
-                    label: 'Alertas enviadas',
-                    order: 3
-                },
-                {
-                    value: '24/7',
-                    label: 'Soporte disponible',
-                    order: 4
-                }
-            ];
-            
-            await TraderCallStats.insertMany(initialStats);
-            console.log('Estadísticas de Trader Call inicializadas desde el panel de administración');
-        }
-        
-        const stats = await TraderCallStats.find().sort('order');
-        
-        res.render('admin/trader-call-stats', { 
-            stats,
-            title: 'Gestión de Estadísticas de Trader Call',
-            user: req.user
-        });
-    } catch (error) {
-        console.error('Error al cargar estadísticas de Trader Call:', error);
-        res.status(500).render('error', {
-            message: 'Error al cargar estadísticas de Trader Call',
-            user: req.user
-        });
-    }
-});
-
-// Ruta para actualizar estadísticas de Trader Call
-router.post('/trader-call-stats/update', async (req, res) => {
-    try {
-        const { id, value, label, visible } = req.body;
-        
-        // Verificar que los datos sean válidos
-        if (!id || !value || !label) {
-            return res.status(400).render('error', {
-                message: 'Datos incompletos para actualizar estadísticas de Trader Call',
-                user: req.user
-            });
-        }
-        
-        // Actualizar la estadística
-        const updatedStat = await TraderCallStats.findByIdAndUpdate(
-            id, 
-            { 
-                value, 
-                label, 
-                visible: visible === 'on' // Convertir checkbox a booleano
-            },
-            { new: true } // Para obtener el documento actualizado
-        );
-        
-        if (!updatedStat) {
-            return res.status(404).render('error', {
-                message: 'Estadística de Trader Call no encontrada',
-                user: req.user
-            });
-        }
-        
-        console.log('Estadística de Trader Call actualizada:', updatedStat);
-        
-        // Redireccionar a la página de estadísticas de Trader Call
-        res.redirect('/admin/trader-call-stats');
-    } catch (error) {
-        console.error('Error al actualizar estadísticas de Trader Call:', error);
-        res.status(500).render('error', {
-            message: 'Error al actualizar estadísticas de Trader Call',
-            user: req.user
-        });
-    }
-});
-
-// Ruta para limpiar estadísticas duplicadas
-router.post('/stats/clean-duplicates', async (req, res) => {
-    try {
-        await removeDuplicateStats();
-        
-        // Redireccionar a la página de estadísticas
-        res.redirect('/admin/stats');
-    } catch (error) {
-        console.error('Error al limpiar estadísticas duplicadas:', error);
-        res.status(500).render('error', {
-            message: 'Error al limpiar estadísticas duplicadas',
-            user: req.user
-        });
-    }
-});
 
 module.exports = router; 
