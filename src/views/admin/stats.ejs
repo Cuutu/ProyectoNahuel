@@ -169,6 +169,16 @@
             </div>
         </div>
         
+        <% if (hasDuplicates) { %>
+            <div class="admin-actions" style="margin-bottom: 20px;">
+                <form action="/admin/stats/clean-duplicates" method="POST">
+                    <button type="submit" class="admin-button warning">
+                        <i class="fas fa-broom"></i> Limpiar Estadísticas Duplicadas
+                    </button>
+                </form>
+            </div>
+        <% } %>
+        
         <div class="admin-actions">
             <a href="/admin" class="admin-button secondary">
                 <i class="fas fa-arrow-left"></i> Volver al Panel

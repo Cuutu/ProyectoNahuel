@@ -58,6 +58,9 @@ router.get('/', async (req, res) => {
 // Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
+        // Verificar si hay estadísticas duplicadas y eliminarlas
+        await removeDuplicateStats();
+        
         // Verificar si hay estadísticas de landing, si no, inicializarlas
         const landingCount = await Stats.countDocuments({ category: 'landing' });
         
@@ -142,6 +145,49 @@ router.get('/stats', async (req, res) => {
         });
     }
 });
+
+// Función para eliminar estadísticas duplicadas
+async function removeDuplicateStats() {
+    try {
+        // Obtener todas las estadísticas agrupadas por categoría y orden
+        const landingStats = await Stats.find({ category: 'landing' }).sort('order');
+        const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
+        
+        // Mapa para rastrear órdenes únicos por categoría
+        const uniqueOrders = {
+            'landing': new Set(),
+            'trader-call': new Set()
+        };
+        
+        // IDs de estadísticas a mantener
+        const keepIds = [];
+        
+        // Procesar estadísticas de landing
+        for (const stat of landingStats) {
+            if (!uniqueOrders['landing'].has(stat.order)) {
+                uniqueOrders['landing'].add(stat.order);
+                keepIds.push(stat._id);
+            }
+        }
+        
+        // Procesar estadísticas de trader-call
+        for (const stat of traderCallStats) {
+            if (!uniqueOrders['trader-call'].has(stat.order)) {
+                uniqueOrders['trader-call'].add(stat.order);
+                keepIds.push(stat._id);
+            }
+        }
+        
+        // Eliminar estadísticas duplicadas
+        const result = await Stats.deleteMany({ _id: { $nin: keepIds } });
+        
+        if (result.deletedCount > 0) {
+            console.log(`Se eliminaron ${result.deletedCount} estadísticas duplicadas`);
+        }
+    } catch (error) {
+        console.error('Error al eliminar estadísticas duplicadas:', error);
+    }
+}
 
 // Ruta para actualizar estadísticas
 router.post('/stats/update', async (req, res) => {
@@ -380,6 +426,22 @@ router.post('/trader-call-stats/update', async (req, res) => {
         console.error('Error al actualizar estadísticas de Trader Call:', error);
         res.status(500).render('error', {
             message: 'Error al actualizar estadísticas de Trader Call',
+            user: req.user
+        });
+    }
+});
+
+// Ruta para limpiar estadísticas duplicadas
+router.post('/stats/clean-duplicates', async (req, res) => {
+    try {
+        await removeDuplicateStats();
+        
+        // Redireccionar a la página de estadísticas
+        res.redirect('/admin/stats');
+    } catch (error) {
+        console.error('Error al limpiar estadísticas duplicadas:', error);
+        res.status(500).render('error', {
+            message: 'Error al limpiar estadísticas duplicadas',
             user: req.user
         });
     }
