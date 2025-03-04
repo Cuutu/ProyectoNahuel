@@ -106,30 +106,17 @@
     <!-- Detalles de la Alerta -->
     <section class="alert-details">
         <div class="container">
-            <div class="alert-content">
-                <div class="features-list" data-animate="fade-right">
-                    <h2>Características Incluidas</h2>
-                    <ul>
-                        <li>Señales 24/7 en tiempo real</li>
-                        <li>Setup completo de entrada</li>
-                        <li>Stop Loss y Take Profit</li>
-                        <li>Análisis de mercado diario</li>
-                        <li>Acceso a canal privado de Telegram</li>
-                        <li>Informes detallados post-mercado</li>
-                        <li>Alertas de oportunidades especiales</li>
-                    </ul>
-                </div>
-                
-                <div class="pricing-card" data-animate="fade-left" data-delay="200">
+            <div class="pricing-container" data-animate="fade-up">
+                <div class="pricing-card">
                     <h3>Precio</h3>
                     <div class="price">$149.99/mes</div>
                     <p class="price-note">Primeros 30 días gratis</p>
                     <% if (locals.user) { %>
                         <button class="cta-button" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
-                            Contratar Ahora
+                            Suscribirse
                         </button>
                     <% } else { %>
-                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Contratar</a>
+                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Suscribirse</a>
                     <% } %>
                 </div>
             </div>
