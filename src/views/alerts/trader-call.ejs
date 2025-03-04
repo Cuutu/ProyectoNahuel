@@ -42,22 +42,32 @@
         <div class="container">
             <h2 class="section-title" data-animate="fade-up">Resultados que Hablan por Sí Mismos</h2>
             <div class="stats-grid" data-animate="fade-up">
-                <div class="stat-card">
-                    <div class="stat-number">85%</div>
-                    <div class="stat-label">% de rendimiento del último año</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">+500</div>
-                    <div class="stat-label">Usuarios activos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">+1300</div>
-                    <div class="stat-label">Alertas enviadas</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">24/7</div>
-                    <div class="stat-label">Soporte disponible</div>
-                </div>
+                <% if (traderCallStats && traderCallStats.length > 0) { %>
+                    <% traderCallStats.forEach(stat => { %>
+                        <div class="stat-card">
+                            <div class="stat-number"><%= stat.value %></div>
+                            <div class="stat-label"><%= stat.label %></div>
+                        </div>
+                    <% }) %>
+                <% } else { %>
+                    <!-- Estadísticas por defecto en caso de error -->
+                    <div class="stat-card">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">% de rendimiento del último año</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">+500</div>
+                        <div class="stat-label">Usuarios activos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">+1300</div>
+                        <div class="stat-label">Alertas enviadas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Soporte disponible</div>
+                    </div>
+                <% } %>
             </div>
         </div>
     </section>

@@ -6,6 +6,7 @@ const adminController = require('../controllers/adminController');
 const { isAdmin } = require('../middleware/auth');
 const Mentoring = require('../models/mentoring');
 const Stats = require('../models/Stats');
+const TraderCallStats = require('../models/TraderCallStats');
 
 // Middleware para verificar si es admin
 const isAdminMiddleware = (req, res, next) => {
@@ -245,5 +246,100 @@ router.post('/updates', adminController.createUpdate);
 
 // Ruta para cerrar actualización
 router.put('/updates/:id/close', adminController.closeUpdate);
+
+// Ruta para ver estadísticas de Trader Call
+router.get('/trader-call-stats', async (req, res) => {
+    try {
+        // Verificar si hay estadísticas, si no, inicializarlas
+        const count = await TraderCallStats.countDocuments();
+        
+        if (count === 0) {
+            // Datos iniciales basados en la vista actual
+            const initialStats = [
+                {
+                    value: '85%',
+                    label: '% de rendimiento del último año',
+                    order: 1
+                },
+                {
+                    value: '+500',
+                    label: 'Usuarios activos',
+                    order: 2
+                },
+                {
+                    value: '+1300',
+                    label: 'Alertas enviadas',
+                    order: 3
+                },
+                {
+                    value: '24/7',
+                    label: 'Soporte disponible',
+                    order: 4
+                }
+            ];
+            
+            await TraderCallStats.insertMany(initialStats);
+            console.log('Estadísticas de Trader Call inicializadas desde el panel de administración');
+        }
+        
+        const stats = await TraderCallStats.find().sort('order');
+        
+        res.render('admin/trader-call-stats', { 
+            stats,
+            title: 'Gestión de Estadísticas de Trader Call',
+            user: req.user
+        });
+    } catch (error) {
+        console.error('Error al cargar estadísticas de Trader Call:', error);
+        res.status(500).render('error', {
+            message: 'Error al cargar estadísticas de Trader Call',
+            user: req.user
+        });
+    }
+});
+
+// Ruta para actualizar estadísticas de Trader Call
+router.post('/trader-call-stats/update', async (req, res) => {
+    try {
+        const { id, value, label, visible } = req.body;
+        
+        // Verificar que los datos sean válidos
+        if (!id || !value || !label) {
+            return res.status(400).render('error', {
+                message: 'Datos incompletos para actualizar estadísticas de Trader Call',
+                user: req.user
+            });
+        }
+        
+        // Actualizar la estadística
+        const updatedStat = await TraderCallStats.findByIdAndUpdate(
+            id, 
+            { 
+                value, 
+                label, 
+                visible: visible === 'on' // Convertir checkbox a booleano
+            },
+            { new: true } // Para obtener el documento actualizado
+        );
+        
+        if (!updatedStat) {
+            return res.status(404).render('error', {
+                message: 'Estadística de Trader Call no encontrada',
+                user: req.user
+            });
+        }
+        
+        console.log('Estadística de Trader Call actualizada:', updatedStat);
+        
+        // Redireccionar a la página de estadísticas de Trader Call
+        res.redirect('/admin/trader-call-stats');
+    } catch (error) {
+        console.error('Error al actualizar estadísticas de Trader Call:', error);
+        res.status(500).render('error', {
+            message: 'Error al actualizar estadísticas de Trader Call',
+            user: req.user
+        });
+    }
+});
 
 module.exports = router; 
