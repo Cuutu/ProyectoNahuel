@@ -249,5 +249,23 @@
             }, 4000);
         });
     </script>
+
+    <style>
+        /* Sobrescribir la variable de color accent */
+        :root {
+            --accent: #3b82f6 !important;
+        }
+        
+        /* Estilos inline para asegurar que se apliquen */
+        .stat-number {
+            color: #3b82f6 !important;
+            color: var(--accent) !important;
+        }
+        
+        .section-title::after {
+            background: #3b82f6 !important;
+            background: var(--accent) !important;
+        }
+    </style>
 </body>
 </html> 

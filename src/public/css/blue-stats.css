@@ -1,0 +1,30 @@
+:root {
+    /* Sobrescribir la variable de color accent para que sea azul en lugar de verde */
+    --accent: #3b82f6 !important;
+}
+
+/* Asegurarnos de que los números de estadísticas sean azules */
+.stat-number {
+    color: #3b82f6 !important;
+    color: var(--accent) !important;
+}
+
+/* Aplicar a todos los elementos con la clase stat-number */
+div.stat-number,
+span.stat-number,
+.stats-grid .stat-card .stat-number,
+.stats-section .stats-grid .stat-card .stat-number,
+[class*="stat-number"],
+[class^="stat-number"] {
+    color: #3b82f6 !important;
+    color: var(--accent) !important;
+}
+
+/* Sobrescribir la línea decorativa debajo de los títulos de sección */
+.section-title::after,
+h2.section-title::after,
+[class*="section-title"]::after,
+[class^="section-title"]::after {
+    background: #3b82f6 !important;
+    background: var(--accent) !important;
+} 
