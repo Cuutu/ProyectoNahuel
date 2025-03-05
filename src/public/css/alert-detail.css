@@ -333,7 +333,7 @@
 .stat-number {
     font-size: 2.5rem;
     font-weight: 700;
-    color: #3b82f6;
+    color: #3b82f6 !important;
     margin-bottom: 0.5rem;
 }
 
@@ -738,4 +738,14 @@ body .container .stats-section .section-title::after,
 body .container .testimonials-section .section-title::after,
 body .section-title::after {
     background: #3b82f6 !important; /* Uso de !important para asegurar que se aplique */
+}
+
+/* Cambiar el color de los números de estadísticas a azul */
+.stats-grid .stat-card .stat-number {
+    color: #3b82f6 !important;
+}
+
+/* Para mayor especificidad, también podemos apuntar directamente a los elementos */
+.stats-section .stats-grid .stat-card .stat-number {
+    color: #3b82f6 !important;
 } 
