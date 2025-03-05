@@ -1,6 +1,7 @@
 :root {
     /* Sobrescribir la variable de color accent para que sea azul en lugar de verde */
     --accent: #3b82f6 !important;
+    --primary: #3b82f6 !important;
 }
 
 /* Asegurarnos de que los números de estadísticas sean azules */
@@ -20,6 +21,14 @@ span.stat-number,
     color: var(--accent) !important;
 }
 
+/* Sobrescribir específicamente los estilos de admin.css */
+html body .stat-number,
+body .stat-number,
+.admin-container .stat-number,
+.stats-preview .stat-card .stat-number {
+    color: #3b82f6 !important;
+}
+
 /* Sobrescribir la línea decorativa debajo de los títulos de sección */
 .section-title::after,
 h2.section-title::after,
@@ -27,4 +36,9 @@ h2.section-title::after,
 [class^="section-title"]::after {
     background: #3b82f6 !important;
     background: var(--accent) !important;
+}
+
+/* Asegurar que las estadísticas en la vista previa del admin también sean azules */
+.stats-preview .stat-card.preview .stat-number {
+    color: #3b82f6 !important;
 } 
