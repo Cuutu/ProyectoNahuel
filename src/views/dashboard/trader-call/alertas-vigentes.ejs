@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alertas Vigentes - Trader Call</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/trader-call-dashboard.css">
+    <style>
+        /* Estilos específicos para el dashboard de Trader Call */
+        .sidebar {
+            width: 250px;
+            background-color: #0A2647;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 80px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #144272;
+            border-left-color: #3b82f6;
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-submenu {
+            list-style: none;
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .sidebar-menu li.open .sidebar-submenu {
+            max-height: 500px;
+        }
+        
+        .sidebar-submenu a {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            padding-top: 80px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+        
+        .toggle-sidebar {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background-color: #0A2647;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-card h2 {
+            color: #0A2647;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+        }
+        
+        .google-sheet-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        
+        .alert-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        
+        .alert-card:hover {
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        .alert-icon {
+            background-color: #3b82f6;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .alert-content {
+            flex-grow: 1;
+        }
+        
+        .alert-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #0A2647;
+        }
+        
+        .alert-meta {
+            display: flex;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .alert-meta span {
+            margin-right: 15px;
+        }
+        
+        .alert-meta i {
+            margin-right: 5px;
+        }
+        
+        .alert-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .alert-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .alert-button:hover {
+            background-color: #2563eb;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
+            
+            .alert-meta {
+                flex-direction: column;
+            }
+            
+            .alert-meta span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <button class="toggle-sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="/dashboard/trader-call">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard de Trabajo
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/seguimiento">
+                    <i class="fas fa-chart-line"></i> Seguimiento de Alertas
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/alertas-vigentes" class="active">
+                    <i class="fas fa-bell"></i> Alertas Vigentes
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/informes">
+                    <i class="fas fa-file-alt"></i> Informes
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/comunidad">
+                    <i class="fas fa-users"></i> Comunidad
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>Alertas Vigentes</h1>
+            <p>Consulta las alertas activas en este momento</p>
+        </div>
+        
+        <div class="dashboard-card">
+            <h2>Alertas Vigentes</h2>
+            <p>Aquí puedes ver todas las alertas que están activas actualmente.</p>
+            <div class="google-sheet-container">
+                <iframe class="google-sheet-embed" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQPR5GVkVUWuG5-5JJeUXUZ-8-9XTa7xwT1Ac0m4h2uGaqRPaJNLHzHf4b9MBpghA/pubhtml?widget=true&amp;headers=false"></iframe>
+            </div>
+            
+            <div class="alerts-list">
+                <div class="alert-card">
+                    <div class="alert-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">COMPRA: Bitcoin (BTC/USD)</div>
+                        <div class="alert-meta">
+                            <span><i class="fas fa-tag"></i> Precio: $60,250</span>
+                            <span><i class="fas fa-bullseye"></i> Objetivo: $65,000</span>
+                            <span><i class="fas fa-shield-alt"></i> Stop Loss: $58,500</span>
+                            <span><i class="fas fa-clock"></i> Emitida: 12/03/2023</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="alert-button">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <div class="alert-card">
+                    <div class="alert-icon">
+                        <i class="fas fa-arrow-down"></i>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">VENTA: Ethereum (ETH/USD)</div>
+                        <div class="alert-meta">
+                            <span><i class="fas fa-tag"></i> Precio: $3,250</span>
+                            <span><i class="fas fa-bullseye"></i> Objetivo: $2,950</span>
+                            <span><i class="fas fa-shield-alt"></i> Stop Loss: $3,400</span>
+                            <span><i class="fas fa-clock"></i> Emitida: 14/03/2023</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="alert-button">Ver Detalles</button>
+                    </div>
+                </div>
+                
+                <div class="alert-card">
+                    <div class="alert-icon">
+                        <i class="fas fa-arrow-up"></i>
+                    </div>
+                    <div class="alert-content">
+                        <div class="alert-title">COMPRA: Apple Inc. (AAPL)</div>
+                        <div class="alert-meta">
+                            <span><i class="fas fa-tag"></i> Precio: $175.50</span>
+                            <span><i class="fas fa-bullseye"></i> Objetivo: $190.00</span>
+                            <span><i class="fas fa-shield-alt"></i> Stop Loss: $168.00</span>
+                            <span><i class="fas fa-clock"></i> Emitida: 15/03/2023</span>
+                        </div>
+                    </div>
+                    <div class="alert-actions">
+                        <button class="alert-button">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar on mobile
+            const toggleBtn = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Submenu toggle
+            const menuItems = document.querySelectorAll('.sidebar-menu > li > a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const parent = this.parentElement;
+                    
+                    if (parent.querySelector('.sidebar-submenu')) {
+                        e.preventDefault();
+                        parent.classList.toggle('open');
+                    }
+                });
+            });
+            
+            // Set active menu item based on current page
+            const currentPath = window.location.pathname;
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+            
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comunidad - Trader Call</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/trader-call-dashboard.css">
+    <style>
+        /* Estilos específicos para el dashboard de Trader Call */
+        .sidebar {
+            width: 250px;
+            background-color: #0A2647;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding-top: 80px;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu li {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            padding: 15px 20px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #144272;
+            border-left-color: #3b82f6;
+        }
+        
+        .sidebar-menu i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        .sidebar-submenu {
+            list-style: none;
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .sidebar-menu li.open .sidebar-submenu {
+            max-height: 500px;
+        }
+        
+        .sidebar-submenu a {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            padding-top: 80px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+        
+        .toggle-sidebar {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 20;
+            background-color: #0A2647;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+        
+        .dashboard-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .dashboard-card h2 {
+            color: #0A2647;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+        }
+        
+        .chat-container {
+            display: flex;
+            height: 600px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .chat-sidebar {
+            width: 250px;
+            background-color: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            overflow-y: auto;
+        }
+        
+        .chat-header {
+            padding: 15px;
+            background-color: #f1f5f9;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .chat-search {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .chat-search input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .chat-users {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .chat-user {
+            padding: 10px 15px;
+            border-bottom: 1px solid #e2e8f0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .chat-user:hover, .chat-user.active {
+            background-color: #e2e8f0;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+        
+        .user-info {
+            flex-grow: 1;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 3px;
+        }
+        
+        .user-status {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .user-status.online {
+            color: #22c55e;
+        }
+        
+        .chat-main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+        }
+        
+        .message.outgoing {
+            justify-content: flex-end;
+        }
+        
+        .message-content {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .message.incoming .message-content {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        
+        .message.outgoing .message-content {
+            background-color: #3b82f6;
+            color: white;
+        }
+        
+        .message-time {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 5px;
+            text-align: right;
+        }
+        
+        .chat-input {
+            padding: 15px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+        }
+        
+        .chat-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .chat-input button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background-color: #2563eb;
+        }
+        
+        .forum-container {
+            margin-top: 30px;
+        }
+        
+        .forum-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .forum-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .forum-button:hover {
+            background-color: #2563eb;
+        }
+        
+        .forum-topics {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .forum-topic {
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background-color 0.3s;
+        }
+        
+        .forum-topic:last-child {
+            border-bottom: none;
+        }
+        
+        .forum-topic:hover {
+            background-color: #f8fafc;
+        }
+        
+        .topic-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .topic-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #0f172a;
+        }
+        
+        .topic-meta {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .topic-content {
+            font-size: 0.9rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        
+        .topic-footer {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+        
+        .topic-actions a {
+            color: #3b82f6;
+            margin-left: 10px;
+            text-decoration: none;
+        }
+        
+        .topic-actions a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
+            
+            .chat-container {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .chat-sidebar {
+                width: 100%;
+                height: 300px;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .chat-main {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <%- include('../../partials/header') %>
+    
+    <button class="toggle-sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li>
+                <a href="/dashboard/trader-call">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard de Trabajo
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/seguimiento">
+                    <i class="fas fa-chart-line"></i> Seguimiento de Alertas
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/alertas-vigentes">
+                    <i class="fas fa-bell"></i> Alertas Vigentes
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/informes">
+                    <i class="fas fa-file-alt"></i> Informes
+                </a>
+            </li>
+            <li>
+                <a href="/dashboard/trader-call/comunidad" class="active">
+                    <i class="fas fa-users"></i> Comunidad
+                </a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <div class="dashboard-header">
+            <h1>Comunidad Trader Call</h1>
+            <p>Interactúa con otros suscriptores y el equipo de Trader Call</p>
+        </div>
+        
+        <div class="dashboard-card">
+            <h2>Chat en Vivo</h2>
+            <div class="chat-container">
+                <div class="chat-sidebar">
+                    <div class="chat-header">
+                        <h3>Conversaciones</h3>
+                    </div>
+                    <div class="chat-search">
+                        <input type="text" placeholder="Buscar...">
+                    </div>
+                    <ul class="chat-users">
+                        <li class="chat-user active">
+                            <img src="https://via.placeholder.com/40" alt="Nahuel Lozano" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Nahuel Lozano</div>
+                                <div class="user-status online">En línea</div>
+                            </div>
+                        </li>
+                        <li class="chat-user">
+                            <img src="https://via.placeholder.com/40" alt="Soporte Trader Call" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Soporte Trader Call</div>
+                                <div class="user-status online">En línea</div>
+                            </div>
+                        </li>
+                        <li class="chat-user">
+                            <img src="https://via.placeholder.com/40" alt="Grupo Trader Call" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Grupo Trader Call</div>
+                                <div class="user-status">325 miembros</div>
+                            </div>
+                        </li>
+                        <li class="chat-user">
+                            <img src="https://via.placeholder.com/40" alt="Grupo Análisis Técnico" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Grupo Análisis Técnico</div>
+                                <div class="user-status">156 miembros</div>
+                            </div>
+                        </li>
+                        <li class="chat-user">
+                            <img src="https://via.placeholder.com/40" alt="Grupo Criptomonedas" class="user-avatar">
+                            <div class="user-info">
+                                <div class="user-name">Grupo Criptomonedas</div>
+                                <div class="user-status">210 miembros</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="chat-main">
+                    <div class="chat-messages">
+                        <div class="message incoming">
+                            <div class="message-content">
+                                <p>Hola, bienvenido a Trader Call. ¿En qué puedo ayudarte hoy?</p>
+                                <div class="message-time">10:30 AM</div>
+                            </div>
+                        </div>
+                        <div class="message outgoing">
+                            <div class="message-content">
+                                <p>Hola Nahuel, tengo una duda sobre la última alerta de Bitcoin.</p>
+                                <div class="message-time">10:32 AM</div>
+                            </div>
+                        </div>
+                        <div class="message incoming">
+                            <div class="message-content">
+                                <p>Claro, ¿qué duda tienes específicamente?</p>
+                                <div class="message-time">10:33 AM</div>
+                            </div>
+                        </div>
+                        <div class="message outgoing">
+                            <div class="message-content">
+                                <p>¿Crees que el nivel de soporte en $58,500 se mantendrá o deberíamos estar preparados para un posible rompimiento?</p>
+                                <div class="message-time">10:35 AM</div>
+                            </div>
+                        </div>
+                        <div class="message incoming">
+                            <div class="message-content">
+                                <p>Buena pregunta. Según nuestro análisis, ese nivel de soporte tiene una confluencia de varios indicadores técnicos, incluyendo el EMA de 50 días y un nivel de Fibonacci importante. Sin embargo, si el mercado rompe ese nivel con volumen significativo, podríamos ver una caída hasta los $56,000 antes de encontrar el siguiente soporte fuerte.</p>
+                                <div class="message-time">10:38 AM</div>
+                            </div>
+                        </div>
+                        <div class="message incoming">
+                            <div class="message-content">
+                                <p>Te recomendaría mantener el stop loss en $58,000 como indicamos en la alerta, para proteger tu capital en caso de ruptura.</p>
+                                <div class="message-time">10:39 AM</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Escribe un mensaje...">
+                        <button><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-card forum-container">
+            <div class="forum-header">
+                <h2>Foro de Discusión</h2>
+                <button class="forum-button"><i class="fas fa-plus"></i> Nuevo Tema</button>
+            </div>
+            
+            <div class="forum-topics">
+                <div class="forum-topic">
+                    <div class="topic-header">
+                        <div class="topic-title">Análisis de la situación actual de Bitcoin</div>
+                        <div class="topic-meta">Publicado por Nahuel Lozano · Hace 2 días</div>
+                    </div>
+                    <div class="topic-content">
+                        En este hilo analizaremos la situación actual de Bitcoin tras la reciente corrección. Compartiremos niveles clave, posibles escenarios y estrategias para aprovechar las oportunidades que se presenten.
+                    </div>
+                    <div class="topic-footer">
+                        <div class="topic-stats">
+                            <span><i class="fas fa-comment"></i> 24 respuestas</span>
+                            <span><i class="fas fa-eye"></i> 156 vistas</span>
+                        </div>
+                        <div class="topic-actions">
+                            <a href="#"><i class="fas fa-reply"></i> Responder</a>
+                            <a href="#"><i class="fas fa-bookmark"></i> Guardar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="forum-topic">
+                    <div class="topic-header">
+                        <div class="topic-title">Estrategias de gestión de riesgo para operaciones a largo plazo</div>
+                        <div class="topic-meta">Publicado por Carlos Martínez · Hace 3 días</div>
+                    </div>
+                    <div class="topic-content">
+                        Quería compartir algunas estrategias que he estado utilizando para gestionar el riesgo en operaciones a largo plazo. Me gustaría saber qué estrategias utilizan ustedes y cómo les ha funcionado.
+                    </div>
+                    <div class="topic-footer">
+                        <div class="topic-stats">
+                            <span><i class="fas fa-comment"></i> 18 respuestas</span>
+                            <span><i class="fas fa-eye"></i> 132 vistas</span>
+                        </div>
+                        <div class="topic-actions">
+                            <a href="#"><i class="fas fa-reply"></i> Responder</a>
+                            <a href="#"><i class="fas fa-bookmark"></i> Guardar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="forum-topic">
+                    <div class="topic-header">
+                        <div class="topic-title">¿Qué opinan sobre la última actualización de Ethereum?</div>
+                        <div class="topic-meta">Publicado por Laura Gómez · Hace 4 días</div>
+                    </div>
+                    <div class="topic-content">
+                        Con la reciente actualización de Ethereum, me gustaría saber qué impacto creen que tendrá en el precio a corto y medio plazo. ¿Alguien ha analizado los cambios técnicos y su posible impacto en el mercado?
+                    </div>
+                    <div class="topic-footer">
+                        <div class="topic-stats">
+                            <span><i class="fas fa-comment"></i> 32 respuestas</span>
+                            <span><i class="fas fa-eye"></i> 215 vistas</span>
+                        </div>
+                        <div class="topic-actions">
+                            <a href="#"><i class="fas fa-reply"></i> Responder</a>
+                            <a href="#"><i class="fas fa-bookmark"></i> Guardar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="forum-topic">
+                    <div class="topic-header">
+                        <div class="topic-title">Resultados de mi experiencia con las alertas de Trader Call</div>
+                        <div class="topic-meta">Publicado por Miguel Ángel · Hace 5 días</div>
+                    </div>
+                    <div class="topic-content">
+                        Quería compartir mi experiencia después de 3 meses siguiendo las alertas de Trader Call. He documentado todas las operaciones, resultados y lecciones aprendidas. Espero que sea útil para los nuevos miembros.
+                    </div>
+                    <div class="topic-footer">
+                        <div class="topic-stats">
+                            <span><i class="fas fa-comment"></i> 45 respuestas</span>
+                            <span><i class="fas fa-eye"></i> 278 vistas</span>
+                        </div>
+                        <div class="topic-actions">
+                            <a href="#"><i class="fas fa-reply"></i> Responder</a>
+                            <a href="#"><i class="fas fa-bookmark"></i> Guardar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="dashboard-card">
+            <h2>Próximos Eventos</h2>
+            <div class="events-list">
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="event-day">15</div>
+                        <div class="event-month">MAR</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 class="event-title">Webinar: Análisis Técnico Avanzado</h3>
+                        <p class="event-description">Aprende técnicas avanzadas de análisis técnico con Nahuel Lozano. Incluye sesión de preguntas y respuestas en vivo.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-clock"></i> 19:00 - 21:00 (GMT-3)</span>
+                            <span><i class="fas fa-users"></i> 120 asistentes confirmados</span>
+                        </div>
+                        <button class="event-button">Inscribirme</button>
+                    </div>
+                </div>
+                
+                <div class="event-item">
+                    <div class="event-date">
+                        <div class="event-day">22</div>
+                        <div class="event-month">MAR</div>
+                    </div>
+                    <div class="event-details">
+                        <h3 class="event-title">Sesión en Vivo: Análisis de Mercado Semanal</h3>
+                        <p class="event-description">Sesión en vivo donde analizaremos la situación actual del mercado y las oportunidades para la próxima semana.</p>
+                        <div class="event-meta">
+                            <span><i class="fas fa-clock"></i> 18:00 - 19:30 (GMT-3)</span>
+                            <span><i class="fas fa-users"></i> 85 asistentes confirmados</span>
+                        </div>
+                        <button class="event-button">Inscribirme</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sidebar on mobile
+            const toggleBtn = document.querySelector('.toggle-sidebar');
+            const sidebar = document.querySelector('.sidebar');
+            
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            // Submenu toggle
+            const menuItems = document.querySelectorAll('.sidebar-menu > li > a');
+            
+            menuItems.forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const parent = this.parentElement;
+                    
+                    if (parent.querySelector('.sidebar-submenu')) {
+                        e.preventDefault();
+                        parent.classList.toggle('open');
+                    }
+                });
+            });
+            
+            // Set active menu item based on current page
+            const currentPath = window.location.pathname;
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+            
+            menuLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+            
+            // Chat functionality
+            const chatUsers = document.querySelectorAll('.chat-user');
+            
+            chatUsers.forEach(user => {
+                user.addEventListener('click', function() {
+                    chatUsers.forEach(u => u.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Send message on enter
+            const chatInput = document.querySelector('.chat-input input');
+            const sendButton = document.querySelector('.chat-input button');
+            
+            if (chatInput && sendButton) {
+                chatInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+                
+                sendButton.addEventListener('click', sendMessage);
+                
+                function sendMessage() {
+                    const message = chatInput.value.trim();
+                    
+                    if (message) {
+                        const messagesContainer = document.querySelector('.chat-messages');
+                        const newMessage = document.createElement('div');
+                        newMessage.className = 'message outgoing';
+                        
+                        const now = new Date();
+                        const hours = now.getHours().toString().padStart(2, '0');
+                        const minutes = now.getMinutes().toString().padStart(2, '0');
+                        const timeString = `${hours}:${minutes}`;
+                        
+                        newMessage.innerHTML = `
+                            <div class="message-content">
+                                <p>${message}</p>
+                                <div class="message-time">${timeString}</div>
+                            </div>
+                        `;
+                        
+                        messagesContainer.appendChild(newMessage);
+                        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                        chatInput.value = '';
+                    }
+                }
+            }
+        });
+    </script>
+    
+    <style>
+        /* Estilos adicionales para eventos */
+        .events-list {
+            margin-top: 20px;
+        }
+        
+        .event-item {
+            display: flex;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .event-date {
+            background-color: #3b82f6;
+            color: white;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+        }
+        
+        .event-day {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+        
+        .event-month {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+        
+        .event-details {
+            padding: 15px;
+            flex-grow: 1;
+        }
+        
+        .event-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #0f172a;
+        }
+        
+        .event-description {
+            font-size: 0.9rem;
+            color: #334155;
+            margin-bottom: 10px;
+        }
+        
+        .event-meta {
+            display: flex;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+        
+        .event-meta span {
+            margin-right: 15px;
+        }
+        
+        .event-meta i {
+            margin-right: 5px;
+        }
+        
+        .event-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .event-button:hover {
+            background-color: #2563eb;
+        }
+        
+        @media (max-width: 768px) {
+            .event-item {
+                flex-direction: column;
+            }
+            
+            .event-date {
+                flex-direction: row;
+                padding: 10px;
+            }
+            
+            .event-day {
+                margin-right: 5px;
+            }
+            
+            .event-meta {
+                flex-direction: column;
+            }
+            
+            .event-meta span {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</body>
+</html> 
