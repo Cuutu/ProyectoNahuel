@@ -57,7 +57,7 @@
 
 .features-list li:before {
     content: "✓";
-    color: #4CAF50;
+    color: #3b82f6;
     margin-right: 15px;
     font-weight: bold;
 }
@@ -78,16 +78,47 @@
 }
 
 .price {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #007bff;
-    margin-bottom: 30px;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #3b82f6;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+}
+
+.price::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #3b82f6;
+    border-radius: 3px;
 }
 
 .cta-button {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    padding: 1.2rem 2rem;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
     width: 100%;
-    padding: 15px;
-    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-button:hover {
+    background: #2563eb;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -462,26 +493,6 @@
     flex: 1;
 }
 
-.price {
-    font-size: 3rem;
-    font-weight: 800;
-    color: #3b82f6;
-    margin-bottom: 0.5rem;
-    position: relative;
-    display: inline-block;
-}
-
-.price::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 50px;
-    height: 3px;
-    background: #3b82f6;
-    border-radius: 3px;
-}
-
 .price-note {
     font-size: 1.1rem;
     color: #64748b;
@@ -494,30 +505,6 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-}
-
-.cta-button {
-    background: #3b82f6;
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: inline-block;
-    text-decoration: none;
-    max-width: 250px;
-    width: 100%;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.cta-button:hover {
-    background: #2563eb;
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
 }
 
 @media (max-width: 768px) {
