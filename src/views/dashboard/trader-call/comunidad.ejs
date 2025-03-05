@@ -389,6 +389,10 @@
 <body>
     <%- include('../../partials/header') %>
     
+    <% if (locals.isPreview) { %>
+        <%- include('../../partials/preview-banner') %>
+    <% } %>
+    
     <button class="toggle-sidebar">
         <i class="fas fa-bars"></i>
     </button>
