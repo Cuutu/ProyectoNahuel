@@ -123,15 +123,19 @@
             <div class="pricing-container" data-animate="fade-up">
                 <div class="pricing-card">
                     <h3>Precio</h3>
-                    <div class="price">$149.99/mes</div>
-                    <p class="price-note">Primeros 30 días gratis</p>
-                    <% if (locals.user) { %>
-                        <button class="cta-button" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
-                            Suscribirse
-                        </button>
-                    <% } else { %>
-                        <a href="/auth/login" class="cta-button">Iniciar Sesión para Suscribirse</a>
-                    <% } %>
+                    <div class="price-info">
+                        <div class="price">$149.99/mes</div>
+                        <p class="price-note">Primeros 30 días gratis</p>
+                    </div>
+                    <div class="button-container">
+                        <% if (locals.user) { %>
+                            <button class="cta-button" onclick="initPayment('traderCall', {price: 149.99, title: 'Trader Call - Servicio Premium'})">
+                                Suscribirse
+                            </button>
+                        <% } else { %>
+                            <a href="/auth/login" class="cta-button">Iniciar Sesión para Suscribirse</a>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
