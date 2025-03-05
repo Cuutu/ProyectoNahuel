@@ -1,0 +1,19 @@
+/* Sobrescribir cualquier estilo que pueda estar causando problemas */
+.stat-number,
+div.stat-number,
+span.stat-number,
+.stats-grid .stat-card .stat-number,
+.stats-section .stats-grid .stat-card .stat-number,
+[class*="stat-number"],
+[class^="stat-number"] {
+    color: #3b82f6 !important;
+}
+
+/* Sobrescribir la línea decorativa debajo de los títulos de sección */
+.section-title::after,
+h2.section-title::after,
+.section-title::after,
+[class*="section-title"]::after,
+[class^="section-title"]::after {
+    background: #3b82f6 !important;
+} 

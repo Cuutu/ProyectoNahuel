@@ -740,12 +740,10 @@ body .section-title::after {
     background: #3b82f6 !important; /* Uso de !important para asegurar que se aplique */
 }
 
-/* Cambiar el color de los números de estadísticas a azul */
-.stats-grid .stat-card .stat-number {
-    color: #3b82f6 !important;
-}
-
-/* Para mayor especificidad, también podemos apuntar directamente a los elementos */
-.stats-section .stats-grid .stat-card .stat-number {
+/* Estilo global para los números de estadísticas */
+html body .stats-section .container .stats-grid .stat-card .stat-number,
+html body .stat-card .stat-number,
+html body .stat-number,
+.stat-number {
     color: #3b82f6 !important;
 } 
