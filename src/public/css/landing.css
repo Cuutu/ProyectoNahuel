@@ -790,7 +790,7 @@ body {
     transform: translateX(-50%);
     width: 100px;
     height: 3px;
-    background: #00ff88;  /* Línea decorativa verde debajo del título */
+    background: #3b82f6;  /* Cambiado de #00ff88 a azul */
 } 
 
 /* Agregar estos estilos al final del archivo */

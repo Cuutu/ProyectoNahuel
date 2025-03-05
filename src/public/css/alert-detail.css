@@ -290,6 +290,20 @@
     text-align: center;
     margin-bottom: 2rem;
     color: #0f172a;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: #3b82f6;
+    border-radius: 2px;
 }
 
 .stats-grid {
@@ -702,7 +716,7 @@ details p {
     .stat-number {
         font-size: 2rem;
     }
-    
+
     .cta-content h2 {
         font-size: 1.8rem;
     }
@@ -715,4 +729,13 @@ details p {
         width: 30px;
         height: 30px;
     }
+}
+
+/* Estilo con alta especificidad para sobrescribir cualquier otro estilo */
+body .container .reports-carousel-section .section-title::after,
+body .container .historical-alerts-section .section-title::after,
+body .container .stats-section .section-title::after,
+body .container .testimonials-section .section-title::after,
+body .section-title::after {
+    background: #3b82f6 !important; /* Uso de !important para asegurar que se aplique */
 } 

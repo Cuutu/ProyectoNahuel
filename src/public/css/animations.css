@@ -39,4 +39,9 @@
 
 /* Duraciones personalizadas */
 [data-duration="slow"] { transition-duration: 1s; }
-[data-duration="fast"] { transition-duration: 0.3s; } 
+[data-duration="fast"] { transition-duration: 0.3s; }
+
+/* Buscar cualquier animación que pueda estar definiendo el color de la línea */
+[data-animate="fade-up"]::after {
+    background: #3b82f6; /* Cambiado de verde a azul */
+} 
