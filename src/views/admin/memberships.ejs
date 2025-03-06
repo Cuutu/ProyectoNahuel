@@ -167,6 +167,79 @@
         </div>
     </div>
 
+    <!-- Modal para editar membresías -->
+    <div id="editMembresiaModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Editar Membresía</h2>
+            <form id="editMembresiaForm" action="/admin/users/id/update-membership" method="POST">
+                <div class="form-group">
+                    <label for="alertas">Alertas (Trader-call):</label>
+                    <select name="alertas" id="alertas" class="form-control">
+                        <option value="free">Free</option>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium (Trader-call)</option>
+                        <option value="pro">Pro (Trader-call)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="entrenamientos">Entrenamientos:</label>
+                    <select name="entrenamientos" id="entrenamientos" class="form-control">
+                        <option value="free">Free</option>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="asesoramiento">Asesoramiento:</label>
+                    <select name="asesoramiento" id="asesoramiento" class="form-control">
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duracionMeses">Duración (meses):</label>
+                    <input type="number" name="duracionMeses" id="duracionMeses" class="form-control" min="1" value="1">
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
     <script src="/js/admin/memberships.js"></script>
+    
+    <!-- Script para el modal de edición de membresías -->
+    <script>
+        // Obtener el modal
+        const modal = document.getElementById("editMembresiaModal");
+        const span = document.getElementsByClassName("close")[0];
+        const form = document.getElementById("editMembresiaForm");
+        
+        // Función para abrir el modal y configurar el formulario
+        function editarMembresia(userId) {
+            // Actualizar la acción del formulario con el ID del usuario
+            form.action = `/admin/users/${userId}/update-membership`;
+            
+            // Abrir el modal
+            modal.style.display = "block";
+        }
+        
+        // Cerrar el modal al hacer clic en la X
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+        
+        // Cerrar el modal al hacer clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 </body>
 </html> 

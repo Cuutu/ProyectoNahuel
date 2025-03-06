@@ -350,6 +350,56 @@ router.get('/memberships', async (req, res) => {
     }
 });
 
+// Ruta para actualizar membresía de usuario
+router.post('/users/:id/update-membership', async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const { alertas, entrenamientos, asesoramiento, duracionMeses } = req.body;
+        
+        // Calcular fechas de vencimiento
+        const ahora = new Date();
+        const vencimientoAlertas = alertas !== 'free' ? new Date(ahora.setMonth(ahora.getMonth() + parseInt(duracionMeses || 1))) : null;
+        
+        // Reiniciar la fecha para el siguiente cálculo
+        ahora.setTime(new Date().getTime());
+        const vencimientoEntrenamientos = entrenamientos !== 'free' ? new Date(ahora.setMonth(ahora.getMonth() + parseInt(duracionMeses || 1))) : null;
+        
+        // Reiniciar la fecha para el siguiente cálculo
+        ahora.setTime(new Date().getTime());
+        const vencimientoAsesoramiento = asesoramiento === 'true' ? new Date(ahora.setMonth(ahora.getMonth() + parseInt(duracionMeses || 1))) : null;
+        
+        // Actualizar usuario
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            {
+                'membresias.alertas': alertas,
+                'membresias.entrenamientos': entrenamientos,
+                'membresias.asesoramiento': asesoramiento === 'true',
+                'membresias.vencimientoAlertas': vencimientoAlertas,
+                'membresias.vencimientoEntrenamientos': vencimientoEntrenamientos,
+                'membresias.vencimientoAsesoramiento': vencimientoAsesoramiento
+            },
+            { new: true }
+        );
+        
+        if (!updatedUser) {
+            return res.status(404).json({
+                success: false,
+                message: 'Usuario no encontrado'
+            });
+        }
+        
+        // Redireccionar a la página de membresías
+        res.redirect('/admin/memberships');
+    } catch (error) {
+        console.error('Error al actualizar membresía:', error);
+        res.status(500).render('error', {
+            message: 'Error al actualizar membresía',
+            user: req.user
+        });
+    }
+});
+
 // Ruta para crear nueva actualización
 router.post('/updates', adminController.createUpdate);
 
