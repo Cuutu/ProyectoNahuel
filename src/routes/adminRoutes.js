@@ -9,10 +9,34 @@ const Stats = require('../models/Stats');
 
 // Middleware para verificar si es admin
 const isAdminMiddleware = (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
-        next();
-    } else {
-        res.redirect('/');
+    try {
+        // Verificar si el usuario está autenticado y es admin
+        if ((req.user && req.user.isAdmin) || (req.session && req.session.user && req.session.user.isAdmin)) {
+            console.log('Acceso autorizado al panel admin');
+            next();
+        } else {
+            console.log('Acceso denegado al panel admin:', {
+                user: req.user,
+                sessionUser: req.session?.user
+            });
+            
+            // Si el usuario está autenticado pero no es admin, mostrar un mensaje de error
+            if ((req.user && !req.user.isAdmin) || (req.session && req.session.user && !req.session.user.isAdmin)) {
+                return res.status(403).render('error', {
+                    message: 'No tienes permisos para acceder al panel de administración',
+                    user: req.user || req.session?.user
+                });
+            }
+            
+            // Si el usuario no está autenticado, redirigir al login
+            res.redirect('/auth/login?returnTo=/admin');
+        }
+    } catch (error) {
+        console.error('Error en middleware admin:', error);
+        res.status(500).render('error', {
+            message: 'Error al verificar permisos de administrador',
+            user: req.user || req.session?.user
+        });
     }
 };
 
@@ -306,19 +330,32 @@ router.get('/memberships', async (req, res) => {
             .populate('userId', 'nombre apellido email')
             .sort({ date: 1 });
         
+        // Asegurarse de que cada usuario tenga la estructura de membresias
+        const processedUsers = users.map(user => {
+            const userData = user.toObject();
+            if (!userData.membresias) {
+                userData.membresias = {
+                    alertas: 'free',
+                    entrenamientos: 'free',
+                    asesoramiento: false
+                };
+            }
+            return userData;
+        });
+        
         // Calcular estadísticas
-        const totalActivos = users.filter(user => 
-            user.membresias?.servicios !== 'free' || 
+        const totalActivos = processedUsers.filter(user => 
+            user.membresias?.alertas !== 'free' || 
             user.membresias?.entrenamientos !== 'free' ||
             user.membresias?.asesoramiento
         ).length;
         
-        const totalServicios = users.filter(user => 
-            user.membresias?.servicios && 
-            user.membresias.servicios !== 'free'
+        const totalServicios = processedUsers.filter(user => 
+            user.membresias?.alertas && 
+            user.membresias.alertas !== 'free'
         ).length;
         
-        const totalEntrenamientos = users.filter(user => 
+        const totalEntrenamientos = processedUsers.filter(user => 
             user.membresias?.entrenamientos && 
             user.membresias.entrenamientos !== 'free'
         ).length;
@@ -332,20 +369,20 @@ router.get('/memberships', async (req, res) => {
         };
 
         res.render('admin/memberships', {
-            users,
+            users: processedUsers,
             mentorings,
             totalActivos,
             totalServicios,
             totalEntrenamientos,
             stats,
             title: 'Gestión de Membresías',
-            user: req.user
+            user: req.user || req.session.user
         });
     } catch (error) {
         console.error('Error:', error);
         res.status(500).render('error', { 
             message: 'Error al cargar la página',
-            user: req.user
+            user: req.user || req.session.user
         });
     }
 });
@@ -355,6 +392,14 @@ router.post('/users/:id/update-membership', async (req, res) => {
     try {
         const userId = req.params.id;
         const { alertas, entrenamientos, asesoramiento, duracionMeses } = req.body;
+        
+        console.log('Actualizando membresía:', {
+            userId,
+            alertas,
+            entrenamientos,
+            asesoramiento,
+            duracionMeses
+        });
         
         // Calcular fechas de vencimiento
         const ahora = new Date();
@@ -368,34 +413,44 @@ router.post('/users/:id/update-membership', async (req, res) => {
         ahora.setTime(new Date().getTime());
         const vencimientoAsesoramiento = asesoramiento === 'true' ? new Date(ahora.setMonth(ahora.getMonth() + parseInt(duracionMeses || 1))) : null;
         
-        // Actualizar usuario
-        const updatedUser = await User.findByIdAndUpdate(
-            userId,
-            {
-                'membresias.alertas': alertas,
-                'membresias.entrenamientos': entrenamientos,
-                'membresias.asesoramiento': asesoramiento === 'true',
-                'membresias.vencimientoAlertas': vencimientoAlertas,
-                'membresias.vencimientoEntrenamientos': vencimientoEntrenamientos,
-                'membresias.vencimientoAsesoramiento': vencimientoAsesoramiento
-            },
-            { new: true }
-        );
-        
-        if (!updatedUser) {
-            return res.status(404).json({
-                success: false,
-                message: 'Usuario no encontrado'
+        // Verificar si el usuario existe
+        const user = await User.findById(userId);
+        if (!user) {
+            console.error('Usuario no encontrado:', userId);
+            return res.status(404).render('error', {
+                message: 'Usuario no encontrado',
+                user: req.user || req.session.user
             });
         }
+        
+        // Inicializar membresias si no existe
+        if (!user.membresias) {
+            user.membresias = {};
+        }
+        
+        // Actualizar propiedades
+        user.membresias.alertas = alertas;
+        user.membresias.entrenamientos = entrenamientos;
+        user.membresias.asesoramiento = asesoramiento === 'true';
+        user.membresias.vencimientoAlertas = vencimientoAlertas;
+        user.membresias.vencimientoEntrenamientos = vencimientoEntrenamientos;
+        user.membresias.vencimientoAsesoramiento = vencimientoAsesoramiento;
+        
+        // Guardar cambios
+        await user.save();
+        
+        console.log('Membresía actualizada correctamente:', {
+            userId,
+            membresias: user.membresias
+        });
         
         // Redireccionar a la página de membresías
         res.redirect('/admin/memberships');
     } catch (error) {
         console.error('Error al actualizar membresía:', error);
         res.status(500).render('error', {
-            message: 'Error al actualizar membresía',
-            user: req.user
+            message: 'Error al actualizar membresía: ' + error.message,
+            user: req.user || req.session.user
         });
     }
 });
