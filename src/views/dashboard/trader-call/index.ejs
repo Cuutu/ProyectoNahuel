@@ -23,35 +23,8 @@
         <i class="fas fa-bars"></i>
     </button>
     
-    <div class="sidebar">
-        <ul class="sidebar-menu">
-            <li>
-                <a href="/dashboard/trader-call" class="active">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard de Trabajo
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/seguimiento">
-                    <i class="fas fa-chart-line"></i> Seguimiento de Alertas
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/alertas-vigentes">
-                    <i class="fas fa-bell"></i> Alertas Vigentes
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/informes">
-                    <i class="fas fa-file-alt"></i> Informes
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/comunidad">
-                    <i class="fas fa-users"></i> Comunidad
-                </a>
-            </li>
-        </ul>
-    </div>
+    <% const currentPath = req.path || ''; %>
+    <%- include('../../partials/trader-call-sidebar') %>
     
     <div class="main-content">
         <div class="dashboard-header">
