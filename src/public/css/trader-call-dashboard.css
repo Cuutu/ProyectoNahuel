@@ -342,17 +342,56 @@
     }
 }
 
-/* Ajustes para el menú lateral */
+/* Estilos para el menú lateral */
+body {
+    padding-top: 60px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #0A2647;
+    color: white;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 100px; /* Espacio para el header */
+    transition: all 0.3s;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 .sidebar-menu li {
-    margin-bottom: 10px; /* Aumentar el espacio entre elementos del menú */
+    padding: 0;
+    margin: 0;
+    margin-bottom: 30px; /* Espacio significativo entre elementos del menú */
 }
 
 .sidebar-menu a {
-    padding: 18px 20px; /* Aumentar el padding vertical de los enlaces */
     display: flex;
     align-items: center;
+    padding: 12px 20px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 4px solid transparent;
+    line-height: 1.5;
+}
+
+.sidebar-menu a:hover, .sidebar-menu a.active {
+    background-color: #144272;
+    border-left-color: #3b82f6;
 }
 
 .sidebar-menu i {
-    font-size: 18px; /* Aumentar ligeramente el tamaño de los iconos */
+    margin-right: 15px;
+    width: 20px;
+    text-align: center;
+    font-size: 18px;
 } 
