@@ -73,6 +73,15 @@ app.use((req, res, next) => {
         }
     }
     
+    // Verificar si estamos en una ruta de vista previa o de autenticación
+    const isPreviewRoute = req.path.startsWith('/preview');
+    const isAuthRoute = req.path.startsWith('/auth');
+    
+    // Si es una ruta de vista previa o de autenticación, no verificar autenticación
+    if (isPreviewRoute || isAuthRoute) {
+        res.locals.isPreview = isPreviewRoute;
+    }
+    
     next();
 });
 

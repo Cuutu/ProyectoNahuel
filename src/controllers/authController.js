@@ -9,14 +9,16 @@ const authController = {
 
             if (!user) {
                 return res.render('auth/login', {
-                    error: 'Usuario no encontrado'
+                    error: 'Usuario no encontrado',
+                    returnTo: req.query.returnTo || '/user/dashboard'
                 });
             }
 
             const isMatch = await bcrypt.compare(password, user.password);
             if (!isMatch) {
                 return res.render('auth/login', {
-                    error: 'Contraseña incorrecta'
+                    error: 'Contraseña incorrecta',
+                    returnTo: req.query.returnTo || '/user/dashboard'
                 });
             }
 
@@ -26,11 +28,14 @@ const authController = {
                 email: user.email
             };
 
-            res.redirect('/user/dashboard');
+            // Redirigir a la URL original si existe, o al dashboard por defecto
+            const returnTo = req.query.returnTo || '/user/dashboard';
+            res.redirect(returnTo);
         } catch (error) {
             console.error('Error en login:', error);
             res.render('auth/login', {
-                error: 'Error al iniciar sesión'
+                error: 'Error al iniciar sesión',
+                returnTo: req.query.returnTo || '/user/dashboard'
             });
         }
     },
@@ -42,7 +47,8 @@ const authController = {
             const existingUser = await User.findOne({ email });
             if (existingUser) {
                 return res.render('auth/register', {
-                    error: 'El email ya está registrado'
+                    error: 'El email ya está registrado',
+                    returnTo: req.query.returnTo || '/user/dashboard'
                 });
             }
 
@@ -61,11 +67,14 @@ const authController = {
                 email: user.email
             };
 
-            res.redirect('/user/dashboard');
+            // Redirigir a la URL original si existe, o al dashboard por defecto
+            const returnTo = req.query.returnTo || '/user/dashboard';
+            res.redirect(returnTo);
         } catch (error) {
             console.error('Error en registro:', error);
             res.render('auth/register', {
-                error: 'Error al registrar usuario'
+                error: 'Error al registrar usuario',
+                returnTo: req.query.returnTo || '/user/dashboard'
             });
         }
     },

@@ -23,7 +23,8 @@ router.post('/register', authController.register);
 // Rutas de login
 router.get('/login', (req, res) => {
     res.render('auth/login', {
-        title: 'Login - CryptoTrading'
+        title: 'Login - CryptoTrading',
+        returnTo: req.query.returnTo || '/user/dashboard'
     });
 });
 

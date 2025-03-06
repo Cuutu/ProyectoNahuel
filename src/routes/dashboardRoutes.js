@@ -11,10 +11,18 @@ const isAuthenticated = (req, res, next) => {
         isAuthenticated: req.isAuthenticated()
     });
 
+    // Evitar bucles de redirección: no redirigir si ya estamos en la página de login
+    if (req.path === '/auth/login') {
+        return next();
+    }
+
     if (req.isAuthenticated() || (req.session && req.session.user)) {
         return next();
     }
-    res.redirect('/auth/login');
+    
+    // Añadir la URL original como query parameter para redirigir después del login
+    const returnTo = req.originalUrl;
+    res.redirect(`/auth/login?returnTo=${encodeURIComponent(returnTo)}`);
 };
 
 // Aplicar middleware a todas las rutas

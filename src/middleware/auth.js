@@ -1,10 +1,18 @@
 const isAuthenticated = (req, res, next) => {
+    // Evitar bucles de redirección: no redirigir si ya estamos en la página de login
+    if (req.path === '/auth/login') {
+        return next();
+    }
+    
     if (req.session && req.session.user) {
         req.session.touch();
         res.locals.user = req.session.user;
         return next();
     }
-    res.redirect('/auth/login');
+    
+    // Añadir la URL original como query parameter para redirigir después del login
+    const returnTo = req.originalUrl;
+    res.redirect(`/auth/login?returnTo=${encodeURIComponent(returnTo)}`);
 };
 
 const sessionPersist = (req, res, next) => {
@@ -25,6 +33,11 @@ const sessionPersist = (req, res, next) => {
 };
 
 const isAdmin = async (req, res, next) => {
+    // Evitar bucles de redirección: no redirigir si ya estamos en la página de login
+    if (req.path === '/auth/login') {
+        return next();
+    }
+    
     if (!req.session.user) {
         return res.redirect('/auth/login');
     }
