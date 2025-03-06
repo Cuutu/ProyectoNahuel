@@ -340,4 +340,19 @@
     .alert-meta span {
         margin-bottom: 5px;
     }
+}
+
+/* Ajustes para el menú lateral */
+.sidebar-menu li {
+    margin-bottom: 10px; /* Aumentar el espacio entre elementos del menú */
+}
+
+.sidebar-menu a {
+    padding: 18px 20px; /* Aumentar el padding vertical de los enlaces */
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-menu i {
+    font-size: 18px; /* Aumentar ligeramente el tamaño de los iconos */
 } 
