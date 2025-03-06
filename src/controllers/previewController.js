@@ -5,13 +5,15 @@
 
 // Función para renderizar el dashboard principal de Trader Call en modo vista previa
 exports.previewTraderCallDashboard = (req, res) => {
-    // Crear un usuario de demostración
+    // Crear un usuario de demostración con los campos correctos
     const demoUser = {
         nombre: 'Usuario Demo',
         email: 'demo@example.com',
         membresias: {
-            servicios: 'trader-call',
-            estado: 'activo'
+            alertas: 'premium', // Usar el campo correcto según el modelo
+            entrenamientos: 'free',
+            asesoramiento: false,
+            vencimientoAlertas: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 días en el futuro
         }
     };
     
@@ -26,13 +28,15 @@ exports.previewTraderCallDashboard = (req, res) => {
 
 // Función para renderizar la página de seguimiento de alertas en modo vista previa
 exports.previewTraderCallSeguimiento = (req, res) => {
-    // Crear un usuario de demostración
+    // Crear un usuario de demostración con los campos correctos
     const demoUser = {
         nombre: 'Usuario Demo',
         email: 'demo@example.com',
         membresias: {
-            servicios: 'trader-call',
-            estado: 'activo'
+            alertas: 'premium', // Usar el campo correcto según el modelo
+            entrenamientos: 'free',
+            asesoramiento: false,
+            vencimientoAlertas: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 días en el futuro
         }
     };
     
@@ -47,13 +51,15 @@ exports.previewTraderCallSeguimiento = (req, res) => {
 
 // Función para renderizar la página de alertas vigentes en modo vista previa
 exports.previewTraderCallAlertasVigentes = (req, res) => {
-    // Crear un usuario de demostración
+    // Crear un usuario de demostración con los campos correctos
     const demoUser = {
         nombre: 'Usuario Demo',
         email: 'demo@example.com',
         membresias: {
-            servicios: 'trader-call',
-            estado: 'activo'
+            alertas: 'premium', // Usar el campo correcto según el modelo
+            entrenamientos: 'free',
+            asesoramiento: false,
+            vencimientoAlertas: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 días en el futuro
         }
     };
     
@@ -68,13 +74,15 @@ exports.previewTraderCallAlertasVigentes = (req, res) => {
 
 // Función para renderizar la página de informes en modo vista previa
 exports.previewTraderCallInformes = (req, res) => {
-    // Crear un usuario de demostración
+    // Crear un usuario de demostración con los campos correctos
     const demoUser = {
         nombre: 'Usuario Demo',
         email: 'demo@example.com',
         membresias: {
-            servicios: 'trader-call',
-            estado: 'activo'
+            alertas: 'premium', // Usar el campo correcto según el modelo
+            entrenamientos: 'free',
+            asesoramiento: false,
+            vencimientoAlertas: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 días en el futuro
         }
     };
     
@@ -89,13 +97,15 @@ exports.previewTraderCallInformes = (req, res) => {
 
 // Función para renderizar la página de comunidad en modo vista previa
 exports.previewTraderCallComunidad = (req, res) => {
-    // Crear un usuario de demostración
+    // Crear un usuario de demostración con los campos correctos
     const demoUser = {
         nombre: 'Usuario Demo',
         email: 'demo@example.com',
         membresias: {
-            servicios: 'trader-call',
-            estado: 'activo'
+            alertas: 'premium', // Usar el campo correcto según el modelo
+            entrenamientos: 'free',
+            asesoramiento: false,
+            vencimientoAlertas: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 días en el futuro
         }
     };
     

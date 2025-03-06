@@ -14,13 +14,15 @@ const hasTraderCallSubscription = (req, res, next) => {
     const user = req.user || (req.session && req.session.user);
     
     // Verificar si el usuario tiene una suscripción activa a Trader Call
-    // Esto dependerá de cómo esté estructurado tu modelo de usuario y suscripciones
-    if (user && user.membresias && user.membresias.servicios === 'trader-call') {
+    // Comprobar según el modelo de usuario
+    if (user && user.membresias && 
+        (user.membresias.alertas === 'premium' || user.membresias.alertas === 'pro') && 
+        user.membresias.vencimientoAlertas && new Date(user.membresias.vencimientoAlertas) > new Date()) {
         return next();
     }
     
     // Si no tiene suscripción, redirigir a la página de suscripción
-    res.redirect('/alerts/trader-call?subscription=required');
+    res.redirect('/alertas/trader-call?subscription=required');
 };
 
 // Aplicar middleware a todas las rutas
