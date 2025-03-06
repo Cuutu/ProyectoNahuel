@@ -1,0 +1,13 @@
+---
+description: Nuevas reglas
+globs: 
+alwaysApply: false
+---
+Siempre en español
+Recorda que trabajamos en vercel
+Si tenes alguna DUDA o necesitas que te explique algo no dudes en preguntar!
+
+# Your rule content
+
+- You can @ files here
+- You can use markdown but dont have to

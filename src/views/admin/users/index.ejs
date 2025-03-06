@@ -91,6 +91,9 @@
                                 <button class="action-btn edit" data-id="<%= user._id %>">
                                     <i class="fas fa-edit"></i>
                                 </button>
+                                <button class="action-btn subscription" data-id="<%= user._id %>" title="Cambiar suscripción">
+                                    <i class="fas fa-id-card"></i>
+                                </button>
                                 <button class="action-btn delete" data-id="<%= user._id %>">
                                     <i class="fas fa-trash"></i>
                                 </button>
@@ -99,6 +102,54 @@
                     <% }) %>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <div id="subscriptionModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cambiar Suscripción</h2>
+            <form id="subscriptionForm" action="/admin/users/:id/update-membership" method="POST">
+                <input type="hidden" id="userId" name="userId">
+                
+                <div class="form-group">
+                    <label for="alertas">Alertas:</label>
+                    <select id="alertas" name="alertas" required>
+                        <option value="free">Free</option>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="entrenamientos">Entrenamientos:</label>
+                    <select id="entrenamientos" name="entrenamientos" required>
+                        <option value="free">Free</option>
+                        <option value="basic">Basic</option>
+                        <option value="premium">Premium</option>
+                        <option value="pro">Pro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="asesoramiento">Asesoramiento:</label>
+                    <select id="asesoramiento" name="asesoramiento" required>
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="duracionMeses">Duración (meses):</label>
+                    <input type="number" id="duracionMeses" name="duracionMeses" min="1" max="36" value="1" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="admin-btn">Guardar Cambios</button>
+                    <button type="button" class="admin-btn cancel">Cancelar</button>
+                </div>
+            </form>
         </div>
     </div>
 
