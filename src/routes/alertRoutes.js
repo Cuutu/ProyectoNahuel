@@ -46,9 +46,19 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/trader-call', async (req, res) => {
-    const userSession = req.session.user;
+    const userSession = req.user || req.session.user;
     
-    // Verificar suscripción activa si el usuario está logueado
+    // Verificar si el usuario está logueado y tiene una suscripción activa a Trader Call
+    if (userSession && userSession.membresias && 
+        (userSession.membresias.alertas === 'premium' || userSession.membresias.alertas === 'pro') && 
+        userSession.membresias.vencimientoAlertas && new Date(userSession.membresias.vencimientoAlertas) > new Date()) {
+        // Redirigir al dashboard de Trader Call
+        return res.redirect('/dashboard/trader-call');
+    }
+    
+    // Si no tiene suscripción activa, mostrar la página de ventas
+    
+    // Verificar suscripción activa si el usuario está logueado (código existente para compatibilidad)
     let hasActiveSubscription = false;
     if (userSession) {
         const activeSubscription = await Subscription.findOne({
