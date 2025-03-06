@@ -139,10 +139,14 @@
                     <% mentorings.forEach(mentoring => { %>
                         <tr>
                             <td>
-                                <%= mentoring.userId.nombre %> <%= mentoring.userId.apellido %>
-                                <small>(<%= mentoring.userId.email %>)</small>
+                                <% if (mentoring.userId) { %>
+                                    <%= mentoring.userId.nombre %> <%= mentoring.userId.apellido %>
+                                    <small>(<%= mentoring.userId.email %>)</small>
+                                <% } else { %>
+                                    <span class="text-muted">Usuario no disponible</span>
+                                <% } %>
                             </td>
-                            <td><%= new Date(mentoring.date).toLocaleString() %></td>
+                            <td><%= mentoring.date ? new Date(mentoring.date).toLocaleString() : 'Fecha no disponible' %></td>
                             <td>
                                 <span class="status-badge status-<%= mentoring.status %>">
                                     <%= mentoring.status.toUpperCase() %>

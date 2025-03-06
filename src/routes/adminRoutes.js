@@ -326,9 +326,32 @@ router.get('/users', async (req, res) => {
 router.get('/memberships', async (req, res) => {
     try {
         const users = await User.find({});
-        const mentorings = await Mentoring.find()
-            .populate('userId', 'nombre apellido email')
-            .sort({ date: 1 });
+        
+        // Obtener mentorías y manejar posibles errores de población
+        let mentorings = [];
+        try {
+            mentorings = await Mentoring.find()
+                .populate('userId', 'nombre apellido email')
+                .sort({ date: 1 });
+                
+            // Filtrar mentorías con userId null para evitar errores
+            mentorings = mentorings.map(mentoring => {
+                // Si la población falló, asegurarse de que userId sea un objeto vacío en lugar de null
+                if (!mentoring.userId) {
+                    const mentoringObj = mentoring.toObject();
+                    mentoringObj.userId = { 
+                        nombre: 'Usuario', 
+                        apellido: 'Desconocido', 
+                        email: 'no-disponible' 
+                    };
+                    return mentoringObj;
+                }
+                return mentoring;
+            });
+        } catch (error) {
+            console.error('Error al obtener mentorías:', error);
+            mentorings = []; // Si hay un error, usar un array vacío
+        }
         
         // Asegurarse de que cada usuario tenga la estructura de membresias
         const processedUsers = users.map(user => {
@@ -379,9 +402,9 @@ router.get('/memberships', async (req, res) => {
             user: req.user || req.session.user
         });
     } catch (error) {
-        console.error('Error:', error);
+        console.error('Error al cargar membresías:', error);
         res.status(500).render('error', { 
-            message: 'Error al cargar la página',
+            message: 'Error al cargar la página: ' + error.message,
             user: req.user || req.session.user
         });
     }
