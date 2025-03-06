@@ -95,6 +95,10 @@ const adminRoutes = require('./src/routes/adminRoutes');
 const mentoringRoutes = require('./src/routes/mentoring');
 const cursosRoutes = require('./src/routes/cursosRoutes');
 const indexRoutes = require('./src/routes/index');
+const previewRoutes = require('./src/routes/previewRoutes');
+
+// Importante: Registrar las rutas de vista previa ANTES de las otras rutas
+app.use('/', previewRoutes);
 
 app.use('/', authRoutes);
 app.use('/user', userRoutes);

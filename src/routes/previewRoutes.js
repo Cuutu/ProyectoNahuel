@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const previewController = require('../controllers/previewController');
 
-// Rutas para vistas previas de Trader Call
+// Rutas para vistas previas de Trader Call - NO usar middleware de autenticación aquí
 router.get('/preview/trader-call/dashboard', previewController.previewTraderCallDashboard);
 router.get('/preview/trader-call/seguimiento', previewController.previewTraderCallSeguimiento);
 router.get('/preview/trader-call/alertas-vigentes', previewController.previewTraderCallAlertasVigentes);
