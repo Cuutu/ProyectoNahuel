@@ -70,7 +70,7 @@ router.get('/trader-call', async (req, res) => {
             const initialStats = [
                 {
                     value: '85%',
-                    text: '% de rendimiento del último año',
+                    text: '% de rendimiento del último año.',
                     order: 1,
                     visible: true,
                     category: 'trader-call'
