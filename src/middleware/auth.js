@@ -1,6 +1,13 @@
+const User = require('../models/User');
+
 const isAuthenticated = (req, res, next) => {
-    // Evitar bucles de redirección: no redirigir si ya estamos en la página de login
-    if (req.path === '/auth/login') {
+    // Verificar si la ruta actual es de autenticación o vista previa
+    if (req.path.startsWith('/auth') || req.path.startsWith('/preview') || req.path === '/') {
+        return next();
+    }
+    
+    // Verificar si el usuario está autenticado
+    if (req.isAuthenticated && req.isAuthenticated()) {
         return next();
     }
     
@@ -33,13 +40,15 @@ const sessionPersist = (req, res, next) => {
 };
 
 const isAdmin = async (req, res, next) => {
-    // Evitar bucles de redirección: no redirigir si ya estamos en la página de login
-    if (req.path === '/auth/login') {
+    // Verificar si la ruta actual es de autenticación
+    if (req.path.startsWith('/auth')) {
         return next();
     }
     
+    // Verificar si el usuario está autenticado
     if (!req.session.user) {
-        return res.redirect('/auth/login');
+        const returnTo = req.originalUrl;
+        return res.redirect(`/auth/login?returnTo=${encodeURIComponent(returnTo)}`);
     }
     
     try {

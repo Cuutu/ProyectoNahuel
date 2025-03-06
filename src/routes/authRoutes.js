@@ -30,13 +30,13 @@ router.get('/login', (req, res) => {
 
 router.post('/login', authController.login);
 
-router.post('/logout', (req, res, next) => {
-    req.logout((err) => {
-        if (err) { return next(err); }
-        req.session.destroy((err) => {
-            if (err) { return next(err); }
-            res.redirect('/');
-        });
+// Ruta de logout simplificada
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) { 
+            console.error('Error al cerrar sesión:', err);
+        }
+        res.redirect('/');
     });
 });
 
@@ -47,7 +47,16 @@ router.get('/google',
     })
 );
 
-router.get('/auth/google/callback', async (req, res) => {
+// Corregir la ruta de callback de Google
+router.get('/google/callback', 
+    passport.authenticate('google', { 
+        failureRedirect: '/auth/login',
+        successRedirect: '/user/dashboard'
+    })
+);
+
+// Ruta para obtener tokens (separada del flujo principal de autenticación)
+router.get('/google/tokens', async (req, res) => {
     const { code } = req.query;
     
     try {

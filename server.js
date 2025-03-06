@@ -51,35 +51,48 @@ app.use(passport.session());
 
 // Middleware global para persistencia de sesión
 app.use((req, res, next) => {
-    // Debug de sesión
-    console.log('\n=== Debug de Sesión ===');
-    console.log('SessionID:', req.sessionID);
-    console.log('Session:', req.session);
-    console.log('User:', req.user);
-    
-    // Verificar autenticación
-    const isUserAuthenticated = req.isAuthenticated() || !!req.session.user;
-    
-    // Establecer variables locales
-    res.locals.isAuthenticated = isUserAuthenticated;
-    res.locals.user = req.user || req.session.user || null;
-    
-    // Si el usuario está autenticado, renovar la sesión
-    if (isUserAuthenticated) {
-        req.session.touch();
-        // Asegurarse de que la información del usuario persista
-        if (!req.session.user && req.user) {
-            req.session.user = req.user;
-        }
+    // Debug de sesión (solo en desarrollo)
+    if (process.env.NODE_ENV === 'development') {
+        console.log('\n=== Debug de Sesión ===');
+        console.log('Path:', req.path);
+        console.log('SessionID:', req.sessionID);
+        console.log('Session:', req.session);
+        console.log('User:', req.user);
     }
     
     // Verificar si estamos en una ruta de vista previa o de autenticación
     const isPreviewRoute = req.path.startsWith('/preview');
     const isAuthRoute = req.path.startsWith('/auth');
+    const isPublicRoute = req.path === '/' || req.path.startsWith('/public');
     
-    // Si es una ruta de vista previa o de autenticación, no verificar autenticación
-    if (isPreviewRoute || isAuthRoute) {
-        res.locals.isPreview = isPreviewRoute;
+    // Establecer variables locales para las vistas
+    res.locals.isPreview = isPreviewRoute;
+    res.locals.isAuthRoute = isAuthRoute;
+    res.locals.isPublicRoute = isPublicRoute;
+    
+    // Verificar autenticación
+    const isUserAuthenticated = req.isAuthenticated && req.isAuthenticated() || !!req.session?.user;
+    res.locals.isAuthenticated = isUserAuthenticated;
+    
+    // Establecer información del usuario
+    if (isUserAuthenticated) {
+        res.locals.user = req.user || req.session.user || null;
+        
+        // Renovar la sesión
+        if (req.session) {
+            req.session.touch();
+        }
+        
+        // Asegurarse de que la información del usuario persista
+        if (req.session && !req.session.user && req.user) {
+            req.session.user = {
+                id: req.user._id || req.user.id,
+                nombre: req.user.nombre,
+                email: req.user.email
+            };
+        }
+    } else {
+        res.locals.user = null;
     }
     
     next();
@@ -106,10 +119,12 @@ const cursosRoutes = require('./src/routes/cursosRoutes');
 const indexRoutes = require('./src/routes/index');
 const previewRoutes = require('./src/routes/previewRoutes');
 
-// Importante: Registrar las rutas de vista previa ANTES de las otras rutas
+// Importante: Registrar las rutas en orden de prioridad
+// 1. Rutas públicas y de vista previa primero
 app.use('/', previewRoutes);
+app.use('/auth', authRoutes);
 
-app.use('/', authRoutes);
+// 2. Rutas protegidas después
 app.use('/user', userRoutes);
 app.use('/alertas', alertRoutes);
 app.use('/entrenamientos', trainingRoutes);
@@ -119,6 +134,9 @@ app.use('/recursos', resourceRoutes);
 app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/cursos', cursosRoutes);
+app.use('/mentoring', mentoringRoutes);
+
+// 3. Rutas de índice al final
 app.use('/', indexRoutes);
 
 // Manejador de rutas no encontradas
