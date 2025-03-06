@@ -36,7 +36,8 @@ router.get('/dashboard/trader-call', (req, res) => {
     res.render('dashboard/trader-call/index', {
         user: user,
         title: 'Dashboard Trader Call - Nahuel Lozano',
-        isAuthenticated: true
+        isAuthenticated: true,
+        currentPath: req.path
     });
 });
 
@@ -47,7 +48,8 @@ router.get('/dashboard/trader-call/seguimiento', (req, res) => {
     res.render('dashboard/trader-call/seguimiento', {
         user: user,
         title: 'Seguimiento de Alertas - Trader Call',
-        isAuthenticated: true
+        isAuthenticated: true,
+        currentPath: req.path
     });
 });
 
@@ -58,7 +60,8 @@ router.get('/dashboard/trader-call/alertas-vigentes', (req, res) => {
     res.render('dashboard/trader-call/alertas-vigentes', {
         user: user,
         title: 'Alertas Vigentes - Trader Call',
-        isAuthenticated: true
+        isAuthenticated: true,
+        currentPath: req.path
     });
 });
 
@@ -69,7 +72,8 @@ router.get('/dashboard/trader-call/informes', (req, res) => {
     res.render('dashboard/trader-call/informes', {
         user: user,
         title: 'Informes - Trader Call',
-        isAuthenticated: true
+        isAuthenticated: true,
+        currentPath: req.path
     });
 });
 
@@ -80,7 +84,8 @@ router.get('/dashboard/trader-call/comunidad', (req, res) => {
     res.render('dashboard/trader-call/comunidad', {
         user: user,
         title: 'Comunidad - Trader Call',
-        isAuthenticated: true
+        isAuthenticated: true,
+        currentPath: req.path
     });
 });
 
