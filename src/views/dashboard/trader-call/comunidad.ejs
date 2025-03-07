@@ -74,7 +74,7 @@
             </div>
             
                     <div class="forum-categories">
-                <% if (categories && categories.length > 0) { %>
+                <% if (locals.categories && categories.length > 0) { %>
                     <% categories.forEach(category => { %>
                         <div class="forum-category">
                             <div class="category-header">
@@ -133,6 +133,7 @@
                 <% } else { %>
                     <div class="no-categories">
                         <p>No hay categorías disponibles en el foro.</p>
+                        <p>Las categorías se mostrarán aquí una vez que sean creadas por un administrador.</p>
                     </div>
                 <% } %>
                         </div>

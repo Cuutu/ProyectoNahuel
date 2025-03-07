@@ -81,12 +81,28 @@ router.get('/dashboard/trader-call/informes', (req, res) => {
 router.get('/dashboard/trader-call/comunidad', (req, res) => {
     const user = req.user || req.session.user;
     
-    res.render('dashboard/trader-call/comunidad', {
-        user: user,
-        title: 'Comunidad - Trader Call',
-        isAuthenticated: true,
-        currentPath: req.path
-    });
+    // Modificar para incluir las categorías del foro
+    const ForumCategory = require('../models/ForumCategory');
+    
+    // Obtener las categorías del foro
+    ForumCategory.find({ isActive: true }).sort('order')
+        .then(categories => {
+            res.render('dashboard/trader-call/comunidad', {
+                user: user,
+                title: 'Comunidad - Trader Call',
+                isAuthenticated: true,
+                categories: categories || [] // Pasar las categorías a la vista
+            });
+        })
+        .catch(error => {
+            console.error('Error al obtener categorías del foro:', error);
+            res.render('dashboard/trader-call/comunidad', {
+                user: user,
+                title: 'Comunidad - Trader Call',
+                isAuthenticated: true,
+                categories: [] // Pasar un array vacío en caso de error
+            });
+        });
 });
 
 module.exports = router; 
