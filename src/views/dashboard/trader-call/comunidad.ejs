@@ -151,11 +151,12 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Crear nuevo tema</h2>
+            <div id="newTopicError" class="error-message" style="display: none;"></div>
             <form id="newTopicForm">
                 <div class="form-group">
                     <label for="topicCategory">Categoría:</label>
                     <select id="topicCategory" name="categoryId" required>
-                        <% if (categories && categories.length > 0) { %>
+                        <% if (locals.categories && categories.length > 0) { %>
                             <% categories.forEach(category => { %>
                                 <option value="<%= category._id %>"><%= category.name %></option>
                             <% }) %>
@@ -169,15 +170,15 @@
                 <div class="form-group">
                     <label for="topicContent">Contenido:</label>
                     <textarea id="topicContent" name="content" rows="10" required></textarea>
-                </div>
+                        </div>
                 <div class="form-actions">
-                    <button type="submit" class="primary-button">Crear tema</button>
+                    <button type="submit" class="primary-button" id="submitTopicBtn">Crear tema</button>
                     <button type="button" class="secondary-button" id="cancelTopicBtn">Cancelar</button>
                 </div>
             </form>
-            </div>
         </div>
-        
+                </div>
+                
     <!-- Modal para resultados de búsqueda -->
     <div id="searchResultsModal" class="modal">
         <div class="modal-content">
@@ -268,7 +269,7 @@
                             createCategoriesResult.innerHTML = `
                                 <div class="success-message">
                                     <i class="fas fa-check-circle"></i> ${data.message}
-                                </div>
+                    </div>
                             `;
                             
                             // Recargar la página después de 2 segundos
@@ -279,7 +280,7 @@
                             createCategoriesResult.innerHTML = `
                                 <div class="error-message">
                                     <i class="fas fa-exclamation-circle"></i> ${data.message}
-                                </div>
+                        </div>
                             `;
                             
                             this.disabled = false;
@@ -319,33 +320,45 @@
             const newTopicBtn = document.getElementById('newTopicBtn');
             const cancelTopicBtn = document.getElementById('cancelTopicBtn');
             const closeTopicModal = newTopicModal.querySelector('.close');
+            const newTopicError = document.getElementById('newTopicError');
+            const submitTopicBtn = document.getElementById('submitTopicBtn');
             
-            newTopicBtn.addEventListener('click', function() {
-                newTopicModal.style.display = 'block';
-            });
-            
-            closeTopicModal.addEventListener('click', function() {
-                newTopicModal.style.display = 'none';
-            });
-            
-            cancelTopicBtn.addEventListener('click', function() {
-                newTopicModal.style.display = 'none';
-            });
-            
-            // Botones de crear tema en categorías vacías
-            const createTopicBtns = document.querySelectorAll('.create-topic-btn');
-            createTopicBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const categoryId = this.dataset.category;
-                    document.getElementById('topicCategory').value = categoryId;
+            // Abrir modal
+            if (newTopicBtn) {
+                newTopicBtn.addEventListener('click', function() {
                     newTopicModal.style.display = 'block';
+                    newTopicError.style.display = 'none'; // Ocultar mensajes de error previos
                 });
+            }
+            
+            // Cerrar modal
+            function closeModal() {
+                newTopicModal.style.display = 'none';
+                document.getElementById('newTopicForm').reset(); // Limpiar formulario
+                newTopicError.style.display = 'none'; // Ocultar mensajes de error
+            }
+            
+            closeTopicModal.addEventListener('click', closeModal);
+            cancelTopicBtn.addEventListener('click', closeModal);
+            
+            // Cerrar modal al hacer clic fuera de él
+            window.addEventListener('click', function(event) {
+                if (event.target === newTopicModal) {
+                    closeModal();
+                }
             });
             
             // Formulario de nuevo tema
             const newTopicForm = document.getElementById('newTopicForm');
             newTopicForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
+                
+                // Deshabilitar botón para evitar múltiples envíos
+                submitTopicBtn.disabled = true;
+                submitTopicBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
+                
+                // Ocultar mensajes de error previos
+                newTopicError.style.display = 'none';
                 
                 const formData = {
                     categoryId: document.getElementById('topicCategory').value,
@@ -365,13 +378,25 @@
                     const data = await response.json();
                     
                     if (data.success) {
+                        // Redirigir al tema creado
                         window.location.href = `/dashboard/trader-call/forum/topic/${data.topicId}`;
                     } else {
-                        alert('Error al crear el tema: ' + data.message);
+                        // Mostrar mensaje de error
+                        newTopicError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.message || 'Error al crear el tema'}`;
+                        newTopicError.style.display = 'block';
+                        
+                        // Habilitar botón nuevamente
+                        submitTopicBtn.disabled = false;
+                        submitTopicBtn.innerHTML = 'Crear tema';
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    alert('Error al crear el tema');
+                    newTopicError.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error al crear el tema: ${error.message || 'Error desconocido'}`;
+                    newTopicError.style.display = 'block';
+                    
+                    // Habilitar botón nuevamente
+                    submitTopicBtn.disabled = false;
+                    submitTopicBtn.innerHTML = 'Crear tema';
                 }
             });
             
@@ -450,7 +475,7 @@
             // Cerrar modales al hacer clic fuera de ellos
             window.addEventListener('click', function(event) {
                 if (event.target === newTopicModal) {
-                    newTopicModal.style.display = 'none';
+                    closeModal();
                 }
                 if (event.target === searchResultsModal) {
                     searchResultsModal.style.display = 'none';

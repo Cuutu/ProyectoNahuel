@@ -138,10 +138,49 @@ exports.createTopic = async (req, res) => {
         const { title, content, categoryId } = req.body;
         const userId = req.user?._id || req.session.user?._id;
         
-        if (!title || !content || !categoryId || !userId) {
+        console.log('Datos recibidos para crear tema:', {
+            title,
+            content: content ? `${content.substring(0, 50)}...` : 'No content',
+            categoryId,
+            userId
+        });
+        
+        if (!title) {
             return res.status(400).json({
                 success: false,
-                message: 'Faltan datos requeridos'
+                message: 'El título es obligatorio'
+            });
+        }
+        
+        if (!content) {
+            return res.status(400).json({
+                success: false,
+                message: 'El contenido es obligatorio'
+            });
+        }
+        
+        if (!categoryId) {
+            return res.status(400).json({
+                success: false,
+                message: 'La categoría es obligatoria'
+            });
+        }
+        
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: 'Debes iniciar sesión para crear un tema'
+            });
+        }
+        
+        // Verificar si la categoría existe
+        const ForumCategory = require('../models/ForumCategory');
+        const categoryExists = await ForumCategory.findById(categoryId);
+        
+        if (!categoryExists) {
+            return res.status(404).json({
+                success: false,
+                message: 'La categoría seleccionada no existe'
             });
         }
         
@@ -155,6 +194,11 @@ exports.createTopic = async (req, res) => {
         
         await newTopic.save();
         
+        console.log('Tema creado con éxito:', {
+            id: newTopic._id,
+            title: newTopic.title
+        });
+        
         res.status(201).json({
             success: true,
             topicId: newTopic._id,
@@ -164,7 +208,8 @@ exports.createTopic = async (req, res) => {
         console.error('Error al crear el tema:', error);
         res.status(500).json({
             success: false,
-            message: 'Error al crear el tema: ' + error.message
+            message: 'Error al crear el tema: ' + error.message,
+            error: error.stack
         });
     }
 };

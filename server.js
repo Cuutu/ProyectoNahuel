@@ -104,6 +104,12 @@ app.use((req, res, next) => {
     next();
 });
 
+// Agregar middleware para loguear todas las solicitudes
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+    next();
+});
+
 // Rutas
 const authRoutes = require('./src/routes/authRoutes');
 const userRoutes = require('./src/routes/dashboardRoutes');
@@ -147,19 +153,11 @@ app.use((req, res, next) => {
     next(error);
 });
 
-// Manejador de errores
+// Agregar middleware para capturar errores
 app.use((err, req, res, next) => {
-    console.error('Error completo:', {
-        message: err.message,
-        stack: err.stack,
-        status: err.status || 500
-    });
-
-    res.status(err.status || 500);
-    res.render('error', {
-        message: process.env.NODE_ENV === 'development' 
-            ? `Error: ${err.message}\n${err.stack}` 
-            : 'Ha ocurrido un error en el servidor',
+    console.error('Error en la aplicación:', err);
+    res.status(500).render('error', {
+        message: 'Ha ocurrido un error en el servidor',
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });

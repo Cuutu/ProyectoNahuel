@@ -77,86 +77,78 @@
         </div>
         
         <div class="dashboard-card">
-            <div class="forum-header">
-                <h2>Temas en <%= category.name %></h2>
-                <div class="forum-actions">
-                    <button id="newTopicBtn" class="primary-button">
-                        <i class="fas fa-plus"></i> Nuevo tema
-                    </button>
-                    <div class="search-container">
-                        <input type="text" id="forumSearch" placeholder="Buscar en el foro...">
-                        <button id="searchBtn"><i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="topics-list">
-                <% if (topics && topics.length > 0) { %>
-                    <div class="topics-header">
-                        <div class="topic-title-header">Tema</div>
-                        <div class="topic-stats-header">Estadísticas</div>
-                        <div class="topic-last-reply-header">Última respuesta</div>
-                    </div>
-                    
-                    <% topics.forEach(topic => { %>
-                        <div class="topic-item <%= topic.isPinned ? 'pinned' : '' %>">
-                            <div class="topic-title-col">
-                                <div class="topic-icon">
-                                    <% if (topic.isPinned) { %>
-                                        <i class="fas fa-thumbtack"></i>
-                                    <% } else if (topic.isLocked) { %>
-                                        <i class="fas fa-lock"></i>
-                                    <% } else { %>
-                                        <i class="fas fa-comments"></i>
-                                    <% } %>
-                                </div>
-                                <div class="topic-info">
-                                    <h3>
-                                        <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>">
-                                            <%= topic.title %>
-                                        </a>
-                                        <% if (topic.isPinned) { %>
-                                            <span class="pinned-label">Destacado</span>
-                                        <% } %>
-                                        <% if (topic.isLocked) { %>
-                                            <span class="locked-label">Cerrado</span>
-                                        <% } %>
-                                    </h3>
-                                    <p class="topic-meta">
-                                        Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong>
-                                        <span class="topic-date"><%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></span>
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="topic-stats-col">
-                                <div class="stat">
-                                    <span class="stat-value"><%= topic.repliesCount %></span>
-                                    <span class="stat-label">Respuestas</span>
-                                </div>
-                                <div class="stat">
-                                    <span class="stat-value"><%= topic.views %></span>
-                                    <span class="stat-label">Vistas</span>
-                                </div>
-                            </div>
-                            <div class="topic-last-reply-col">
-                                <% if (topic.lastReplyUser) { %>
-                                    <p class="last-reply-user">
-                                        <strong><%= topic.lastReplyUser.nombre %> <%= topic.lastReplyUser.apellido %></strong>
-                                    </p>
-                                    <p class="last-reply-date">
-                                        <%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %>
-                                        <%= new Date(topic.lastReplyDate).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) %>
-                                    </p>
+            <div class="post-container">
+                <!-- Mensaje original -->
+                <div class="post original-post">
+                    <div class="post-sidebar">
+                        <div class="author-info">
+                            <div class="author-name">
+                                <% if (topic.author && topic.author.nombre) { %>
+                                    <%= topic.author.nombre %> <%= topic.author.apellido %>
                                 <% } else { %>
-                                    <p class="no-replies">Sin respuestas</p>
+                                    Usuario
                                 <% } %>
                             </div>
                         </div>
+                    </div>
+                    <div class="post-content">
+                        <div class="post-header">
+                            <div class="post-date">
+                                <i class="far fa-clock"></i> <%= new Date(topic.createdAt).toLocaleDateString('es-ES') %>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <%= topic.content %>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Respuestas -->
+                <% if (locals.replies && replies.length > 0) { %>
+                    <div class="replies-header">
+                        <h3>Respuestas (<%= replies.length %>)</h3>
+                    </div>
+                    
+                    <% replies.forEach(reply => { %>
+                        <div class="post reply">
+                            <div class="post-sidebar">
+                                <div class="author-info">
+                                    <div class="author-name">
+                                        <% if (reply.author && reply.author.nombre) { %>
+                                            <%= reply.author.nombre %> <%= reply.author.apellido %>
+                                        <% } else { %>
+                                            Usuario
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <div class="post-header">
+                                    <div class="post-date">
+                                        <i class="far fa-clock"></i> <%= new Date(reply.createdAt).toLocaleDateString('es-ES') %>
+                                    </div>
+                                </div>
+                                <div class="post-body">
+                                    <%= reply.content %>
+                                </div>
+                            </div>
+                        </div>
                     <% }) %>
-                <% } else { %>
-                    <div class="no-topics">
-                        <p>No hay temas en esta categoría.</p>
-                        <button id="createFirstTopicBtn" class="primary-button">Crear el primer tema</button>
+                <% } %>
+                
+                <!-- Formulario de respuesta -->
+                <% if (!topic.isLocked) { %>
+                    <div class="reply-form-container">
+                        <h3>Responder a este tema</h3>
+                        <form id="replyForm">
+                            <input type="hidden" name="topicId" value="<%= topic._id %>">
+                            <div class="form-group">
+                                <textarea id="replyContent" name="content" rows="6" required placeholder="Escribe tu respuesta aquí..."></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="primary-button">Enviar respuesta</button>
+                            </div>
+                        </form>
                     </div>
                 <% } %>
             </div>
@@ -345,6 +337,41 @@
                     searchResultsModal.style.display = 'none';
                 }
             });
+            
+            // Formulario de respuesta
+            const replyForm = document.getElementById('replyForm');
+            if (replyForm) {
+                replyForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        topicId: this.elements.topicId.value,
+                        content: this.elements.content.value
+                    };
+                    
+                    try {
+                        const response = await fetch('/dashboard/trader-call/forum/reply', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            // Recargar la página para mostrar la nueva respuesta
+                            window.location.reload();
+                        } else {
+                            alert('Error al enviar la respuesta: ' + data.message);
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert('Error al enviar la respuesta');
+                    }
+                });
+            }
         });
     </script>
 </body>
