@@ -13,10 +13,10 @@
     <link rel="stylesheet" href="/css/forum.css">
 </head>
 <body>
-    <%- include('../../partials/header') %>
+    <%- include('../../../partials/header') %>
     
     <% if (locals.isPreview) { %>
-        <%- include('../../partials/preview-banner') %>
+        <%- include('../../../partials/preview-banner') %>
     <% } %>
     
     <button class="toggle-sidebar">
@@ -55,17 +55,21 @@
     
     <div class="main-content">
         <div class="dashboard-header">
-            <h1>Comunidad Trader Call</h1>
-            <p>Conecta con otros traders, comparte ideas y aprende de la comunidad</p>
+            <div class="breadcrumbs">
+                <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt;
+                <span><%= category.name %></span>
+            </div>
+            <h1><%= category.name %></h1>
+            <p><%= category.description %></p>
         </div>
         
         <div class="dashboard-card">
             <div class="forum-header">
-                <h2>Foro de Discusión</h2>
+                <h2>Temas en <%= category.name %></h2>
                 <div class="forum-actions">
                     <button id="newTopicBtn" class="primary-button">
                         <i class="fas fa-plus"></i> Nuevo tema
-                                </button>
+                    </button>
                     <div class="search-container">
                         <input type="text" id="forumSearch" placeholder="Buscar en el foro...">
                         <button id="searchBtn"><i class="fas fa-search"></i></button>
@@ -73,92 +77,90 @@
                 </div>
             </div>
             
-                    <div class="forum-categories">
-                <% if (categories && categories.length > 0) { %>
-                    <% categories.forEach(category => { %>
-                        <div class="forum-category">
-                            <div class="category-header">
-                                <h3><i class="fas <%= category.icon %>"></i> <%= category.name %></h3>
-                                <span class="topic-count"><%= category.topicsCount %> temas</span>
+            <div class="topics-list">
+                <% if (topics && topics.length > 0) { %>
+                    <div class="topics-header">
+                        <div class="topic-title-header">Tema</div>
+                        <div class="topic-stats-header">Estadísticas</div>
+                        <div class="topic-last-reply-header">Última respuesta</div>
+                    </div>
+                    
+                    <% topics.forEach(topic => { %>
+                        <div class="topic-item <%= topic.isPinned ? 'pinned' : '' %>">
+                            <div class="topic-title-col">
+                                <div class="topic-icon">
+                                    <% if (topic.isPinned) { %>
+                                        <i class="fas fa-thumbtack"></i>
+                                    <% } else if (topic.isLocked) { %>
+                                        <i class="fas fa-lock"></i>
+                                    <% } else { %>
+                                        <i class="fas fa-comments"></i>
+                                    <% } %>
+                                </div>
+                                <div class="topic-info">
+                                    <h3>
+                                        <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>">
+                                            <%= topic.title %>
+                                        </a>
+                                        <% if (topic.isPinned) { %>
+                                            <span class="pinned-label">Destacado</span>
+                                        <% } %>
+                                        <% if (topic.isLocked) { %>
+                                            <span class="locked-label">Cerrado</span>
+                                        <% } %>
+                                    </h3>
+                                    <p class="topic-meta">
+                                        Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong>
+                                        <span class="topic-date"><%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="category-description">
-                                <%= category.description %>
+                            <div class="topic-stats-col">
+                                <div class="stat">
+                                    <span class="stat-value"><%= topic.repliesCount %></span>
+                                    <span class="stat-label">Respuestas</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value"><%= topic.views %></span>
+                                    <span class="stat-label">Vistas</span>
+                                </div>
                             </div>
-                            <div class="category-topics">
-                                <% if (category.recentTopics && category.recentTopics.length > 0) { %>
-                                    <% category.recentTopics.forEach(topic => { %>
-                                <div class="topic">
-                                    <div class="topic-icon">
-                                                <% if (topic.isPinned) { %>
-                                                    <i class="fas fa-thumbtack"></i>
-                                                <% } else { %>
-                                                    <i class="fas fa-comments"></i>
-                                                <% } %>
-                        </div>
-                                    <div class="topic-info">
-                                                <h4>
-                                                    <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>">
-                                                        <%= topic.title %>
-                                                    </a>
-                                                </h4>
-                                                <p>Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong> - <%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></p>
-                            </div>
-                                    <div class="topic-stats">
-                                                <div><%= topic.views %> vistas</div>
-                        </div>
-                                    <div class="topic-last-post">
-                                                <% if (topic.lastReplyUser) { %>
-                                                    <p>Última respuesta por <strong><%= topic.lastReplyUser.nombre %> <%= topic.lastReplyUser.apellido %></strong></p>
-                                                    <p><%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %></p>
-                                                <% } else { %>
-                                                    <p>Sin respuestas aún</p>
-                                                <% } %>
-                            </div>
-                        </div>
-                                    <% }) %>
+                            <div class="topic-last-reply-col">
+                                <% if (topic.lastReplyUser) { %>
+                                    <p class="last-reply-user">
+                                        <strong><%= topic.lastReplyUser.nombre %> <%= topic.lastReplyUser.apellido %></strong>
+                                    </p>
+                                    <p class="last-reply-date">
+                                        <%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %>
+                                        <%= new Date(topic.lastReplyDate).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) %>
+                                    </p>
                                 <% } else { %>
-                                    <div class="no-topics">
-                                        <p>No hay temas en esta categoría.</p>
-                                        <button class="create-topic-btn" data-category="<%= category._id %>">Crear el primer tema</button>
-                                    </div>
+                                    <p class="no-replies">Sin respuestas</p>
                                 <% } %>
-                            </div>
-                            <div class="category-footer">
-                                <a href="/dashboard/trader-call/forum/category/<%= category._id %>" class="view-all-btn">
-                                    Ver todos los temas <i class="fas fa-arrow-right"></i>
-                                </a>
                             </div>
                         </div>
                     <% }) %>
                 <% } else { %>
-                    <div class="no-categories">
-                        <p>No hay categorías disponibles en el foro.</p>
+                    <div class="no-topics">
+                        <p>No hay temas en esta categoría.</p>
+                        <button id="createFirstTopicBtn" class="primary-button">Crear el primer tema</button>
                     </div>
                 <% } %>
-                        </div>
-                    </div>
-                </div>
-                
+            </div>
+        </div>
+    </div>
+    
     <!-- Modal para crear nuevo tema -->
     <div id="newTopicModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Crear nuevo tema</h2>
+            <h2>Crear nuevo tema en <%= category.name %></h2>
             <form id="newTopicForm">
-                <div class="form-group">
-                    <label for="topicCategory">Categoría:</label>
-                    <select id="topicCategory" name="categoryId" required>
-                        <% if (categories && categories.length > 0) { %>
-                            <% categories.forEach(category => { %>
-                                <option value="<%= category._id %>"><%= category.name %></option>
-                            <% }) %>
-                        <% } %>
-                    </select>
-                    </div>
+                <input type="hidden" name="categoryId" value="<%= category._id %>">
                 <div class="form-group">
                     <label for="topicTitle">Título:</label>
                     <input type="text" id="topicTitle" name="title" required>
-                    </div>
+                </div>
                 <div class="form-group">
                     <label for="topicContent">Contenido:</label>
                     <textarea id="topicContent" name="content" rows="10" required></textarea>
@@ -168,9 +170,9 @@
                     <button type="button" class="secondary-button" id="cancelTopicBtn">Cancelar</button>
                 </div>
             </form>
-            </div>
         </div>
-        
+    </div>
+    
     <!-- Modal para resultados de búsqueda -->
     <div id="searchResultsModal" class="modal">
         <div class="modal-content">
@@ -193,30 +195,28 @@
             // Modal de nuevo tema
             const newTopicModal = document.getElementById('newTopicModal');
             const newTopicBtn = document.getElementById('newTopicBtn');
+            const createFirstTopicBtn = document.getElementById('createFirstTopicBtn');
             const cancelTopicBtn = document.getElementById('cancelTopicBtn');
             const closeTopicModal = newTopicModal.querySelector('.close');
             
-            newTopicBtn.addEventListener('click', function() {
+            function openNewTopicModal() {
                 newTopicModal.style.display = 'block';
-            });
+            }
             
-            closeTopicModal.addEventListener('click', function() {
+            function closeNewTopicModal() {
                 newTopicModal.style.display = 'none';
-            });
+            }
             
-            cancelTopicBtn.addEventListener('click', function() {
-                newTopicModal.style.display = 'none';
-            });
+            if (newTopicBtn) {
+                newTopicBtn.addEventListener('click', openNewTopicModal);
+            }
             
-            // Botones de crear tema en categorías vacías
-            const createTopicBtns = document.querySelectorAll('.create-topic-btn');
-            createTopicBtns.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const categoryId = this.dataset.category;
-                    document.getElementById('topicCategory').value = categoryId;
-                    newTopicModal.style.display = 'block';
-                });
-            });
+            if (createFirstTopicBtn) {
+                createFirstTopicBtn.addEventListener('click', openNewTopicModal);
+            }
+            
+            closeTopicModal.addEventListener('click', closeNewTopicModal);
+            cancelTopicBtn.addEventListener('click', closeNewTopicModal);
             
             // Formulario de nuevo tema
             const newTopicForm = document.getElementById('newTopicForm');
@@ -224,9 +224,9 @@
                 e.preventDefault();
                 
                 const formData = {
-                    categoryId: document.getElementById('topicCategory').value,
-                    title: document.getElementById('topicTitle').value,
-                    content: document.getElementById('topicContent').value
+                    categoryId: this.elements.categoryId.value,
+                    title: this.elements.title.value,
+                    content: this.elements.content.value
                 };
                 
                 try {

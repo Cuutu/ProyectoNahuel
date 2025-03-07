@@ -1,0 +1,57 @@
+<!-- Agregar esto en alguna sección adecuada del panel de administración -->
+<div class="admin-card">
+    <h2>Gestión del Foro</h2>
+    <p>Inicializa las categorías del foro si aún no existen.</p>
+    <button id="initForumCategoriesBtn" class="admin-btn">
+        <i class="fas fa-plus-circle"></i> Inicializar Categorías del Foro
+    </button>
+    <div id="initForumResult" class="mt-3" style="display: none;"></div>
+</div>
+
+<script>
+    document.getElementById('initForumCategoriesBtn').addEventListener('click', async function() {
+        try {
+            const response = await fetch('/admin/init-forum-categories', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            const data = await response.json();
+            const resultDiv = document.getElementById('initForumResult');
+            
+            if (data.success) {
+                resultDiv.innerHTML = `<div class="alert alert-success">${data.message}</div>`;
+                
+                // Mostrar las categorías creadas
+                if (data.categories && data.categories.length > 0) {
+                    let categoriesList = '<ul class="mt-3">';
+                    data.categories.forEach(cat => {
+                        categoriesList += `<li>${cat.name} - ${cat.description}</li>`;
+                    });
+                    categoriesList += '</ul>';
+                    resultDiv.innerHTML += categoriesList;
+                }
+            } else {
+                resultDiv.innerHTML = `<div class="alert alert-warning">${data.message}</div>`;
+                
+                // Mostrar las categorías existentes
+                if (data.categories && data.categories.length > 0) {
+                    let categoriesList = '<ul class="mt-3">';
+                    data.categories.forEach(cat => {
+                        categoriesList += `<li>${cat.name} - ${cat.description}</li>`;
+                    });
+                    categoriesList += '</ul>';
+                    resultDiv.innerHTML += categoriesList;
+                }
+            }
+            
+            resultDiv.style.display = 'block';
+        } catch (error) {
+            console.error('Error:', error);
+            document.getElementById('initForumResult').innerHTML = `<div class="alert alert-danger">Error al inicializar las categorías: ${error.message}</div>`;
+            document.getElementById('initForumResult').style.display = 'block';
+        }
+    });
+</script>

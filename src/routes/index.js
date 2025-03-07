@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Stats = require('../models/Stats');
 const traderCallDashboardRoutes = require('./traderCallDashboardRoutes');
+const forumRoutes = require('./forumRoutes');
 
 // Datos iniciales
 const initialStats = [
@@ -80,5 +81,6 @@ router.get('/cuenta-asesorada', (req, res) => {
 });
 
 router.use('/', traderCallDashboardRoutes);
+router.use('/', forumRoutes);
 
 module.exports = router; 
