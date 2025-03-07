@@ -726,4 +726,96 @@
         text-align: left;
         flex: 1;
     }
+}
+
+/* Botón de administrador */
+.admin-button {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.admin-button i {
+    margin-right: 8px;
+}
+
+.admin-button:hover {
+    background-color: #dc2626;
+}
+
+/* Estilos para el modal de crear categorías */
+.categories-preview {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+}
+
+.categories-preview h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #0f172a;
+    margin-bottom: 10px;
+}
+
+.categories-preview ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.categories-preview li {
+    padding: 8px 0;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+}
+
+.categories-preview li:last-child {
+    border-bottom: none;
+}
+
+.categories-preview li i {
+    margin-right: 10px;
+    color: #3b82f6;
+    width: 20px;
+    text-align: center;
+}
+
+.result-message {
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.success-message {
+    background-color: #dcfce7;
+    color: #166534;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.error-message {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.success-message i, .error-message i {
+    margin-right: 8px;
+    font-size: 1.2rem;
 } 

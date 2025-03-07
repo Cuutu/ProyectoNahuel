@@ -484,4 +484,78 @@ router.post('/updates', adminController.createUpdate);
 // Ruta para cerrar actualización
 router.put('/updates/:id/close', adminController.closeUpdate);
 
+// Ruta para inicializar las categorías del foro
+router.post('/init-forum-categories', isAdminMiddleware, async (req, res) => {
+    try {
+        const ForumCategory = require('../models/ForumCategory');
+        
+        // Verificar si ya existen categorías
+        const count = await ForumCategory.countDocuments();
+        
+        if (count === 0) {
+            // Categorías iniciales
+            const initialCategories = [
+                {
+                    name: 'Anuncios',
+                    description: 'Anuncios oficiales y noticias importantes sobre Trader Call.',
+                    icon: 'fa-bullhorn',
+                    order: 1
+                },
+                {
+                    name: 'Análisis Técnico',
+                    description: 'Discusiones sobre análisis técnico, patrones de gráficos y estrategias.',
+                    icon: 'fa-chart-line',
+                    order: 2
+                },
+                {
+                    name: 'Alertas de Trading',
+                    description: 'Discusión sobre las alertas enviadas y resultados obtenidos.',
+                    icon: 'fa-bell',
+                    order: 3
+                },
+                {
+                    name: 'Estrategias de Trading',
+                    description: 'Comparte y discute diferentes estrategias de trading.',
+                    icon: 'fa-lightbulb',
+                    order: 4
+                },
+                {
+                    name: 'Preguntas y Respuestas',
+                    description: 'Espacio para hacer preguntas y obtener ayuda de la comunidad.',
+                    icon: 'fa-question-circle',
+                    order: 5
+                },
+                {
+                    name: 'Presentaciones',
+                    description: 'Preséntate a la comunidad y conoce a otros traders.',
+                    icon: 'fa-user-plus',
+                    order: 6
+                }
+            ];
+            
+            // Crear las categorías
+            await ForumCategory.insertMany(initialCategories);
+            
+            res.json({
+                success: true,
+                message: 'Categorías del foro creadas con éxito',
+                categories: initialCategories
+            });
+        } else {
+            res.json({
+                success: false,
+                message: `Ya existen ${count} categorías en el foro`,
+                categories: await ForumCategory.find().sort('order')
+            });
+        }
+    } catch (error) {
+        console.error('Error al inicializar las categorías del foro:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al inicializar las categorías del foro',
+            error: error.message
+        });
+    }
+});
+
 module.exports = router; 

@@ -134,6 +134,12 @@
                     <div class="no-categories">
                         <p>No hay categorías disponibles en el foro.</p>
                         <p>Las categorías se mostrarán aquí una vez que sean creadas por un administrador.</p>
+                        
+                        <% if (user && user.isAdmin) { %>
+                            <button id="createCategoriesBtn" class="admin-button">
+                                <i class="fas fa-plus-circle"></i> Crear categorías
+                            </button>
+                        <% } %>
                     </div>
                 <% } %>
                         </div>
@@ -178,8 +184,125 @@
             <span class="close">&times;</span>
             <h2>Resultados de búsqueda</h2>
             <div id="searchResults"></div>
+                    </div>
+                        </div>
+    
+    <!-- Modal para crear categorías (solo visible para administradores) -->
+    <% if (user && user.isAdmin) { %>
+        <div id="createCategoriesModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Crear categorías del foro</h2>
+                <p>Esto creará las categorías predeterminadas para el foro. Esta acción solo se puede realizar una vez.</p>
+                
+                <div class="categories-preview">
+                    <h3>Categorías que se crearán:</h3>
+                    <ul>
+                        <li><i class="fas fa-bullhorn"></i> Anuncios</li>
+                        <li><i class="fas fa-chart-line"></i> Análisis Técnico</li>
+                        <li><i class="fas fa-bell"></i> Alertas de Trading</li>
+                        <li><i class="fas fa-lightbulb"></i> Estrategias de Trading</li>
+                        <li><i class="fas fa-question-circle"></i> Preguntas y Respuestas</li>
+                        <li><i class="fas fa-user-plus"></i> Presentaciones</li>
+                    </ul>
+                </div>
+                
+                <div id="createCategoriesResult" class="result-message" style="display: none;"></div>
+                
+                <div class="form-actions">
+                    <button id="confirmCreateCategoriesBtn" class="primary-button">Crear categorías</button>
+                    <button id="cancelCreateCategoriesBtn" class="secondary-button">Cancelar</button>
+                </div>
+            </div>
         </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Modal para crear categorías
+                const createCategoriesModal = document.getElementById('createCategoriesModal');
+                const createCategoriesBtn = document.getElementById('createCategoriesBtn');
+                const confirmCreateCategoriesBtn = document.getElementById('confirmCreateCategoriesBtn');
+                const cancelCreateCategoriesBtn = document.getElementById('cancelCreateCategoriesBtn');
+                const closeCreateCategoriesModal = createCategoriesModal.querySelector('.close');
+                const createCategoriesResult = document.getElementById('createCategoriesResult');
+                
+                // Abrir modal
+                if (createCategoriesBtn) {
+                    createCategoriesBtn.addEventListener('click', function() {
+                        createCategoriesModal.style.display = 'block';
+                    });
+                }
+                
+                // Cerrar modal
+                closeCreateCategoriesModal.addEventListener('click', function() {
+                    createCategoriesModal.style.display = 'none';
+                });
+                
+                cancelCreateCategoriesBtn.addEventListener('click', function() {
+                    createCategoriesModal.style.display = 'none';
+                });
+                
+                // Cerrar modal al hacer clic fuera de él
+                window.addEventListener('click', function(event) {
+                    if (event.target === createCategoriesModal) {
+                        createCategoriesModal.style.display = 'none';
+                    }
+                });
+                
+                // Crear categorías
+                confirmCreateCategoriesBtn.addEventListener('click', async function() {
+                    try {
+                        this.disabled = true;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
+                        
+                        const response = await fetch('/admin/init-forum-categories', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            createCategoriesResult.innerHTML = `
+                                <div class="success-message">
+                                    <i class="fas fa-check-circle"></i> ${data.message}
+                                </div>
+                            `;
+                            
+                            // Recargar la página después de 2 segundos
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 2000);
+                        } else {
+                            createCategoriesResult.innerHTML = `
+                                <div class="error-message">
+                                    <i class="fas fa-exclamation-circle"></i> ${data.message}
+                                </div>
+                            `;
+                            
+                            this.disabled = false;
+                            this.innerHTML = 'Crear categorías';
+                        }
+                        
+                        createCategoriesResult.style.display = 'block';
+                    } catch (error) {
+                        console.error('Error:', error);
+                        createCategoriesResult.innerHTML = `
+                            <div class="error-message">
+                                <i class="fas fa-exclamation-circle"></i> Error al crear las categorías: ${error.message}
     </div>
+                        `;
+                        createCategoriesResult.style.display = 'block';
+                        
+                        this.disabled = false;
+                        this.innerHTML = 'Crear categorías';
+                    }
+                });
+            });
+        </script>
+    <% } %>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
