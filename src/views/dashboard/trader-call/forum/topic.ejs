@@ -57,10 +57,23 @@
         <div class="dashboard-header">
             <div class="breadcrumbs">
                 <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt;
-                <span><%= category.name %></span>
+                <% if (locals.category) { %>
+                    <a href="/dashboard/trader-call/forum/category/<%= category._id %>"><%= category.name %></a> &gt;
+                <% } %>
+                <span><%= topic.title %></span>
             </div>
-            <h1><%= category.name %></h1>
-            <p><%= category.description %></p>
+            <h1><%= topic.title %></h1>
+            <div class="topic-meta">
+                <span>Iniciado por <%= topic.author.nombre %> <%= topic.author.apellido %></span>
+                <span class="topic-date"><%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></span>
+                <span class="topic-views"><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
+                <% if (topic.isPinned) { %>
+                    <span class="topic-pinned"><i class="fas fa-thumbtack"></i> Destacado</span>
+                <% } %>
+                <% if (topic.isLocked) { %>
+                    <span class="topic-locked"><i class="fas fa-lock"></i> Cerrado</span>
+                <% } %>
+            </div>
         </div>
         
         <div class="dashboard-card">

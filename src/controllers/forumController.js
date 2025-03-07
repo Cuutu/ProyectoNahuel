@@ -112,11 +112,15 @@ exports.getTopic = async (req, res) => {
             .sort('createdAt')
             .populate('author', 'nombre apellido email');
         
+        // Obtener la categoría completa
+        const category = topic.category;
+        
         res.render('dashboard/trader-call/forum/topic', {
             title: topic.title,
             user: req.user || req.session.user,
             isAuthenticated: true,
             topic,
+            category,
             replies
         });
     } catch (error) {
@@ -153,13 +157,14 @@ exports.createTopic = async (req, res) => {
         
         res.status(201).json({
             success: true,
-            topicId: newTopic._id
+            topicId: newTopic._id,
+            message: 'Tema creado con éxito'
         });
     } catch (error) {
         console.error('Error al crear el tema:', error);
         res.status(500).json({
             success: false,
-            message: 'Error al crear el tema'
+            message: 'Error al crear el tema: ' + error.message
         });
     }
 };

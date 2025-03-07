@@ -57,10 +57,14 @@
         <div class="dashboard-header">
             <div class="breadcrumbs">
                 <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt;
-                <span><%= category.name %></span>
+                <% if (locals.category) { %>
+                    <span><%= category.name %></span>
+                <% } %>
             </div>
-            <h1><%= category.name %></h1>
-            <p><%= category.description %></p>
+            <% if (locals.category) { %>
+                <h1><%= category.name %></h1>
+                <p><%= category.description %></p>
+            <% } %>
         </div>
         
         <div class="dashboard-card">
