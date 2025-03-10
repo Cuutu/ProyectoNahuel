@@ -354,11 +354,9 @@
                 e.preventDefault();
                 
                 // Deshabilitar botón para evitar múltiples envíos
-                submitTopicBtn.disabled = true;
-                submitTopicBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
-                
-                // Ocultar mensajes de error previos
-                newTopicError.style.display = 'none';
+                const submitBtn = document.querySelector('#newTopicForm button[type="submit"]');
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creando...';
                 
                 const formData = {
                     categoryId: document.getElementById('topicCategory').value,
@@ -366,7 +364,10 @@
                     content: document.getElementById('topicContent').value
                 };
                 
+                console.log('Enviando datos para crear tema:', formData);
+                
                 try {
+                    // Asegúrate de que la URL sea correcta
                     const response = await fetch('/dashboard/trader-call/forum/topic', {
                         method: 'POST',
                         headers: {
@@ -375,28 +376,27 @@
                         body: JSON.stringify(formData)
                     });
                     
+                    console.log('Respuesta recibida:', response.status);
+                    
+                    if (!response.ok) {
+                        throw new Error(`Error HTTP: ${response.status}`);
+                    }
+                    
                     const data = await response.json();
+                    console.log('Datos recibidos:', data);
                     
                     if (data.success) {
-                        // Redirigir al tema creado
                         window.location.href = `/dashboard/trader-call/forum/topic/${data.topicId}`;
                     } else {
-                        // Mostrar mensaje de error
-                        newTopicError.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${data.message || 'Error al crear el tema'}`;
-                        newTopicError.style.display = 'block';
-                        
-                        // Habilitar botón nuevamente
-                        submitTopicBtn.disabled = false;
-                        submitTopicBtn.innerHTML = 'Crear tema';
+                        alert('Error al crear el tema: ' + data.message);
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = 'Crear tema';
                     }
                 } catch (error) {
                     console.error('Error:', error);
-                    newTopicError.innerHTML = `<i class="fas fa-exclamation-circle"></i> Error al crear el tema: ${error.message || 'Error desconocido'}`;
-                    newTopicError.style.display = 'block';
-                    
-                    // Habilitar botón nuevamente
-                    submitTopicBtn.disabled = false;
-                    submitTopicBtn.innerHTML = 'Crear tema';
+                    alert('Error al crear el tema: ' + error.message);
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = 'Crear tema';
                 }
             });
             

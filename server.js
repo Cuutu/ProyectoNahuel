@@ -7,6 +7,7 @@ require('dotenv').config();
 const connectDB = require('./src/config/database');
 require('./src/config/passport');
 const compression = require('compression');
+const cors = require('cors');
 
 const app = express();
 
@@ -24,6 +25,13 @@ app.use(express.static(path.join(__dirname, 'src', 'public'), {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
+
+// Configurar CORS
+app.use(cors({
+    origin: '*', // O configura los orígenes permitidos
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 // Configurar el middleware de sesión
 const sessionMiddleware = session({
@@ -124,6 +132,7 @@ const mentoringRoutes = require('./src/routes/mentoring');
 const cursosRoutes = require('./src/routes/cursosRoutes');
 const indexRoutes = require('./src/routes/index');
 const previewRoutes = require('./src/routes/previewRoutes');
+const forumRoutes = require('./src/routes/forumRoutes');
 
 // Importante: Registrar las rutas en orden de prioridad
 // 1. Rutas públicas y de vista previa primero
@@ -145,6 +154,9 @@ app.use('/mentoring', mentoringRoutes);
 // 3. Rutas de índice al final
 app.use('/', indexRoutes);
 
+// Registrar las rutas del foro directamente en la aplicación
+app.use('/', forumRoutes);
+
 // Manejador de rutas no encontradas
 app.use((req, res, next) => {
     console.log('Ruta no encontrada:', req.url);
@@ -161,6 +173,39 @@ app.use((err, req, res, next) => {
         error: process.env.NODE_ENV === 'development' ? err : {}
     });
 });
+
+// Listar todas las rutas registradas
+function listRoutes() {
+    const routes = [];
+    
+    app._router.stack.forEach(middleware => {
+        if (middleware.route) {
+            // Rutas directamente registradas en la aplicación
+            routes.push({
+                path: middleware.route.path,
+                method: Object.keys(middleware.route.methods)[0].toUpperCase()
+            });
+        } else if (middleware.name === 'router') {
+            // Rutas registradas a través de un router
+            middleware.handle.stack.forEach(handler => {
+                if (handler.route) {
+                    routes.push({
+                        path: handler.route.path,
+                        method: Object.keys(handler.route.methods)[0].toUpperCase()
+                    });
+                }
+            });
+        }
+    });
+    
+    console.log('Rutas registradas:');
+    routes.forEach(route => {
+        console.log(`${route.method} ${route.path}`);
+    });
+}
+
+// Llamar a la función después de registrar todas las rutas
+listRoutes();
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;

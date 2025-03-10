@@ -26,8 +26,18 @@ router.use(hasTraderCallSubscription);
 router.get('/dashboard/trader-call/comunidad', forumController.getForumHome);
 router.get('/dashboard/trader-call/forum/category/:categoryId', forumController.getCategory);
 router.get('/dashboard/trader-call/forum/topic/:topicId', forumController.getTopic);
-router.post('/dashboard/trader-call/forum/topic', forumController.createTopic);
+router.post('/dashboard/trader-call/forum/create-topic', forumController.createTopic);
 router.post('/dashboard/trader-call/forum/reply', forumController.createReply);
 router.get('/dashboard/trader-call/forum/search', forumController.searchForum);
+
+// Ruta de prueba
+router.post('/dashboard/trader-call/forum/test', (req, res) => {
+    console.log('Ruta de prueba accedida');
+    console.log('Datos recibidos:', req.body);
+    res.json({
+        success: true,
+        message: 'Ruta de prueba funcionando correctamente'
+    });
+});
 
 module.exports = router; 
