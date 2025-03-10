@@ -144,11 +144,11 @@ app.use('/admin', adminRoutes);
 app.use('/cursos', cursosRoutes);
 app.use('/mentoring', mentoringRoutes);
 
+// Registrar las rutas del foro ANTES de las rutas de índice
+app.use(forumRoutes);
+
 // 3. Rutas de índice al final
 app.use('/', indexRoutes);
-
-// Registrar las rutas del foro antes de otras rutas o middlewares que puedan capturar todas las rutas
-app.use(forumRoutes);
 
 // Middleware para manejar rutas no encontradas (debe ir al final)
 app.use((req, res, next) => {

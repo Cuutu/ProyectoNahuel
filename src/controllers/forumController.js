@@ -148,10 +148,13 @@ exports.getTopic = async (req, res) => {
 // Crear un nuevo tema (versión simplificada)
 exports.createTopic = async (req, res) => {
     try {
+        console.log('Iniciando creación de tema');
+        console.log('Datos recibidos:', req.body);
+        
         const { title, content, categoryId } = req.body;
         const userId = req.user?._id || req.session.user?._id;
         
-        console.log('Datos recibidos para crear tema:', {
+        console.log('Datos procesados:', {
             title,
             content: content ? `${content.substring(0, 50)}...` : 'No content',
             categoryId,

@@ -48,7 +48,7 @@ router.get('/dashboard/trader-call/forum/category/:categoryId', isAuthenticated,
 router.get('/dashboard/trader-call/forum/topic/:topicId', isAuthenticated, hasTraderCallSubscription, forumController.getTopic);
 
 // Ruta para crear un nuevo tema - Aplicar los middlewares individualmente
-router.post('/api/forum/create-topic', isAuthenticated, hasTraderCallSubscription, forumController.createTopic);
+router.post('/dashboard/trader-call/forum/topic', isAuthenticated, hasTraderCallSubscription, forumController.createTopic);
 
 // Ruta para crear una nueva respuesta
 router.post('/dashboard/trader-call/forum/reply', isAuthenticated, hasTraderCallSubscription, forumController.createReply);
