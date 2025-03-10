@@ -7,7 +7,7 @@ require('dotenv').config();
 const connectDB = require('./src/config/database');
 require('./src/config/passport');
 const compression = require('compression');
-const cors = require('cors');
+// const cors = require('cors');
 
 const app = express();
 
@@ -25,13 +25,6 @@ app.use(express.static(path.join(__dirname, 'src', 'public'), {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
-
-// Configurar CORS
-app.use(cors({
-    origin: '*', // O configura los orígenes permitidos
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
 
 // Configurar el middleware de sesión
 const sessionMiddleware = session({
