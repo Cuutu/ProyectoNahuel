@@ -8,16 +8,16 @@
 </head>
 <body>
     <%- include('./partials/header', { 
-        user: user,
-        isAuthenticated: isAuthenticated,
+        user: locals.user || {},
+        isAuthenticated: !!locals.user,
         title: 'Error'
     }) %>
     
     <main class="error-container">
         <h1>Error</h1>
         <p><%= message %></p>
-        <% if (error && Object.keys(error).length > 0) { %>
-            <pre><%= JSON.stringify(error, null, 2) %></pre>
+        <% if (locals.error && Object.keys(locals.error).length > 0) { %>
+            <pre><%= JSON.stringify(locals.error, null, 2) %></pre>
         <% } %>
         <a href="/" class="btn-primary">Volver al inicio</a>
     </main>
