@@ -79,7 +79,7 @@
                         <div class="forum-category">
                             <div class="category-header">
                                 <h3><i class="fas <%= category.icon %>"></i> <%= category.name %></h3>
-                                <span class="topic-count"><%= category.topicsCount %> temas</span>
+                                <span class="topic-count"><%= category.topicsCount || 0 %> temas</span>
                             </div>
                             <div class="category-description">
                                 <%= category.description %>
@@ -104,7 +104,7 @@
                                                 <p>Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong> - <%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></p>
                             </div>
                                     <div class="topic-stats">
-                                                <div><%= topic.views %> vistas</div>
+                                                <div><%= topic.views || 0 %> vistas</div>
                         </div>
                                     <div class="topic-last-post">
                                                 <% if (topic.lastReplyUser) { %>

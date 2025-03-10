@@ -82,7 +82,7 @@
             </div>
             
             <div class="topics-list">
-                <% if (topics && topics.length > 0) { %>
+                <% if (locals.topics && topics.length > 0) { %>
                     <div class="topics-header">
                         <div class="topic-title-header">Tema</div>
                         <div class="topic-stats-header">Estadísticas</div>
@@ -114,18 +114,23 @@
                                         <% } %>
                                     </h3>
                                     <p class="topic-meta">
-                                        Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong>
+                                        Iniciado por 
+                                        <% if (topic.author) { %>
+                                            <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong>
+                                        <% } else { %>
+                                            <strong>Usuario desconocido</strong>
+                                        <% } %>
                                         <span class="topic-date"><%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></span>
                                     </p>
                                 </div>
                             </div>
                             <div class="topic-stats-col">
                                 <div class="stat">
-                                    <span class="stat-value"><%= topic.repliesCount %></span>
+                                    <span class="stat-value"><%= topic.repliesCount || 0 %></span>
                                     <span class="stat-label">Respuestas</span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value"><%= topic.views %></span>
+                                    <span class="stat-value"><%= topic.views || 0 %></span>
                                     <span class="stat-label">Vistas</span>
                                 </div>
                             </div>
@@ -136,7 +141,6 @@
                                     </p>
                                     <p class="last-reply-date">
                                         <%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %>
-                                        <%= new Date(topic.lastReplyDate).toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' }) %>
                                     </p>
                                 <% } else { %>
                                     <p class="no-replies">Sin respuestas</p>

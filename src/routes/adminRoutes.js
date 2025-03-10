@@ -6,6 +6,8 @@ const adminController = require('../controllers/adminController');
 const { isAdmin } = require('../middleware/auth');
 const Mentoring = require('../models/mentoring');
 const Stats = require('../models/Stats');
+const ForumCategory = require('../models/ForumCategory');
+const ForumTopic = require('../models/ForumTopic');
 
 // Middleware para verificar si es admin
 const isAdminMiddleware = (req, res, next) => {
@@ -554,6 +556,58 @@ router.post('/init-forum-categories', isAdminMiddleware, async (req, res) => {
             success: false,
             message: 'Error al inicializar las categorías del foro',
             error: error.message
+        });
+    }
+});
+
+// Ruta para verificar y corregir los temas del foro
+router.post('/fix-forum-topics', isAdminMiddleware, async (req, res) => {
+    try {
+        // Obtener todas las categorías
+        const categories = await ForumCategory.find();
+        console.log(`Encontradas ${categories.length} categorías`);
+        
+        // Obtener todos los temas
+        const topics = await ForumTopic.find();
+        console.log(`Encontrados ${topics.length} temas`);
+        
+        let fixedTopics = 0;
+        
+        // Verificar cada tema
+        for (const topic of topics) {
+            console.log(`Verificando tema: ${topic.title} (ID: ${topic._id})`);
+            
+            // Verificar si la categoría existe
+            const categoryExists = await ForumCategory.findById(topic.category);
+            
+            if (!categoryExists) {
+                console.log(`La categoría del tema ${topic.title} no existe. Asignando a la primera categoría disponible.`);
+                
+                if (categories.length > 0) {
+                    topic.category = categories[0]._id;
+                    await topic.save();
+                    console.log(`Tema ${topic.title} actualizado con la categoría ${categories[0].name}`);
+                    fixedTopics++;
+                } else {
+                    console.log(`No hay categorías disponibles para asignar al tema ${topic.title}`);
+                }
+            } else {
+                console.log(`El tema ${topic.title} tiene la categoría ${categoryExists.name}`);
+            }
+        }
+        
+        res.json({
+            success: true,
+            message: `Verificación y corrección de temas completada. ${fixedTopics} temas corregidos.`,
+            totalTopics: topics.length,
+            fixedTopics
+        });
+    } catch (error) {
+        console.error('Error al verificar y corregir los temas:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Error al verificar y corregir los temas: ' + error.message,
+            error: error.stack
         });
     }
 });

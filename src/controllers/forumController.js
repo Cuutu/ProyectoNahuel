@@ -8,9 +8,14 @@ exports.getForumHome = async (req, res) => {
     try {
         const categories = await ForumCategory.find({ isActive: true }).sort('order');
         
-        // Para cada categoría, obtener estadísticas
+        console.log(`Encontradas ${categories.length} categorías activas`);
+        
+        // Para cada categoría, obtener estadísticas y temas recientes
         const categoriesWithStats = await Promise.all(categories.map(async (category) => {
+            // Contar temas en esta categoría
             const topicsCount = await ForumTopic.countDocuments({ category: category._id });
+            
+            console.log(`Categoría ${category.name}: ${topicsCount} temas`);
             
             // Obtener los temas más recientes
             const recentTopics = await ForumTopic.find({ category: category._id })
@@ -18,6 +23,8 @@ exports.getForumHome = async (req, res) => {
                 .limit(3)
                 .populate('author', 'nombre apellido')
                 .populate('lastReplyUser', 'nombre apellido');
+            
+            console.log(`Categoría ${category.name}: ${recentTopics.length} temas recientes obtenidos`);
             
             return {
                 ...category.toObject(),
@@ -36,7 +43,7 @@ exports.getForumHome = async (req, res) => {
     } catch (error) {
         console.error('Error al cargar el foro:', error);
         res.status(500).render('error', {
-            message: 'Error al cargar el foro',
+            message: 'Error al cargar el foro: ' + error.message,
             user: req.user || req.session.user
         });
     }
@@ -46,6 +53,8 @@ exports.getForumHome = async (req, res) => {
 exports.getCategory = async (req, res) => {
     try {
         const categoryId = req.params.categoryId;
+        
+        // Verificar si la categoría existe
         const category = await ForumCategory.findById(categoryId);
         
         if (!category) {
@@ -55,11 +64,15 @@ exports.getCategory = async (req, res) => {
             });
         }
         
+        console.log(`Mostrando temas para la categoría: ${category.name} (ID: ${category._id})`);
+        
         // Obtener todos los temas de esta categoría
         const topics = await ForumTopic.find({ category: categoryId })
             .sort({ isPinned: -1, lastReplyDate: -1 })
             .populate('author', 'nombre apellido')
             .populate('lastReplyUser', 'nombre apellido');
+        
+        console.log(`Encontrados ${topics.length} temas para la categoría ${category.name}`);
         
         // Para cada tema, obtener el número de respuestas
         const topicsWithReplies = await Promise.all(topics.map(async (topic) => {
@@ -80,7 +93,7 @@ exports.getCategory = async (req, res) => {
     } catch (error) {
         console.error('Error al cargar la categoría:', error);
         res.status(500).render('error', {
-            message: 'Error al cargar la categoría',
+            message: 'Error al cargar la categoría: ' + error.message,
             user: req.user || req.session.user
         });
     }
@@ -178,11 +191,14 @@ exports.createTopic = async (req, res) => {
         const categoryExists = await ForumCategory.findById(categoryId);
         
         if (!categoryExists) {
+            console.error(`La categoría con ID ${categoryId} no existe`);
             return res.status(404).json({
                 success: false,
                 message: 'La categoría seleccionada no existe'
             });
         }
+        
+        console.log(`Categoría encontrada: ${categoryExists.name}`);
         
         const newTopic = new ForumTopic({
             title,
@@ -194,9 +210,14 @@ exports.createTopic = async (req, res) => {
         
         await newTopic.save();
         
+        // Verificar que el tema se guardó correctamente
+        const savedTopic = await ForumTopic.findById(newTopic._id).populate('category');
+        
         console.log('Tema creado con éxito:', {
-            id: newTopic._id,
-            title: newTopic.title
+            id: savedTopic._id,
+            title: savedTopic.title,
+            category: savedTopic.category ? savedTopic.category.name : 'No category',
+            categoryId: savedTopic.category ? savedTopic.category._id : 'No category ID'
         });
         
         res.status(201).json({
