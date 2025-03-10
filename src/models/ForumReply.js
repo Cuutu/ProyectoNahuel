@@ -21,7 +21,10 @@ const forumReplySchema = new mongoose.Schema({
     },
     editedAt: {
         type: Date
-    }
+    },
+    isActive: { type: Boolean, default: true },
+    deletedAt: { type: Date, default: null },
+    deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }
 }, {
     timestamps: true
 });
@@ -38,5 +41,12 @@ forumReplySchema.post('save', async function(doc) {
         console.error('Error actualizando el último mensaje del tema:', error);
     }
 });
+
+forumReplySchema.methods.softDelete = function(userId) {
+    this.isActive = false;
+    this.deletedAt = new Date();
+    this.deletedBy = userId;
+    return this.save();
+};
 
 module.exports = mongoose.model('ForumReply', forumReplySchema); 

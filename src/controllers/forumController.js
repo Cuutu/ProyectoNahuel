@@ -6,44 +6,27 @@ const User = require('../models/User');
 // Mostrar todas las categorías del foro
 exports.getForumHome = async (req, res) => {
     try {
-        const categories = await ForumCategory.find({ isActive: true }).sort('order');
+        // Obtener categorías activas
+        const categories = await ForumCategory.find({ isActive: true });
         
-        console.log(`Encontradas ${categories.length} categorías activas`);
+        // Obtener temas recientes (no eliminados)
+        const recentTopics = await ForumTopic.find({ isActive: true })
+            .sort({ createdAt: -1 })
+            .limit(5)
+            .populate('author', 'nombre avatar')
+            .populate('category', 'name');
         
-        // Para cada categoría, obtener estadísticas y temas recientes
-        const categoriesWithStats = await Promise.all(categories.map(async (category) => {
-            // Contar temas en esta categoría
-            const topicsCount = await ForumTopic.countDocuments({ category: category._id });
-            
-            console.log(`Categoría ${category.name}: ${topicsCount} temas`);
-            
-            // Obtener los temas más recientes
-            const recentTopics = await ForumTopic.find({ category: category._id })
-                .sort('-lastReplyDate')
-                .limit(3)
-                .populate('author', 'nombre apellido')
-                .populate('lastReplyUser', 'nombre apellido');
-            
-            console.log(`Categoría ${category.name}: ${recentTopics.length} temas recientes obtenidos`);
-            
-            return {
-                ...category.toObject(),
-                topicsCount,
-                recentTopics
-            };
-        }));
-        
+        // Renderizar la vista
         res.render('dashboard/trader-call/comunidad', {
-            title: 'Comunidad - Trader Call',
             user: req.user || req.session.user,
-            isAuthenticated: true,
-            activeTab: 'forum',
-            categories: categoriesWithStats
+            categories,
+            recentTopics
         });
     } catch (error) {
-        console.error('Error al cargar el foro:', error);
+        console.error('Error al obtener la página principal del foro:', error);
         res.status(500).render('error', {
-            message: 'Error al cargar el foro: ' + error.message,
+            message: 'Error al cargar la página del foro',
+            error: error,
             user: req.user || req.session.user
         });
     }
@@ -52,48 +35,38 @@ exports.getForumHome = async (req, res) => {
 // Mostrar una categoría específica con sus temas
 exports.getCategory = async (req, res) => {
     try {
-        const categoryId = req.params.categoryId;
+        const { categoryId } = req.params;
         
-        // Verificar si la categoría existe
-        const category = await ForumCategory.findById(categoryId);
-        
+        // Obtener la categoría
+        const category = await ForumCategory.findOne({ _id: categoryId, isActive: true });
         if (!category) {
             return res.status(404).render('error', {
                 message: 'Categoría no encontrada',
-                user: req.user || req.session.user
+                user: req.user || req.session.user,
+                error: {}
             });
         }
         
-        console.log(`Mostrando temas para la categoría: ${category.name} (ID: ${category._id})`);
+        // Obtener los temas de la categoría (no eliminados)
+        const topics = await ForumTopic.find({ 
+            category: categoryId,
+            isActive: true 
+        })
+        .sort({ createdAt: -1 })
+        .populate('author', 'nombre avatar')
+        .populate('lastReplyUser', 'nombre avatar');
         
-        // Obtener todos los temas de esta categoría
-        const topics = await ForumTopic.find({ category: categoryId })
-            .sort({ isPinned: -1, lastReplyDate: -1 })
-            .populate('author', 'nombre apellido')
-            .populate('lastReplyUser', 'nombre apellido');
-        
-        console.log(`Encontrados ${topics.length} temas para la categoría ${category.name}`);
-        
-        // Para cada tema, obtener el número de respuestas
-        const topicsWithReplies = await Promise.all(topics.map(async (topic) => {
-            const repliesCount = await ForumReply.countDocuments({ topic: topic._id });
-            return {
-                ...topic.toObject(),
-                repliesCount
-            };
-        }));
-        
+        // Renderizar la vista
         res.render('dashboard/trader-call/forum/category', {
-            title: `${category.name} - Foro Trader Call`,
             user: req.user || req.session.user,
-            isAuthenticated: true,
             category,
-            topics: topicsWithReplies
+            topics
         });
     } catch (error) {
-        console.error('Error al cargar la categoría:', error);
+        console.error('Error al obtener la categoría:', error);
         res.status(500).render('error', {
-            message: 'Error al cargar la categoría: ' + error.message,
+            message: 'Error al cargar la categoría',
+            error: error,
             user: req.user || req.session.user
         });
     }
@@ -102,44 +75,47 @@ exports.getCategory = async (req, res) => {
 // Mostrar un tema específico con sus respuestas
 exports.getTopic = async (req, res) => {
     try {
-        const topicId = req.params.topicId;
+        const { topicId } = req.params;
         
-        // Incrementar el contador de vistas
-        const topic = await ForumTopic.findByIdAndUpdate(
-            topicId,
-            { $inc: { views: 1 } },
-            { new: true }
-        )
-        .populate('author', 'nombre apellido email')
-        .populate('category');
+        // Obtener el tema
+        const topic = await ForumTopic.findOne({ 
+            _id: topicId,
+            isActive: true 
+        })
+        .populate('author', 'nombre avatar')
+        .populate('category', 'name');
         
         if (!topic) {
             return res.status(404).render('error', {
                 message: 'Tema no encontrado',
-                user: req.user || req.session.user
+                user: req.user || req.session.user,
+                error: {}
             });
         }
         
-        // Obtener todas las respuestas de este tema
-        const replies = await ForumReply.find({ topic: topicId })
-            .sort('createdAt')
-            .populate('author', 'nombre apellido email');
+        // Obtener las respuestas del tema (no eliminadas)
+        const replies = await ForumReply.find({ 
+            topic: topicId,
+            isActive: true 
+        })
+        .sort({ createdAt: 1 })
+        .populate('author', 'nombre avatar');
         
-        // Obtener la categoría completa
-        const category = topic.category;
+        // Incrementar el contador de vistas
+        topic.views += 1;
+        await topic.save();
         
+        // Renderizar la vista
         res.render('dashboard/trader-call/forum/topic', {
-            title: topic.title,
             user: req.user || req.session.user,
-            isAuthenticated: true,
             topic,
-            category,
             replies
         });
     } catch (error) {
-        console.error('Error al cargar el tema:', error);
+        console.error('Error al obtener el tema:', error);
         res.status(500).render('error', {
             message: 'Error al cargar el tema',
+            error: error,
             user: req.user || req.session.user
         });
     }
@@ -295,6 +271,104 @@ exports.searchForum = async (req, res) => {
         res.status(500).json({
             success: false,
             message: 'Error en la búsqueda'
+        });
+    }
+};
+
+// Eliminar un tema (administradores o autor)
+exports.deleteTopic = async (req, res) => {
+    try {
+        const { topicId } = req.params;
+        const userId = req.user?._id || req.session.user?._id;
+        
+        console.log(`Intentando eliminar tema ${topicId} por usuario ${userId}`);
+        
+        const topic = await ForumTopic.findById(topicId);
+        if (!topic) {
+            return res.status(404).json({
+                success: false,
+                message: 'Tema no encontrado'
+            });
+        }
+        
+        // Verificar si el usuario es administrador o autor
+        const user = req.user || req.session.user;
+        const isAdmin = user.role === 'admin';
+        const isAuthor = topic.author.toString() === userId.toString();
+        
+        if (!isAdmin && !isAuthor) {
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para eliminar este tema'
+            });
+        }
+        
+        // Realizar eliminación lógica
+        await topic.softDelete(userId);
+        
+        // También marcar como eliminadas todas las respuestas del tema
+        await ForumReply.updateMany(
+            { topic: topicId },
+            { 
+                isActive: false,
+                deletedAt: new Date(),
+                deletedBy: userId
+            }
+        );
+        
+        return res.json({
+            success: true,
+            message: 'Tema eliminado correctamente'
+        });
+    } catch (error) {
+        console.error('Error al eliminar tema:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar el tema: ' + error.message
+        });
+    }
+};
+
+// Eliminar una respuesta (administradores o autor)
+exports.deleteReply = async (req, res) => {
+    try {
+        const { replyId } = req.params;
+        const userId = req.user?._id || req.session.user?._id;
+        
+        console.log(`Intentando eliminar respuesta ${replyId} por usuario ${userId}`);
+        
+        const reply = await ForumReply.findById(replyId);
+        if (!reply) {
+            return res.status(404).json({
+                success: false,
+                message: 'Respuesta no encontrada'
+            });
+        }
+        
+        // Verificar si el usuario es administrador o autor
+        const user = req.user || req.session.user;
+        const isAdmin = user.role === 'admin';
+        const isAuthor = reply.author.toString() === userId.toString();
+        
+        if (!isAdmin && !isAuthor) {
+            return res.status(403).json({
+                success: false,
+                message: 'No tienes permisos para eliminar esta respuesta'
+            });
+        }
+        
+        // Realizar eliminación lógica
+        await reply.softDelete(userId);
+        
+        return res.json({
+            success: true,
+            message: 'Respuesta eliminada correctamente'
+        });
+    } catch (error) {
+        console.error('Error al eliminar respuesta:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al eliminar la respuesta: ' + error.message
         });
     }
 }; 

@@ -818,4 +818,34 @@
 .success-message i, .error-message i {
     margin-right: 8px;
     font-size: 1.2rem;
+}
+
+/* Estilos para los botones de eliminación */
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+.delete-button i {
+    margin-right: 5px;
+}
+
+/* En la vista de respuestas, hacer el botón más pequeño */
+.reply-date .delete-button {
+    padding: 3px 6px;
+    font-size: 0.7rem;
+}
+
+.reply-date .delete-button i {
+    margin-right: 0;
 } 

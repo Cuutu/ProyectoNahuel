@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const forumController = require('../controllers/forumController');
+const ForumTopic = require('../models/ForumTopic');
+const ForumReply = require('../models/ForumReply');
 
 // Middleware para verificar si el usuario está autenticado
 const isAuthenticated = (req, res, next) => {
@@ -42,6 +44,78 @@ const hasTraderCallSubscription = (req, res, next) => {
     }
 };
 
+// Middleware para verificar si el usuario es administrador
+const isAdmin = (req, res, next) => {
+    const user = req.user || (req.session && req.session.user);
+    if (user && user.role === 'admin') {
+        return next();
+    }
+    return res.status(403).json({
+        success: false,
+        message: 'No tienes permisos para realizar esta acción'
+    });
+};
+
+// Middleware para verificar si el usuario es el autor o administrador
+const isAuthorOrAdmin = async (req, res, next) => {
+    try {
+        const user = req.user || (req.session && req.session.user);
+        const { topicId, replyId } = req.params;
+        
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: 'Debes iniciar sesión para realizar esta acción'
+            });
+        }
+        
+        // Si es administrador, permitir
+        if (user.role === 'admin') {
+            return next();
+        }
+        
+        // Verificar si es autor del tema o respuesta
+        if (topicId) {
+            const topic = await ForumTopic.findById(topicId);
+            if (!topic) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Tema no encontrado'
+                });
+            }
+            
+            if (topic.author.toString() === user._id.toString()) {
+                return next();
+            }
+        }
+        
+        if (replyId) {
+            const reply = await ForumReply.findById(replyId);
+            if (!reply) {
+                return res.status(404).json({
+                    success: false,
+                    message: 'Respuesta no encontrada'
+                });
+            }
+            
+            if (reply.author.toString() === user._id.toString()) {
+                return next();
+            }
+        }
+        
+        return res.status(403).json({
+            success: false,
+            message: 'No tienes permisos para realizar esta acción'
+        });
+    } catch (error) {
+        console.error('Error en middleware isAuthorOrAdmin:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al verificar permisos'
+        });
+    }
+};
+
 // Rutas del foro
 router.get('/dashboard/trader-call/comunidad', isAuthenticated, hasTraderCallSubscription, forumController.getForumHome);
 router.get('/dashboard/trader-call/forum/category/:categoryId', isAuthenticated, hasTraderCallSubscription, forumController.getCategory);
@@ -65,5 +139,9 @@ router.post('/test-forum-route', (req, res) => {
         message: 'Ruta de prueba funcionando correctamente'
     });
 });
+
+// Rutas para eliminar temas y respuestas
+router.delete('/dashboard/trader-call/forum/topic/:topicId', isAuthenticated, hasTraderCallSubscription, isAuthorOrAdmin, forumController.deleteTopic);
+router.delete('/dashboard/trader-call/forum/reply/:replyId', isAuthenticated, hasTraderCallSubscription, isAuthorOrAdmin, forumController.deleteReply);
 
 module.exports = router; 
