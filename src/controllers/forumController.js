@@ -145,7 +145,7 @@ exports.getTopic = async (req, res) => {
     }
 };
 
-// Crear un nuevo tema
+// Crear un nuevo tema (versión simplificada)
 exports.createTopic = async (req, res) => {
     try {
         const { title, content, categoryId } = req.body;
@@ -159,9 +159,9 @@ exports.createTopic = async (req, res) => {
         });
         
         if (!title || !content || !categoryId || !userId) {
-            return res.status(400).json({
-                success: false,
-                message: 'Faltan datos requeridos'
+            return res.status(400).render('error', {
+                message: 'Faltan datos requeridos',
+                user: req.user || req.session.user
             });
         }
         
@@ -180,16 +180,13 @@ exports.createTopic = async (req, res) => {
             title: newTopic.title
         });
         
-        res.status(201).json({
-            success: true,
-            topicId: newTopic._id,
-            message: 'Tema creado con éxito'
-        });
+        // Redirigir al tema creado
+        res.redirect(`/dashboard/trader-call/forum/topic/${newTopic._id}`);
     } catch (error) {
         console.error('Error al crear el tema:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error al crear el tema: ' + error.message
+        res.status(500).render('error', {
+            message: 'Error al crear el tema: ' + error.message,
+            user: req.user || req.session.user
         });
     }
 };

@@ -147,15 +147,15 @@ app.use('/mentoring', mentoringRoutes);
 // 3. Rutas de índice al final
 app.use('/', indexRoutes);
 
-// Registrar las rutas del foro directamente en la aplicación
-app.use('/', forumRoutes);
+// Registrar las rutas del foro antes de otras rutas o middlewares que puedan capturar todas las rutas
+app.use(forumRoutes);
 
-// Manejador de rutas no encontradas
+// Middleware para manejar rutas no encontradas (debe ir al final)
 app.use((req, res, next) => {
-    console.log('Ruta no encontrada:', req.url);
-    const error = new Error('Ruta no encontrada');
-    error.status = 404;
-    next(error);
+    res.status(404).render('error', {
+        message: 'Ruta no encontrada',
+        user: req.user || req.session.user
+    });
 });
 
 // Agregar middleware para capturar errores
