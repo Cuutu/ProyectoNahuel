@@ -58,15 +58,15 @@
 }
 
 .category-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #f5f5f5;
-    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #f0f4ff;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 15px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     color: #4a6cf7;
 }
 
@@ -241,18 +241,25 @@
 }
 
 .primary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background-color: #4a6cf7;
     color: white;
     border: none;
     border-radius: 4px;
     padding: 10px 20px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.3s;
 }
 
 .primary-button:hover {
     background-color: #3a5bd9;
+}
+
+.primary-button i {
+    font-size: 0.9rem;
 }
 
 /* Estilos para mensajes de "no hay datos" */
@@ -301,4 +308,93 @@
         width: 100%;
         justify-content: flex-end;
     }
+}
+
+/* Estilos para el foro de discusión */
+.forum-discussion {
+    margin-bottom: 30px;
+}
+
+.forum-discussion h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+.forum-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Estilos para el campo de búsqueda */
+.search-container {
+    display: flex;
+    max-width: 300px;
+    width: 100%;
+}
+
+.search-input {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    font-size: 0.9rem;
+}
+
+.search-button {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-button:hover {
+    background-color: #e5e5e5;
+}
+
+/* Corregir los iconos */
+.category-card i,
+.topic-stats i,
+.primary-button i,
+.search-button i {
+    display: inline-block;
+    width: auto;
+    height: auto;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+}
+
+/* Iconos específicos para cada categoría */
+.category-anuncios i {
+    color: #f59e0b;
+}
+
+.category-analisis i {
+    color: #3b82f6;
+}
+
+.category-alertas i {
+    color: #ef4444;
+}
+
+.category-estrategias i {
+    color: #10b981;
+}
+
+.category-preguntas i {
+    color: #8b5cf6;
+}
+
+.category-presentaciones i {
+    color: #ec4899;
 } 

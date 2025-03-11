@@ -6,7 +6,7 @@
     <title><%= locals.title || 'Comunidad Trader Call' %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/trader-call-dashboard.css">
@@ -77,34 +77,61 @@
     </div>
     
     <div class="main-content">
-        <div class="dashboard-header">
+        <div class="forum-header">
             <h1>Comunidad Trader Call</h1>
             <p>Conecta con otros traders, comparte ideas y aprende de la comunidad</p>
         </div>
         
-        <div class="dashboard-card">
-            <div class="forum-header">
-                <h2>Foro de Discusión</h2>
-                <div class="forum-actions">
-                    <button id="newTopicBtn" class="primary-button">
-                        <i class="fas fa-plus"></i> Nuevo tema
+        <div class="forum-discussion">
+            <h2>Foro de Discusión</h2>
+            
+            <div class="forum-actions">
+                <button id="newTopicBtn" class="primary-button">
+                    <i class="fas fa-plus"></i> Nuevo tema
+                </button>
+                
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Buscar en el foro..." class="search-input">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
                     </button>
-                    <div class="search-container">
-                        <input type="text" id="forumSearch" placeholder="Buscar en el foro...">
-                        <button id="searchBtn"><i class="fas fa-search"></i></button>
-                    </div>
                 </div>
             </div>
-            
+        </div>
+        
+        <div class="dashboard-card">
             <div class="forum-categories">
                 <h2>Categorías</h2>
                 
                 <% if (locals.categories && categories.length > 0) { %>
                     <div class="categories-grid">
                         <% categories.forEach(category => { %>
-                            <a href="/dashboard/trader-call/forum/category/<%= category._id %>" class="category-card">
+                            <a href="/dashboard/trader-call/forum/category/<%= category._id %>" class="category-card category-<%= category.name.toLowerCase().replace(/\s+/g, '-') %>">
                                 <div class="category-icon">
-                                    <i class="<%= category.icon || 'fas fa-comments' %>"></i>
+                                    <% 
+                                    let iconClass = 'fas fa-comments';
+                                    
+                                    // Asignar iconos específicos según el nombre de la categoría
+                                    if (category.name.includes('Anuncio')) {
+                                        iconClass = 'fas fa-bullhorn';
+                                    } else if (category.name.includes('Análisis')) {
+                                        iconClass = 'fas fa-chart-line';
+                                    } else if (category.name.includes('Alerta')) {
+                                        iconClass = 'fas fa-bell';
+                                    } else if (category.name.includes('Estrategia')) {
+                                        iconClass = 'fas fa-chess';
+                                    } else if (category.name.includes('Pregunta')) {
+                                        iconClass = 'fas fa-question-circle';
+                                    } else if (category.name.includes('Presentacion')) {
+                                        iconClass = 'fas fa-user-plus';
+                                    }
+                                    
+                                    // Usar el icono personalizado si existe
+                                    if (category.icon) {
+                                        iconClass = category.icon;
+                                    }
+                                    %>
+                                    <i class="<%= iconClass %>"></i>
                                 </div>
                                 <div class="category-info">
                                     <h3><%= category.name %></h3>
@@ -131,11 +158,10 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Crear nuevo tema</h2>
-            <div id="newTopicError" class="error-message" style="display: none;"></div>
-            <form action="/dashboard/trader-call/forum/topic" method="POST">
+            <form id="newTopicForm" action="/dashboard/trader-call/forum/topic" method="POST">
                 <div class="form-group">
-                    <label for="categoryId">Categoría:</label>
-                    <select id="categoryId" name="categoryId" required>
+                    <label for="topicCategory">Categoría:</label>
+                    <select id="topicCategory" name="categoryId" required>
                         <% if (locals.categories && categories.length > 0) { %>
                             <% categories.forEach(category => { %>
                                 <option value="<%= category._id %>"><%= category.name %></option>
@@ -144,12 +170,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="title">Título:</label>
-                    <input type="text" id="title" name="title" required>
+                    <label for="topicTitle">Título:</label>
+                    <input type="text" id="topicTitle" name="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="content">Contenido:</label>
-                    <textarea id="content" name="content" rows="10" required></textarea>
+                    <label for="topicContent">Contenido:</label>
+                    <textarea id="topicContent" name="content" rows="10" required></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="primary-button">Crear tema</button>
@@ -405,6 +431,109 @@
                     searchResultsModal.style.display = 'none';
                 }
             });
+        });
+    </script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Modal para crear categoría
+            const categoryModal = document.getElementById('createCategoryModal');
+            const categoryBtn = document.getElementById('createCategoryBtn');
+            const categorySpan = document.querySelector('#createCategoryModal .close');
+            
+            if (categoryBtn) {
+                categoryBtn.onclick = function() {
+                    categoryModal.style.display = 'block';
+                }
+            }
+            
+            if (categorySpan) {
+                categorySpan.onclick = function() {
+                    categoryModal.style.display = 'none';
+                }
+            }
+            
+            // Botón de nuevo tema
+            const newTopicBtn = document.getElementById('newTopicBtn');
+            if (newTopicBtn) {
+                newTopicBtn.addEventListener('click', function() {
+                    // Mostrar modal para crear nuevo tema
+                    const modal = document.getElementById('newTopicModal');
+                    if (modal) {
+                        modal.style.display = 'block';
+                    } else {
+                        // Si no hay modal, redirigir a la página para crear un nuevo tema
+                        window.location.href = '/dashboard/trader-call/forum/new-topic';
+                    }
+                });
+            }
+            
+            // Cerrar modales al hacer clic fuera de ellos
+            window.onclick = function(event) {
+                if (event.target == categoryModal) {
+                    categoryModal.style.display = 'none';
+                }
+                
+                const newTopicModal = document.getElementById('newTopicModal');
+                if (event.target == newTopicModal) {
+                    newTopicModal.style.display = 'none';
+                }
+            }
+            
+            // Formulario para crear categoría
+            const categoryForm = document.getElementById('createCategoryForm');
+            if (categoryForm) {
+                categoryForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const formData = {
+                        name: document.getElementById('categoryName').value,
+                        description: document.getElementById('categoryDescription').value,
+                        icon: document.getElementById('categoryIcon').value || 'fas fa-comments'
+                    };
+                    
+                    try {
+                        const response = await fetch('/api/forum/category', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+                        
+                        const data = await response.json();
+                        
+                        if (data.success) {
+                            alert('Categoría creada correctamente');
+                            window.location.reload();
+                        } else {
+                            alert(`Error: ${data.message}`);
+                        }
+                    } catch (error) {
+                        console.error('Error al crear categoría:', error);
+                        alert('Ha ocurrido un error al crear la categoría');
+                    }
+                });
+            }
+            
+            // Formulario de búsqueda
+            const searchForm = document.querySelector('.search-container');
+            const searchInput = document.getElementById('searchInput');
+            const searchButton = document.querySelector('.search-button');
+            
+            if (searchForm && searchInput && searchButton) {
+                searchButton.addEventListener('click', function() {
+                    if (searchInput.value.trim()) {
+                        window.location.href = `/dashboard/trader-call/forum/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+                    }
+                });
+                
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && searchInput.value.trim()) {
+                        window.location.href = `/dashboard/trader-call/forum/search?q=${encodeURIComponent(searchInput.value.trim())}`;
+                    }
+                });
+            }
         });
     </script>
 </body>
