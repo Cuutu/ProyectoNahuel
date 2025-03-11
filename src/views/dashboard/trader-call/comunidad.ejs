@@ -6,11 +6,34 @@
     <title><%= locals.title || 'Comunidad Trader Call' %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/trader-call-dashboard.css">
     <link rel="stylesheet" href="/css/forum.css">
+    <style>
+        /* Estilos adicionales para corregir problemas visuales */
+        .category-icon i {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Evitar que los iconos se vean como cuadrados */
+        .fas, .far, .fab {
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+        
+        /* Asegurarse de que los contenedores tengan dimensiones adecuadas */
+        .category-card, .topic-item {
+            min-height: 80px;
+        }
+    </style>
 </head>
 <body>
     <%- include('../../partials/header') %>
@@ -85,13 +108,19 @@
                                 </div>
                                 <div class="category-info">
                                     <h3><%= category.name %></h3>
-                                    <p><%= category.description %></p>
+                                    <p><%= category.description || 'Sin descripción' %></p>
                                 </div>
                             </a>
                         <% }) %>
                     </div>
                 <% } else { %>
                     <p class="no-categories">No hay categorías disponibles en este momento.</p>
+                <% } %>
+                
+                <% if (locals.user && locals.user.role === 'admin') { %>
+                    <button id="createCategoryBtn" class="admin-button">
+                        <i class="fas fa-plus"></i> Crear categoría
+                    </button>
                 <% } %>
             </div>
         </div>
