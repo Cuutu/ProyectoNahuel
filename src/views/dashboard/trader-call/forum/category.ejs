@@ -83,76 +83,29 @@
             
             <div class="topics-list">
                 <% if (locals.topics && topics.length > 0) { %>
-                    <div class="topics-header">
-                        <div class="topic-title-header">Tema</div>
-                        <div class="topic-stats-header">Estadísticas</div>
-                        <div class="topic-last-reply-header">Última respuesta</div>
-                    </div>
-                    
                     <% topics.forEach(topic => { %>
-                        <div class="topic-item <%= topic.isPinned ? 'pinned' : '' %>">
-                            <div class="topic-title-col">
-                                <div class="topic-icon">
-                                    <% if (topic.isPinned) { %>
-                                        <i class="fas fa-thumbtack"></i>
-                                    <% } else if (topic.isLocked) { %>
-                                        <i class="fas fa-lock"></i>
-                                    <% } else { %>
-                                        <i class="fas fa-comments"></i>
-                                    <% } %>
-                                </div>
-                                <div class="topic-info">
-                                    <h3>
-                                        <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>">
-                                            <%= topic.title %>
-                                        </a>
-                                        <% if (topic.isPinned) { %>
-                                            <span class="pinned-label">Destacado</span>
-                                        <% } %>
-                                        <% if (topic.isLocked) { %>
-                                            <span class="locked-label">Cerrado</span>
-                                        <% } %>
-                                    </h3>
-                                    <p class="topic-meta">
-                                        Iniciado por 
-                                        <% if (topic.author) { %>
-                                            <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong>
-                                        <% } else { %>
-                                            <strong>Usuario desconocido</strong>
-                                        <% } %>
-                                        <span class="topic-date"><%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></span>
-                                    </p>
+                        <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>" class="topic-item">
+                            <div class="topic-info">
+                                <h3><%= topic.title %></h3>
+                                <div class="topic-meta">
+                                    <span>Por: <%= topic.author ? topic.author.nombre : 'Usuario desconocido' %></span>
+                                    <span>Fecha: <%= new Date(topic.createdAt).toLocaleDateString() %></span>
                                 </div>
                             </div>
-                            <div class="topic-stats-col">
+                            <div class="topic-stats">
                                 <div class="stat">
-                                    <span class="stat-value"><%= topic.repliesCount || 0 %></span>
-                                    <span class="stat-label">Respuestas</span>
+                                    <i class="fas fa-eye"></i>
+                                    <span><%= topic.views || 0 %></span>
                                 </div>
                                 <div class="stat">
-                                    <span class="stat-value"><%= topic.views || 0 %></span>
-                                    <span class="stat-label">Vistas</span>
+                                    <i class="fas fa-comment"></i>
+                                    <span><%= topic.replyCount || 0 %></span>
                                 </div>
                             </div>
-                            <div class="topic-last-reply-col">
-                                <% if (topic.lastReplyUser) { %>
-                                    <p class="last-reply-user">
-                                        <strong><%= topic.lastReplyUser.nombre %> <%= topic.lastReplyUser.apellido %></strong>
-                                    </p>
-                                    <p class="last-reply-date">
-                                        <%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %>
-                                    </p>
-                                <% } else { %>
-                                    <p class="no-replies">Sin respuestas</p>
-                                <% } %>
-                            </div>
-                        </div>
+                        </a>
                     <% }) %>
                 <% } else { %>
-                    <div class="no-topics">
-                        <p>No hay temas en esta categoría.</p>
-                        <button id="createFirstTopicBtn" class="primary-button">Crear el primer tema</button>
-                    </div>
+                    <p class="no-topics">No hay temas en esta categoría.</p>
                 <% } %>
             </div>
         </div>

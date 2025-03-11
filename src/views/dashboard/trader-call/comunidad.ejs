@@ -74,73 +74,24 @@
             </div>
             
             <div class="forum-categories">
+                <h2>Categorías</h2>
+                
                 <% if (locals.categories && categories.length > 0) { %>
-                    <% categories.forEach(category => { %>
-                        <div class="forum-category">
-                            <div class="category-header">
-                                <h3><i class="fas <%= category.icon %>"></i> <%= category.name %></h3>
-                                <span class="topic-count"><%= category.topicsCount || 0 %> temas</span>
-                            </div>
-                            <div class="category-description">
-                                <%= category.description %>
-                            </div>
-                            <div class="category-topics">
-                                <% if (category.recentTopics && category.recentTopics.length > 0) { %>
-                                    <% category.recentTopics.forEach(topic => { %>
-                                <div class="topic">
-                                    <div class="topic-icon">
-                                        <% if (topic.isPinned) { %>
-                                            <i class="fas fa-thumbtack"></i>
-                                        <% } else { %>
-                                            <i class="fas fa-comments"></i>
-                                        <% } %>
-                                    </div>
-                                    <div class="topic-info">
-                                        <h4>
-                                            <a href="/dashboard/trader-call/forum/topic/<%= topic._id %>">
-                                                <%= topic.title %>
-                                            </a>
-                                        </h4>
-                                        <p>Iniciado por <strong><%= topic.author.nombre %> <%= topic.author.apellido %></strong> - <%= new Date(topic.createdAt).toLocaleDateString('es-ES') %></p>
-                                    </div>
-                                    <div class="topic-stats">
-                                        <div><%= topic.views || 0 %> vistas</div>
-                                    </div>
-                                    <div class="topic-last-post">
-                                        <% if (topic.lastReplyUser) { %>
-                                            <p>Última respuesta por <strong><%= topic.lastReplyUser.nombre %> <%= topic.lastReplyUser.apellido %></strong></p>
-                                            <p><%= new Date(topic.lastReplyDate).toLocaleDateString('es-ES') %></p>
-                                        <% } else { %>
-                                            <p>Sin respuestas aún</p>
-                                        <% } %>
-                                    </div>
+                    <div class="categories-grid">
+                        <% categories.forEach(category => { %>
+                            <a href="/dashboard/trader-call/forum/category/<%= category._id %>" class="category-card">
+                                <div class="category-icon">
+                                    <i class="<%= category.icon || 'fas fa-comments' %>"></i>
                                 </div>
-                                    <% }) %>
-                                <% } else { %>
-                                    <div class="no-topics">
-                                        <p>No hay temas en esta categoría.</p>
-                                        <button class="create-topic-btn" data-category="<%= category._id %>">Crear el primer tema</button>
-                                    </div>
-                                <% } %>
-                            </div>
-                            <div class="category-footer">
-                                <a href="/dashboard/trader-call/forum/category/<%= category._id %>" class="view-all-btn">
-                                    Ver todos los temas <i class="fas fa-arrow-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    <% }) %>
-                <% } else { %>
-                    <div class="no-categories">
-                        <p>No hay categorías disponibles en el foro.</p>
-                        <p>Las categorías se mostrarán aquí una vez que sean creadas por un administrador.</p>
-                        
-                        <% if (user && user.isAdmin) { %>
-                            <button id="createCategoriesBtn" class="admin-button">
-                                <i class="fas fa-plus-circle"></i> Crear categorías
-                            </button>
-                        <% } %>
+                                <div class="category-info">
+                                    <h3><%= category.name %></h3>
+                                    <p><%= category.description %></p>
+                                </div>
+                            </a>
+                        <% }) %>
                     </div>
+                <% } else { %>
+                    <p class="no-categories">No hay categorías disponibles en este momento.</p>
                 <% } %>
             </div>
         </div>

@@ -32,6 +32,10 @@ const forumTopicSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    replyCount: {
+        type: Number,
+        default: 0
+    },
     lastReplyDate: {
         type: Date,
         default: Date.now

@@ -6,17 +6,28 @@ const User = require('../models/User');
 // Mostrar todas las categorías del foro
 exports.getForumHome = async (req, res) => {
     try {
-        // Obtener categorías activas
-        const categories = await ForumCategory.find({ isActive: true });
+        console.log('Cargando página principal del foro');
         
-        // Obtener temas recientes (no eliminados)
-        const recentTopics = await ForumTopic.find({ isActive: true })
+        // Obtener todas las categorías (sin filtrar por isActive por ahora)
+        const categories = await ForumCategory.find();
+        
+        console.log(`Se encontraron ${categories.length} categorías`);
+        
+        // Imprimir información de depuración sobre las categorías
+        categories.forEach((category, index) => {
+            console.log(`Categoría ${index + 1}: ID=${category._id}, Nombre=${category.name}`);
+        });
+        
+        // Obtener temas recientes (sin filtrar por isActive por ahora)
+        const recentTopics = await ForumTopic.find()
             .sort({ createdAt: -1 })
-            .limit(5)
+            .limit(10)
             .populate('author', 'nombre avatar')
             .populate('category', 'name');
         
-        // Renderizar la vista con el título
+        console.log(`Se encontraron ${recentTopics.length} temas recientes`);
+        
+        // Renderizar la vista
         res.render('dashboard/trader-call/comunidad', {
             user: req.user || req.session.user,
             categories,
@@ -38,8 +49,10 @@ exports.getCategory = async (req, res) => {
     try {
         const { categoryId } = req.params;
         
+        console.log(`Buscando temas para la categoría: ${categoryId}`);
+        
         // Obtener la categoría
-        const category = await ForumCategory.findOne({ _id: categoryId, isActive: true });
+        const category = await ForumCategory.findById(categoryId);
         if (!category) {
             return res.status(404).render('error', {
                 message: 'Categoría no encontrada',
@@ -48,20 +61,28 @@ exports.getCategory = async (req, res) => {
             });
         }
         
-        // Obtener los temas de la categoría (no eliminados)
+        // Obtener los temas de la categoría SIN filtrar por isActive por ahora
         const topics = await ForumTopic.find({ 
-            category: categoryId,
-            isActive: true 
+            category: categoryId
+            // Temporalmente quitamos el filtro isActive para ver todos los temas
         })
         .sort({ createdAt: -1 })
         .populate('author', 'nombre avatar')
         .populate('lastReplyUser', 'nombre avatar');
         
+        console.log(`Se encontraron ${topics.length} temas para la categoría ${category.name}`);
+        
+        // Imprimir información de depuración sobre los temas
+        topics.forEach((topic, index) => {
+            console.log(`Tema ${index + 1}: ID=${topic._id}, Título=${topic.title}, Autor=${topic.author?.nombre || 'N/A'}, Categoría=${topic.category}`);
+        });
+        
         // Renderizar la vista
         res.render('dashboard/trader-call/forum/category', {
             user: req.user || req.session.user,
             category,
-            topics
+            topics,
+            title: `Categoría: ${category.name}`
         });
     } catch (error) {
         console.error('Error al obtener la categoría:', error);
@@ -141,7 +162,18 @@ exports.createTopic = async (req, res) => {
         if (!title || !content || !categoryId || !userId) {
             return res.status(400).render('error', {
                 message: 'Faltan datos requeridos',
-                user: req.user || req.session.user
+                user: req.user || req.session.user,
+                error: {}
+            });
+        }
+        
+        // Verificar que la categoría existe
+        const category = await ForumCategory.findById(categoryId);
+        if (!category) {
+            return res.status(404).render('error', {
+                message: 'Categoría no encontrada',
+                user: req.user || req.session.user,
+                error: {}
             });
         }
         
@@ -150,14 +182,16 @@ exports.createTopic = async (req, res) => {
             content,
             author: userId,
             category: categoryId,
-            lastReplyUser: userId
+            lastReplyUser: userId,
+            lastReplyDate: new Date()
         });
         
         await newTopic.save();
         
         console.log('Tema creado con éxito:', {
             id: newTopic._id,
-            title: newTopic.title
+            title: newTopic.title,
+            category: categoryId
         });
         
         // Redirigir al tema creado
@@ -166,7 +200,8 @@ exports.createTopic = async (req, res) => {
         console.error('Error al crear el tema:', error);
         res.status(500).render('error', {
             message: 'Error al crear el tema: ' + error.message,
-            user: req.user || req.session.user
+            user: req.user || req.session.user,
+            error: error
         });
     }
 };

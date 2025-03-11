@@ -147,4 +147,33 @@ router.delete('/dashboard/trader-call/forum/reply/:replyId', isAuthenticated, ha
 // Ruta para crear una nueva categoría (solo administradores)
 router.post('/api/forum/category', isAuthenticated, hasTraderCallSubscription, isAdmin, forumController.createCategory);
 
+// Ruta de depuración para ver todos los temas (solo para desarrollo)
+if (process.env.NODE_ENV === 'development') {
+    router.get('/debug/forum/topics', isAuthenticated, async (req, res) => {
+        try {
+            const topics = await ForumTopic.find()
+                .populate('author', 'nombre')
+                .populate('category', 'name');
+            
+            res.json({
+                success: true,
+                count: topics.length,
+                topics: topics.map(topic => ({
+                    id: topic._id,
+                    title: topic.title,
+                    author: topic.author ? topic.author.nombre : 'N/A',
+                    category: topic.category ? topic.category.name : 'N/A',
+                    createdAt: topic.createdAt,
+                    isActive: topic.isActive
+                }))
+            });
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    });
+}
+
 module.exports = router; 
