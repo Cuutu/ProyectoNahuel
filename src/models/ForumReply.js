@@ -24,7 +24,8 @@ const forumReplySchema = new mongoose.Schema({
     },
     isActive: { type: Boolean, default: true },
     deletedAt: { type: Date, default: null },
-    deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null }
+    deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', default: null },
+    likes: { type: Number, default: 0 }
 }, {
     timestamps: true
 });
@@ -49,4 +50,6 @@ forumReplySchema.methods.softDelete = function(userId) {
     return this.save();
 };
 
-module.exports = mongoose.model('ForumReply', forumReplySchema); 
+const ForumReply = mongoose.model('ForumReply', forumReplySchema);
+
+module.exports = ForumReply; 

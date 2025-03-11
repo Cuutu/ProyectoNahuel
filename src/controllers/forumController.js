@@ -218,32 +218,37 @@ exports.createTopic = async (req, res) => {
 // Crear una nueva respuesta
 exports.createReply = async (req, res) => {
     try {
-        const { content, topicId } = req.body;
+        console.log('Iniciando creación de respuesta');
+        console.log('Datos recibidos:', req.body);
+        
+        const { topicId, content } = req.body;
         const userId = req.user?._id || req.session.user?._id;
         
-        if (!content || !topicId || !userId) {
-            return res.status(400).json({
-                success: false,
-                message: 'Faltan datos requeridos'
+        console.log('Datos procesados:', {
+            topicId,
+            content: content ? `${content.substring(0, 50)}...` : 'No content',
+            userId
+        });
+        
+        if (!topicId || !content || !userId) {
+            return res.status(400).render('error', {
+                message: 'Faltan datos requeridos',
+                user: req.user || req.session.user,
+                error: {}
             });
         }
         
-        // Verificar si el tema existe y no está bloqueado
+        // Verificar que el tema existe
         const topic = await ForumTopic.findById(topicId);
         if (!topic) {
-            return res.status(404).json({
-                success: false,
-                message: 'Tema no encontrado'
+            return res.status(404).render('error', {
+                message: 'Tema no encontrado',
+                user: req.user || req.session.user,
+                error: {}
             });
         }
         
-        if (topic.isLocked) {
-            return res.status(403).json({
-                success: false,
-                message: 'Este tema está bloqueado y no permite nuevas respuestas'
-            });
-        }
-        
+        // Crear la nueva respuesta
         const newReply = new ForumReply({
             content,
             author: userId,
@@ -252,21 +257,25 @@ exports.createReply = async (req, res) => {
         
         await newReply.save();
         
-        // Obtener los datos del autor para la respuesta
-        const author = await User.findById(userId, 'nombre apellido');
-        
-        res.status(201).json({
-            success: true,
-            reply: {
-                ...newReply.toObject(),
-                author
-            }
+        console.log('Respuesta creada con éxito:', {
+            id: newReply._id,
+            topicId
         });
+        
+        // Actualizar el tema con la información de la última respuesta
+        topic.lastReplyUser = userId;
+        topic.lastReplyDate = new Date();
+        topic.replyCount = (topic.replyCount || 0) + 1;
+        await topic.save();
+        
+        // Redirigir al tema
+        res.redirect(`/dashboard/trader-call/forum/topic/${topicId}`);
     } catch (error) {
         console.error('Error al crear la respuesta:', error);
-        res.status(500).json({
-            success: false,
-            message: 'Error al crear la respuesta'
+        res.status(500).render('error', {
+            message: 'Error al crear la respuesta: ' + error.message,
+            user: req.user || req.session.user,
+            error: error
         });
     }
 };
