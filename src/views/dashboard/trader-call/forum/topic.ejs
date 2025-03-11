@@ -159,11 +159,12 @@
                 <!-- Formulario de respuesta -->
                 <% if (!topic.isLocked) { %>
                     <div class="reply-form-container">
-                        <h3>Responder a este tema</h3>
-                        <form id="replyForm">
+                        <h2>Responder a este tema</h2>
+                        <form id="newReplyForm">
                             <input type="hidden" name="topicId" value="<%= topic._id %>">
                             <div class="form-group">
-                                <textarea id="replyContent" name="content" rows="6" required placeholder="Escribe tu respuesta aquí..."></textarea>
+                                <label for="replyContent">Tu respuesta:</label>
+                                <textarea id="replyContent" name="content" rows="5" required></textarea>
                             </div>
                             <div class="form-actions">
                                 <button type="submit" class="primary-button">Enviar respuesta</button>
@@ -179,9 +180,25 @@
     <div id="newTopicModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
-            <h2>Crear nuevo tema en <%= category.name %></h2>
-            <form id="newTopicForm">
-                <input type="hidden" name="categoryId" value="<%= category._id %>">
+            <h2>Crear nuevo tema</h2>
+            <form id="newTopicForm" action="/dashboard/trader-call/forum/topic" method="POST">
+                <div class="form-group">
+                    <label for="topicCategory">Categoría:</label>
+                    <select id="topicCategory" name="categoryId" required>
+                        <!-- Si estamos en una categoría específica, seleccionarla por defecto -->
+                        <% if (locals.categories && categories.length > 0) { %>
+                            <% categories.forEach(cat => { %>
+                                <option value="<%= cat._id %>" <%= (locals.category && category._id.toString() === cat._id.toString()) ? 'selected' : '' %>>
+                                    <%= cat.name %>
+                                </option>
+                            <% }) %>
+                        <% } else if (locals.category) { %>
+                            <option value="<%= category._id %>" selected><%= category.name %></option>
+                        <% } else if (locals.topic && topic.category) { %>
+                            <option value="<%= topic.category._id %>" selected><%= topic.category.name %></option>
+                        <% } %>
+                    </select>
+                </div>
                 <div class="form-group">
                     <label for="topicTitle">Título:</label>
                     <input type="text" id="topicTitle" name="title" required>
@@ -192,7 +209,6 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="primary-button">Crear tema</button>
-                    <button type="button" class="secondary-button" id="cancelTopicBtn">Cancelar</button>
                 </div>
             </form>
         </div>
@@ -359,7 +375,7 @@
             });
             
             // Formulario de respuesta
-            const replyForm = document.getElementById('replyForm');
+            const replyForm = document.getElementById('newReplyForm');
             if (replyForm) {
                 replyForm.addEventListener('submit', async function(e) {
                     e.preventDefault();

@@ -115,7 +115,13 @@ exports.getTopic = async (req, res) => {
             });
         }
         
-        // Obtener las respuestas del tema (no eliminadas)
+        // Obtener la categoría completa
+        const category = await ForumCategory.findById(topic.category._id);
+        
+        // Obtener todas las categorías para el selector
+        const categories = await ForumCategory.find({ isActive: true });
+        
+        // Obtener las respuestas del tema
         const replies = await ForumReply.find({ 
             topic: topicId,
             isActive: true 
@@ -131,7 +137,10 @@ exports.getTopic = async (req, res) => {
         res.render('dashboard/trader-call/forum/topic', {
             user: req.user || req.session.user,
             topic,
-            replies
+            replies,
+            category,
+            categories,
+            title: topic.title
         });
     } catch (error) {
         console.error('Error al obtener el tema:', error);
