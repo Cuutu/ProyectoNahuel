@@ -5,11 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= locals.title || topic.title %></title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/dashboard.css">
-    <link rel="stylesheet" href="/css/trader-call-dashboard.css">
     <link rel="stylesheet" href="/css/forum.css">
     <style>
         /* Estilos adicionales para corregir problemas visuales */
@@ -53,402 +51,115 @@
     </style>
 </head>
 <body>
-    <%- include('../../../partials/header') %>
+    <%- include('../../../partials/dashboard/sidebar', { 
+        user: locals.user || {},
+        isAuthenticated: !!locals.user,
+        currentPage: 'trader-call-comunidad'
+    }) %>
     
-    <% if (locals.isPreview) { %>
-        <%- include('../../../partials/preview-banner') %>
-    <% } %>
-    
-    <button class="toggle-sidebar">
-        <i class="fas fa-bars"></i>
-    </button>
-    
-    <div class="sidebar">
-        <ul class="sidebar-menu">
-            <li>
-                <a href="/dashboard/trader-call">
-                    <i class="fas fa-tachometer-alt"></i> Dashboard de Trabajo
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/seguimiento">
-                    <i class="fas fa-chart-line"></i> Seguimiento de Alertas
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/alertas-vigentes">
-                    <i class="fas fa-bell"></i> Alertas Vigentes
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/informes">
-                    <i class="fas fa-file-alt"></i> Informes
-                </a>
-            </li>
-            <li>
-                <a href="/dashboard/trader-call/comunidad" class="active">
-                    <i class="fas fa-users"></i> Comunidad
-                </a>
-            </li>
-        </ul>
-    </div>
-    
-    <div class="main-content">
-        <div class="dashboard-header">
-            <div class="breadcrumbs">
-                <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt;
-                <% if (locals.category) { %>
-                    <a href="/dashboard/trader-call/forum/category/<%= category._id %>"><%= category.name %></a> &gt;
-                <% } %>
+    <div class="dashboard-content">
+        <%- include('../../../partials/dashboard/header', { 
+            user: locals.user || {},
+            isAuthenticated: !!locals.user,
+            title: locals.title || topic.title
+        }) %>
+        
+        <div class="forum-container">
+            <!-- Breadcrumb / Migas de pan -->
+            <div class="breadcrumb">
+                <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt; 
+                <a href="/dashboard/trader-call/forum/category/<%= topic.category._id %>"><%= topic.category.name %></a> &gt; 
                 <span><%= topic.title %></span>
             </div>
-            <div class="topic-header">
-                <h1><%= topic.title %></h1>
-                <div class="topic-meta">
-                    <div class="topic-author">
-                        <img src="<%= topic.author.avatar || '/img/default-avatar.png' %>" alt="<%= topic.author.nombre %>" class="author-avatar">
-                        <span class="author-name"><%= topic.author.nombre %></span>
-                    </div>
-                    <div class="topic-info">
-                        <span><i class="fas fa-calendar"></i> <%= new Date(topic.createdAt).toLocaleDateString() %></span>
-                        <span><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
-                        <span><i class="fas fa-comment"></i> <%= topic.replyCount || 0 %> respuestas</span>
-                        
-                        <!-- Botón de eliminar (solo visible para administradores o autor) -->
-                        <% if ((user.role === 'admin') || (topic.author._id.toString() === user._id.toString())) { %>
-                            <button class="delete-button" data-id="<%= topic._id %>" data-type="topic">
-                                <i class="fas fa-trash"></i> Eliminar
-                            </button>
-                        <% } %>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="dashboard-card">
-            <div class="post-container">
-                <!-- Sección para mostrar el tema principal -->
-                <div class="topic-container">
-                    <div class="topic-header">
-                        <h1><%= topic.title %></h1>
-                        <div class="topic-meta">
-                            <div class="topic-author">
-                                <img src="<%= topic.author.avatar || '/img/default-avatar.png' %>" alt="<%= topic.author.nombre %>" class="author-avatar">
-                                <span class="author-name"><%= topic.author.nombre %></span>
-                            </div>
-                            <div class="topic-info">
-                                <span><i class="fas fa-calendar"></i> <%= new Date(topic.createdAt).toLocaleDateString() %></span>
-                                <span><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
-                                <span><i class="fas fa-comment"></i> <%= topic.replyCount || 0 %> respuestas</span>
-                                
-                                <!-- Botón de eliminar (solo visible para administradores o autor) -->
-                                <% if ((user.role === 'admin') || (topic.author._id.toString() === user._id.toString())) { %>
-                                    <button class="delete-button" data-id="<%= topic._id %>" data-type="topic">
-                                        <i class="fas fa-trash"></i> Eliminar
-                                    </button>
-                                <% } %>
-                            </div>
+            
+            <!-- Tema principal - SOLO UNA VEZ -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <h1><%= topic.title %></h1>
+                    <div class="topic-meta">
+                        <div class="topic-author">
+                            <img src="<%= topic.author.avatar || '/img/default-avatar.png' %>" alt="<%= topic.author.nombre %>" class="author-avatar">
+                            <span class="author-name"><%= topic.author.nombre %></span>
+                        </div>
+                        <div class="topic-info">
+                            <span><i class="fas fa-calendar"></i> <%= new Date(topic.createdAt).toLocaleDateString() %></span>
+                            <span><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
+                            <span><i class="fas fa-comment"></i> <%= topic.replyCount || 0 %> respuestas</span>
+                            
+                            <!-- Botón de eliminar (solo visible para administradores o autor) -->
+                            <% if ((user.role === 'admin') || (topic.author._id.toString() === user._id.toString())) { %>
+                                <button class="delete-button" data-id="<%= topic._id %>" data-type="topic">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </button>
+                            <% } %>
                         </div>
                     </div>
-                    <div class="topic-content">
-                        <%= topic.content %>
-                    </div>
                 </div>
+                <div class="topic-content">
+                    <%= topic.content %>
+                </div>
+            </div>
+            
+            <!-- Respuestas al tema -->
+            <div class="topic-replies">
+                <h3>Respuestas (<%= replies.length %>)</h3>
                 
-                <!-- Sección para mostrar las respuestas -->
-                <div class="topic-replies">
-                    <h3>Respuestas (<%= replies.length %>)</h3>
-                    
-                    <% if (replies.length > 0) { %>
-                        <div class="replies-list">
-                            <% replies.forEach((reply, index) => { %>
-                                <div class="reply-item" id="reply-<%= reply._id %>">
-                                    <div class="reply-header">
-                                        <div class="reply-author">
-                                            <img src="<%= reply.author.avatar || '/img/default-avatar.png' %>" alt="<%= reply.author.nombre %>" class="author-avatar">
-                                            <span class="author-name"><%= reply.author.nombre %></span>
-                                        </div>
-                                        <div class="reply-date">
-                                            <%= new Date(reply.createdAt).toLocaleDateString() %> <%= new Date(reply.createdAt).toLocaleTimeString() %>
-                                            
-                                            <!-- Botón de eliminar (solo visible para administradores o autor) -->
-                                            <% if ((user.role === 'admin') || (reply.author._id.toString() === user._id.toString())) { %>
-                                                <button class="delete-button" data-id="<%= reply._id %>" data-type="reply">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            <% } %>
-                                        </div>
+                <% if (replies.length > 0) { %>
+                    <div class="replies-list">
+                        <% replies.forEach((reply, index) => { %>
+                            <div class="reply-item" id="reply-<%= reply._id %>">
+                                <div class="reply-header">
+                                    <div class="reply-author">
+                                        <img src="<%= reply.author.avatar || '/img/default-avatar.png' %>" alt="<%= reply.author.nombre %>" class="author-avatar">
+                                        <span class="author-name"><%= reply.author.nombre %></span>
                                     </div>
-                                    <div class="reply-content">
-                                        <%= reply.content %>
+                                    <div class="reply-date">
+                                        <%= new Date(reply.createdAt).toLocaleDateString() %> <%= new Date(reply.createdAt).toLocaleTimeString() %>
+                                        
+                                        <!-- Botón de eliminar (solo visible para administradores o autor) -->
+                                        <% if ((user.role === 'admin') || (reply.author._id.toString() === user._id.toString())) { %>
+                                            <button class="delete-button" data-id="<%= reply._id %>" data-type="reply">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        <% } %>
                                     </div>
                                 </div>
-                            <% }) %>
-                        </div>
-                    <% } else { %>
-                        <p class="no-replies">No hay respuestas todavía. ¡Sé el primero en responder!</p>
-                    <% } %>
-                </div>
-                
-                <!-- Formulario de respuesta -->
-                <% if (!topic.isLocked) { %>
-                    <div class="reply-form-container">
-                        <h3>Responder a este tema</h3>
-                        <form id="replyForm" action="/dashboard/trader-call/forum/reply" method="POST">
-                            <input type="hidden" name="topicId" value="<%= topic._id %>">
-                            <div class="form-group">
-                                <label for="replyContent">Tu respuesta:</label>
-                                <textarea id="replyContent" name="content" rows="5" required></textarea>
+                                <div class="reply-content">
+                                    <%= reply.content %>
+                                </div>
                             </div>
-                            <div class="form-actions">
-                                <button type="submit" class="primary-button">
-                                    <i class="fas fa-paper-plane"></i> Enviar respuesta
-                                </button>
-                            </div>
-                        </form>
+                        <% }) %>
                     </div>
+                <% } else { %>
+                    <p class="no-replies">No hay respuestas todavía. ¡Sé el primero en responder!</p>
                 <% } %>
+            </div>
+            
+            <!-- Formulario para responder -->
+            <div class="reply-form-container">
+                <h3>Responder a este tema</h3>
+                <form id="replyForm" action="/dashboard/trader-call/forum/reply" method="POST">
+                    <input type="hidden" name="topicId" value="<%= topic._id %>">
+                    <div class="form-group">
+                        <label for="replyContent">Tu respuesta:</label>
+                        <textarea id="replyContent" name="content" rows="5" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="primary-button">
+                            <i class="fas fa-paper-plane"></i> Enviar respuesta
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     
-    <!-- Modal para crear nuevo tema -->
-    <div id="newTopicModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Crear nuevo tema</h2>
-            <form id="newTopicForm" action="/dashboard/trader-call/forum/topic" method="POST">
-                <div class="form-group">
-                    <label for="topicCategory">Categoría:</label>
-                    <select id="topicCategory" name="categoryId" required>
-                        <!-- Si estamos en una categoría específica, seleccionarla por defecto -->
-                        <% if (locals.categories && categories.length > 0) { %>
-                            <% categories.forEach(cat => { %>
-                                <option value="<%= cat._id %>" <%= (locals.category && category._id.toString() === cat._id.toString()) ? 'selected' : '' %>>
-                                    <%= cat.name %>
-                                </option>
-                            <% }) %>
-                        <% } else if (locals.category) { %>
-                            <option value="<%= category._id %>" selected><%= category.name %></option>
-                        <% } else if (locals.topic && topic.category) { %>
-                            <option value="<%= topic.category._id %>" selected><%= topic.category.name %></option>
-                        <% } %>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="topicTitle">Título:</label>
-                    <input type="text" id="topicTitle" name="title" required>
-                </div>
-                <div class="form-group">
-                    <label for="topicContent">Contenido:</label>
-                    <textarea id="topicContent" name="content" rows="10" required></textarea>
-                </div>
-                <div class="form-actions">
-                    <button type="submit" class="primary-button">Crear tema</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    
-    <!-- Modal para resultados de búsqueda -->
-    <div id="searchResultsModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Resultados de búsqueda</h2>
-            <div id="searchResults"></div>
-        </div>
-    </div>
-    
+    <!-- JavaScript para manejar la eliminación -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Toggle sidebar on mobile
-            const toggleBtn = document.querySelector('.toggle-sidebar');
-            const sidebar = document.querySelector('.sidebar');
-            
-            toggleBtn.addEventListener('click', function() {
-                sidebar.classList.toggle('active');
-            });
-            
-            // Modal de nuevo tema
-            const newTopicModal = document.getElementById('newTopicModal');
-            const newTopicBtn = document.getElementById('newTopicBtn');
-            const createFirstTopicBtn = document.getElementById('createFirstTopicBtn');
-            const cancelTopicBtn = document.getElementById('cancelTopicBtn');
-            const closeTopicModal = newTopicModal.querySelector('.close');
-            
-            function openNewTopicModal() {
-                newTopicModal.style.display = 'block';
-            }
-            
-            function closeNewTopicModal() {
-                newTopicModal.style.display = 'none';
-            }
-            
-            if (newTopicBtn) {
-                newTopicBtn.addEventListener('click', openNewTopicModal);
-            }
-            
-            if (createFirstTopicBtn) {
-                createFirstTopicBtn.addEventListener('click', openNewTopicModal);
-            }
-            
-            closeTopicModal.addEventListener('click', closeNewTopicModal);
-            cancelTopicBtn.addEventListener('click', closeNewTopicModal);
-            
-            // Formulario de nuevo tema
-            const newTopicForm = document.getElementById('newTopicForm');
-            newTopicForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const formData = {
-                    categoryId: this.elements.categoryId.value,
-                    title: this.elements.title.value,
-                    content: this.elements.content.value
-                };
-                
-                try {
-                    const response = await fetch('/dashboard/trader-call/forum/topic', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        window.location.href = `/dashboard/trader-call/forum/topic/${data.topicId}`;
-                    } else {
-                        alert('Error al crear el tema: ' + data.message);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Error al crear el tema');
-                }
-            });
-            
-            // Búsqueda en el foro
-            const searchBtn = document.getElementById('searchBtn');
-            const searchInput = document.getElementById('forumSearch');
-            const searchResultsModal = document.getElementById('searchResultsModal');
-            const searchResults = document.getElementById('searchResults');
-            const closeSearchModal = searchResultsModal.querySelector('.close');
-            
-            searchBtn.addEventListener('click', async function() {
-                const query = searchInput.value.trim();
-                
-                if (!query) {
-                    return;
-                }
-                
-                try {
-                    const response = await fetch(`/dashboard/trader-call/forum/search?query=${encodeURIComponent(query)}`);
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        // Mostrar resultados
-                        let resultsHtml = '';
-                        
-                        if (data.results.topics.length === 0 && data.results.replies.length === 0) {
-                            resultsHtml = '<p>No se encontraron resultados para tu búsqueda.</p>';
-                        } else {
-                            if (data.results.topics.length > 0) {
-                                resultsHtml += '<h3>Temas encontrados</h3><ul class="search-results-list">';
-                                data.results.topics.forEach(topic => {
-                                    resultsHtml += `
-                                        <li>
-                                            <a href="/dashboard/trader-call/forum/topic/${topic._id}">
-                                                <h4>${topic.title}</h4>
-                                                <p>En ${topic.category.name} por ${topic.author.nombre} ${topic.author.apellido}</p>
-                                            </a>
-                                        </li>
-                                    `;
-                                });
-                                resultsHtml += '</ul>';
-                            }
-                            
-                            if (data.results.replies.length > 0) {
-                                resultsHtml += '<h3>Respuestas encontradas</h3><ul class="search-results-list">';
-                                data.results.replies.forEach(reply => {
-                                    resultsHtml += `
-                                        <li>
-                                            <a href="/dashboard/trader-call/forum/topic/${reply.topic._id}">
-                                                <h4>${reply.topic.title}</h4>
-                                                <p>Respuesta por ${reply.author.nombre} ${reply.author.apellido}</p>
-                                                <div class="reply-preview">${reply.content.substring(0, 100)}...</div>
-                                            </a>
-                                        </li>
-                                    `;
-                                });
-                                resultsHtml += '</ul>';
-                            }
-                        }
-                        
-                        searchResults.innerHTML = resultsHtml;
-                        searchResultsModal.style.display = 'block';
-                    } else {
-                        alert('Error en la búsqueda: ' + data.message);
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    alert('Error al realizar la búsqueda');
-                }
-            });
-            
-            closeSearchModal.addEventListener('click', function() {
-                searchResultsModal.style.display = 'none';
-            });
-            
-            // Cerrar modales al hacer clic fuera de ellos
-            window.addEventListener('click', function(event) {
-                if (event.target === newTopicModal) {
-                    newTopicModal.style.display = 'none';
-                }
-                if (event.target === searchResultsModal) {
-                    searchResultsModal.style.display = 'none';
-                }
-            });
-            
-            // Formulario de respuesta
-            const replyForm = document.getElementById('replyForm');
-            if (replyForm) {
-                replyForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    const formData = {
-                        topicId: this.elements.topicId.value,
-                        content: this.elements.content.value
-                    };
-                    
-                    try {
-                        const response = await fetch('/dashboard/trader-call/forum/reply', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(formData)
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (data.success) {
-                            // Recargar la página para mostrar la nueva respuesta
-                            window.location.reload();
-                        } else {
-                            alert('Error al enviar la respuesta: ' + data.message);
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert('Error al enviar la respuesta');
-                    }
-                });
-            }
-            
-            // Obtener todos los botones de eliminar
+            // Manejar la eliminación de temas y respuestas
             const deleteButtons = document.querySelectorAll('.delete-button');
             
-            // Añadir evento click a cada botón
             deleteButtons.forEach(button => {
                 button.addEventListener('click', async function() {
                     const id = this.dataset.id;
@@ -457,7 +168,7 @@
                     if (!id || !type) return;
                     
                     // Confirmar eliminación
-                    if (!confirm(`¿Estás seguro de que deseas eliminar esta ${type === 'topic' ? 'tema' : 'respuesta'}? Esta acción no se puede deshacer.`)) {
+                    if (!confirm(`¿Estás seguro de que deseas eliminar ${type === 'topic' ? 'este tema' : 'esta respuesta'}? Esta acción no se puede deshacer.`)) {
                         return;
                     }
                     
