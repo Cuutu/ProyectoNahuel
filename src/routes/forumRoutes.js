@@ -144,4 +144,7 @@ router.post('/test-forum-route', (req, res) => {
 router.delete('/dashboard/trader-call/forum/topic/:topicId', isAuthenticated, hasTraderCallSubscription, isAuthorOrAdmin, forumController.deleteTopic);
 router.delete('/dashboard/trader-call/forum/reply/:replyId', isAuthenticated, hasTraderCallSubscription, isAuthorOrAdmin, forumController.deleteReply);
 
+// Ruta para crear una nueva categoría (solo administradores)
+router.post('/api/forum/category', isAuthenticated, hasTraderCallSubscription, isAdmin, forumController.createCategory);
+
 module.exports = router; 

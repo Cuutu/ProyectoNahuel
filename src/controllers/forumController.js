@@ -16,11 +16,12 @@ exports.getForumHome = async (req, res) => {
             .populate('author', 'nombre avatar')
             .populate('category', 'name');
         
-        // Renderizar la vista
+        // Renderizar la vista con el título
         res.render('dashboard/trader-call/comunidad', {
             user: req.user || req.session.user,
             categories,
-            recentTopics
+            recentTopics,
+            title: 'Comunidad Trader Call'
         });
     } catch (error) {
         console.error('Error al obtener la página principal del foro:', error);
@@ -369,6 +370,40 @@ exports.deleteReply = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: 'Error al eliminar la respuesta: ' + error.message
+        });
+    }
+};
+
+// Crear una nueva categoría (solo administradores)
+exports.createCategory = async (req, res) => {
+    try {
+        const { name, description, icon } = req.body;
+        
+        if (!name || !description) {
+            return res.status(400).json({
+                success: false,
+                message: 'El nombre y la descripción son obligatorios'
+            });
+        }
+        
+        const newCategory = new ForumCategory({
+            name,
+            description,
+            icon: icon || 'fas fa-comments'
+        });
+        
+        await newCategory.save();
+        
+        return res.json({
+            success: true,
+            message: 'Categoría creada correctamente',
+            category: newCategory
+        });
+    } catch (error) {
+        console.error('Error al crear categoría:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error al crear la categoría: ' + error.message
         });
     }
 }; 
