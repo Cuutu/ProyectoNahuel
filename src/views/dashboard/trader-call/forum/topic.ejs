@@ -10,197 +10,120 @@
     <link rel="stylesheet" href="/css/dashboard.css">
     <link rel="stylesheet" href="/css/forum.css">
     <style>
-        /* Estilos adicionales para corregir problemas visuales */
-        .fas, .far, .fab {
-            font-style: normal;
-            font-variant: normal;
-            text-rendering: auto;
-            line-height: 1;
+        /* Estilos básicos para la página sin los parciales */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f5f7fb;
+            margin: 0;
+            padding: 0;
         }
         
-        .reply-form-container {
-            margin-top: 30px;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
         }
         
-        .reply-form-container h3 {
-            margin-bottom: 15px;
-            font-size: 1.2rem;
+        .header {
+            background-color: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
             color: #333;
         }
         
-        #replyForm .form-group {
-            margin-bottom: 15px;
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #4a6cf7;
+            text-decoration: none;
         }
         
-        #replyForm textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-            resize: vertical;
-        }
-        
-        #replyForm .form-actions {
-            display: flex;
-            justify-content: flex-end;
+        .back-link:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <%- include('../../../partials/dashboard/sidebar', { 
-        user: locals.user || {},
-        isAuthenticated: !!locals.user,
-        currentPage: 'trader-call-comunidad'
-    }) %>
-    
-    <div class="dashboard-content">
-        <%- include('../../../partials/dashboard/header', { 
-            user: locals.user || {},
-            isAuthenticated: !!locals.user,
-            title: locals.title || topic.title
-        }) %>
+    <div class="container">
+        <div class="header">
+            <h1><%= topic.title %></h1>
+        </div>
         
-        <div class="forum-container">
-            <!-- Breadcrumb / Migas de pan -->
-            <div class="breadcrumb">
-                <a href="/dashboard/trader-call/comunidad">Comunidad</a> &gt; 
-                <a href="/dashboard/trader-call/forum/category/<%= topic.category._id %>"><%= topic.category.name %></a> &gt; 
-                <span><%= topic.title %></span>
-            </div>
-            
-            <!-- Tema principal - SOLO UNA VEZ -->
-            <div class="topic-container">
-                <div class="topic-header">
-                    <h1><%= topic.title %></h1>
-                    <div class="topic-meta">
-                        <div class="topic-author">
-                            <img src="<%= topic.author.avatar || '/img/default-avatar.png' %>" alt="<%= topic.author.nombre %>" class="author-avatar">
-                            <span class="author-name"><%= topic.author.nombre %></span>
-                        </div>
-                        <div class="topic-info">
-                            <span><i class="fas fa-calendar"></i> <%= new Date(topic.createdAt).toLocaleDateString() %></span>
-                            <span><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
-                            <span><i class="fas fa-comment"></i> <%= topic.replyCount || 0 %> respuestas</span>
-                            
-                            <!-- Botón de eliminar (solo visible para administradores o autor) -->
-                            <% if ((user.role === 'admin') || (topic.author._id.toString() === user._id.toString())) { %>
-                                <button class="delete-button" data-id="<%= topic._id %>" data-type="topic">
-                                    <i class="fas fa-trash"></i> Eliminar
-                                </button>
-                            <% } %>
-                        </div>
+        <a href="/dashboard/trader-call/comunidad" class="back-link">
+            <i class="fas fa-arrow-left"></i> Volver a la comunidad
+        </a>
+        
+        <!-- Tema principal -->
+        <div class="topic-container">
+            <div class="topic-header">
+                <h1><%= topic.title %></h1>
+                <div class="topic-meta">
+                    <div class="topic-author">
+                        <img src="<%= topic.author.avatar || '/img/default-avatar.png' %>" alt="<%= topic.author.nombre %>" class="author-avatar">
+                        <span class="author-name"><%= topic.author.nombre %></span>
+                    </div>
+                    <div class="topic-info">
+                        <span><i class="fas fa-calendar"></i> <%= new Date(topic.createdAt).toLocaleDateString() %></span>
+                        <span><i class="fas fa-eye"></i> <%= topic.views %> vistas</span>
+                        <span><i class="fas fa-comment"></i> <%= topic.replyCount || 0 %> respuestas</span>
                     </div>
                 </div>
-                <div class="topic-content">
-                    <%= topic.content %>
-                </div>
             </div>
-            
-            <!-- Respuestas al tema -->
-            <div class="topic-replies">
-                <h3>Respuestas (<%= replies.length %>)</h3>
-                
-                <% if (replies.length > 0) { %>
-                    <div class="replies-list">
-                        <% replies.forEach((reply, index) => { %>
-                            <div class="reply-item" id="reply-<%= reply._id %>">
-                                <div class="reply-header">
-                                    <div class="reply-author">
-                                        <img src="<%= reply.author.avatar || '/img/default-avatar.png' %>" alt="<%= reply.author.nombre %>" class="author-avatar">
-                                        <span class="author-name"><%= reply.author.nombre %></span>
-                                    </div>
-                                    <div class="reply-date">
-                                        <%= new Date(reply.createdAt).toLocaleDateString() %> <%= new Date(reply.createdAt).toLocaleTimeString() %>
-                                        
-                                        <!-- Botón de eliminar (solo visible para administradores o autor) -->
-                                        <% if ((user.role === 'admin') || (reply.author._id.toString() === user._id.toString())) { %>
-                                            <button class="delete-button" data-id="<%= reply._id %>" data-type="reply">
-                                                <i class="fas fa-trash"></i>
-                                            </button>
-                                        <% } %>
-                                    </div>
-                                </div>
-                                <div class="reply-content">
-                                    <%= reply.content %>
-                                </div>
-                            </div>
-                        <% }) %>
-                    </div>
-                <% } else { %>
-                    <p class="no-replies">No hay respuestas todavía. ¡Sé el primero en responder!</p>
-                <% } %>
-            </div>
-            
-            <!-- Formulario para responder -->
-            <div class="reply-form-container">
-                <h3>Responder a este tema</h3>
-                <form id="replyForm" action="/dashboard/trader-call/forum/reply" method="POST">
-                    <input type="hidden" name="topicId" value="<%= topic._id %>">
-                    <div class="form-group">
-                        <label for="replyContent">Tu respuesta:</label>
-                        <textarea id="replyContent" name="content" rows="5" required></textarea>
-                    </div>
-                    <div class="form-actions">
-                        <button type="submit" class="primary-button">
-                            <i class="fas fa-paper-plane"></i> Enviar respuesta
-                        </button>
-                    </div>
-                </form>
+            <div class="topic-content">
+                <%= topic.content %>
             </div>
         </div>
-    </div>
-    
-    <!-- JavaScript para manejar la eliminación -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Manejar la eliminación de temas y respuestas
-            const deleteButtons = document.querySelectorAll('.delete-button');
+        
+        <!-- Respuestas al tema -->
+        <div class="topic-replies">
+            <h3>Respuestas (<%= replies.length %>)</h3>
             
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', async function() {
-                    const id = this.dataset.id;
-                    const type = this.dataset.type;
-                    
-                    if (!id || !type) return;
-                    
-                    // Confirmar eliminación
-                    if (!confirm(`¿Estás seguro de que deseas eliminar ${type === 'topic' ? 'este tema' : 'esta respuesta'}? Esta acción no se puede deshacer.`)) {
-                        return;
-                    }
-                    
-                    try {
-                        // Enviar solicitud de eliminación
-                        const response = await fetch(`/dashboard/trader-call/forum/${type}/${id}`, {
-                            method: 'DELETE',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            }
-                        });
-                        
-                        const data = await response.json();
-                        
-                        if (data.success) {
-                            // Si se eliminó un tema, redirigir a la categoría
-                            if (type === 'topic') {
-                                window.location.href = '/dashboard/trader-call/forum/category/<%= topic.category._id %>';
-                            } else {
-                                // Si se eliminó una respuesta, eliminar el elemento del DOM
-                                document.getElementById(`reply-${id}`).remove();
-                            }
-                        } else {
-                            alert(`Error: ${data.message}`);
-                        }
-                    } catch (error) {
-                        console.error('Error al eliminar:', error);
-                        alert('Ha ocurrido un error al intentar eliminar. Por favor, inténtalo de nuevo.');
-                    }
-                });
-            });
-        });
-    </script>
+            <% if (replies.length > 0) { %>
+                <div class="replies-list">
+                    <% replies.forEach((reply, index) => { %>
+                        <div class="reply-item" id="reply-<%= reply._id %>">
+                            <div class="reply-header">
+                                <div class="reply-author">
+                                    <img src="<%= reply.author.avatar || '/img/default-avatar.png' %>" alt="<%= reply.author.nombre %>" class="author-avatar">
+                                    <span class="author-name"><%= reply.author.nombre %></span>
+                                </div>
+                                <div class="reply-date">
+                                    <%= new Date(reply.createdAt).toLocaleDateString() %> <%= new Date(reply.createdAt).toLocaleTimeString() %>
+                                </div>
+                            </div>
+                            <div class="reply-content">
+                                <%= reply.content %>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p class="no-replies">No hay respuestas todavía. ¡Sé el primero en responder!</p>
+            <% } %>
+        </div>
+        
+        <!-- Formulario para responder -->
+        <div class="reply-form-container">
+            <h3>Responder a este tema</h3>
+            <form id="replyForm" action="/dashboard/trader-call/forum/reply" method="POST">
+                <input type="hidden" name="topicId" value="<%= topic._id %>">
+                <div class="form-group">
+                    <label for="replyContent">Tu respuesta:</label>
+                    <textarea id="replyContent" name="content" rows="5" required></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">
+                        <i class="fas fa-paper-plane"></i> Enviar respuesta
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html> 
