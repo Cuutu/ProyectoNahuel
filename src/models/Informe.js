@@ -13,8 +13,18 @@ const informeSchema = new mongoose.Schema({
     imagenUrl: {
         type: String
     },
+    imagen: {
+        data: Buffer,
+        contentType: String,
+        filename: String
+    },
     videoUrl: {
         type: String
+    },
+    video: {
+        data: Buffer,
+        contentType: String,
+        filename: String
     },
     fuentes: {
         type: String

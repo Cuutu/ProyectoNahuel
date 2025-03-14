@@ -101,11 +101,20 @@
                 <span><i class="fas fa-user"></i> <%= informe.autor %></span>
             </div>
             
-            <% if (informe.imagenUrl) { %>
+            <% if (informe.imagen && informe.imagen.data) { %>
+                <img src="/dashboard/trader-call/informes/imagen/<%= informe._id %>" alt="<%= informe.titulo %>" class="w-full max-h-96 object-cover rounded-lg mb-6">
+            <% } else if (informe.imagenUrl) { %>
                 <img src="<%= informe.imagenUrl %>" alt="<%= informe.titulo %>" class="w-full max-h-96 object-cover rounded-lg mb-6">
             <% } %>
             
-            <% if (informe.videoUrl) { %>
+            <% if (informe.video && informe.video.data) { %>
+                <div class="video-container">
+                    <video controls class="w-full">
+                        <source src="/dashboard/trader-call/informes/video/<%= informe._id %>" type="<%= informe.video.contentType %>">
+                        Tu navegador no soporta la reproducción de videos.
+                    </video>
+                </div>
+            <% } else if (informe.videoUrl) { %>
                 <div class="video-container">
                     <% 
                     let videoEmbed = informe.videoUrl;

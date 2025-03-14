@@ -128,4 +128,8 @@ router.get('/dashboard/trader-call/comunidad', (req, res) => {
         });
 });
 
+// Añadir estas rutas para servir archivos multimedia
+router.get('/dashboard/trader-call/informes/imagen/:id', informeController.getImagen);
+router.get('/dashboard/trader-call/informes/video/:id', informeController.getVideo);
+
 module.exports = router; 
