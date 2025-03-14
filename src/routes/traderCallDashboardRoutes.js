@@ -65,17 +65,40 @@ router.get('/dashboard/trader-call/alertas-vigentes', (req, res) => {
     });
 });
 
-// Ruta para los informes
-router.get('/dashboard/trader-call/informes', (req, res) => {
-    const user = req.user || req.session.user;
-    
-    res.render('dashboard/trader-call/informes', {
-        user: user,
-        title: 'Informes - Trader Call',
-        isAuthenticated: true,
-        currentPath: req.path
-    });
+// Añadir estas rutas para la gestión de informes
+const informeController = require('../controllers/informeController');
+
+// Rutas para los informes
+router.get('/dashboard/trader-call/informes', informeController.getInformes);
+router.get('/dashboard/trader-call/informes/crear', isAdmin, informeController.mostrarFormularioCrear);
+router.post('/dashboard/trader-call/informes/crear', isAdmin, informeController.crearInforme);
+router.get('/dashboard/trader-call/informes/:id', async (req, res) => {
+    try {
+        const informe = await Informe.findById(req.params.id);
+        if (!informe) {
+            return res.redirect('/dashboard/trader-call/informes');
+        }
+        
+        res.render('dashboard/trader-call/detalle-informe', {
+            user: req.user,
+            currentPath: req.path,
+            title: informe.titulo,
+            informe
+        });
+    } catch (error) {
+        console.error('Error al obtener informe:', error);
+        res.redirect('/dashboard/trader-call/informes');
+    }
 });
+router.get('/dashboard/trader-call/informes/eliminar/:id', isAdmin, informeController.eliminarInforme);
+
+// Middleware para verificar si el usuario es administrador
+function isAdmin(req, res, next) {
+    if (req.user && req.user.isAdmin) {
+        return next();
+    }
+    res.redirect('/dashboard/trader-call/informes');
+}
 
 // Ruta para la comunidad
 router.get('/dashboard/trader-call/comunidad', (req, res) => {

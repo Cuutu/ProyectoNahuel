@@ -53,9 +53,16 @@
     </div>
     
     <div class="main-content">
-        <div class="dashboard-header">
-            <h1>Informes y Análisis</h1>
-            <p>Artículos, videos y análisis exclusivos para suscriptores</p>
+        <div class="dashboard-header flex justify-between items-center">
+            <div>
+                <h1>Informes y Análisis</h1>
+                <p>Artículos, videos y análisis exclusivos para suscriptores</p>
+            </div>
+            <% if (user && user.isAdmin) { %>
+                <button id="crear-informe-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    <i class="fas fa-plus mr-2"></i>Crear Informe
+                </button>
+            <% } %>
         </div>
         
         <div class="dashboard-card">
@@ -70,57 +77,40 @@
             <h2>Artículos y Análisis</h2>
             
             <div class="article-grid">
-                <div class="article-card featured-article">
-                    <img src="https://via.placeholder.com/600x400" alt="Análisis de Bitcoin" class="article-image">
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span><i class="fas fa-calendar"></i> 15 de marzo, 2023</span>
-                            <span><i class="fas fa-user"></i> Nahuel Lozano</span>
+                <% if (informes && informes.length > 0) { %>
+                    <% informes.forEach((informe, index) => { %>
+                        <div class="article-card <%= informe.destacado ? 'featured-article' : '' %>">
+                            <% if (informe.imagenUrl) { %>
+                                <img src="<%= informe.imagenUrl %>" alt="<%= informe.titulo %>" class="article-image">
+                            <% } else { %>
+                                <img src="https://via.placeholder.com/400x300" alt="<%= informe.titulo %>" class="article-image">
+                            <% } %>
+                            <div class="article-content">
+                                <div class="article-meta">
+                                    <span><i class="fas fa-calendar"></i> <%= new Date(informe.fechaPublicacion).toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' }) %></span>
+                                    <span><i class="fas fa-user"></i> <%= informe.autor %></span>
+                                </div>
+                                <h3 class="article-title"><%= informe.titulo %></h3>
+                                <p class="article-excerpt"><%= informe.contenido.replace(/<[^>]*>/g, '').substring(0, 150) %>...</p>
+                                <a href="/dashboard/trader-call/informes/<%= informe._id %>" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
+                                <% if (user && user.isAdmin) { %>
+                                    <div class="admin-actions mt-3">
+                                        <a href="/dashboard/trader-call/informes/editar/<%= informe._id %>" class="text-blue-600 hover:text-blue-800 mr-3">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <a href="/dashboard/trader-call/informes/eliminar/<%= informe._id %>" class="text-red-600 hover:text-red-800" onclick="return confirm('¿Estás seguro de que deseas eliminar este informe?')">
+                                            <i class="fas fa-trash"></i> Eliminar
+                                        </a>
+                                    </div>
+                                <% } %>
+                            </div>
                         </div>
-                        <h3 class="article-title">Análisis Completo: ¿Hacia dónde se dirige Bitcoin en 2023?</h3>
-                        <p class="article-excerpt">Un análisis profundo sobre la situación actual de Bitcoin, los factores macroeconómicos que influyen en su precio y las proyecciones para el resto del año. Incluye análisis técnico detallado y niveles clave a vigilar.</p>
-                        <a href="#" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
+                    <% }); %>
+                <% } else { %>
+                    <div class="col-span-full text-center py-10">
+                        <p class="text-gray-500">No hay informes disponibles actualmente.</p>
                     </div>
-                </div>
-                
-                <div class="article-card">
-                    <img src="https://via.placeholder.com/400x300" alt="Estrategias de Trading" class="article-image">
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span><i class="fas fa-calendar"></i> 12 de marzo, 2023</span>
-                            <span><i class="fas fa-user"></i> Equipo Trader Call</span>
-                        </div>
-                        <h3 class="article-title">5 Estrategias de Trading que Debes Conocer</h3>
-                        <p class="article-excerpt">Descubre las estrategias más efectivas que utilizamos en nuestro equipo para identificar oportunidades de trading con alto potencial.</p>
-                        <a href="#" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="article-card">
-                    <img src="https://via.placeholder.com/400x300" alt="Análisis de Ethereum" class="article-image">
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span><i class="fas fa-calendar"></i> 10 de marzo, 2023</span>
-                            <span><i class="fas fa-user"></i> Nahuel Lozano</span>
-                        </div>
-                        <h3 class="article-title">Ethereum: Análisis Técnico y Perspectivas</h3>
-                        <p class="article-excerpt">Un análisis detallado de la situación actual de Ethereum, los niveles técnicos importantes y las perspectivas a corto y medio plazo.</p>
-                        <a href="#" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-                
-                <div class="article-card">
-                    <img src="https://via.placeholder.com/400x300" alt="Gestión de Riesgo" class="article-image">
-                    <div class="article-content">
-                        <div class="article-meta">
-                            <span><i class="fas fa-calendar"></i> 8 de marzo, 2023</span>
-                            <span><i class="fas fa-user"></i> Equipo Trader Call</span>
-                        </div>
-                        <h3 class="article-title">Gestión de Riesgo: La Clave del Éxito en Trading</h3>
-                        <p class="article-excerpt">Aprende cómo implementar una gestión de riesgo efectiva en tus operaciones para proteger tu capital y maximizar tus ganancias.</p>
-                        <a href="#" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
+                <% } %>
             </div>
         </div>
     </div>
