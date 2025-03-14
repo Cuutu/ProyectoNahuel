@@ -86,7 +86,9 @@
                                 </div>
                                 <h3 class="article-title"><%= informe.titulo %></h3>
                                 <p class="article-excerpt"><%= informe.contenido.replace(/<[^>]*>/g, '').substring(0, 150) %>...</p>
-                                <a href="/dashboard/trader-call/informes/<%= informe._id %>" class="article-link">Leer artículo completo <i class="fas fa-arrow-right"></i></a>
+                                <a href="/dashboard/trader-call/informes/<%= informe._id %>" class="article-link">
+                                    Leer artículo completo <i class="fas fa-arrow-right"></i>
+                                </a>
                                 <% if (user && user.isAdmin) { %>
                                     <div class="admin-actions mt-3">
                                         <a href="/dashboard/trader-call/informes/editar/<%= informe._id %>" class="text-blue-600 hover:text-blue-800 mr-3">

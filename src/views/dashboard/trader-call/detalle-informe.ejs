@@ -132,6 +132,13 @@
                 <%- informe.contenido %>
             </div>
             
+            <% if (informe.fuentes) { %>
+                <div class="mt-8 pt-4 border-t border-gray-200">
+                    <h3 class="text-lg font-semibold mb-2">Fuentes:</h3>
+                    <p><%= informe.fuentes %></p>
+                </div>
+            <% } %>
+            
             <% if (user && user.isAdmin) { %>
                 <div class="mt-8 pt-4 border-t border-gray-200">
                     <div class="flex justify-end space-x-3">
