@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Informe = require('../models/Informe');
 
 // Middleware de autenticación y verificación de suscripción
 const isAuthenticated = (req, res, next) => {
