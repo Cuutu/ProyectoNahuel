@@ -16,6 +16,9 @@ const informeSchema = new mongoose.Schema({
     videoUrl: {
         type: String
     },
+    fuentes: {
+        type: String
+    },
     autor: {
         type: String,
         required: true

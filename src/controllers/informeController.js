@@ -36,13 +36,14 @@ exports.crearInforme = async (req, res) => {
     }
     
     try {
-        const { titulo, contenido, imagenUrl, videoUrl, destacado } = req.body;
+        const { titulo, contenido, imagenUrl, videoUrl, fuentes, destacado } = req.body;
         
         const nuevoInforme = new Informe({
             titulo,
             contenido,
             imagenUrl,
             videoUrl,
+            fuentes,
             autor: req.user.name || 'Administrador',
             destacado: destacado === 'on'
         });
