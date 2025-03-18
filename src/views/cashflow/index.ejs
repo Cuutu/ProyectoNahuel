@@ -13,245 +13,175 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <a href="/" class="logo">Nahuel Lozano</a>
-            <button id="menuBtn" class="menu-button">☰</button>
-            <nav class="main-nav">
-                <ul class="nav-menu">
-                    <li><a href="/alertas" class="nav-link <%= activePage === 'alertas' ? 'active' : '' %>">ALERTAS</a></li>
-                    <li><a href="/entrenamientos" class="nav-link <%= activePage === 'entrenamientos' ? 'active' : '' %>">ENTRENAMIENTOS</a></li>
-                    <li><a href="/asesorias" class="nav-link <%= activePage === 'asesorias' ? 'active' : '' %>">ASESORÍAS</a></li>
-                    <li><a href="/cursos" class="nav-link <%= activePage === 'cursos' ? 'active' : '' %>">CURSOS</a></li>
-                    <li><a href="/recursos" class="nav-link <%= activePage === 'recursos' ? 'active' : '' %>">RECURSOS</a></li>
-                    <% if (locals.user) { %>
-                        <li><a href="#" class="user-name">Hola, <%= locals.user.nombre %></a></li>
-                        <% if (locals.user.isAdmin) { %>
-                            <li><a href="/admin" class="admin-button">PANEL ADMIN</a></li>
-                        <% } %>
-                        <li><a href="/user/profile" class="profile-button">MI PERFIL</a></li>
-                        <li><a href="/auth/logout" class="logout-button">Cerrar Sesión</a></li>
-                    <% } else { %>
-                        <li><a href="/auth/login" class="login-button">INICIAR SESIÓN</a></li>
-                    <% } %>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    <%- include('../partials/header') %>
 
-    <div class="submenu">
-        <div class="container">
-            <ul class="submenu-list">
-                <li><a href="/alertas" class="submenu-link <%= activePage === 'alertas' ? 'active' : '' %>">Alertas</a></li>
-                <li><a href="/alertas/trader-call" class="submenu-link <%= activePage === 'trader-call' ? 'active' : '' %>">Trader Call</a></li>
-                <li><a href="/alertas/smart-money" class="submenu-link <%= activePage === 'smart-money' ? 'active' : '' %>">Smart Money</a></li>
-                <li><a href="/cashflow" class="submenu-link <%= activePage === 'cashflow' ? 'active' : '' %>">CashFlow</a></li>
-            </ul>
+    <div class="content-container">
+        <h1 class="title">CASHFLOW</h1>
+        <p class="subtitle">Dashboard Cashflow</p>
+        <p class="description">Monitoreo y análisis de flujos de capital en el mercado</p>
+
+        <div class="dashboard-container">
+            <!-- Panel izquierdo - Stats -->
+            <div class="stats-container">
+                <!-- Tarjeta 1: Mercado Alcista -->
+                <div class="stat-card bullish">
+                    <div class="card-header">
+                        <h2 class="card-title">Mercado Alcista</h2>
+                        <span class="icon-wrapper bullish-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="stat-value">65%</p>
+                    <p class="stat-description">Flujo de capital entrante</p>
+                </div>
+
+                <!-- Tarjeta 2: Mercado Bajista -->
+                <div class="stat-card bearish">
+                    <div class="card-header">
+                        <h2 class="card-title">Mercado Bajista</h2>
+                        <span class="icon-wrapper bearish-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="stat-value">35%</p>
+                    <p class="stat-description">Flujo de capital saliente</p>
+                </div>
+
+                <!-- Tarjeta 3: Balance Neto -->
+                <div class="stat-card neutral">
+                    <div class="card-header">
+                        <h2 class="card-title">Balance Neto</h2>
+                        <span class="icon-wrapper neutral-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </span>
+                    </div>
+                    <p class="stat-value">+30%</p>
+                    <p class="stat-description">Tendencia mensual</p>
+                </div>
+            </div>
+
+            <!-- Panel principal - Gráfico -->
+            <div class="chart-container">
+                <h2 class="section-title">Análisis de Flujo de Capital</h2>
+                <div class="chart-placeholder">
+                    <div class="placeholder-content">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="placeholder-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                        </svg>
+                        <h3 class="placeholder-title">Próximamente</h3>
+                        <p class="placeholder-description">La funcionalidad completa de este dashboard estará disponible próximamente.</p>
+                    </div>
+
+                    <div class="feature-list">
+                        <h4 class="feature-title">Esta página mostrará:</h4>
+                        <ul class="features">
+                            <li>Indicadores de entrada y salida de capital</li>
+                            <li>Gráficos de flujo de fondos</li>
+                            <li>Estadísticas de liquidez del mercado</li>
+                            <li>Principales activos con movimientos de capital</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tablas de datos -->
+        <div class="data-tables">
+            <!-- Tabla de principales entradas -->
+            <div class="data-table-section">
+                <h2 class="section-title">Principales Entradas de Capital</h2>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Activo</th>
+                                <th>Volumen</th>
+                                <th>Cambio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BTC/USD</td>
+                                <td>$1.2B</td>
+                                <td class="positive-change">+8.3%</td>
+                            </tr>
+                            <tr>
+                                <td>ETH/USD</td>
+                                <td>$780M</td>
+                                <td class="positive-change">+5.7%</td>
+                            </tr>
+                            <tr>
+                                <td>SOL/USD</td>
+                                <td>$325M</td>
+                                <td class="positive-change">+12.1%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Tabla de principales salidas -->
+            <div class="data-table-section">
+                <h2 class="section-title">Principales Salidas de Capital</h2>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Activo</th>
+                                <th>Volumen</th>
+                                <th>Cambio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>XRP/USD</td>
+                                <td>$450M</td>
+                                <td class="negative-change">-4.2%</td>
+                            </tr>
+                            <tr>
+                                <td>DOGE/USD</td>
+                                <td>$215M</td>
+                                <td class="negative-change">-2.8%</td>
+                            </tr>
+                            <tr>
+                                <td>ADA/USD</td>
+                                <td>$180M</td>
+                                <td class="negative-change">-3.5%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de acción -->
+        <div class="action-buttons">
+            <a href="#" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Ver detalles
+            </a>
+            
+            <a href="#" class="btn btn-secondary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Descargar informe
+            </a>
         </div>
     </div>
 
-    <main class="main-content">
-        <div class="container">
-            <div class="dashboard-header">
-                <h1 class="dashboard-title">CASHFLOW</h1>
-                <p class="dashboard-subtitle">Dashboard Cashflow</p>
-                <p class="dashboard-description">Monitoreo y análisis de flujos de capital en el mercado</p>
-            </div>
+    <!-- Estilo específico para la página de Cashflow -->
+    <link rel="stylesheet" href="/css/cashflow.css">
 
-            <div class="dashboard-grid">
-                <!-- Panel izquierdo - Stats rápidas -->
-                <div class="stats-panel">
-                    <!-- Tarjeta 1: Mercado Alcista -->
-                    <div class="stat-card bullish">
-                        <div class="stat-header">
-                            <h2 class="stat-title">Mercado Alcista</h2>
-                            <span class="stat-icon bullish-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                                </svg>
-                            </span>
-                        </div>
-                        <p class="stat-value">65%</p>
-                        <p class="stat-description">Flujo de capital entrante</p>
-                    </div>
-
-                    <!-- Tarjeta 2: Mercado Bajista -->
-                    <div class="stat-card bearish">
-                        <div class="stat-header">
-                            <h2 class="stat-title">Mercado Bajista</h2>
-                            <span class="stat-icon bearish-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
-                                </svg>
-                            </span>
-                        </div>
-                        <p class="stat-value">35%</p>
-                        <p class="stat-description">Flujo de capital saliente</p>
-                    </div>
-
-                    <!-- Tarjeta 3: Balance Neto -->
-                    <div class="stat-card neutral">
-                        <div class="stat-header">
-                            <h2 class="stat-title">Balance Neto</h2>
-                            <span class="stat-icon neutral-icon">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                            </span>
-                        </div>
-                        <p class="stat-value">+30%</p>
-                        <p class="stat-description">Tendencia mensual</p>
-                    </div>
-                </div>
-
-                <!-- Panel principal - Gráfico -->
-                <div class="main-panel">
-                    <div class="chart-container">
-                        <h2 class="chart-title">Análisis de Flujo de Capital</h2>
-                        <div class="chart-placeholder">
-                            <div class="placeholder-content">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="placeholder-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                                </svg>
-                                <h3 class="placeholder-title">Próximamente</h3>
-                                <p class="placeholder-text">La funcionalidad completa de este dashboard estará disponible próximamente.</p>
-                            </div>
-
-                            <div class="placeholder-details">
-                                <h4 class="details-title">Esta página mostrará:</h4>
-                                <ul class="details-list">
-                                    <li>Indicadores de entrada y salida de capital</li>
-                                    <li>Gráficos de flujo de fondos</li>
-                                    <li>Estadísticas de liquidez del mercado</li>
-                                    <li>Principales activos con movimientos de capital</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tablas de datos -->
-            <div class="tables-section">
-                <!-- Tabla de principales entradas -->
-                <div class="data-table-container">
-                    <h2 class="table-title">Principales Entradas de Capital</h2>
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Activo</th>
-                                    <th>Volumen</th>
-                                    <th>Cambio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>BTC/USD</td>
-                                    <td>$1.2B</td>
-                                    <td class="positive">+8.3%</td>
-                                </tr>
-                                <tr>
-                                    <td>ETH/USD</td>
-                                    <td>$780M</td>
-                                    <td class="positive">+5.7%</td>
-                                </tr>
-                                <tr>
-                                    <td>SOL/USD</td>
-                                    <td>$325M</td>
-                                    <td class="positive">+12.1%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Tabla de principales salidas -->
-                <div class="data-table-container">
-                    <h2 class="table-title">Principales Salidas de Capital</h2>
-                    <div class="table-wrapper">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Activo</th>
-                                    <th>Volumen</th>
-                                    <th>Cambio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>XRP/USD</td>
-                                    <td>$450M</td>
-                                    <td class="negative">-4.2%</td>
-                                </tr>
-                                <tr>
-                                    <td>DOGE/USD</td>
-                                    <td>$215M</td>
-                                    <td class="negative">-2.8%</td>
-                                </tr>
-                                <tr>
-                                    <td>ADA/USD</td>
-                                    <td>$180M</td>
-                                    <td class="negative">-3.5%</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Botones de acción -->
-            <div class="action-buttons">
-                <a href="#" class="primary-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="button-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                    Ver detalles
-                </a>
-                
-                <a href="#" class="secondary-button">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="button-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    Descargar informe
-                </a>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-sections">
-                <div class="footer-section">
-                    <h3 class="footer-title">Contacto</h3>
-                    <p class="footer-text">contacto@nahuellozano.com</p>
-                    <p class="footer-text">WhatsApp</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3 class="footer-title">Enlaces Rápidos</h3>
-                    <ul class="footer-links">
-                        <li><a href="/alertas" class="footer-link">Alertas</a></li>
-                        <li><a href="/entrenamientos" class="footer-link">Entrenamientos</a></li>
-                        <li><a href="/asesorias" class="footer-link">Asesoramientos</a></li>
-                        <li><a href="/recursos" class="footer-link">Recursos</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h3 class="footer-title">Síguenos</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link">Instagram</a>
-                        <a href="#" class="social-link">Telegram</a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p class="copyright">© 2023 Nahuel Lozano. Todos los derechos reservados.</p>
-            </div>
-        </div>
-    </footer>
+    <%- include('../partials/footer') %>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
