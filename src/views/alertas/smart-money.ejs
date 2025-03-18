@@ -3,66 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Money - Nahuel Lozano</title>
-    
-    <!-- Estilos globales -->
-    <link rel="stylesheet" href="/css/styles.css">
+    <title>Smart Money - Alertas de Trading - Nahuel Lozano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/landing.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/alertas.css">
+    <link rel="stylesheet" href="/css/alerts.css">
+    <link rel="stylesheet" href="/css/alert-detail.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/overrides.css">
 </head>
 <body>
     <%- include('../partials/header') %>
 
-    <main class="main-content">
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <h1>Smart Money</h1>
-            <p>Formación personalizada con traders expertos</p>
-        </section>
+    <!-- Hero Section -->
+    <section class="alert-hero">
+        <div class="container">
+            <h1 data-animate="fade-down">Smart Money</h1>
+            <p class="alert-description" data-animate="fade-up" data-delay="200">
+                Formación personalizada con traders expertos
+            </p>
+        </div>
+    </section>
 
-        <!-- Características -->
-        <section class="features-section">
-            <div class="container">
-                <ul class="features-list">
-                    <li>Sesiones personalizadas</li>
-                    <li>Plan de trading individual</li>
-                    <li>Revisión de operaciones</li>
-                    <li>Soporte prioritario 24/7</li>
-                </ul>
+    <!-- Video explicativo -->
+    <section class="video-section">
+        <div class="video-flex-container">
+            <div class="video-text">
+                <h2>¿Cómo<br>funciona<br>nuestro<br>servicio?</h2>
             </div>
-        </section>
+            <div class="video-container" data-animate="fade-up">
+                <iframe src="https://player.vimeo.com/video/123456789" width="100%" height="600" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
 
-        <!-- Estadísticas -->
-        <section class="stats-section">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <h3>85%</h3>
-                        <p>% de rendimiento del último año</p>
+    <!-- Estadísticas -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Resultados que Hablan por Sí Mismos</h2>
+            <div class="stats-grid" data-animate="fade-up">
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">85%</div>
+                    <div class="stat-label">% de rendimiento del último año</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">+500</div>
+                    <div class="stat-label">Usuarios activos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">+1300</div>
+                    <div class="stat-label">Alertas enviadas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">24/7</div>
+                    <div class="stat-label">Soporte disponible</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alertas Históricas -->
+    <section class="historical-alerts-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Alertas Históricas</h2>
+            <div class="google-sheets-container" data-animate="fade-up" data-delay="200">
+                <iframe width="100%" height="500" src="https://docs.google.com/spreadsheets/d/1I-G8inDVBkzAGNh1qA8LZVgwyHLlFzZ6kP6me43Ibrc/edit?usp=sharing&rm=minimal&widget=true&headers=false&range=A1:C8"></iframe>
+                <div class="download-button-container">
+                    <a href="/downloads/alertas-historicas.pdf" class="download-button">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrusel de ejemplos -->
+    <section class="reports-carousel-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Ejemplos de Alertas</h2>
+            <div class="carousel-container" data-animate="fade-up" data-delay="200">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="/img/alerts/ejemplo-alerta-1.jpg" alt="Ejemplo de alerta 1" class="carousel-image">
+                        <div class="carousel-caption">Alerta de compra AAPL</div>
                     </div>
-                    <div class="stat-item">
-                        <h3>+500</h3>
-                        <p>Usuarios activos</p>
+                    <div class="carousel-slide">
+                        <img src="/img/alerts/ejemplo-alerta-2.jpg" alt="Ejemplo de alerta 2" class="carousel-image">
+                        <div class="carousel-caption">Informe diario de mercado</div>
                     </div>
-                    <div class="stat-item">
-                        <h3>+1300</h3>
-                        <p>Alertas enviadas</p>
+                    <div class="carousel-slide">
+                        <img src="/img/alerts/ejemplo-alerta-3.jpg" alt="Ejemplo de alerta 3" class="carousel-image">
+                        <div class="carousel-caption">Alerta de venta TSLA</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/img/alerts/ejemplo-alerta-4.jpg" alt="Ejemplo de alerta 4" class="carousel-image">
+                        <div class="carousel-caption">Análisis técnico semanal</div>
+                    </div>
+                </div>
+                <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel-dots"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detalles de la Alerta -->
+    <section class="alert-details">
+        <div class="container">
+            <div class="pricing-container" data-animate="fade-up">
+                <div class="pricing-card">
+                    <h3>Precio</h3>
+                    <div class="price-info">
+                        <div class="price">$199.99/mes</div>
+                        <p class="price-note">Primeros 30 días gratis</p>
+                    </div>
+                    <div class="button-container">
+                        <% if (locals.user) { %>
+                            <button class="cta-button" onclick="initPayment('smartMoney', {price: 199.99, title: 'Smart Money - Servicio Premium'})">
+                                Suscribirse
+                            </button>
+                        <% } else { %>
+                            <a href="/auth/login" class="cta-button">Iniciar Sesión para Suscribirse</a>
+                        <% } %>
                     </div>
                 </div>
             </div>
-        </section>
-
-        <!-- CTA Section -->
-        <section class="cta-section">
-            <div class="container">
-                <a href="/reservar-mentoria" class="btn-primary-green">RESERVAR MENTORÍA</a>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
     <%- include('../partials/footer') %>
+
+    <script src="/js/navbar.js"></script>
     <script src="/js/animations.js"></script>
+    <script src="/js/payment.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carrusel de imágenes con informes y alertas
+            const track = document.querySelector('.carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const nextButton = document.querySelector('.carousel-button.next');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const dotsContainer = document.querySelector('.carousel-dots');
+            
+            if (!track || !slides.length || !nextButton || !prevButton || !dotsContainer) return;
+            
+            let currentSlide = 0;
+            
+            // Configurar slides iniciales
+            slides.forEach((slide, index) => {
+                if (index === 0) {
+                    slide.classList.add('active');
+                }
+                
+                // Crear dots para navegación
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            function goToSlide(index) {
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                slides[index].classList.add('active');
+                currentSlide = index;
+                
+                document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
+                });
+            }
+            
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
+            });
+            
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+            });
+            
+            setInterval(() => {
+                goToSlide(currentSlide + 1);
+            }, 4000);
+        });
+    </script>
+
+    <style>
+        :root {
+            --accent: #3b82f6 !important;
+        }
+        
+        .stat-number {
+            color: #3b82f6 !important;
+            color: var(--accent) !important;
+        }
+        
+        .section-title::after {
+            background: #3b82f6 !important;
+            background: var(--accent) !important;
+        }
+    </style>
 </body>
 </html> 

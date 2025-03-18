@@ -141,20 +141,9 @@ router.get('/trader-call', async (req, res) => {
 
 router.get('/smart-money', (req, res) => {
     const userSession = req.session.user;
-    res.render('alerts/mentoring', {
-        title: 'Smart Money',
+    res.render('alertas/smart-money', {
         user: userSession,
-        service: {
-            name: "Smart Money",
-            description: "Mentoría personalizada para traders avanzados",
-            price: "199.99",
-            features: [
-                "Mentoría 1:1",
-                "Análisis de estrategias",
-                "Revisión de operaciones",
-                "Soporte 24/7"
-            ]
-        }
+        traderCallStats: null // Esto permitirá que se usen las estadísticas por defecto
     });
 });
 
