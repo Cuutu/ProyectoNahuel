@@ -4,7 +4,7 @@ const { sessionPersist } = require('../middleware/auth');
 const Subscription = require('../models/Subscription');
 const Stats = require('../models/Stats');
 const SmartMoneyStats = require('../models/SmartMoneyStats');
-const { isAdmin } = require('../middleware/admin');
+const isAdmin = require('../middleware/admin');
 
 // Aplicar middleware a todas las rutas de alertas
 router.use(sessionPersist);
@@ -147,7 +147,29 @@ router.get('/smart-money', async (req, res) => {
     
     try {
         // Obtener estadísticas de la base de datos
-        smartMoneyStats = await SmartMoneyStats.find({ visible: true });
+        smartMoneyStats = await SmartMoneyStats.find({ visible: true }).sort('order');
+        
+        // Si no hay estadísticas, usar valores por defecto
+        if (smartMoneyStats.length === 0) {
+            smartMoneyStats = [
+                {
+                    value: '85%',
+                    label: '% de rendimiento del último año'
+                },
+                {
+                    value: '+500',
+                    label: 'Usuarios activos'
+                },
+                {
+                    value: '+1300',
+                    label: 'Alertas enviadas'
+                },
+                {
+                    value: '24/7',
+                    label: 'Soporte disponible'
+                }
+            ];
+        }
     } catch (error) {
         console.error('Error al obtener estadísticas:', error);
     }
@@ -155,18 +177,7 @@ router.get('/smart-money', async (req, res) => {
     res.render('alertas/smart-money', {
         title: 'Smart Money - Mentoría Personalizada',
         user: userSession,
-        smartMoneyStats: smartMoneyStats,
-        service: {
-            name: "Smart Money",
-            description: "Formación personalizada con traders expertos",
-            price: "199.99",
-            features: [
-                "Mentoría 1:1",
-                "Análisis de estrategias",
-                "Revisión de operaciones",
-                "Soporte 24/7"
-            ]
-        }
+        smartMoneyStats
     });
 });
 
@@ -189,14 +200,66 @@ router.get('/cashflow', (req, res) => {
     });
 });
 
-// Rutas del panel de administración
+// Rutas de administración para Smart Money Stats
 router.get('/admin/smart-money-stats', isAdmin, async (req, res) => {
     try {
-        const stats = await SmartMoneyStats.find().sort({ createdAt: -1 });
-        res.render('admin/smart-money-stats', { stats });
+        const stats = await SmartMoneyStats.find().sort('order');
+        res.render('admin/smart-money-stats', { 
+            stats,
+            user: req.user
+        });
     } catch (error) {
         console.error('Error:', error);
-        res.status(500).send('Error al cargar las estadísticas');
+        res.status(500).render('error', {
+            message: 'Error al cargar las estadísticas',
+            user: req.user
+        });
+    }
+});
+
+// CRUD para estadísticas
+router.post('/admin/smart-money-stats/create', isAdmin, async (req, res) => {
+    try {
+        const { value, label, visible } = req.body;
+        const newStat = new SmartMoneyStats({ value, label, visible });
+        await newStat.save();
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al crear la estadística' });
+    }
+});
+
+router.post('/admin/smart-money-stats/update', isAdmin, async (req, res) => {
+    try {
+        const { id, value, label, visible } = req.body;
+        await SmartMoneyStats.findByIdAndUpdate(id, { value, label, visible });
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al actualizar la estadística' });
+    }
+});
+
+router.post('/admin/smart-money-stats/toggle-visibility', isAdmin, async (req, res) => {
+    try {
+        const { id, visible } = req.body;
+        await SmartMoneyStats.findByIdAndUpdate(id, { visible });
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al cambiar la visibilidad' });
+    }
+});
+
+router.post('/admin/smart-money-stats/delete', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.body;
+        await SmartMoneyStats.findByIdAndDelete(id);
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false, error: 'Error al eliminar la estadística' });
     }
 });
 
