@@ -3,6 +3,8 @@ const router = express.Router();
 const { sessionPersist } = require('../middleware/auth');
 const Subscription = require('../models/Subscription');
 const Stats = require('../models/Stats');
+const SmartMoneyStats = require('../models/SmartMoneyStats');
+const { isAdmin } = require('../middleware/admin');
 
 // Aplicar middleware a todas las rutas de alertas
 router.use(sessionPersist);
@@ -139,11 +141,32 @@ router.get('/trader-call', async (req, res) => {
     });
 });
 
-router.get('/smart-money', (req, res) => {
-    const userSession = req.session.user;
+router.get('/smart-money', async (req, res) => {
+    const userSession = req.user || req.session.user;
+    let smartMoneyStats = [];
+    
+    try {
+        // Obtener estadísticas de la base de datos
+        smartMoneyStats = await SmartMoneyStats.find({ visible: true });
+    } catch (error) {
+        console.error('Error al obtener estadísticas:', error);
+    }
+
     res.render('alertas/smart-money', {
+        title: 'Smart Money - Mentoría Personalizada',
         user: userSession,
-        traderCallStats: null // Esto permitirá que se usen las estadísticas por defecto
+        smartMoneyStats: smartMoneyStats,
+        service: {
+            name: "Smart Money",
+            description: "Formación personalizada con traders expertos",
+            price: "199.99",
+            features: [
+                "Mentoría 1:1",
+                "Análisis de estrategias",
+                "Revisión de operaciones",
+                "Soporte 24/7"
+            ]
+        }
     });
 });
 
@@ -164,6 +187,17 @@ router.get('/cashflow', (req, res) => {
             ]
         }
     });
+});
+
+// Rutas del panel de administración
+router.get('/admin/smart-money-stats', isAdmin, async (req, res) => {
+    try {
+        const stats = await SmartMoneyStats.find().sort({ createdAt: -1 });
+        res.render('admin/smart-money-stats', { stats });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).send('Error al cargar las estadísticas');
+    }
 });
 
 module.exports = router; 
