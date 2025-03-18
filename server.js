@@ -19,9 +19,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src', 'views'));
 
 // Middleware para archivos estáticos
-app.use(express.static(path.join(__dirname, 'src', 'public'), {
-    maxAge: '1y'
-}));
+app.use(express.static(path.join(__dirname, 'src', 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(compression());
