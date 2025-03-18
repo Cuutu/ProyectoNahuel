@@ -17,4 +17,17 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
+}
+
+/* Estilos para el banner de estadísticas en el footer */
+.divstats-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #a5c7ff 0%, #c1e3ff 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 } 

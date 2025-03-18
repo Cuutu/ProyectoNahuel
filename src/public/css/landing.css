@@ -692,88 +692,56 @@ body {
 }
 
 .stats-section {
-    @apply py-16;
-    background: linear-gradient(to right, #f8f9fa, #ffffff);
+    padding: 40px 0;
+    background: linear-gradient(135deg, #a5c7ff 0%, #c1e3ff 100%);
+    margin: 30px 0;
 }
 
-.stats-container {
-    @apply max-w-6xl mx-auto px-4;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+.stats-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 .stat-card {
-    @apply rounded-2xl p-6;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    border-color: #00ff88;
-}
-
-.stat-content {
-    @apply flex items-center gap-4;
-}
-
-.stat-icon-wrapper {
-    @apply flex items-center justify-center w-16 h-16 rounded-full;
-    background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(0, 204, 106, 0.2));
-}
-
-.stat-icon {
-    @apply text-3xl;
-}
-
-.stat-info {
-    @apply flex-1;
+    text-align: center;
+    padding: 20px;
+    flex: 1;
 }
 
 .stat-number {
-    @apply text-3xl font-bold mb-1;
-    background: linear-gradient(45deg, #00ff88, #00cc6a);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: fadeIn 0.5s ease-out;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #10b981; /* Color verde para destacar */
+    margin-bottom: 5px;
+    line-height: 1;
 }
 
-.stat-label {
-    @apply text-lg font-semibold text-gray-800;
+.stat-text {
+    font-size: 1rem;
+    color: var(--dark);
 }
 
-.stat-description {
-    @apply text-sm text-gray-600;
-}
-
-/* Animaciones */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Responsive */
 @media (max-width: 768px) {
-    .stats-container {
-        grid-template-columns: 1fr;
+    .stats-row {
+        flex-direction: column;
+        gap: 15px;
     }
     
     .stat-card {
-        max-width: 400px;
-        margin: 0 auto;
+        width: 100%;
     }
-} 
+}
 
 .section-title {
     @apply text-3xl font-bold mb-12;

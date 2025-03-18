@@ -41,4 +41,28 @@ h2.section-title::after,
 /* Asegurar que las estadísticas en la vista previa del admin también sean azules */
 .stats-preview .stat-card.preview .stat-number {
     color: #3b82f6 !important;
+}
+
+/* Contenedor de estadísticas en la parte inferior (footer) */
+div[class*="stats-row"],
+.divstats-row,
+.stats-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto !important;
+    padding: 20px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #a5c7ff 0%, #c1e3ff 100%);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    div[class*="stats-row"],
+    .divstats-row,
+    .stats-row {
+        flex-direction: column;
+        gap: 15px;
+    }
 } 
