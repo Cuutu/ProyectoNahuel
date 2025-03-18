@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { isAuthenticated } = require('../middleware/authMiddleware');
 
-// Ruta principal de Cashflow
+// Ruta principal de Cashflow (simplificada)
 router.get('/', isAuthenticated, (req, res) => {
     res.render('cashflow/index', {
         title: 'Cashflow Dashboard',
