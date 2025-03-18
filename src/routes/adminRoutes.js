@@ -612,4 +612,22 @@ router.post('/fix-forum-topics', isAdminMiddleware, async (req, res) => {
     }
 });
 
+router.post('/stats/create', isAdmin, async (req, res) => {
+    try {
+        const { value, text, category, order } = req.body;
+        const newStat = new Stats({
+            value,
+            text,
+            category, // 'landing', 'trader-call', o 'smart-money'
+            order,
+            visible: true
+        });
+        await newStat.save();
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
 module.exports = router; 

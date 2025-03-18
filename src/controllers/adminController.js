@@ -1,6 +1,7 @@
 const Signal = require('../models/Signal');
 const User = require('../models/User');
 const Update = require('../models/Update');
+const Stats = require('../models/Stats');
 
 const adminController = {
     getDashboard: async (req, res) => {
@@ -161,6 +162,29 @@ const adminController = {
         } catch (error) {
             console.error('Error al obtener membresías:', error);
             res.status(500).render('error', { message: 'Error al cargar membresías' });
+        }
+    },
+
+    getStats: async (req, res) => {
+        try {
+            // Obtener todas las estadísticas
+            const landingStats = await Stats.find({ category: 'landing' }).sort('order');
+            const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
+            const smartMoneyStats = await Stats.find({ category: 'smart-money' }).sort('order');
+            
+            res.render('admin/stats', { 
+                landingStats,
+                traderCallStats,
+                smartMoneyStats,
+                title: 'Gestión de Estadísticas',
+                user: req.user
+            });
+        } catch (error) {
+            console.error('Error al cargar estadísticas:', error);
+            res.status(500).render('error', {
+                message: 'Error al cargar estadísticas',
+                user: req.user
+            });
         }
     },
 };

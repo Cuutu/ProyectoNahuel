@@ -23,19 +23,19 @@
         }
         .tab-buttons {
             display: flex;
-            margin-bottom: 20px;
+            gap: 1rem;
+            margin-bottom: 2rem;
         }
         .tab-button {
-            padding: 10px 20px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
-            margin-right: 5px;
+            background: #f0f0f0;
         }
         .tab-button.active {
-            background-color: #007bff;
+            background: #3b82f6;
             color: white;
-            border-color: #007bff;
         }
         .tab-content {
             display: none;
@@ -55,12 +55,13 @@
         </div>
         
         <div class="tab-buttons">
-            <button class="tab-button active" onclick="openTab('landing')">Página Principal</button>
+            <button class="tab-button" onclick="openTab('landing')">Página Principal</button>
             <button class="tab-button" onclick="openTab('trader-call')">Trader Call</button>
+            <button class="tab-button" onclick="openTab('smart-money')">Smart Money</button>
         </div>
         
         <!-- Estadísticas de la Página Principal -->
-        <div id="landing-tab" class="tab-content active">
+        <div id="landing-tab" class="tab-content">
             <div class="stats-section">
                 <h2 class="section-title">Estadísticas de la Página Principal</h2>
                 
@@ -169,6 +170,59 @@
             </div>
         </div>
         
+        <!-- Estadísticas de Smart Money -->
+        <div id="smart-money-tab" class="tab-content">
+            <div class="stats-section">
+                <h2 class="section-title">Estadísticas de Smart Money</h2>
+                
+                <div class="stats-preview">
+                    <h3>Vista previa</h3>
+                    <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
+                        <div class="stats-row">
+                            <% smartMoneyStats.forEach(stat => { %>
+                                <div class="stat-card preview <%= !stat.visible ? 'hidden-stat' : '' %>">
+                                    <h2 class="stat-number"><%= stat.value %></h2>
+                                    <p class="stat-text"><%= stat.text %></p>
+                                </div>
+                            <% }) %>
+                        </div>
+                    <% } else { %>
+                        <p>No hay estadísticas disponibles para Smart Money.</p>
+                    <% } %>
+                </div>
+
+                <div class="stats-actions">
+                    <button class="add-stat-btn" onclick="addSmartMoneyStat()">
+                        <i class="fas fa-plus"></i> Agregar Nueva Estadística
+                    </button>
+                </div>
+
+                <div class="stats-list">
+                    <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
+                        <% smartMoneyStats.forEach(stat => { %>
+                            <div class="stat-item">
+                                <div class="stat-info">
+                                    <span class="stat-value"><%= stat.value %></span>
+                                    <span class="stat-text"><%= stat.text %></span>
+                                </div>
+                                <div class="stat-actions">
+                                    <button onclick="editSmartMoneyStat('<%= stat._id %>')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="toggleSmartMoneyStatVisibility('<%= stat._id %>', <%= stat.visible %>)">
+                                        <i class="fas fa-<%= stat.visible ? 'eye' : 'eye-slash' %>"></i>
+                                    </button>
+                                    <button onclick="deleteSmartMoneyStat('<%= stat._id %>')" class="delete-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        <% }) %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+        
         <div class="admin-actions">
             <a href="/admin" class="admin-button secondary">
                 <i class="fas fa-arrow-left"></i> Volver al Panel
@@ -178,27 +232,27 @@
     
     <script>
         function openTab(tabName) {
-            // Ocultar todos los contenidos de pestañas
+            // Ocultar todos los contenidos de las pestañas
             const tabContents = document.getElementsByClassName('tab-content');
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove('active');
+            for (let content of tabContents) {
+                content.style.display = 'none';
             }
-            
-            // Desactivar todos los botones de pestañas
+
+            // Desactivar todos los botones
             const tabButtons = document.getElementsByClassName('tab-button');
-            for (let i = 0; i < tabButtons.length; i++) {
-                tabButtons[i].classList.remove('active');
+            for (let button of tabButtons) {
+                button.classList.remove('active');
             }
-            
-            // Mostrar el contenido de la pestaña seleccionada
-            document.getElementById(tabName + '-tab').classList.add('active');
-            
-            // Activar el botón de la pestaña seleccionada
-            const activeButton = document.querySelector(`.tab-button[onclick="openTab('${tabName}')"]`);
-            if (activeButton) {
-                activeButton.classList.add('active');
-            }
+
+            // Mostrar el contenido seleccionado y activar el botón
+            document.getElementById(`${tabName}-tab`).style.display = 'block';
+            document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
         }
+
+        // Mostrar la primera pestaña por defecto
+        document.addEventListener('DOMContentLoaded', function() {
+            openTab('landing');
+        });
     </script>
     <script src="/js/admin.js"></script>
 </body>
