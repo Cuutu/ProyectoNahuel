@@ -7,104 +7,6 @@
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        .admin-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .admin-header {
-            margin-bottom: 2rem;
-        }
-        .tab-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        .tab-button {
-            padding: 0.5rem 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            background: #f0f0f0;
-        }
-        .tab-button.active {
-            background: #007bff;
-            color: white;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .preview-section {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 8px;
-            margin-bottom: 2rem;
-        }
-        .stats-preview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-        .preview-card {
-            background: #ff9800;
-            color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
-            text-align: center;
-        }
-        .preview-card .stat-value {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #00e676;
-            margin-bottom: 0.5rem;
-        }
-        .add-stat-button {
-            background: #f0f0f0;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 2rem;
-        }
-        .stat-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            border-bottom: 1px solid #eee;
-        }
-        .stat-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        .action-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0.5rem;
-        }
-        .edit-btn:hover { color: #007bff; }
-        .visibility-btn:hover { color: #28a745; }
-        .delete-btn:hover { color: #dc3545; }
-        .back-button {
-            display: block;
-            text-align: center;
-            padding: 1rem;
-            background: #00e676;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-top: 2rem;
-        }
-        .hidden-stat {
-            opacity: 0.5;
-        }
-    </style>
 </head>
 <body>
     <%- include('../partials/header') %>
@@ -120,188 +22,198 @@
             <button class="tab-button" onclick="openTab('trader-call')">Trader Call</button>
             <button class="tab-button" onclick="openTab('smart-money')">Smart Money</button>
         </div>
-        
-        <!-- Estadísticas de la Página Principal -->
-        <div id="landing-tab" class="tab-content">
-            <div class="stats-section">
-                <h2 class="section-title">Estadísticas de la Página Principal</h2>
-                
-                <div class="stats-preview">
+
+        <!-- Template para cada sección de estadísticas -->
+        <% const sections = [
+            { id: 'landing', title: 'Página Principal', stats: landingStats },
+            { id: 'trader-call', title: 'Trader Call', stats: traderCallStats },
+            { id: 'smart-money', title: 'Smart Money', stats: smartMoneyStats }
+        ] %>
+
+        <% sections.forEach(section => { %>
+            <div id="<%= section.id %>-tab" class="tab-content">
+                <h2 class="section-title">Estadísticas de <%= section.title %></h2>
+
+                <!-- Vista previa -->
+                <div class="preview-section">
                     <h3>Vista previa</h3>
-                    <% if (landingStats && landingStats.length > 0) { %>
-                        <div class="stats-row">
-                            <% landingStats.forEach(stat => { %>
-                                <div class="stat-card preview <%= !stat.visible ? 'hidden-stat' : '' %>">
-                                    <h2 class="stat-number"><%= stat.value %></h2>
-                                    <p class="stat-text"><%= stat.text %></p>
+                    <div class="stats-preview-grid">
+                        <% if (section.stats && section.stats.length > 0) { %>
+                            <% section.stats.forEach(stat => { %>
+                                <div class="preview-card <%= !stat.visible ? 'hidden-stat' : '' %>">
+                                    <div class="stat-value"><%= stat.value %></div>
+                                    <div class="stat-description"><%= stat.text %></div>
                                 </div>
                             <% }) %>
-                        </div>
-                    <% } else { %>
-                        <p>No hay estadísticas disponibles para la página principal.</p>
-                    <% } %>
-                </div>
-                
-                <% if (landingStats && landingStats.length > 0) { %>
-                    <div class="admin-form-container">
-                        <% landingStats.forEach(stat => { %>
-                            <form action="/admin/stats/update" method="POST" class="admin-form">
-                                <input type="hidden" name="id" value="<%= stat._id %>">
-                                <input type="hidden" name="category" value="landing">
-                                
-                                <div class="form-group">
-                                    <label for="value-<%= stat._id %>">Valor:</label>
-                                    <input type="text" id="value-<%= stat._id %>" name="value" value="<%= stat.value %>" required>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label for="text-<%= stat._id %>">Texto:</label>
-                                    <input type="text" id="text-<%= stat._id %>" name="text" value="<%= stat.text %>" required>
-                                </div>
-                                
-                                <div class="form-group visibility-toggle">
-                                    <label class="toggle-label">
-                                        <input type="checkbox" name="visible" <%= stat.visible ? 'checked' : '' %>>
-                                        <span class="toggle-text">Visible en la página principal</span>
-                                    </label>
-                                </div>
-                                
-                                <button type="submit" class="admin-button">
-                                    <i class="fas fa-save"></i> Actualizar
-                                </button>
-                            </form>
-                        <% }) %>
+                        <% } else { %>
+                            <p>No hay estadísticas disponibles.</p>
+                        <% } %>
                     </div>
-                <% } %>
-            </div>
-        </div>
-        
-        <!-- Estadísticas de Trader Call -->
-        <div id="trader-call-tab" class="tab-content">
-            <div class="stats-section">
-                <h2 class="section-title">Estadísticas de Trader Call</h2>
-                
-                <div class="stats-preview">
-                    <h3>Vista previa</h3>
-                    <% if (traderCallStats && traderCallStats.length > 0) { %>
-                        <div class="stats-row">
-                            <% traderCallStats.forEach(stat => { %>
-                                <div class="stat-card preview <%= !stat.visible ? 'hidden-stat' : '' %>">
-                                    <h2 class="stat-number"><%= stat.value %></h2>
-                                    <p class="stat-text"><%= stat.text %></p>
-                                </div>
-                            <% }) %>
-                        </div>
-                    <% } else { %>
-                        <p>No hay estadísticas disponibles para Trader Call.</p>
-                    <% } %>
                 </div>
-                
-                <% if (traderCallStats && traderCallStats.length > 0) { %>
-                    <div class="admin-form-container">
-                        <% traderCallStats.forEach(stat => { %>
-                            <form action="/admin/stats/update" method="POST" class="admin-form">
-                                <input type="hidden" name="id" value="<%= stat._id %>">
-                                <input type="hidden" name="category" value="trader-call">
-                                
-                                <div class="form-group">
-                                    <label for="value-<%= stat._id %>">Valor:</label>
-                                    <input type="text" id="value-<%= stat._id %>" name="value" value="<%= stat.value %>" required>
+
+                <!-- Botón Agregar -->
+                <button class="add-stat-button" onclick="showAddStatForm('<%= section.id %>')">
+                    + Agregar Nueva Estadística
+                </button>
+
+                <!-- Lista de estadísticas -->
+                <div class="stats-list">
+                    <% if (section.stats && section.stats.length > 0) { %>
+                        <% section.stats.forEach(stat => { %>
+                            <div class="stat-row">
+                                <div class="stat-info">
+                                    <strong><%= stat.value %></strong>
+                                    <%= stat.text %>
                                 </div>
-                                
-                                <div class="form-group">
-                                    <label for="text-<%= stat._id %>">Texto:</label>
-                                    <input type="text" id="text-<%= stat._id %>" name="text" value="<%= stat.text %>" required>
+                                <div class="stat-actions">
+                                    <button onclick="editStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn edit-btn">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button onclick="toggleVisibility('<%= stat._id %>', <%= stat.visible %>, '<%= section.id %>')" class="action-btn visibility-btn">
+                                        <i class="fas fa-eye<%= stat.visible ? '' : '-slash' %>"></i>
+                                    </button>
+                                    <button onclick="deleteStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn delete-btn">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
                                 </div>
-                                
-                                <div class="form-group visibility-toggle">
-                                    <label class="toggle-label">
-                                        <input type="checkbox" name="visible" <%= stat.visible ? 'checked' : '' %>>
-                                        <span class="toggle-text">Visible en la página de Trader Call</span>
-                                    </label>
-                                </div>
-                                
-                                <button type="submit" class="admin-button">
-                                    <i class="fas fa-save"></i> Actualizar
-                                </button>
-                            </form>
-                        <% }) %>
-                    </div>
-                <% } %>
-            </div>
-        </div>
-        
-        <!-- Estadísticas de Smart Money -->
-        <div id="smart-money-tab" class="tab-content">
-            <h2 class="section-title">Estadísticas de Smart Money</h2>
-            
-            <div class="preview-section">
-                <h3>Vista previa</h3>
-                <div class="stats-preview-grid">
-                    <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
-                        <% smartMoneyStats.forEach(stat => { %>
-                            <div class="preview-card <%= !stat.visible ? 'hidden-stat' : '' %>">
-                                <div class="stat-value"><%= stat.value %></div>
-                                <div class="stat-description"><%= stat.text %></div>
                             </div>
                         <% }) %>
                     <% } %>
                 </div>
             </div>
+        <% }) %>
 
-            <button class="add-stat-button" onclick="showAddStatForm('smart-money')">
-                + Agregar Nueva Estadística
-            </button>
-
-            <div class="stats-list">
-                <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
-                    <% smartMoneyStats.forEach(stat => { %>
-                        <div class="stat-row">
-                            <div class="stat-info">
-                                <strong><%= stat.value %></strong>
-                                <%= stat.text %>
-                            </div>
-                            <div class="stat-actions">
-                                <button onclick="editStat('<%= stat._id %>')" class="action-btn edit-btn">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button onclick="toggleVisibility('<%= stat._id %>', <%= stat.visible %>)" class="action-btn visibility-btn">
-                                    <i class="fas fa-eye<%= stat.visible ? '' : '-slash' %>"></i>
-                                </button>
-                                <button onclick="deleteStat('<%= stat._id %>')" class="action-btn delete-btn">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    <% }) %>
-                <% } %>
-            </div>
-        </div>
-        
-        <div class="admin-actions">
-            <a href="/admin" class="admin-button secondary">
-                <i class="fas fa-arrow-left"></i> Volver al Panel
-            </a>
-        </div>
+        <a href="/admin" class="back-button">← VOLVER AL PANEL</a>
     </div>
-    
-    <script>
-        function openTab(tabName) {
-            const tabs = document.getElementsByClassName('tab-content');
-            const buttons = document.getElementsByClassName('tab-button');
-            
-            Array.from(tabs).forEach(tab => tab.style.display = 'none');
-            Array.from(buttons).forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(`${tabName}-tab`).style.display = 'block';
-            document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
-        }
 
-        // Mostrar la primera pestaña por defecto
-        document.addEventListener('DOMContentLoaded', () => {
-            openTab('landing');
-        });
+    <style>
+    .admin-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    .tab-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .tab-button {
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        background: #f0f0f0;
+    }
+
+    .tab-button.active {
+        background: #007bff;
+        color: white;
+    }
+
+    .preview-section {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .stats-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .preview-card {
+        background: #ff9800;
+        color: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+    }
+
+    .preview-card .stat-value {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #00e676;
+        margin-bottom: 0.5rem;
+    }
+
+    .add-stat-button {
+        background: #f0f0f0;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-bottom: 2rem;
+    }
+
+    .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .stat-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+
+    .edit-btn:hover { color: #007bff; }
+    .visibility-btn:hover { color: #28a745; }
+    .delete-btn:hover { color: #dc3545; }
+
+    .back-button {
+        display: block;
+        text-align: center;
+        padding: 1rem;
+        background: #00e676;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 2rem;
+    }
+
+    .hidden-stat {
+        opacity: 0.5;
+    }
+
+    .tab-content {
+        display: none;
+    }
+
+    .tab-content.active {
+        display: block;
+    }
+    </style>
+
+    <script>
+    function openTab(tabName) {
+        const tabs = document.getElementsByClassName('tab-content');
+        const buttons = document.getElementsByClassName('tab-button');
+        
+        Array.from(tabs).forEach(tab => tab.style.display = 'none');
+        Array.from(buttons).forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById(`${tabName}-tab`).style.display = 'block';
+        document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
+    }
+
+    // Mostrar la primera pestaña por defecto
+    document.addEventListener('DOMContentLoaded', () => {
+        openTab('landing');
+    });
     </script>
-    <script src="/js/admin.js"></script>
 </body>
 </html> 
