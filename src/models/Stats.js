@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 
-const StatsSchema = new mongoose.Schema({
+const statsSchema = new mongoose.Schema({
     value: {
         type: String,
         required: true
     },
     text: {
         type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        enum: ['landing', 'trader-call', 'smart-money'],
         required: true
     },
     order: {
@@ -16,14 +21,9 @@ const StatsSchema = new mongoose.Schema({
     visible: {
         type: Boolean,
         default: true
-    },
-    category: {
-        type: String,
-        enum: ['landing', 'trader-call'],
-        default: 'landing'
     }
 }, {
     timestamps: true
 });
 
-module.exports = mongoose.model('Stats', StatsSchema); 
+module.exports = mongoose.model('Stats', statsSchema); 

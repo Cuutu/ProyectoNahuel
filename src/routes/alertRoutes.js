@@ -143,42 +143,25 @@ router.get('/trader-call', async (req, res) => {
 
 router.get('/smart-money', async (req, res) => {
     const userSession = req.user || req.session.user;
-    let smartMoneyStats = [];
-    
     try {
-        // Obtener estadísticas de la base de datos
-        smartMoneyStats = await SmartMoneyStats.find({ visible: true }).sort('order');
+        const smartMoneyStats = await Stats.find({ 
+            category: 'smart-money',
+            visible: true 
+        }).sort('order');
         
-        // Si no hay estadísticas, usar valores por defecto
-        if (smartMoneyStats.length === 0) {
-            smartMoneyStats = [
-                {
-                    value: '85%',
-                    label: '% de rendimiento del último año'
-                },
-                {
-                    value: '+500',
-                    label: 'Usuarios activos'
-                },
-                {
-                    value: '+1300',
-                    label: 'Alertas enviadas'
-                },
-                {
-                    value: '24/7',
-                    label: 'Soporte disponible'
-                }
-            ];
-        }
+        res.render('alertas/smart-money', {
+            title: 'Smart Money - Mentoría Personalizada',
+            user: userSession,
+            smartMoneyStats
+        });
     } catch (error) {
-        console.error('Error al obtener estadísticas:', error);
+        console.error('Error:', error);
+        res.render('alertas/smart-money', {
+            title: 'Smart Money - Mentoría Personalizada',
+            user: userSession,
+            smartMoneyStats: []
+        });
     }
-
-    res.render('alertas/smart-money', {
-        title: 'Smart Money - Mentoría Personalizada',
-        user: userSession,
-        smartMoneyStats
-    });
 });
 
 router.get('/cashflow', (req, res) => {

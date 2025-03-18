@@ -83,42 +83,43 @@ router.get('/', async (req, res) => {
 // Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
-        // Eliminar duplicados automáticamente cada vez que se carga la página
-        await removeDuplicateStats();
+        // Verificar si hay estadísticas de Trader Call, si no, inicializarlas
+        const traderCallCount = await Stats.countDocuments({ category: 'trader-call' });
+        const smartMoneyCount = await Stats.countDocuments({ category: 'smart-money' });
         
-        // Verificar si hay estadísticas de landing, si no, inicializarlas
-        const landingCount = await Stats.countDocuments({ category: 'landing' });
-        
-        if (landingCount === 0) {
-            // Datos iniciales para landing
-            const initialLandingStats = [
+        if (smartMoneyCount === 0) {
+            // Datos iniciales para Smart Money
+            const initialSmartMoneyStats = [
                 {
-                    value: '7 años',
-                    text: 'trabajando con el mercado',
+                    value: '85%',
+                    text: '% de rendimiento del último año',
                     order: 1,
-                    category: 'landing'
+                    category: 'smart-money'
                 },
                 {
-                    value: '+1500',
-                    text: 'alumnos',
+                    value: '+500',
+                    text: 'Usuarios activos',
                     order: 2,
-                    category: 'landing'
+                    category: 'smart-money'
                 },
                 {
-                    value: '+300',
-                    text: 'horas de formación',
+                    value: '+1300',
+                    text: 'Alertas enviadas',
                     order: 3,
-                    category: 'landing'
+                    category: 'smart-money'
+                },
+                {
+                    value: '24/7',
+                    text: 'Soporte disponible',
+                    order: 4,
+                    category: 'smart-money'
                 }
             ];
             
-            await Stats.insertMany(initialLandingStats);
-            console.log('Estadísticas de landing inicializadas desde el panel de administración');
+            await Stats.insertMany(initialSmartMoneyStats);
+            console.log('Estadísticas de Smart Money inicializadas');
         }
-        
-        // Verificar si hay estadísticas de trader-call, si no, inicializarlas
-        const traderCallCount = await Stats.countDocuments({ category: 'trader-call' });
-        
+
         if (traderCallCount === 0) {
             // Datos iniciales para trader-call
             const initialTraderCallStats = [
@@ -155,10 +156,12 @@ router.get('/stats', async (req, res) => {
         // Obtener todas las estadísticas
         const landingStats = await Stats.find({ category: 'landing' }).sort('order');
         const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
+        const smartMoneyStats = await Stats.find({ category: 'smart-money' }).sort('order');
         
         res.render('admin/stats', { 
             landingStats,
             traderCallStats,
+            smartMoneyStats,
             title: 'Gestión de Estadísticas',
             user: req.user
         });
@@ -618,11 +621,33 @@ router.post('/stats/create', isAdmin, async (req, res) => {
         const newStat = new Stats({
             value,
             text,
-            category, // 'landing', 'trader-call', o 'smart-money'
+            category,
             order,
             visible: true
         });
         await newStat.save();
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post('/stats/toggle-visibility', isAdmin, async (req, res) => {
+    try {
+        const { id, visible } = req.body;
+        await Stats.findByIdAndUpdate(id, { visible });
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
+router.post('/stats/delete', isAdmin, async (req, res) => {
+    try {
+        const { id } = req.body;
+        await Stats.findByIdAndDelete(id);
         res.json({ success: true });
     } catch (error) {
         console.error('Error:', error);
