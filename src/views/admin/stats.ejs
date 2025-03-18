@@ -60,19 +60,19 @@
                 <div class="stats-list">
                     <% if (section.stats && section.stats.length > 0) { %>
                         <% section.stats.forEach(stat => { %>
-                            <div class="stat-row">
+                            <div class="stat-row" data-stat-id="<%= stat._id %>">
                                 <div class="stat-info">
-                                    <strong><%= stat.value %></strong>
-                                    <%= stat.text %>
+                                    <span class="stat-value"><%= stat.value %></span>
+                                    <span class="stat-description"><%= stat.text %></span>
                                 </div>
                                 <div class="stat-actions">
-                                    <button onclick="editStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn edit-btn">
+                                    <button onclick="editStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button onclick="toggleVisibility('<%= stat._id %>', <%= stat.visible %>, '<%= section.id %>')" class="action-btn visibility-btn">
-                                        <i class="fas fa-eye<%= stat.visible ? '' : '-slash' %>"></i>
+                                    <button onclick="toggleVisibility('<%= stat._id %>', <%= stat.visible %>, '<%= section.id %>')" class="action-btn">
+                                        <i class="fas fa-<%= stat.visible ? 'eye' : 'eye-slash' %>"></i>
                                     </button>
-                                    <button onclick="deleteStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn delete-btn">
+                                    <button onclick="deleteStat('<%= stat._id %>', '<%= section.id %>')" class="action-btn">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </div>
@@ -215,5 +215,7 @@
         openTab('landing');
     });
     </script>
+
+    <script src="/js/admin/stats.js"></script>
 </body>
 </html> 

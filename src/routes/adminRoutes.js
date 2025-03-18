@@ -175,47 +175,14 @@ router.get('/stats', async (req, res) => {
 });
 
 // Ruta para actualizar estadísticas
-router.post('/stats/update', async (req, res) => {
+router.post('/stats/update', isAdmin, async (req, res) => {
     try {
-        const { id, value, text, visible, category } = req.body;
-        
-        // Verificar que los datos sean válidos
-        if (!id || !value || !text) {
-            return res.status(400).render('error', {
-                message: 'Datos incompletos para actualizar estadísticas',
-                user: req.user
-            });
-        }
-        
-        // Actualizar la estadística
-        const updatedStat = await Stats.findByIdAndUpdate(
-            id, 
-            { 
-                value, 
-                text, 
-                visible: visible === 'on', // Convertir checkbox a booleano
-                category // Mantener la categoría
-            },
-            { new: true } // Para obtener el documento actualizado
-        );
-        
-        if (!updatedStat) {
-            return res.status(404).render('error', {
-                message: 'Estadística no encontrada',
-                user: req.user
-            });
-        }
-        
-        console.log('Estadística actualizada:', updatedStat);
-        
-        // Redireccionar a la página de estadísticas
-        res.redirect('/admin/stats');
+        const { id, value, text, category } = req.body;
+        await Stats.findByIdAndUpdate(id, { value, text });
+        res.json({ success: true });
     } catch (error) {
-        console.error('Error al actualizar estadísticas:', error);
-        res.status(500).render('error', {
-            message: 'Error al actualizar estadísticas',
-            user: req.user
-        });
+        console.error('Error:', error);
+        res.status(500).json({ success: false });
     }
 });
 
