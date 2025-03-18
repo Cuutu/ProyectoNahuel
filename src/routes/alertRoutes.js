@@ -165,22 +165,7 @@ router.get('/smart-money', async (req, res) => {
 });
 
 router.get('/cashflow', (req, res) => {
-    const userSession = req.session.user;
-    res.render('alerts/community', {
-        title: 'CashFlow',
-        user: userSession,
-        service: {
-            name: "CashFlow",
-            description: "Comunidad de traders avanzados para intercambiar ideas",
-            price: "49.99",
-            features: [
-                "Foro de discusión",
-                "Talleres y seminarios",
-                "Análisis de mercado",
-                "Soporte de la comunidad"
-            ]
-        }
-    });
+    res.redirect('/cashflow');
 });
 
 // Rutas de administración para Smart Money Stats
