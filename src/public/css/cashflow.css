@@ -7,6 +7,85 @@
     padding: 0 20px;
 }
 
+/* Estilos para el banner de suscripción */
+.subscription-box {
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.subscription-box:hover {
+    transform: translateY(-5px);
+}
+
+.subscription-content {
+    flex: 1;
+}
+
+.subscription-title {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.subscription-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    max-width: 80%;
+}
+
+.subscription-button {
+    background-color: white;
+    color: var(--primary, #1e3a8a);
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-button:hover {
+    background-color: #f8fafc;
+    transform: scale(1.05);
+}
+
+.button-text {
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.button-icon {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .subscription-box {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+    
+    .subscription-content {
+        margin-bottom: 20px;
+    }
+    
+    .subscription-description {
+        max-width: 100%;
+    }
+}
+
 /* Encabezados y títulos */
 .title {
     font-size: 2.5rem;
@@ -195,6 +274,45 @@
     margin-bottom: 5px;
 }
 
+/* Banner de estadísticas */
+.stats-banner {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 35px 40px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #10b981; /* Color verde para destacar */
+    margin-bottom: 5px;
+    line-height: 1;
+}
+
+.stat-text {
+    font-size: 1rem;
+    color: var(--text, #334155);
+}
+
+@media (max-width: 768px) {
+    .stats-banner {
+        flex-direction: column;
+        gap: 25px;
+        padding: 25px;
+    }
+}
+
 /* Tablas de datos */
 .data-tables {
     display: grid;
@@ -263,6 +381,7 @@
     justify-content: center;
     gap: 15px;
     margin-top: 30px;
+    margin-bottom: 50px;
 }
 
 .btn {
@@ -298,6 +417,75 @@
 
 .btn-secondary:hover {
     background-color: #f8fafc;
+}
+
+/* CTA Final */
+.final-cta {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 12px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+
+.cta-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--dark, #1e293b);
+    margin-bottom: 15px;
+}
+
+.cta-text {
+    font-size: 1.1rem;
+    color: var(--text, #334155);
+    max-width: 700px;
+    margin: 0 auto 30px;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cta-primary {
+    background-color: var(--primary, #1e3a8a);
+    color: white;
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-primary:hover {
+    background-color: #2563eb;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+.cta-secondary {
+    background-color: transparent;
+    color: var(--primary, #1e3a8a);
+    font-weight: 600;
+    padding: 12px 25px;
+    border-radius: 8px;
+    border: 1px solid var(--primary, #1e3a8a);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.cta-secondary:hover {
+    background-color: rgba(30, 58, 138, 0.05);
+    transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+    .cta-buttons {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* Espaciado adicional para ajustarse al resto del sitio */
