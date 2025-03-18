@@ -1,10 +1,29 @@
+/* Estilos para el header del sitio */
+
+:root {
+    --primary: #1e3a8a;
+    --secondary: #334155;
+    --accent: #3b82f6;
+    --light: #f8fafc;
+    --dark: #1e293b;
+    --text: #334155;
+    --text-muted: #64748b;
+    --border: #e2e8f0;
+    --success: #10b981;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+}
+
 .header {
-    background: var(--primary);
+    background-color: var(--primary);
+    color: white;
     padding: 15px 0;
     position: fixed;
-    width: 100%;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav-container {
@@ -16,42 +35,201 @@
     align-items: center;
 }
 
+.logo {
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.logo:hover {
+    opacity: 0.9;
+}
+
 .mobile-menu-btn {
     display: none;
     background: none;
     border: none;
-    color: var(--light);
+    color: white;
     font-size: 1.5rem;
     cursor: pointer;
 }
 
 .nav-links {
     display: flex;
+    align-items: center;
     gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+    opacity: 0.8;
+}
+
+/* Estilos para dropdowns */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-trigger {
+    display: flex;
     align-items: center;
 }
 
-/* Estilos para móvil */
+.dropdown-trigger::after {
+    content: "▼";
+    font-size: 0.6rem;
+    margin-left: 6px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    min-width: 160px;
+    z-index: 1000;
+    display: none;
+    overflow: hidden;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: var(--dark) !important;
+    padding: 10px 15px;
+    display: block;
+    border-bottom: 1px solid var(--border);
+}
+
+.dropdown-menu a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f8fafc;
+}
+
+/* Estilos para autenticación */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-name {
+    font-weight: 500;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.auth-btn {
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+.auth-btn.login {
+    background-color: transparent;
+    border: 1px solid white;
+}
+
+.auth-btn.register {
+    background-color: var(--accent);
+}
+
+.admin-link {
+    color: var(--warning) !important;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.logout-form button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    font-size: 1rem;
+}
+
+.logout-form button:hover {
+    text-decoration: underline;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
     .mobile-menu-btn {
         display: block;
     }
 
     .nav-links {
-        display: none;
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: var(--primary);
+        background-color: var(--primary);
         flex-direction: column;
-        padding: 1rem;
-        text-align: center;
+        gap: 0;
+        display: none;
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .nav-links.active {
         display: flex;
     }
-}
 
-/* ... resto de los estilos del header ... */ 
+    .nav-links a, 
+    .dropdown-trigger,
+    .user-menu,
+    .auth-buttons {
+        padding: 12px 20px;
+        width: 100%;
+    }
+    
+    .dropdown {
+        width: 100%;
+    }
+
+    .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background-color: rgba(255, 255, 255, 0.05);
+        width: 100%;
+        padding-left: 20px;
+    }
+    
+    .dropdown-menu a {
+        color: white !important;
+        border-bottom: none;
+    }
+    
+    .dropdown-menu a:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .user-menu,
+    .auth-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+} 

@@ -1,9 +1,9 @@
 /* Estilos para la página de Cashflow */
 
-/* Contenedor principal */
+/* Contenedor principal - Ajustado para el header fijo */
 .content-container {
     max-width: 1200px;
-    margin: 80px auto 30px;
+    margin: 90px auto 30px; /* Margen superior aumentado para compensar el header fijo */
     padding: 0 20px;
 }
 
@@ -11,27 +11,27 @@
 .title {
     font-size: 2.5rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     margin-bottom: 0.5rem;
 }
 
 .subtitle {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--secondary);
+    color: var(--secondary, #334155);
     margin-bottom: 0.5rem;
 }
 
 .description {
     font-size: 1rem;
-    color: var(--text-muted);
+    color: var(--text-muted, #64748b);
     margin-bottom: 2rem;
 }
 
 .section-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     margin-bottom: 1rem;
 }
 
@@ -91,7 +91,7 @@
 .card-title {
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
 }
 
 .icon-wrapper {
@@ -121,13 +121,13 @@
 .stat-value {
     font-size: 2rem;
     font-weight: 700;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     margin-bottom: 5px;
 }
 
 .stat-description {
     font-size: 0.875rem;
-    color: var(--text-muted);
+    color: var(--text-muted, #64748b);
 }
 
 /* Panel principal y gráfico */
@@ -163,12 +163,12 @@
 .placeholder-title {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     margin-bottom: 10px;
 }
 
 .placeholder-description {
-    color: var(--text-muted);
+    color: var(--text-muted, #64748b);
     margin-bottom: 20px;
 }
 
@@ -181,7 +181,7 @@
 .feature-title {
     font-size: 1rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     margin-bottom: 10px;
 }
 
@@ -191,7 +191,7 @@
 }
 
 .features li {
-    color: var(--text-muted);
+    color: var(--text-muted, #64748b);
     margin-bottom: 5px;
 }
 
@@ -229,7 +229,7 @@
     background-color: #f8fafc;
     font-size: 0.75rem;
     font-weight: 600;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 12px 15px;
@@ -240,7 +240,7 @@
     padding: 12px 15px;
     border-top: 1px solid #e2e8f0;
     font-size: 0.875rem;
-    color: var(--text);
+    color: var(--text, #334155);
 }
 
 .data-table tr:hover {
@@ -281,7 +281,7 @@
 }
 
 .btn-primary {
-    background-color: var(--primary);
+    background-color: var(--primary, #1e3a8a);
     color: white;
     border: none;
 }
@@ -292,7 +292,7 @@
 
 .btn-secondary {
     background-color: white;
-    color: var(--dark);
+    color: var(--dark, #1e293b);
     border: 1px solid #e2e8f0;
 }
 

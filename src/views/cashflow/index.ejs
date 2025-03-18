@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/alerts.css">
     <link rel="stylesheet" href="/css/tables.css">
     <link rel="stylesheet" href="/css/navigation.css">
+    <link rel="stylesheet" href="/css/header.css">
     <!-- Asegúrate de incluir los mismos scripts que las otras páginas -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
 </head>
@@ -186,14 +187,28 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Manejo del menú móvil
-            const menuBtn = document.getElementById('menuBtn');
-            const mainNav = document.querySelector('.main-nav');
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
             
-            if (menuBtn) {
-                menuBtn.addEventListener('click', function() {
-                    mainNav.classList.toggle('active');
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
                 });
             }
+
+            // Inicialización de dropdowns (si es necesario)
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                const trigger = dropdown.querySelector('.dropdown-trigger');
+                const menu = dropdown.querySelector('.dropdown-menu');
+                
+                if (window.innerWidth <= 768) {
+                    trigger.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+                    });
+                }
+            });
         });
     </script>
 </body>
