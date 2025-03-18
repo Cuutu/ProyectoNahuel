@@ -81,6 +81,10 @@ app.use('/api', apiRoutes);
 app.use('/training', trainingRoutes);
 app.use('/', previewRoutes); // Registrar rutas de vista previa
 
+app.get('/alertas/smart-money', (req, res) => {
+    res.render('alertas/smart-money');
+});
+
 // Manejo de errores 404
 app.use((req, res) => {
     res.status(404).render('error', {
