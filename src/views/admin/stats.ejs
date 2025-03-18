@@ -8,18 +8,13 @@
     <link rel="stylesheet" href="/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        .stats-section {
-            margin-bottom: 40px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 30px;
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
         }
-        .stats-section:last-child {
-            border-bottom: none;
-        }
-        .section-title {
-            margin-bottom: 20px;
-            color: #333;
-            font-size: 1.5rem;
+        .admin-header {
+            margin-bottom: 2rem;
         }
         .tab-buttons {
             display: flex;
@@ -34,7 +29,7 @@
             background: #f0f0f0;
         }
         .tab-button.active {
-            background: #3b82f6;
+            background: #007bff;
             color: white;
         }
         .tab-content {
@@ -42,6 +37,72 @@
         }
         .tab-content.active {
             display: block;
+        }
+        .preview-section {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .stats-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .preview-card {
+            background: #ff9800;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .preview-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #00e676;
+            margin-bottom: 0.5rem;
+        }
+        .add-stat-button {
+            background: #f0f0f0;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 2rem;
+        }
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        .stat-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        .edit-btn:hover { color: #007bff; }
+        .visibility-btn:hover { color: #28a745; }
+        .delete-btn:hover { color: #dc3545; }
+        .back-button {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            background: #00e676;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-top: 2rem;
+        }
+        .hidden-stat {
+            opacity: 0.5;
         }
     </style>
 </head>
@@ -172,54 +233,48 @@
         
         <!-- Estadísticas de Smart Money -->
         <div id="smart-money-tab" class="tab-content">
-            <div class="stats-section">
-                <h2 class="section-title">Estadísticas de Smart Money</h2>
-                
-                <div class="stats-preview">
-                    <h3>Vista previa</h3>
-                    <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
-                        <div class="stats-row">
-                            <% smartMoneyStats.forEach(stat => { %>
-                                <div class="stat-card preview <%= !stat.visible ? 'hidden-stat' : '' %>">
-                                    <h2 class="stat-number"><%= stat.value %></h2>
-                                    <p class="stat-text"><%= stat.text %></p>
-                                </div>
-                            <% }) %>
-                        </div>
-                    <% } else { %>
-                        <p>No hay estadísticas disponibles para Smart Money.</p>
-                    <% } %>
-                </div>
-
-                <div class="stats-actions">
-                    <button class="add-stat-btn" onclick="addSmartMoneyStat()">
-                        <i class="fas fa-plus"></i> Agregar Nueva Estadística
-                    </button>
-                </div>
-
-                <div class="stats-list">
+            <h2 class="section-title">Estadísticas de Smart Money</h2>
+            
+            <div class="preview-section">
+                <h3>Vista previa</h3>
+                <div class="stats-preview-grid">
                     <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
                         <% smartMoneyStats.forEach(stat => { %>
-                            <div class="stat-item">
-                                <div class="stat-info">
-                                    <span class="stat-value"><%= stat.value %></span>
-                                    <span class="stat-text"><%= stat.text %></span>
-                                </div>
-                                <div class="stat-actions">
-                                    <button onclick="editSmartMoneyStat('<%= stat._id %>')">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button onclick="toggleSmartMoneyStatVisibility('<%= stat._id %>', <%= stat.visible %>)">
-                                        <i class="fas fa-<%= stat.visible ? 'eye' : 'eye-slash' %>"></i>
-                                    </button>
-                                    <button onclick="deleteSmartMoneyStat('<%= stat._id %>')" class="delete-btn">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
+                            <div class="preview-card <%= !stat.visible ? 'hidden-stat' : '' %>">
+                                <div class="stat-value"><%= stat.value %></div>
+                                <div class="stat-description"><%= stat.text %></div>
                             </div>
                         <% }) %>
                     <% } %>
                 </div>
+            </div>
+
+            <button class="add-stat-button" onclick="showAddStatForm('smart-money')">
+                + Agregar Nueva Estadística
+            </button>
+
+            <div class="stats-list">
+                <% if (smartMoneyStats && smartMoneyStats.length > 0) { %>
+                    <% smartMoneyStats.forEach(stat => { %>
+                        <div class="stat-row">
+                            <div class="stat-info">
+                                <strong><%= stat.value %></strong>
+                                <%= stat.text %>
+                            </div>
+                            <div class="stat-actions">
+                                <button onclick="editStat('<%= stat._id %>')" class="action-btn edit-btn">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button onclick="toggleVisibility('<%= stat._id %>', <%= stat.visible %>)" class="action-btn visibility-btn">
+                                    <i class="fas fa-eye<%= stat.visible ? '' : '-slash' %>"></i>
+                                </button>
+                                <button onclick="deleteStat('<%= stat._id %>')" class="action-btn delete-btn">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    <% }) %>
+                <% } %>
             </div>
         </div>
         
@@ -232,25 +287,18 @@
     
     <script>
         function openTab(tabName) {
-            // Ocultar todos los contenidos de las pestañas
-            const tabContents = document.getElementsByClassName('tab-content');
-            for (let content of tabContents) {
-                content.style.display = 'none';
-            }
-
-            // Desactivar todos los botones
-            const tabButtons = document.getElementsByClassName('tab-button');
-            for (let button of tabButtons) {
-                button.classList.remove('active');
-            }
-
-            // Mostrar el contenido seleccionado y activar el botón
+            const tabs = document.getElementsByClassName('tab-content');
+            const buttons = document.getElementsByClassName('tab-button');
+            
+            Array.from(tabs).forEach(tab => tab.style.display = 'none');
+            Array.from(buttons).forEach(btn => btn.classList.remove('active'));
+            
             document.getElementById(`${tabName}-tab`).style.display = 'block';
             document.querySelector(`[onclick="openTab('${tabName}')"]`).classList.add('active');
         }
 
         // Mostrar la primera pestaña por defecto
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', () => {
             openTab('landing');
         });
     </script>
