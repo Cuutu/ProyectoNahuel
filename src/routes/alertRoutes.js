@@ -165,12 +165,30 @@ router.get('/smart-money', async (req, res) => {
 });
 
 router.get('/cashflow', (req, res) => {
-    res.render('cashflow/index', {
-        title: 'CashFlow - Comunidad de Trading',
-        user: req.user || req.session.user,
-        isAuthenticated: req.isAuthenticated() || !!req.session.user,
-        activePage: 'cashflow'
-    });
+    try {
+        // Buscar las estadísticas de Cashflow
+        const cashflowStats = await Stats.find({ 
+            category: 'cashflow',
+            visible: true 
+        }).sort('order');
+        
+        res.render('cashflow/index', {
+            title: 'CashFlow - Comunidad de Trading',
+            user: req.user || req.session.user,
+            isAuthenticated: req.isAuthenticated() || !!req.session.user,
+            activePage: 'cashflow',
+            cashflowStats
+        });
+    } catch (error) {
+        console.error('Error:', error);
+        res.render('cashflow/index', {
+            title: 'CashFlow - Comunidad de Trading',
+            user: req.user || req.session.user,
+            isAuthenticated: req.isAuthenticated() || !!req.session.user,
+            activePage: 'cashflow',
+            cashflowStats: []
+        });
+    }
 });
 
 // Rutas de administración para Smart Money Stats

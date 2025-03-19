@@ -38,27 +38,18 @@
         </div>
     </section>
 
-    <!-- 2. Números con datos actualizables -->
-    <section class="stats-section">
-        <div class="container">
-            <h2 class="section-title" data-animate="fade-up">Resultados que Hablan por Sí Mismos</h2>
-            <div class="stats-grid" data-animate="fade-up">
-                <div class="stat-card">
-                    <div class="stat-number" style="color: #3b82f6;">92%</div>
-                    <div class="stat-label">Precisión en análisis de flujos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" style="color: #3b82f6;">+800</div>
-                    <div class="stat-label">Usuarios activos</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" style="color: #3b82f6;">+2500</div>
-                    <div class="stat-label">Análisis realizados</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" style="color: #3b82f6;">24/7</div>
-                    <div class="stat-label">Monitoreo en tiempo real</div>
-                </div>
+    <!-- Sección de estadísticas -->
+    <section class="stats-section py-16 bg-gray-100">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Resultados que Hablan por Sí Mismos</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <% cashflowStats.forEach(stat => { %>
+                    <div class="bg-white rounded-lg shadow-md p-6 text-center">
+                        <div class="text-4xl font-bold text-green-500 mb-2"><%= stat.value %></div>
+                        <div class="text-gray-600"><%= stat.text %></div>
+                    </div>
+                <% }) %>
             </div>
         </div>
     </section>

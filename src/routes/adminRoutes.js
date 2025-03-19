@@ -83,9 +83,10 @@ router.get('/', async (req, res) => {
 // Ruta para ver todas las estadísticas
 router.get('/stats', async (req, res) => {
     try {
-        // Verificar si hay estadísticas de Trader Call, si no, inicializarlas
+        // Verificar si hay estadísticas de Trader Call, Smart Money y Cashflow
         const traderCallCount = await Stats.countDocuments({ category: 'trader-call' });
         const smartMoneyCount = await Stats.countDocuments({ category: 'smart-money' });
+        const cashflowCount = await Stats.countDocuments({ category: 'cashflow' });
         
         if (smartMoneyCount === 0) {
             // Datos iniciales para Smart Money
@@ -153,15 +154,55 @@ router.get('/stats', async (req, res) => {
             console.log('Estadísticas de Trader Call inicializadas desde el panel de administración');
         }
         
+        // Inicializar estadísticas de Cashflow si no existen
+        if (cashflowCount === 0) {
+            // Datos iniciales para cashflow
+            const initialCashflowStats = [
+                {
+                    value: '92%',
+                    text: 'Precisión en análisis de flujos',
+                    order: 1,
+                    visible: true,
+                    category: 'cashflow'
+                },
+                {
+                    value: '+800',
+                    text: 'Usuarios activos',
+                    order: 2,
+                    visible: true,
+                    category: 'cashflow'
+                },
+                {
+                    value: '+2500',
+                    text: 'Análisis realizados',
+                    order: 3,
+                    visible: true,
+                    category: 'cashflow'
+                },
+                {
+                    value: '24/7',
+                    text: 'Monitoreo en tiempo real',
+                    order: 4,
+                    visible: true,
+                    category: 'cashflow'
+                }
+            ];
+            
+            await Stats.insertMany(initialCashflowStats);
+            console.log('Estadísticas de Cashflow inicializadas desde el panel de administración');
+        }
+        
         // Obtener todas las estadísticas
         const landingStats = await Stats.find({ category: 'landing' }).sort('order');
         const traderCallStats = await Stats.find({ category: 'trader-call' }).sort('order');
         const smartMoneyStats = await Stats.find({ category: 'smart-money' }).sort('order');
+        const cashflowStats = await Stats.find({ category: 'cashflow' }).sort('order');
         
         res.render('admin/stats', { 
             landingStats,
             traderCallStats,
             smartMoneyStats,
+            cashflowStats,
             title: 'Gestión de Estadísticas',
             user: req.user
         });
