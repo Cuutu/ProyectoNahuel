@@ -1,0 +1,66 @@
+<%- include('../../partials/header') %>
+<%- include('../../partials/dashboard-navigation') %>
+
+<div class="dashboard-container">
+    <div class="dashboard-sidebar">
+        <h3>Smart Money</h3>
+        <ul class="dashboard-nav">
+            <li><a href="/dashboard/smart-money" class="<%= currentPath === '/dashboard/smart-money' ? 'active' : '' %>">Panel Principal</a></li>
+            <li><a href="/dashboard/smart-money/solicitar-mentoria" class="<%= currentPath === '/dashboard/smart-money/solicitar-mentoria' ? 'active' : '' %>">Solicitar Mentoría</a></li>
+            <li><a href="/dashboard/smart-money/material-exclusivo" class="<%= currentPath === '/dashboard/smart-money/material-exclusivo' ? 'active' : '' %>">Material Exclusivo</a></li>
+            <li><a href="/dashboard/smart-money/historial" class="<%= currentPath === '/dashboard/smart-money/historial' ? 'active' : '' %>">Historial de Mentorías</a></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-content">
+        <h1>Bienvenido a Smart Money</h1>
+        <p>Tu plataforma de mentoría personalizada para perfeccionar tus habilidades de trading.</p>
+
+        <div class="stats-dashboard">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-content">
+                    <h3>Próxima Mentoría</h3>
+                    <p>No tienes mentorías programadas</p>
+                    <a href="/dashboard/smart-money/solicitar-mentoria" class="btn btn-primary">Solicitar Ahora</a>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-graduation-cap"></i></div>
+                <div class="stat-content">
+                    <h3>Material Disponible</h3>
+                    <p>12 recursos exclusivos</p>
+                    <a href="/dashboard/smart-money/material-exclusivo" class="btn btn-primary">Ver Material</a>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-history"></i></div>
+                <div class="stat-content">
+                    <h3>Mentorías Realizadas</h3>
+                    <p>0 sesiones completadas</p>
+                    <a href="/dashboard/smart-money/historial" class="btn btn-primary">Ver Historial</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="mentor-section">
+            <h2>Conoce a tu Mentor</h2>
+            <div class="mentor-profile">
+                <img src="/img/mentors/nahuel-lozano.jpg" alt="Nahuel Lozano" class="mentor-image">
+                <div class="mentor-info">
+                    <h3>Nahuel Lozano</h3>
+                    <p class="mentor-title">Trader Profesional & Mentor Senior</p>
+                    <p class="mentor-description">
+                        Con más de 7 años de experiencia en los mercados financieros, Nahuel te guiará
+                        en tu camino hacia el trading profesional con estrategias probadas y un enfoque
+                        personalizado adaptado a tu perfil de riesgo y objetivos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../../partials/footer') %> 

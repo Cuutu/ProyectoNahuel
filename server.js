@@ -125,6 +125,7 @@ const indexRoutes = require('./src/routes/index');
 const previewRoutes = require('./src/routes/previewRoutes');
 const forumRoutes = require('./src/routes/forumRoutes');
 const cashflowRoutes = require('./src/routes/cashflowRoutes');
+const smartMoneyDashboardRoutes = require('./src/routes/smartMoneyDashboardRoutes');
 
 // Agregar antes de registrar las rutas
 app.get('/cashflow', (req, res) => {
@@ -154,6 +155,9 @@ app.use(forumRoutes);
 
 // 3. Rutas de índice al final
 app.use('/', indexRoutes);
+
+// Registrar las rutas
+app.use('/', smartMoneyDashboardRoutes);
 
 // Middleware para manejar rutas no encontradas (debe ir al final)
 app.use((req, res, next) => {

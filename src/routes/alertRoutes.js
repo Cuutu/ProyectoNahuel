@@ -143,7 +143,17 @@ router.get('/trader-call', async (req, res) => {
 
 router.get('/smart-money', async (req, res) => {
     const userSession = req.user || req.session.user;
+    
+    // Verificar si el usuario está logueado y tiene una suscripción activa a Smart Money
+    if (userSession && userSession.membresias && 
+        (userSession.membresias.mentoring === 'premium' || userSession.membresias.mentoring === 'pro') && 
+        userSession.membresias.vencimientoMentoring && new Date(userSession.membresias.vencimientoMentoring) > new Date()) {
+        // Redirigir al dashboard de Smart Money
+        return res.redirect('/dashboard/smart-money');
+    }
+    
     try {
+        // Buscar las estadísticas de Smart Money
         const smartMoneyStats = await Stats.find({ 
             category: 'smart-money',
             visible: true 
@@ -152,7 +162,8 @@ router.get('/smart-money', async (req, res) => {
         res.render('alertas/smart-money', {
             title: 'Smart Money - Mentoría Personalizada',
             user: userSession,
-            smartMoneyStats
+            smartMoneyStats,
+            subscription: req.query.subscription
         });
     } catch (error) {
         console.error('Error:', error);

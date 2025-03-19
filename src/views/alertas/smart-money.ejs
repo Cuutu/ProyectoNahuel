@@ -142,6 +142,37 @@
         </div>
     </section>
 
+    <!-- Sección de suscripción -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Únete a Smart Money</h2>
+            
+            <% if (subscription === 'required') { %>
+                <div class="alert alert-info">
+                    <p>Necesitas una suscripción activa para acceder al contenido exclusivo de Smart Money.</p>
+                </div>
+            <% } %>
+            
+            <div class="pricing-card" data-animate="fade-up">
+                <h3>Smart Money Premium</h3>
+                <div class="price">$149.99<span>/mes</span></div>
+                <ul>
+                    <li>2 Mentorías personalizadas al mes</li>
+                    <li>Acceso a material exclusivo</li>
+                    <li>Revisión de operaciones</li>
+                    <li>Plan de trading personalizado</li>
+                    <li>Acceso a canal privado 24/7</li>
+                    <li>Soporte prioritario</li>
+                </ul>
+                <form action="/payment/subscribe" method="POST">
+                    <input type="hidden" name="service" value="mentoring">
+                    <input type="hidden" name="tier" value="premium">
+                    <button type="submit" class="cta-button">Suscribirme Ahora</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <%- include('../partials/footer') %>
 
     <script src="/js/navbar.js"></script>
