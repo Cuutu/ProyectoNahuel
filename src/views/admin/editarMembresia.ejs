@@ -1,0 +1,29 @@
+<div class="modal" id="editarMembresiaModal">
+    <div class="modal-content">
+        <h2>Editar Membresía</h2>
+        <span class="close">&times;</span>
+        
+        <form id="editarMembresiaForm">
+            <input type="hidden" id="userId" name="userId">
+            
+            <div class="form-group">
+                <label>Alertas:</label>
+                <select name="alertas" id="alertas" class="form-control">
+                    <option value="trader-call">Trader Call</option>
+                    <option value="smart-money">Smart Money</option>
+                    <option value="cashflow">Cash Flow</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Fecha de vencimiento:</label>
+                <input type="date" id="vencimiento" name="vencimiento" class="form-control">
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-secondary" id="cancelarEdicion">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div> 
