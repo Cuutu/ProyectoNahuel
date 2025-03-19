@@ -3,254 +3,203 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="/css/dashboard.css">
+    <title>Cashflow - Análisis de Flujos de Capital - Nahuel Lozano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/alerts.css">
-    <link rel="stylesheet" href="/css/tables.css">
-    <link rel="stylesheet" href="/css/navigation.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <!-- Asegúrate de incluir los mismos scripts que las otras páginas -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <link rel="stylesheet" href="/css/alert-detail.css">
+    <link rel="stylesheet" href="/css/animations.css">
+    <link rel="stylesheet" href="/css/overrides.css">
 </head>
 <body>
     <%- include('../partials/header') %>
 
-    <div class="content-container">
-        <h1 class="title">CASHFLOW</h1>
-        <p class="subtitle">Dashboard Cashflow</p>
-        <p class="description">Monitoreo y análisis de flujos de capital en el mercado</p>
-
-        <!-- Nuevo botón de suscripción -->
-        <div class="subscription-box">
-            <div class="subscription-content">
-                <h3 class="subscription-title">¡Únete al servicio premium de Cashflow!</h3>
-                <p class="subscription-description">Obtén análisis avanzados, alertas en tiempo real y acceso a datos exclusivos sobre los movimientos de capital en el mercado.</p>
-            </div>
-            <a href="#" class="subscription-button">
-                <span class="button-text">SUSCRIBIRME</span>
-                <span class="button-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                </span>
-            </a>
+    <!-- Hero Section -->
+    <section class="alert-hero">
+        <div class="container">
+            <h1 data-animate="fade-down">Cashflow</h1>
+            <p class="alert-description" data-animate="fade-up" data-delay="200">
+                Análisis avanzado de flujos de capital en el mercado
+            </p>
         </div>
+    </section>
 
-        <div class="dashboard-container">
-            <!-- Panel izquierdo - Stats -->
-            <div class="stats-container">
-                <!-- Tarjeta 1: Mercado Alcista -->
-                <div class="stat-card bullish">
-                    <div class="card-header">
-                        <h2 class="card-title">Mercado Alcista</h2>
-                        <span class="icon-wrapper bullish-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-                            </svg>
-                        </span>
-                    </div>
-                    <p class="stat-value">65%</p>
-                    <p class="stat-description">Flujo de capital entrante</p>
+    <!-- Video explicativo -->
+    <section class="video-section">
+        <div class="video-flex-container">
+            <div class="video-text">
+                <h2>¿Cómo<br>funciona<br>nuestro<br>servicio?</h2>
+            </div>
+            <div class="video-container" data-animate="fade-up">
+                <iframe src="https://player.vimeo.com/video/123456789" width="100%" height="600" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. Números con datos actualizables -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Resultados que Hablan por Sí Mismos</h2>
+            <div class="stats-grid" data-animate="fade-up">
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">92%</div>
+                    <div class="stat-label">Precisión en análisis de flujos</div>
                 </div>
-
-                <!-- Tarjeta 2: Mercado Bajista -->
-                <div class="stat-card bearish">
-                    <div class="card-header">
-                        <h2 class="card-title">Mercado Bajista</h2>
-                        <span class="icon-wrapper bearish-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0v-8m0 8l-8-8-4 4-6-6" />
-                            </svg>
-                        </span>
-                    </div>
-                    <p class="stat-value">35%</p>
-                    <p class="stat-description">Flujo de capital saliente</p>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">+800</div>
+                    <div class="stat-label">Usuarios activos</div>
                 </div>
-
-                <!-- Tarjeta 3: Balance Neto -->
-                <div class="stat-card neutral">
-                    <div class="card-header">
-                        <h2 class="card-title">Balance Neto</h2>
-                        <span class="icon-wrapper neutral-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                        </span>
-                    </div>
-                    <p class="stat-value">+30%</p>
-                    <p class="stat-description">Tendencia mensual</p>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">+2500</div>
+                    <div class="stat-label">Análisis realizados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" style="color: #3b82f6;">24/7</div>
+                    <div class="stat-label">Monitoreo en tiempo real</div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Panel principal - Gráfico -->
-            <div class="chart-container">
-                <h2 class="section-title">Análisis de Flujo de Capital</h2>
-                <div class="chart-placeholder">
-                    <div class="placeholder-content">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="placeholder-icon">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                        </svg>
-                        <h3 class="placeholder-title">Próximamente</h3>
-                        <p class="placeholder-description">La funcionalidad completa de este dashboard estará disponible próximamente.</p>
+    <!-- 3. Análisis Históricos (Google Sheets) -->
+    <section class="historical-alerts-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Análisis Históricos</h2>
+            <div class="google-sheets-container" data-animate="fade-up" data-delay="200">
+                <iframe width="100%" height="500" src="https://docs.google.com/spreadsheets/d/1I-G8inDVBkzAGNh1qA8LZVgwyHLlFzZ6kP6me43Ibrc/edit?usp=sharing&rm=minimal&widget=true&headers=false&range=A1:C8"></iframe>
+                <div class="download-button-container">
+                    <a href="/downloads/analisis-historicos.pdf" class="download-button">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Carrusel de imágenes con informes y análisis -->
+    <section class="reports-carousel-section">
+        <div class="container">
+            <h2 class="section-title" data-animate="fade-up">Ejemplos de Análisis</h2>
+            <div class="carousel-container" data-animate="fade-up" data-delay="200">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="/img/cashflow/ejemplo-analisis-1.jpg" alt="Ejemplo de análisis 1" class="carousel-image">
+                        <div class="carousel-caption">Análisis de flujos institucionales</div>
                     </div>
-
-                    <div class="feature-list">
-                        <h4 class="feature-title">Esta página mostrará:</h4>
-                        <ul class="features">
-                            <li>Indicadores de entrada y salida de capital</li>
-                            <li>Gráficos de flujo de fondos</li>
-                            <li>Estadísticas de liquidez del mercado</li>
-                            <li>Principales activos con movimientos de capital</li>
-                        </ul>
+                    <div class="carousel-slide">
+                        <img src="/img/cashflow/ejemplo-analisis-2.jpg" alt="Ejemplo de análisis 2" class="carousel-image">
+                        <div class="carousel-caption">Informe diario de liquidez</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/img/cashflow/ejemplo-analisis-3.jpg" alt="Ejemplo de análisis 3" class="carousel-image">
+                        <div class="carousel-caption">Análisis de volumen y precio</div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/img/cashflow/ejemplo-analisis-4.jpg" alt="Ejemplo de análisis 4" class="carousel-image">
+                        <div class="carousel-caption">Tendencias de mercado</div>
                     </div>
                 </div>
+                <button class="carousel-button prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-button next"><i class="fas fa-chevron-right"></i></button>
+                <div class="carousel-dots"></div>
             </div>
         </div>
+    </section>
 
-        <!-- Banner de estadísticas -->
-        <div class="stats-banner">
-            <div class="stat-item">
-                <span class="stat-number">7 años</span>
-                <span class="stat-text">trabajando con el mercado</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">+1500</span>
-                <span class="stat-text">alumnos</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">+300</span>
-                <span class="stat-text">horas de formación</span>
-            </div>
-        </div>
-
-        <!-- Tablas de datos -->
-        <div class="data-tables">
-            <!-- Tabla de principales entradas -->
-            <div class="data-table-section">
-                <h2 class="section-title">Principales Entradas de Capital</h2>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Activo</th>
-                                <th>Volumen</th>
-                                <th>Cambio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>BTC/USD</td>
-                                <td>$1.2B</td>
-                                <td class="positive-change">+8.3%</td>
-                            </tr>
-                            <tr>
-                                <td>ETH/USD</td>
-                                <td>$780M</td>
-                                <td class="positive-change">+5.7%</td>
-                            </tr>
-                            <tr>
-                                <td>SOL/USD</td>
-                                <td>$325M</td>
-                                <td class="positive-change">+12.1%</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Tabla de principales salidas -->
-            <div class="data-table-section">
-                <h2 class="section-title">Principales Salidas de Capital</h2>
-                <div class="table-responsive">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Activo</th>
-                                <th>Volumen</th>
-                                <th>Cambio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>XRP/USD</td>
-                                <td>$450M</td>
-                                <td class="negative-change">-4.2%</td>
-                            </tr>
-                            <tr>
-                                <td>DOGE/USD</td>
-                                <td>$215M</td>
-                                <td class="negative-change">-2.8%</td>
-                            </tr>
-                            <tr>
-                                <td>ADA/USD</td>
-                                <td>$180M</td>
-                                <td class="negative-change">-3.5%</td>
-                            </tr>
-                        </tbody>
-                    </table>
+    <!-- Detalles del Servicio -->
+    <section class="alert-details">
+        <div class="container">
+            <div class="pricing-container" data-animate="fade-up">
+                <div class="pricing-card">
+                    <h3>Precio</h3>
+                    <div class="price-info">
+                        <div class="price">$149.99/mes</div>
+                        <p class="price-note">Primeros 30 días gratis</p>
+                    </div>
+                    <div class="button-container">
+                        <% if (locals.user) { %>
+                            <button class="cta-button" onclick="initPayment('cashflow', {price: 149.99, title: 'Cashflow - Servicio Premium'})">
+                                Suscribirse
+                            </button>
+                        <% } else { %>
+                            <a href="/auth/login" class="cta-button">Iniciar Sesión para Suscribirse</a>
+                        <% } %>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <!-- Botones de acción -->
-        <div class="action-buttons">
-            <a href="#" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                Ver detalles
-            </a>
-            
-            <a href="#" class="btn btn-secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Descargar informe
-            </a>
-        </div>
-        
-        <!-- CTA Final -->
-        <div class="final-cta">
-            <h3 class="cta-title">¿Listo para dar el siguiente paso?</h3>
-            <p class="cta-text">Únete a nuestra comunidad de traders y aprende a identificar los flujos de capital más importantes del mercado.</p>
-            <div class="cta-buttons">
-                <a href="#" class="cta-primary">Comenzar ahora</a>
-                <a href="#" class="cta-secondary">Conocer más</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Estilo específico para la página de Cashflow -->
-    <link rel="stylesheet" href="/css/cashflow.css">
+    </section>
 
     <%- include('../partials/footer') %>
 
+    <script src="/js/navbar.js"></script>
+    <script src="/js/animations.js"></script>
+    <script src="/js/payment.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Manejo del menú móvil
-            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-            const navLinks = document.querySelector('.nav-links');
+            // Carrusel de imágenes con informes y análisis
+            const track = document.querySelector('.carousel-track');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const nextButton = document.querySelector('.carousel-button.next');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const dotsContainer = document.querySelector('.carousel-dots');
             
-            if (mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', function() {
-                    navLinks.classList.toggle('active');
+            if (!track || !slides.length || !nextButton || !prevButton || !dotsContainer) return;
+            
+            let currentSlide = 0;
+            
+            // Configurar slides iniciales
+            slides.forEach((slide, index) => {
+                if (index === 0) {
+                    slide.classList.add('active');
+                }
+                
+                // Crear dots para navegación
+                const dot = document.createElement('button');
+                dot.classList.add('carousel-dot');
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                dotsContainer.appendChild(dot);
+            });
+            
+            // Función para ir a un slide específico
+            function goToSlide(index) {
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                
+                // Ocultar todos los slides
+                slides.forEach(slide => {
+                    slide.classList.remove('active');
+                });
+                
+                // Mostrar el slide actual
+                slides[index].classList.add('active');
+                
+                currentSlide = index;
+                
+                // Actualizar dots activos
+                document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
                 });
             }
-
-            // Inicialización de dropdowns (si es necesario)
-            const dropdowns = document.querySelectorAll('.dropdown');
-            dropdowns.forEach(dropdown => {
-                const trigger = dropdown.querySelector('.dropdown-trigger');
-                const menu = dropdown.querySelector('.dropdown-menu');
-                
-                if (window.innerWidth <= 768) {
-                    trigger.addEventListener('click', function(e) {
-                        e.preventDefault();
-                        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-                    });
-                }
+            
+            // Event listeners para botones
+            nextButton.addEventListener('click', () => {
+                goToSlide(currentSlide + 1);
             });
+            
+            prevButton.addEventListener('click', () => {
+                goToSlide(currentSlide - 1);
+            });
+            
+            // Auto-rotación cada 4 segundos
+            setInterval(() => {
+                goToSlide(currentSlide + 1);
+            }, 4000);
         });
     </script>
 </body>
