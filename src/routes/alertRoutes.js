@@ -144,18 +144,10 @@ router.get('/trader-call', async (req, res) => {
 router.get('/smart-money', async (req, res) => {
     const userSession = req.user || req.session.user;
     
-    // Verificar si el usuario tiene membresía PRO general
+    // Verificar si el usuario está logueado y tiene una suscripción activa a Smart Money
     if (userSession && userSession.membresias && 
-        userSession.membresias.tipo === 'pro' && 
-        userSession.membresias.vencimiento && new Date(userSession.membresias.vencimiento) > new Date()) {
-        // Redirigir al dashboard de Smart Money
-        return res.redirect('/dashboard/smart-money');
-    }
-    
-    // Verificar si el usuario tiene membresía específica de Smart Money
-    if (userSession && userSession.membresias && 
-        (userSession.membresias.mentoring === 'premium' || userSession.membresias.mentoring === 'pro') && 
-        userSession.membresias.vencimientoMentoring && new Date(userSession.membresias.vencimientoMentoring) > new Date()) {
+        userSession.membresias.alertas === 'pro' && 
+        userSession.membresias.vencimientoAlertas && new Date(userSession.membresias.vencimientoAlertas) > new Date()) {
         // Redirigir al dashboard de Smart Money
         return res.redirect('/dashboard/smart-money');
     }
@@ -184,8 +176,18 @@ router.get('/smart-money', async (req, res) => {
 });
 
 router.get('/cashflow', async (req, res) => {
+    const userSession = req.user || req.session.user;
+    
+    // Verificar si el usuario está logueado y tiene una suscripción activa a Cash Flow
+    if (userSession && userSession.membresias && 
+        userSession.membresias.alertas === 'premium' && 
+        userSession.membresias.vencimientoAlertas && new Date(userSession.membresias.vencimientoAlertas) > new Date()) {
+        // Redirigir al dashboard de Cash Flow
+        return res.redirect('/dashboard/cashflow');
+    }
+    
     try {
-        // Buscar las estadísticas de Cashflow
+        // Buscar las estadísticas de Cash Flow
         const cashflowStats = await Stats.find({ 
             category: 'cashflow',
             visible: true 
@@ -193,16 +195,17 @@ router.get('/cashflow', async (req, res) => {
         
         res.render('cashflow/index', {
             title: 'CashFlow - Comunidad de Trading',
-            user: req.user || req.session.user,
+            user: userSession,
             isAuthenticated: req.isAuthenticated() || !!req.session.user,
             activePage: 'cashflow',
-            cashflowStats
+            cashflowStats,
+            subscription: req.query.subscription
         });
     } catch (error) {
         console.error('Error:', error);
         res.render('cashflow/index', {
             title: 'CashFlow - Comunidad de Trading',
-            user: req.user || req.session.user,
+            user: userSession,
             isAuthenticated: req.isAuthenticated() || !!req.session.user,
             activePage: 'cashflow',
             cashflowStats: []

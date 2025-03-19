@@ -10,17 +10,10 @@ const hasSmartMoneySubscription = (req, res, next) => {
             user: user ? user._id : 'No user'
         });
         
-        // Verificar si el usuario tiene una suscripción PRO general
-        if (user && user.membresias && user.membresias.tipo === 'pro' && 
-            user.membresias.vencimiento && new Date(user.membresias.vencimiento) > new Date()) {
-            console.log('Usuario tiene suscripción PRO general activa');
-            return next();
-        }
-        
-        // Verificar si el usuario tiene una suscripción específica a Smart Money
+        // Verificar si el usuario tiene una suscripción específica a Smart Money (valor 'pro' ahora significa Smart Money)
         if (user && user.membresias && 
-            (user.membresias.mentoring === 'premium' || user.membresias.mentoring === 'pro') && 
-            user.membresias.vencimientoMentoring && new Date(user.membresias.vencimientoMentoring) > new Date()) {
+            user.membresias.alertas === 'pro' && 
+            user.membresias.vencimientoAlertas && new Date(user.membresias.vencimientoAlertas) > new Date()) {
             console.log('Usuario tiene suscripción activa a Smart Money');
             return next();
         }

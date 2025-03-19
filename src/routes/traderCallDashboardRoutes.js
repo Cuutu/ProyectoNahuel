@@ -14,10 +14,9 @@ const isAuthenticated = (req, res, next) => {
 const hasTraderCallSubscription = (req, res, next) => {
     const user = req.user || (req.session && req.session.user);
     
-    // Verificar si el usuario tiene una suscripción activa a Trader Call
-    // Comprobar según el modelo de usuario
+    // Verificar si el usuario tiene una suscripción activa a Trader Call (valor 'basic' ahora significa Trader Call)
     if (user && user.membresias && 
-        (user.membresias.alertas === 'premium' || user.membresias.alertas === 'pro') && 
+        user.membresias.alertas === 'basic' && 
         user.membresias.vencimientoAlertas && new Date(user.membresias.vencimientoAlertas) > new Date()) {
         return next();
     }
