@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Stats = require('../models/Stats');
 
 const statsSchema = new mongoose.Schema({
     value: {

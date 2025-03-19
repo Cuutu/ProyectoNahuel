@@ -164,7 +164,7 @@ router.get('/smart-money', async (req, res) => {
     }
 });
 
-router.get('/cashflow', (req, res) => {
+router.get('/cashflow', async (req, res) => {
     try {
         // Buscar las estadísticas de Cashflow
         const cashflowStats = await Stats.find({ 
