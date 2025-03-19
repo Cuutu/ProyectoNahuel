@@ -12,7 +12,7 @@ const statsSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        enum: ['landing', 'trader-call', 'smart-money'],
+        enum: ['landing', 'trader-call', 'smart-money', 'cashflow'],
         required: true
     },
     order: {
