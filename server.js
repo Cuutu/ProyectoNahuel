@@ -126,6 +126,11 @@ const previewRoutes = require('./src/routes/previewRoutes');
 const forumRoutes = require('./src/routes/forumRoutes');
 const cashflowRoutes = require('./src/routes/cashflowRoutes');
 
+// Agregar antes de registrar las rutas
+app.get('/cashflow', (req, res) => {
+    res.redirect('/alertas/cashflow');
+});
+
 // Importante: Registrar las rutas en orden de prioridad
 // 1. Rutas públicas y de vista previa primero
 app.use('/', previewRoutes);
@@ -134,6 +139,7 @@ app.use('/auth', authRoutes);
 // 2. Rutas protegidas después
 app.use('/user', userRoutes);
 app.use('/alertas', alertRoutes);
+app.use('/cashflow', cashflowRoutes);
 app.use('/entrenamientos', trainingRoutes);
 app.use('/asesorias', consultingRoutes);
 app.use('/payment', paymentRoutes);
@@ -142,7 +148,6 @@ app.use('/api', apiRoutes);
 app.use('/admin', adminRoutes);
 app.use('/cursos', cursosRoutes);
 app.use('/mentoring', mentoringRoutes);
-app.use('/cashflow', cashflowRoutes);
 
 // Registrar las rutas del foro ANTES de las rutas de índice
 app.use(forumRoutes);

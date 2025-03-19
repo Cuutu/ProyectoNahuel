@@ -165,7 +165,12 @@ router.get('/smart-money', async (req, res) => {
 });
 
 router.get('/cashflow', (req, res) => {
-    res.redirect('/alertas/cashflow');
+    res.render('cashflow/index', {
+        title: 'CashFlow - Comunidad de Trading',
+        user: req.user || req.session.user,
+        isAuthenticated: req.isAuthenticated() || !!req.session.user,
+        activePage: 'cashflow'
+    });
 });
 
 // Rutas de administración para Smart Money Stats
