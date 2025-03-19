@@ -165,7 +165,7 @@ router.get('/smart-money', async (req, res) => {
 });
 
 router.get('/cashflow', (req, res) => {
-    res.redirect('/cashflow');
+    res.redirect('/alertas/cashflow');
 });
 
 // Rutas de administración para Smart Money Stats
