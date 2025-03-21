@@ -23,7 +23,7 @@ router.get('/login', (req, res) => {
 router.post('/login', authController.login);
 
 // Ruta de logout simplificada
-router.get('/logout', (req, res) => {
+router.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) { 
             console.error('Error al cerrar sesión:', err);
