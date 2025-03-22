@@ -1,4 +1,4 @@
-const User = require('../models/user');
+const User = require('../models/User');
 
 exports.isAuthenticated = (req, res, next) => {
     if (req.isAuthenticated && req.isAuthenticated() || req.session && req.session.user) {
