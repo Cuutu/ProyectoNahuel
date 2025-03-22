@@ -63,28 +63,70 @@
                     <div class="membership-card">
                         <div class="membership-header">
                             <h2 class="membership-title">Mi Membresía</h2>
-                            <span class="membership-status active">
-                                <i class="fas fa-check-circle"></i>
-                                Activa
-                            </span>
                         </div>
 
                         <div class="membership-details">
-                            <div class="membership-item">
-                                <div class="membership-label">Plan Actual</div>
-                                <div class="membership-value"><%= user.plan || 'Free' %></div>
-                            </div>
+                            <% if (user.membresias) { %>
+                                <!-- Alertas -->
+                                <div class="membership-item">
+                                    <div class="membership-label">Alertas</div>
+                                    <div class="membership-value">
+                                        <span class="membership-badge <%= user.membresias.alertas !== 'free' ? 'premium' : 'free' %>">
+                                            <%= user.membresias.alertas.toUpperCase() %>
+                                        </span>
+                                        <% if (user.membresias.vencimientoAlertas) { %>
+                                            <small>Vence: <%= new Date(user.membresias.vencimientoAlertas).toLocaleDateString() %></small>
+                                        <% } %>
+                                    </div>
+                                </div>
 
-                            <div class="membership-item">
-                                <div class="membership-label">Estado</div>
-                                <div class="membership-value"><%= user.estado %></div>
-                            </div>
+                                <!-- Entrenamientos -->
+                                <div class="membership-item">
+                                    <div class="membership-label">Entrenamientos</div>
+                                    <div class="membership-value">
+                                        <span class="membership-badge <%= user.membresias.entrenamientos !== 'free' ? 'premium' : 'free' %>">
+                                            <%= user.membresias.entrenamientos.toUpperCase() %>
+                                        </span>
+                                        <% if (user.membresias.vencimientoEntrenamientos) { %>
+                                            <small>Vence: <%= new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() %></small>
+                                        <% } %>
+                                    </div>
+                                </div>
 
-                            <div class="membership-item">
-                                <div class="membership-label">Vence</div>
-                                <div class="membership-value"><%= user.vencimiento || 'N/A' %></div>
-                            </div>
+                                <!-- Asesoramiento -->
+                                <div class="membership-item">
+                                    <div class="membership-label">Asesoramiento</div>
+                                    <div class="membership-value">
+                                        <% if (user.membresias.asesoramiento) { %>
+                                            <span class="membership-badge premium">ACTIVO</span>
+                                            <% if (user.membresias.vencimientoAsesoramiento) { %>
+                                                <small>Vence: <%= new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() %></small>
+                                            <% } %>
+                                        <% } else { %>
+                                            <span class="membership-badge free">NO ACTIVO</span>
+                                        <% } %>
+                                    </div>
+                                </div>
+                            <% } else { %>
+                                <div class="no-membership">
+                                    <p>No tienes membresías activas</p>
+                                    <a href="/alertas" class="btn-upgrade">Ver Planes Disponibles</a>
+                                </div>
+                            <% } %>
                         </div>
+
+                        <% if (!user.membresias || 
+                              (user.membresias.alertas === 'free' && 
+                               user.membresias.entrenamientos === 'free' && 
+                               !user.membresias.asesoramiento)) { %>
+                            <div class="membership-upgrade">
+                                <p>¡Mejora tu experiencia con nuestros planes premium!</p>
+                                <a href="/alertas" class="btn-upgrade">
+                                    <i class="fas fa-crown"></i>
+                                    Explorar Planes
+                                </a>
+                            </div>
+                        <% } %>
                     </div>
 
                     <!-- Actividad Reciente -->
