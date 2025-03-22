@@ -40,6 +40,33 @@ async function updateProfile(event) {
     }
 }
 
+async function uploadProfileImage(input) {
+    if (!input.files || !input.files[0]) return;
+
+    const file = input.files[0];
+    const formData = new FormData();
+    formData.append('profileImage', file);
+
+    try {
+        const response = await fetch('/api/user/profile-image', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            // Actualizar la imagen en la página
+            document.querySelector('.profile-image').src = data.imageUrl;
+            showNotification('Foto de perfil actualizada correctamente', 'success');
+        } else {
+            throw new Error('Error al actualizar la foto de perfil');
+        }
+    } catch (error) {
+        showNotification('Error al actualizar la foto de perfil', 'error');
+        console.error('Error:', error);
+    }
+}
+
 function showNotification(message, type) {
     // Implementar sistema de notificaciones
     alert(message);

@@ -17,7 +17,26 @@
             <div class="dashboard-grid">
                 <!-- Información Personal -->
                 <div class="profile-card">
-                    <h2>Información Personal</h2>
+                    <div class="profile-header">
+                        <div class="profile-image-container">
+                            <img 
+                                src="<%= user.profileImage || '/images/default-avatar.png' %>" 
+                                alt="Foto de perfil"
+                                class="profile-image"
+                            >
+                            <button class="change-photo-btn" onclick="document.getElementById('profileImageInput').click()">
+                                <i class="fas fa-camera"></i>
+                            </button>
+                            <input 
+                                type="file" 
+                                id="profileImageInput" 
+                                accept="image/*"
+                                style="display: none;"
+                                onchange="uploadProfileImage(this)"
+                            >
+                        </div>
+                        <h2>Información Personal</h2>
+                    </div>
                     <div class="info-content">
                         <div class="info-item">
                             <div class="info-icon">
