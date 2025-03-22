@@ -15,15 +15,83 @@
             <h1>Bienvenido, <%= user.nombre %></h1>
             
             <div class="dashboard-content">
-                <!-- Aquí puedes agregar el contenido del dashboard -->
-                <div class="dashboard-section">
-                    <h2>Mi Perfil</h2>
-                    <div class="profile-info">
-                        <p><strong>Nombre:</strong> <%= user.nombre %> <%= user.apellido %></p>
-                        <p><strong>Email:</strong> <%= user.email %></p>
-                        <% if (user.telefono) { %>
-                            <p><strong>Teléfono:</strong> <%= user.telefono %></p>
-                        <% } %>
+                <div class="dashboard-grid">
+                    <!-- Información Personal -->
+                    <div class="profile-card">
+                        <h2>Información Personal</h2>
+                        <div class="profile-info">
+                            <div class="info-item">
+                                <i class="fas fa-user"></i>
+                                <div>
+                                    <label>Nombre:</label>
+                                    <p><%= user.nombre %></p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <label>Email:</label>
+                                    <p><%= user.email %></p>
+                                </div>
+                            </div>
+                            <% if (user.telefono) { %>
+                            <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <label>Teléfono:</label>
+                                    <p><%= user.telefono %></p>
+                                </div>
+                            </div>
+                            <% } %>
+                            <button class="btn-edit">Editar Perfil</button>
+                        </div>
+                    </div>
+
+                    <!-- Membresía -->
+                    <div class="profile-card">
+                        <h2>Mi Membresía</h2>
+                        <div class="stats-overview">
+                            <div class="stat-item">
+                                <span class="stat-label">Plan Actual</span>
+                                <div class="stat-number"><%= user.plan || 'Free' %></div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Estado</span>
+                                <div class="stat-number <%= user.estado === 'Activa' ? 'text-success' : 'text-warning' %>">
+                                    <%= user.estado %>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Vence</span>
+                                <div class="stat-number"><%= user.vencimiento || 'N/A' %></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Actividad Reciente -->
+                    <div class="profile-card">
+                        <h2>Actividad Reciente</h2>
+                        <div class="activity-list">
+                            <!-- Aquí irían las últimas actividades del usuario -->
+                            <div class="activity-item">
+                                <i class="fas fa-book-reader"></i>
+                                <div class="activity-details">
+                                    <p>Último acceso al curso</p>
+                                    <small>Hace 2 días</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Próximas Mentorías -->
+                    <div class="profile-card">
+                        <h2>Próximas Mentorías</h2>
+                        <div class="mentoring-list">
+                            <!-- Aquí irían las próximas mentorías programadas -->
+                        </div>
+                        <a href="/dashboard/smart-money/solicitar-mentoria" class="btn-primary">
+                            Solicitar Mentoría
+                        </a>
                     </div>
                 </div>
             </div>
