@@ -12,96 +12,77 @@
     
     <main class="dashboard-container">
         <div class="container">
-            <h1>Bienvenido, <%= user.nombre %></h1>
+            <h1 class="dashboard-title">Mi Perfil</h1>
             
             <div class="dashboard-content">
                 <div class="dashboard-grid">
                     <!-- Información Personal -->
-                    <div class="profile-card">
-                        <div class="card-header">
-                            <h2>Información Personal</h2>
-                            <button class="btn-edit" onclick="toggleEditMode()">
-                                <i class="fas fa-pencil-alt"></i> Editar
+                    <div class="info-card">
+                        <h2>
+                            Información Personal
+                            <button class="edit-button">
+                                <i class="fas fa-pencil-alt"></i>
+                                Editar
                             </button>
-                        </div>
+                        </h2>
                         
-                        <!-- Modo Vista -->
-                        <div id="viewMode" class="profile-info">
+                        <div class="info-grid">
                             <div class="info-item">
-                                <i class="fas fa-user"></i>
-                                <div>
-                                    <label>Nombre:</label>
-                                    <p id="nombreView"><%= user.nombre || 'No especificado' %></p>
+                                <div class="info-icon">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Nombre</div>
+                                    <div class="info-value"><%= user.nombre || 'No especificado' %></div>
                                 </div>
                             </div>
+
                             <div class="info-item">
-                                <i class="fas fa-envelope"></i>
-                                <div>
-                                    <label>Email:</label>
-                                    <p><%= user.email %></p>
+                                <div class="info-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Email</div>
+                                    <div class="info-value"><%= user.email %></div>
                                 </div>
                             </div>
+
                             <div class="info-item">
-                                <i class="fas fa-phone"></i>
-                                <div>
-                                    <label>Teléfono:</label>
-                                    <p id="telefonoView"><%= user.telefono || 'No especificado' %></p>
+                                <div class="info-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="info-content">
+                                    <div class="info-label">Teléfono</div>
+                                    <div class="info-value"><%= user.telefono || 'No especificado' %></div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Modo Edición -->
-                        <form id="editMode" class="profile-form" style="display: none;" onsubmit="updateProfile(event)">
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" id="nombre" name="nombre" value="<%= user.nombre %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="telefono">Teléfono:</label>
-                                <input type="tel" id="telefono" name="telefono" value="<%= user.telefono %>">
-                            </div>
-                            <div class="form-buttons">
-                                <button type="submit" class="btn-save">Guardar</button>
-                                <button type="button" class="btn-cancel" onclick="toggleEditMode()">Cancelar</button>
-                            </div>
-                        </form>
                     </div>
 
-                    <!-- Membresía Mejorada -->
-                    <div class="profile-card membership-card">
-                        <h2>Mi Membresía</h2>
+                    <!-- Membresía -->
+                    <div class="membership-card">
+                        <div class="membership-header">
+                            <h2 class="membership-title">Mi Membresía</h2>
+                            <span class="membership-status active">
+                                <i class="fas fa-check-circle"></i>
+                                Activa
+                            </span>
+                        </div>
+
                         <div class="membership-details">
-                            <div class="plan-info">
-                                <div class="current-plan">
-                                    <span class="plan-badge <%= user.plan ? 'premium' : 'free' %>">
-                                        <%= user.plan || 'Free' %>
-                                    </span>
-                                    <span class="status-badge <%= user.estado === 'Activa' ? 'active' : 'inactive' %>">
-                                        <%= user.estado %>
-                                    </span>
-                                </div>
-                                <div class="plan-expiry">
-                                    <i class="fas fa-clock"></i>
-                                    <span>Vence: <%= user.vencimiento || 'No aplica' %></span>
-                                </div>
-                            </div>
-                            
-                            <div class="plan-features">
-                                <h3>Beneficios Incluidos:</h3>
-                                <ul>
-                                    <li><i class="fas fa-check"></i> Acceso a Trader Call</li>
-                                    <li><i class="fas fa-check"></i> Alertas en tiempo real</li>
-                                    <li><i class="fas fa-check"></i> Soporte prioritario</li>
-                                </ul>
+                            <div class="membership-item">
+                                <div class="membership-label">Plan Actual</div>
+                                <div class="membership-value"><%= user.plan || 'Free' %></div>
                             </div>
 
-                            <div class="plan-actions">
-                                <% if (!user.plan || user.plan === 'Free') { %>
-                                    <a href="/planes" class="btn-upgrade">Actualizar a Premium</a>
-                                <% } else { %>
-                                    <button class="btn-renew">Renovar Membresía</button>
-                                <% } %>
-                                <a href="/planes/beneficios" class="btn-benefits">Ver todos los beneficios</a>
+                            <div class="membership-item">
+                                <div class="membership-label">Estado</div>
+                                <div class="membership-value"><%= user.estado %></div>
+                            </div>
+
+                            <div class="membership-item">
+                                <div class="membership-label">Vence</div>
+                                <div class="membership-value"><%= user.vencimiento || 'N/A' %></div>
                             </div>
                         </div>
                     </div>
