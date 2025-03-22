@@ -5,7 +5,7 @@ const sessionCheck = (req, res, next) => {
     console.log('Session ID:', req.sessionID);
     console.log('User in session:', req.session?.user);
     console.log('Cookies:', req.headers.cookie);
-    console.log('==================');
+    console.log('===================');
 
     if (req.session && req.session.user) {
         // Renovar la sesión si existe
