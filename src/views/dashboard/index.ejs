@@ -14,134 +14,101 @@
         <div class="container">
             <h1 class="dashboard-title">Mi Perfil</h1>
             
-            <div class="dashboard-content">
-                <div class="dashboard-grid">
-                    <!-- Información Personal -->
-                    <div class="info-card">
-                        <h2>
-                            Información Personal
-                            <button class="edit-button">
-                                <i class="fas fa-pencil-alt"></i>
-                                Editar
-                            </button>
-                        </h2>
-                        
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="info-content">
-                                    <div class="info-label">Nombre</div>
-                                    <div class="info-value"><%= user.nombre || 'No especificado' %></div>
-                                </div>
+            <div class="dashboard-grid">
+                <!-- Información Personal -->
+                <div class="profile-card">
+                    <h2>Información Personal</h2>
+                    <div class="info-content">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-user"></i>
                             </div>
-
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="info-content">
-                                    <div class="info-label">Email</div>
-                                    <div class="info-value"><%= user.email %></div>
-                                </div>
+                            <div>
+                                <span class="info-label">NOMBRE</span>
+                                <p class="info-value"><%= user.nombre || 'No especificado' %></p>
                             </div>
+                        </div>
 
-                            <div class="info-item">
-                                <div class="info-icon">
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                                <div class="info-content">
-                                    <div class="info-label">Teléfono</div>
-                                    <div class="info-value"><%= user.telefono || 'No especificado' %></div>
-                                </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <span class="info-label">EMAIL</span>
+                                <p class="info-value"><%= user.email %></p>
+                            </div>
+                        </div>
+
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div>
+                                <span class="info-label">TELÉFONO</span>
+                                <p class="info-value"><%= user.telefono || 'No especificado' %></p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Membresía -->
-                    <div class="membership-section">
-                        <h2>Mi Membresía</h2>
-                        <div class="membership-grid">
-                            <!-- Debug info - Eliminar después -->
-                            <!-- <%= JSON.stringify(user.membresias) %> -->
-                            
-                            <!-- Alertas -->
-                            <div class="membership-badge">
-                                <span class="badge-label">Alertas</span>
-                                <span class="badge-value <%= user.membresias?.alertas !== 'free' ? 'premium' : 'free' %>">
-                                    <%= user.membresias?.alertas?.toUpperCase() || 'FREE' %>
-                                </span>
-                                <% if (user.membresias?.vencimientoAlertas) { %>
-                                    <span class="badge-expiry">
-                                        Vence: <%= new Date(user.membresias.vencimientoAlertas).toLocaleDateString() %>
-                                    </span>
-                                <% } %>
-                            </div>
-
-                            <!-- Entrenamientos -->
-                            <div class="membership-badge">
-                                <span class="badge-label">Entrenamientos</span>
-                                <span class="badge-value <%= user.membresias?.entrenamientos !== 'free' ? 'premium' : 'free' %>">
-                                    <%= user.membresias?.entrenamientos?.toUpperCase() || 'FREE' %>
-                                </span>
-                                <% if (user.membresias?.vencimientoEntrenamientos) { %>
-                                    <span class="badge-expiry">
-                                        Vence: <%= new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() %>
-                                    </span>
-                                <% } %>
-                            </div>
-
-                            <!-- Asesoramiento -->
-                            <div class="membership-badge">
-                                <span class="badge-label">Asesoramiento</span>
-                                <span class="badge-value <%= user.membresias?.asesoramiento ? 'premium' : 'free' %>">
-                                    <%= user.membresias?.asesoramiento ? 'ACTIVO' : 'NO ACTIVO' %>
-                                </span>
-                                <% if (user.membresias?.vencimientoAsesoramiento) { %>
-                                    <span class="badge-expiry">
-                                        Vence: <%= new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() %>
-                                    </span>
-                                <% } %>
-                            </div>
+                <!-- Membresías -->
+                <div class="membership-card">
+                    <h2>Mi Membresía</h2>
+                    <div class="membership-content">
+                        <!-- Alertas -->
+                        <div class="membership-item">
+                            <span class="service-label">Alertas</span>
+                            <span class="service-badge <%= user.membresias?.alertas !== 'free' ? 'premium' : '' %>">
+                                <%= user.membresias?.alertas?.toUpperCase() || 'FREE' %>
+                            </span>
+                            <% if (user.membresias?.vencimientoAlertas) { %>
+                                <span class="expiry-date">Vence: <%= new Date(user.membresias.vencimientoAlertas).toLocaleDateString() %></span>
+                            <% } %>
                         </div>
 
-                        <% if (!user.membresias || 
-                              (user.membresias.alertas === 'free' && 
-                               user.membresias.entrenamientos === 'free' && 
-                               !user.membresias.asesoramiento)) { %>
-                            <div class="upgrade-section">
-                                <p>¡Mejora tu experiencia con nuestros planes premium!</p>
-                                <a href="/alertas" class="upgrade-button">
-                                    <i class="fas fa-crown"></i>
-                                    Ver Planes Disponibles
-                                </a>
-                            </div>
-                        <% } %>
-                    </div>
+                        <!-- Entrenamientos -->
+                        <div class="membership-item">
+                            <span class="service-label">Entrenamientos</span>
+                            <span class="service-badge <%= user.membresias?.entrenamientos !== 'free' ? 'premium' : '' %>">
+                                <%= user.membresias?.entrenamientos?.toUpperCase() || 'FREE' %>
+                            </span>
+                            <% if (user.membresias?.vencimientoEntrenamientos) { %>
+                                <span class="expiry-date">Vence: <%= new Date(user.membresias.vencimientoEntrenamientos).toLocaleDateString() %></span>
+                            <% } %>
+                        </div>
 
-                    <!-- Actividad Reciente -->
-                    <div class="profile-card">
-                        <h2>Actividad Reciente</h2>
-                        <div class="activity-list">
-                            <!-- Aquí irían las últimas actividades del usuario -->
-                            <div class="activity-item">
-                                <i class="fas fa-book-reader"></i>
-                                <div class="activity-details">
-                                    <p>Último acceso al curso</p>
-                                    <small>Hace 2 días</small>
-                                </div>
+                        <!-- Asesoramiento -->
+                        <div class="membership-item">
+                            <span class="service-label">Asesoramiento</span>
+                            <span class="service-badge <%= user.membresias?.asesoramiento ? 'active' : '' %>">
+                                <%= user.membresias?.asesoramiento ? 'ACTIVO' : 'NO ACTIVO' %>
+                            </span>
+                            <% if (user.membresias?.vencimientoAsesoramiento) { %>
+                                <span class="expiry-date">Vence: <%= new Date(user.membresias.vencimientoAsesoramiento).toLocaleDateString() %></span>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actividad Reciente -->
+                <div class="activity-card">
+                    <h2>Actividad Reciente</h2>
+                    <div class="activity-content">
+                        <div class="activity-item">
+                            <i class="fas fa-book-reader"></i>
+                            <div>
+                                <p>Último acceso al curso</p>
+                                <span>Hace 2 días</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Próximas Mentorías -->
-                    <div class="profile-card">
-                        <h2>Próximas Mentorías</h2>
-                        <div class="mentoring-list">
-                            <!-- Aquí irían las próximas mentorías programadas -->
-                        </div>
-                        <a href="/dashboard/smart-money/solicitar-mentoria" class="btn-primary">
+                <!-- Próximas Mentorías -->
+                <div class="mentoring-card">
+                    <h2>Próximas Mentorías</h2>
+                    <div class="mentoring-content">
+                        <a href="/dashboard/smart-money/solicitar-mentoria" class="btn-mentoring">
                             Solicitar Mentoría
                         </a>
                     </div>
