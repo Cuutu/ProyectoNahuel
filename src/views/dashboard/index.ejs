@@ -20,7 +20,7 @@
                     <div class="profile-header">
                         <div class="profile-image-container">
                             <img 
-                                src="<%= user.profileImage || '/images/default-avatar.png' %>" 
+                                src="<%= user.profileImage ? `/api/user/profile-image/${user.profileImage}` : '/images/default-avatar.png' %>" 
                                 alt="Foto de perfil"
                                 class="profile-image"
                             >

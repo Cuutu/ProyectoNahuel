@@ -5,55 +5,67 @@ const { isAuthenticated } = require('../middleware/auth');
 const multer = require('multer');
 const path = require('path');
 const User = require('../models/User');
+const imageService = require('../services/imageService');
 
 router.get('/dashboard', isAuthenticated, userController.getDashboard);
 
-// Configurar multer para el almacenamiento de imágenes
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'public/uploads/profile-images')
-    },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-        cb(null, 'profile-' + uniqueSuffix + path.extname(file.originalname))
-    }
-});
-
-const upload = multer({ 
-    storage: storage,
+// Configurar multer para memoria
+const upload = multer({
+    storage: multer.memoryStorage(),
     limits: {
-        fileSize: 5 * 1024 * 1024 // límite de 5MB
+        fileSize: 5 * 1024 * 1024 // 5MB
     },
     fileFilter: (req, file, cb) => {
         const allowedTypes = /jpeg|jpg|png|gif/;
-        const extname = allowedTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = allowedTypes.test(file.mimetype);
-
-        if (extname && mimetype) {
-            return cb(null, true);
+        
+        if (mimetype) {
+            cb(null, true);
         } else {
-            cb('Error: Solo se permiten imágenes!');
+            cb(new Error('Solo se permiten imágenes'));
         }
     }
 });
 
-// Ruta para actualizar la foto de perfil
+// Ruta para obtener imagen de perfil
+router.get('/api/user/profile-image/:id', async (req, res) => {
+    try {
+        const stream = await imageService.getImage(req.params.id);
+        if (!stream) {
+            return res.status(404).send('Imagen no encontrada');
+        }
+
+        res.set('Content-Type', 'image/jpeg');
+        stream.pipe(res);
+    } catch (error) {
+        res.status(500).send('Error al obtener la imagen');
+    }
+});
+
+// Ruta para actualizar foto de perfil
 router.post('/api/user/profile-image', upload.single('profileImage'), async (req, res) => {
     try {
         if (!req.file) {
             return res.status(400).json({ error: 'No se subió ningún archivo' });
         }
 
-        const imageUrl = `/uploads/profile-images/${req.file.filename}`;
+        const user = await User.findById(req.user._id);
         
-        // Actualizar la URL de la imagen en la base de datos
-        await User.findByIdAndUpdate(req.user._id, {
-            profileImage: imageUrl
-        });
+        // Eliminar imagen anterior si existe
+        if (user.profileImage) {
+            await imageService.deleteImage(user.profileImage);
+        }
+
+        // Subir nueva imagen
+        const imageId = await imageService.uploadImage(req.file);
+        
+        // Actualizar referencia en el usuario
+        user.profileImage = imageId;
+        await user.save();
 
         res.json({ 
             success: true, 
-            imageUrl: imageUrl 
+            imageUrl: `/api/user/profile-image/${imageId}`
         });
     } catch (error) {
         console.error('Error al actualizar la foto de perfil:', error);
@@ -61,4 +73,5 @@ router.post('/api/user/profile-image', upload.single('profileImage'), async (req
     }
 });
 
+module.exports = router; 
 module.exports = router; 

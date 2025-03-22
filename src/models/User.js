@@ -66,8 +66,8 @@ const userSchema = new mongoose.Schema({
         default: 'user'
     },
     profileImage: {
-        type: String,
-        default: '/images/default-avatar.png' // Imagen por defecto
+        type: mongoose.Schema.Types.ObjectId, // Referencia al archivo en GridFS
+        ref: 'ProfileImage'
     }
 }, {
     timestamps: true
