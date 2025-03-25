@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recursos - CryptoTrading</title>
+    <title>Recursos - Nahuel Lozano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="/css/landing.css">
     <link rel="stylesheet" href="/css/animations.css">
     <link rel="stylesheet" href="/css/resources.css">
@@ -11,63 +13,299 @@
 <body>
     <%- include('../partials/header') %>
     
+    <!-- Hero Section -->
+    <section class="alert-hero">
+        <div class="container">
+            <h1 data-animate="fade-down">Recursos</h1>
+            <p class="alert-description" data-animate="fade-up" data-delay="200">
+                Herramientas esenciales para potenciar tu trading
+            </p>
+        </div>
+    </section>
+
+    <!-- Video explicativo -->
+    <section class="video-section">
+        <div class="video-flex-container">
+            <div class="video-text">
+                <h2>¿Cómo<br>utilizar<br>estos<br>recursos?</h2>
+            </div>
+            <div class="video-container" data-animate="fade-up">
+                <iframe src="https://player.vimeo.com/video/123456789" width="100%" height="600" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    
     <div class="resources-container">
-        <% resources.forEach(section => { %>
-            <section class="section-block">
-                <h2 class="section-title"><%= section.category %></h2>
+        <!-- Links de Afiliados -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Links de Afiliados</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>TradingView</h3>
+                        <p>La plataforma más completa para análisis técnico y trading profesional.</p>
+                        <a href="#" class="resource-button">Acceder</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Binance</h3>
+                        <p>Exchange líder mundial para comprar y vender criptomonedas.</p>
+                        <a href="#" class="resource-button">Acceder</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Otra Plataforma</h3>
+                        <p>Descripción breve de la tercera plataforma recomendada.</p>
+                        <a href="#" class="resource-button">Acceder</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Indicadores -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Indicadores</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Medias Móviles Automáticas</h3>
+                        <p>Herramienta que calcula y muestra automáticamente las medias móviles en tus gráficos.</p>
+                        <a href="#" class="resource-button">Ver más</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-table"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Cuadro de Información</h3>
+                        <p>Muestra datos relevantes del mercado en tiempo real en un formato organizado.</p>
+                        <a href="#" class="resource-button">Ver más</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-traffic-light"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Semáforo de Trading</h3>
+                        <p>Indicador visual que te ayuda a identificar momentos óptimos de entrada y salida.</p>
+                        <a href="#" class="resource-button">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plantillas de Google Sheets -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Plantillas de Google Sheets</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Portfolio Analyzer</h3>
+                        <p>Analiza el rendimiento de tu cartera de inversiones con métricas detalladas.</p>
+                        <a href="#" class="resource-button">Descargar</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-search-dollar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>RSI Screener</h3>
+                        <p>Filtra activos basados en valores del RSI para identificar oportunidades.</p>
+                        <a href="#" class="resource-button">Descargar</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Calculadora de CEDEARs</h3>
+                        <p>Calcula precios y ratios de conversión para CEDEARs de manera sencilla.</p>
+                        <a href="#" class="resource-button">Descargar</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Libros Recomendados -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Libros Recomendados</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Análisis Técnico de los Mercados Financieros</h3>
+                        <p>Guía completa sobre análisis técnico para traders de todos los niveles.</p>
+                        <button class="resource-button" onclick="showBooksPopup('analisis-tecnico')">Ver recomendación</button>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Trading en la Zona</h3>
+                        <p>Enfoque psicológico del trading y cómo dominar tus emociones al operar.</p>
+                        <button class="resource-button" onclick="showBooksPopup('trading-zona')">Ver recomendación</button>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-user-tie"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Psicología del Trading</h3>
+                        <p>Principios psicológicos fundamentales para tener éxito en el trading.</p>
+                        <button class="resource-button" onclick="showBooksPopup('psicologia-trading')">Ver recomendación</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Material Complementario -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Material Complementario</h2>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Ratios de conversión</h3>
+                        <p>Guía para entender y calcular los ratios de conversión en diferentes mercados.</p>
+                        <button class="resource-button" onclick="showMaterialPopup('ratios')">Acceder</button>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Cómo medir la cartera</h3>
+                        <p>Métodos efectivos para medir el rendimiento de tu cartera de inversiones.</p>
+                        <button class="resource-button" onclick="showMaterialPopup('medir-cartera')">Acceder</button>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Cálculo CCL</h3>
+                        <p>Guía paso a paso para calcular el Contado con Liquidación en diferentes activos.</p>
+                        <button class="resource-button" onclick="showMaterialPopup('ccl')">Acceder</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Links Importantes -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Links Importantes</h2>
                 <div class="resources-grid">
-                    <% section.items.forEach(item => { %>
+                <!-- Primera fila de 3 links -->
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Calendario de Balances</h3>
+                        <p>Calendario actualizado con fechas de presentación de balances corporativos.</p>
+                        <a href="#" class="resource-button">Ver calendario</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Datos de Inflación USA</h3>
+                        <p>Reportes y análisis de los datos de inflación de Estados Unidos.</p>
+                        <a href="#" class="resource-button">Ver datos</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Decisión tasas de la FED</h3>
+                        <p>Calendario y análisis de las decisiones de tasas de la Reserva Federal.</p>
+                        <a href="#" class="resource-button">Ver información</a>
+                    </div>
+                </div>
+                <!-- Segunda fila de 3 links -->
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bullhorn"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Avisos de Eventos Corporativos</h3>
+                        <p>Calendario de eventos corporativos relevantes para inversores.</p>
+                        <a href="#" class="resource-button">Ver avisos</a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="card-icon">
+                        <i class="fas fa-percentage"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Datos de Inflación ARG</h3>
+                        <p>Reportes y análisis de los datos de inflación de Argentina.</p>
+                        <a href="#" class="resource-button">Ver datos</a>
+                    </div>
+                </div>
                         <div class="resource-card">
-                            <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
                             <div class="card-content">
-                                <h3><%= item.title %></h3>
-                                <p><%- item.description %></p>
-                                <% if (item.isPremium) { %>
-                                    <div class="premium-badge">Premium</div>
-                                <% } %>
-                                <% if (item.downloadUrl) { %>
-                                    <a href="<%= item.downloadUrl %>" 
-                                       class="resource-button" 
-                                       target="_blank" 
-                                       rel="noopener noreferrer">
-                                        <%= item.buttonText %>
-                                    </a>
-                                <% } else if (item.type === 'multiple-pdf') { %>
-                                    <div class="pdf-grid">
-                                        <div class="pdf-item">
-                                            <h4>Libros Recomendados</h4>
-                                            <div class="button-group">
-                                                <button class="resource-button" onclick="showBooksPopup()">
-                                                    Ver libros
-                                                </button>
+                        <h3>Indicador Fear and Greed CNN</h3>
+                        <p>Índice que mide el sentimiento del mercado basado en miedo y codicia.</p>
+                        <a href="#" class="resource-button">Ver indicador</a>
                                             </div>
                                         </div>
                                     </div>
-                                <% } else if (item.type === 'pdf') { %>
-                                    <div class="button-group">
-                                        <a href="#" class="resource-button preview-btn" 
-                                           onclick="openPDFViewer('/pdfs/<%= item.pdfUrl %>')">
-                                            <i class="fas fa-eye"></i> Previsualizar
-                                        </a>
-                                        <a href="/pdfs/<%= item.pdfUrl %>" 
-                                           class="resource-button download-btn" 
-                                           download>
-                                            <i class="fas fa-download"></i> Descargar
-                                        </a>
+        </section>
+
+        <!-- Fórmulas de TradingView -->
+        <section class="section-block" data-animate="fade-up">
+            <h2 class="section-title">Fórmulas de TradingView</h2>
+            <div class="resources-grid formula-grid">
+                <div class="resource-card formula-card-button">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
                                     </div>
-                                <% } else if (item.type === 'material-modal') { %>
-                                    <button class="resource-button" onclick="showMaterialPopup()">
-                                        Ver material
-                                    </button>
-                                <% } else { %>
-                                    <button class="resource-button" data-type="<%= item.type %>"><%= item.buttonText %></button>
-                                <% } %>
+                    <div class="card-content">
+                        <h3>Fórmulas de TradingView</h3>
+                        <p>Colección de fórmulas útiles para TradingView que puedes usar en tus análisis.</p>
+                        <button class="resource-button" onclick="showFormulaModal()">Ver fórmulas</button>
                             </div>
                         </div>
-                    <% }); %>
                 </div>
             </section>
-        <% }); %>
     </div>
 
     <!-- Modal para fórmulas -->
@@ -99,17 +337,27 @@
                     <button class="copy-button">Copiar</button>
                 </div>
             </div>
+            
             <div class="formula-section">
                 <h3>Comparación S&P500 y MERVAL</h3>
                 <div class="formula-container">
-                    <code id="formulaMerval">AMEX:SPY/(BCBA:IMV/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4))</code>
+                    <code>AMEX:SPY/(BCBA:IMV/((BCBA:KO*5/NYSE:KO+BCBA:AAPL*20/NASDAQ:AAPL+BCBA:MSFT*30/NASDAQ:MSFT+BCBA:GOLD*2/NYSE:GOLD)/4))</code>
                     <button class="copy-button">Copiar</button>
                 </div>
             </div>
+            
             <div class="formula-section">
                 <h3>Comparación NASDAQ 100 y DOW JONES 30</h3>
                 <div class="formula-container">
-                    <code id="formulaMerval">NASDAQ:NDX/TVC:DJI</code>
+                    <code>NASDAQ:NDX/TVC:DJI</code>
+                    <button class="copy-button">Copiar</button>
+                </div>
+            </div>
+            
+            <div class="formula-section">
+                <h3>Inflación Interanual Argentina</h3>
+                <div class="formula-container">
+                    <code>BCBA:INFLACION_ANUAL</code>
                     <button class="copy-button">Copiar</button>
                 </div>
             </div>
@@ -119,6 +367,8 @@
     <!-- Modal para material complementario -->
     <div id="materialModal" class="modal">
         <div class="material-modal-content">
+            <span class="close">&times;</span>
+            <div id="material-content"></div>
         </div>
     </div>
 
@@ -133,13 +383,101 @@
     <!-- Agregar al final del archivo, junto a los otros modales -->
     <div id="booksModal" class="modal">
         <div class="material-modal-content">
+            <span class="close">&times;</span>
+            <div id="books-content"></div>
         </div>
     </div>
 
     <script src="/js/animations.js"></script>
-    <script src="/js/navbar.js"></script>
-    <script src="/js/resources.js"></script>
     <script>
+    // Función para mostrar el modal de fórmulas
+    function showFormulaModal() {
+        const modal = document.getElementById('formulaModal');
+        modal.style.display = 'block';
+    }
+
+    // Función para mostrar el modal de material complementario
+    function showMaterialPopup(materialType) {
+        const modal = document.getElementById('materialModal');
+        const contentDiv = document.getElementById('material-content');
+        
+        // Contenido según el tipo de material
+        let content = '';
+        
+        if (materialType === 'ratios') {
+            content = `
+                <h2>Ratios de Conversión</h2>
+                <p>Guía completa para entender y calcular ratios de conversión en diferentes mercados financieros.</p>
+                <div class="material-details">
+                    <p>Los ratios de conversión son fundamentales para comparar activos entre diferentes mercados...</p>
+                    <!-- Agregar más contenido según sea necesario -->
+                </div>
+            `;
+        } else if (materialType === 'medir-cartera') {
+            content = `
+                <h2>Cómo Medir tu Cartera</h2>
+                <p>Métodos efectivos para evaluar el rendimiento de tu cartera de inversiones.</p>
+                <div class="material-details">
+                    <p>Para medir adecuadamente el rendimiento de tu cartera, debes considerar...</p>
+                    <!-- Agregar más contenido según sea necesario -->
+                </div>
+            `;
+        } else if (materialType === 'ccl') {
+            content = `
+                <h2>Cálculo del Contado con Liquidación (CCL)</h2>
+                <p>Guía paso a paso para calcular el valor del dólar CCL.</p>
+                <div class="material-details">
+                    <p>El Contado con Liquidación es una operación que permite...</p>
+                    <!-- Agregar más contenido según sea necesario -->
+                </div>
+            `;
+        }
+        
+        contentDiv.innerHTML = content;
+        modal.style.display = 'block';
+    }
+
+    // Función para mostrar el modal de libros
+    function showBooksPopup(bookType) {
+        const modal = document.getElementById('booksModal');
+        const contentDiv = document.getElementById('books-content');
+        
+        // Contenido según el tipo de libro
+        let content = '';
+        
+        if (bookType === 'analisis-tecnico') {
+            content = `
+                <h2>Análisis Técnico de los Mercados Financieros</h2>
+                <div class="book-details">
+                    <p><strong>Autor:</strong> John J. Murphy</p>
+                    <p><strong>Descripción:</strong> Una guía completa sobre el análisis técnico, reconocida como una de las obras fundamentales en la materia.</p>
+                    <a href="#" class="resource-button">Ver en Amazon</a>
+                </div>
+            `;
+        } else if (bookType === 'trading-zona') {
+            content = `
+                <h2>Trading en la Zona</h2>
+                <div class="book-details">
+                    <p><strong>Autor:</strong> Mark Douglas</p>
+                    <p><strong>Descripción:</strong> Este libro se enfoca en la psicología del trading y cómo dominar tus emociones para tener éxito en los mercados.</p>
+                    <a href="#" class="resource-button">Ver en Amazon</a>
+                </div>
+            `;
+        } else if (bookType === 'psicologia-trading') {
+            content = `
+                <h2>Psicología del Trading</h2>
+                <div class="book-details">
+                    <p><strong>Autor:</strong> Brett Steenbarger</p>
+                    <p><strong>Descripción:</strong> Una guía práctica para mejorar tu desempeño psicológico en el trading, con técnicas y estrategias específicas.</p>
+                    <a href="#" class="resource-button">Ver en Amazon</a>
+                </div>
+            `;
+        }
+        
+        contentDiv.innerHTML = content;
+        modal.style.display = 'block';
+    }
+
     function openPDFViewer(pdfUrl) {
         const modal = document.getElementById('pdfModal');
         const iframe = document.getElementById('pdfViewer');
@@ -147,18 +485,51 @@
         modal.style.display = 'block';
     }
 
-    // Cerrar el modal
-    document.querySelector('.close').onclick = function() {
-        document.getElementById('pdfModal').style.display = 'none';
-    }
+    // Manejar los botones de copiar para las fórmulas
+    document.addEventListener('DOMContentLoaded', function() {
+        const copyButtons = document.querySelectorAll('.copy-button');
+        
+        copyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const formula = this.previousElementSibling.textContent;
+                navigator.clipboard.writeText(formula).then(() => {
+                    // Cambiar texto temporalmente
+                    const originalText = this.textContent;
+                    this.textContent = '¡Copiado!';
+                    this.classList.add('copied');
+                    
+                    // Restaurar texto original después de 2 segundos
+                    setTimeout(() => {
+                        this.textContent = originalText;
+                        this.classList.remove('copied');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Error al copiar: ', err);
+                });
+            });
+        });
 
-    // Cerrar el modal si se hace clic fuera de él
-    window.onclick = function(event) {
-        const modal = document.getElementById('pdfModal');
+        // Cerrar los modales
+        const closeButtons = document.querySelectorAll('.close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    modal.style.display = 'none';
+                });
+            });
+        });
+
+        // Cerrar modales si se hace clic fuera de ellos
+        window.addEventListener('click', function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
         if (event.target == modal) {
             modal.style.display = 'none';
         }
-    }
+            });
+        });
+    });
     </script>
 </body>
 </html> 
