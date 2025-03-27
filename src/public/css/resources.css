@@ -112,7 +112,6 @@
 .video-section {
     width: 100%;
     background: #0f172a;
-    padding: 0;
 }
 
 .video-flex-container {
@@ -126,7 +125,6 @@
     display: flex;
     align-items: center;
     padding: 2rem 4rem;
-    background: #0f172a;
 }
 
 .video-text h2 {
